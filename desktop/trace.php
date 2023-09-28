@@ -346,7 +346,9 @@ $LRT = PLF::Get_LastRunTime();
                         console.log('ERROR:',err.message);
                     });
             
-            let url = new URL('assets/datas/uploadgpx/');
+            console.log("current url");
+            console.log(window.location.href);
+            let url = new URL('assets/datas/uploadgpx/', window.location.href);
             let newUrl = new URL(myFile, url);
             console.log(newUrl);
             console.log(lyrCircuits)

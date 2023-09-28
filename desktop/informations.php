@@ -36,7 +36,7 @@
                 <a class="brochure" href="../assets/img/brochure_partageons_la_foret.pdf" download="brochure_partageons_la_foret.pdf">Télécharger la brochure "Comment entrer en foret en la respectant"</a>
             </center>
             
-            <button id="btnRetour"  onclick="window.location.href = '../desktop';">RETOUR</button>
+            <button id="btnRetour"  onclick="window.location.href = '.';">RETOUR</button>
         </div>
         <div id="sponsors">
             <img src="../assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
