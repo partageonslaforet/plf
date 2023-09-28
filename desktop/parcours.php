@@ -101,7 +101,7 @@ $List_Parcours_info = PLF::Get_Itineraire_Infos_All();
                     <div id="messageErreur"></div>
                 </div>
             <div>
-                <button id="btnRetour"onclick="window.location.href = 'https://plf.partageonslaforet.be/desktop';">RETOUR</button>
+                <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
             </div>
             </div>
         </div>

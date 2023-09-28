@@ -21,6 +21,7 @@ class CGT_Itineraires_Gateway_Step2
                     " nom," .
                     " organisme," .
                     " localite," .
+                    " commune," .
                     " urlweb," .
                     " idreco," .
                     " distance," .
@@ -33,6 +34,7 @@ class CGT_Itineraires_Gateway_Step2
                     " :nom," .
                     " :organisme," .
                     " :localite," .
+                    " :commune," .
                     " :urlweb," .
                     " :idreco," .
                     " :distance," .
@@ -57,6 +59,7 @@ class CGT_Itineraires_Gateway_Step2
             $stmt->bindValue(":nom", $data["nom"], PDO::PARAM_STR);
             $stmt->bindValue(":organisme", empty($data["organisme"]) ? "" : $data["organisme"], PDO::PARAM_STR);
             $stmt->bindValue(":localite", empty($data["localite"]) ? "" : $data["localite"], PDO::PARAM_STR);
+            $stmt->bindValue(":commune", empty($data["commune"]) ? "" : $data["commune"], PDO::PARAM_STR);
             $stmt->bindValue(":urlweb", empty($data["urlweb"]) ? "" : $data["urlweb"], PDO::PARAM_STR);
             $stmt->bindValue(":idreco", $data["idreco"], PDO::PARAM_STR);
             $stmt->bindValue(":distance",  empty($data["distance"]) ? 0 : $data["distance"], PDO::PARAM_INT);
@@ -80,7 +83,8 @@ class CGT_Itineraires_Gateway_Step2
                 switch ($SQL_Error) {
                     case 1062:
                         CGT_Itineraires_Controller_Step2::__Increment_Duplicate_Itineraires();
-                        array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for itineraire = " . $data["nom"]  . PHP_EOL]);
+                        array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for itineraire = " . mb_convert_encoding($data["nom"], 'Windows-1252', 'UTF-8')  . PHP_EOL]);
+                        
                         break;
                     default:
                         throw new pdoDBException($SQL_Error, $e, "SQL Error : " . $e->getMessage() . " --- " . $this->rebuildSql($sql,$data));
@@ -119,6 +123,7 @@ class CGT_Itineraires_Gateway_Step2
                     `nom` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `organisme` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `localite` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+                    `commune` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `urlweb` VARCHAR(200) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `idreco` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `distance` DECIMAL(5, 1) DEFAULT NULL,
@@ -128,6 +133,7 @@ class CGT_Itineraires_Gateway_Step2
                     `hdifmax` SMALLINT DEFAULT NULL,
                     `gpx_url` VARCHAR(200) DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
                     INDEX itineraire_id (itineraire_id),
+                    INDEX commune (commune),
                     PRIMARY KEY (`itineraire_id`) USING BTREE,
                     UNIQUE INDEX `uk_nom` (`nom`) USING BTREE)
             COLLATE='utf8mb4_unicode_ci'

@@ -39,8 +39,8 @@ if (isset($_GET["territoriesNber"])) {
         $Territoire_Geometry = PLF::Territoire_JSON($nomenclature);
         if ($Territoire_Geometry[0] < 0) {
     
-            //echo $Territoire_Geometry[1];
-            
+            // echo "J'ai un problème:( pour : " . $nomenclature;
+
             }else {
                 print_r($Territoire_Geometry[2]);
                 fwrite ($file, $Territoire_Geometry[2].$delimiter);

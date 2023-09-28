@@ -25,35 +25,35 @@ $LRT = PLF::Get_LastRunTime();
         
         <!-- FICHIERS CSS -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet"> 
-        <link rel="stylesheet" href="/plf/desktop/assets/css/calendar.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/leaflet.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/L.Control.Zoomslider.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/Control.MiniMap.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/gh-fork-ribbon.css">
+        <link rel="stylesheet" href="assets/css/calendar.css">
+        <link rel="stylesheet" href="assets/src/css/leaflet.css">
+        <link rel="stylesheet" href="assets/src/css/L.Control.Zoomslider.css">
+        <link rel="stylesheet" href="assets/src/css/Control.MiniMap.css">
+        <link rel="stylesheet" href="assets/src/css/gh-fork-ribbon.css">
         <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.css" />
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/jquery-ui.css">
+        <link rel="stylesheet" href="assets/src/css/jquery-ui.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/L.Control.Locate.css">
-        <link rel="stylesheet" href="/plf/desktop/assets/src/css/leaflet.rainviewer.css">
+        <link rel="stylesheet" href="assets/src/css/L.Control.Locate.css">
+        <link rel="stylesheet" href="assets/src/css/leaflet.rainviewer.css">
         
         
         <!-- FICHIERS JS -->
-        <script src = "/plf/desktop/assets/src/js/leaflet.js"></script>
-        <script src = "/plf/desktop/assets/src/js/L.Control.Zoomslider.js"></script>
+        <script src = "assets/src/js/leaflet.js"></script>
+        <script src = "assets/src/js/L.Control.Zoomslider.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src = "/plf/desktop/assets/src/js/Control.MiniMap.js"></script>
-        <script src = "/plf/desktop/assets/src/js/leaflet-providers.js"></script>
-        <script src = "/plf/desktop/assets/src/js/L.Control.Locate.min.js"></script>
+        <script src = "assets/src/js/Control.MiniMap.js"></script>
+        <script src = "assets/src/js/leaflet-providers.js"></script>
+        <script src = "assets/src/js/L.Control.Locate.min.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
         <script src = "https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src = "https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src = "/plf/desktop/assets/src/js/jquery-ui.js"></script>
-        <script src = "/plf/desktop/assets/inc/js/search_hunting_dates.js"></script>
+        <script src = "assets/src/js/jquery-ui.js"></script>
+        <script src = "assets/inc/js/search_hunting_dates.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
-        <script src = "/plf/desktop/assets/src/js/leaflet.rainviewer.js"></script>
+        <script src = "assets/src/js/leaflet.rainviewer.js"></script>
 
     </header>
     
@@ -76,7 +76,7 @@ $LRT = PLF::Get_LastRunTime();
                         <button id="btonSearchDate" ><i class="fa fa-search fa-2x"></i></button>
                     </div>
                     <div class="menuReturn" class='list-item'>   
-                        <button id="btnRetour"  onclick="window.location.href = '/plf/desktop';">RETOUR</button>
+                        <button id="btnRetour"  onclick="window.location.href = '..';">RETOUR</button>
                     </div>  
                 </div>
                 <script>

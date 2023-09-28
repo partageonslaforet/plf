@@ -110,6 +110,7 @@ class CGT_Itineraires_Controller_Step2
             $DB_Fields = array();
 
             $DB_Fields["nom"] = $itineraire["nom"];
+            $DB_Fields["commune"] = $itineraire["adresse1"]["commune"][0]["value"];
             $DB_Fields["localite"] = $itineraire["adresse1"]["localite"][0]["value"];
             $DB_Fields["organisme"] = $itineraire["adresse1"]["organisme"]["label"];
 

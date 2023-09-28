@@ -101,7 +101,7 @@ $LRT = PLF::Get_LastRunTime();
                 <div id="ccSecretaire"></div>
             </div>
             <div id="btonClose">
-                <button id="btnRetour"onclick="window.location.href = 'https://plf.partageonslaforet.be/desktop';">QUITTER</button>
+                <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
             </div>
         </div>
         <div id="calendarBtn">

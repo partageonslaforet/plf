@@ -23,6 +23,7 @@ class SPW_Chasses_Gateway
         if ( ! $Territoire_Exists) {
 
             array_push(errorHandler::$Run_Information, ["Warning", "Territoire " . $data["KEYG"] . " does not exist for chasse " . $data["KEYG"] . PHP_EOL]);
+            return;
         }
 
 

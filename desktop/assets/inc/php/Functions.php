@@ -1217,7 +1217,7 @@ class PLF
 
         if (count($results) == 0) {
             self::$RC = -2;
-            self::$RC_Msg = self::$Return_Codes[self::$RC];
+            self::$RC_Msg = self::$Return_Codes[self::$RC] . " - " . $Saison . "/" . $N_LOT;
             return array(self::$RC, self::$RC_Msg, self::$List_Array);
         }
 
@@ -1306,136 +1306,7 @@ class PLF
      *-------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
-     public static function Canton_JSON(string $Canton) : array | false
-     {
- 
-         self::$RC = 0;
-         self::$RC_Msg = "";
-         self::$List_Array = [];
- 
- 
-         // Make a new database connection and test if connection is OK
- 
-         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
- 
-         $db_conn = $database->getConnection();
- 
-         if ($db_conn == false) {
- 
-             self::$RC = -13;
-             self::$RC_Msg = $database->Get_Error_Message();
- 
-             return array(
-                 self::$RC, self::$RC_Msg, self::$List_Array
-             );;
-         }
- 
- 
- 
-         // Build SQL statement and pass it to the database and prccess the statement.
- 
-         $gateway = new Functions_Gateway($database);
- 
-         $sql_cmd = "SELECT DISTINCT GEOM,
-                                     CAN
-                     FROM $GLOBALS[spw_cantonnements] 
-                     WHERE CAN = '$Canton'";
- 
- 
-         $gateway->set_Sql_Statement($sql_cmd);
- 
-         $results = $gateway->DB_Query();
- 
-         // Check if everything went OK
- 
-         if (count($results) == 0) {
-             self::$RC = -2;
-             self::$RC_Msg = self::$Return_Codes[self::$RC];
-             return array(self::$RC, self::$RC_Msg, self::$List_Array);
-         }
- 
-         if ($results[0] == "error") {
- 
-             switch ($results[1]) {
- 
-                 case 1054:                 // invalid column name     
-                 case 1064:                 // SQL syntax error
-                     self::$RC = -6;
-                     self::$RC_Msg = $results[2];
-                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
- 
-                 default:                    // other errors
-                     self::$RC = -999;
-                     self::$RC_Msg = $database->Get_Error_Message();
-                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-             }
-         }
- 
- 
- 
- 
- 
-         // process the data and return the result
- 
-         self::$RC = 0;
- 
-         $value = $results[0];
- 
-         $Geometry = $value['GEOM']; 
- 
-         $headers = '
-             {
-                 "type" : "Feature",';
- 
- 
-         $Geometry = '      "geometry" : ' . $Geometry;
-         $Geometry .= ",";
- 
- 
-         $properties = '
-             "properties": {
-                 "ABREVIATION": "<ABREVIATION>"
-             }
-             }';
- 
-         $properties = preg_replace("/<ABREVIATION>/", $Canton, $properties);
-     
- 
-         $footer = "";
- 
- 
- 
-         $Geometry = $headers . $Geometry . $properties .  $footer;
- 
-         return array(self::$RC, self::$RC_Msg, $Geometry);
- 
-     }
-
-
-
-
-    /**-------------------------------------------------------------------------------------------------------------------------------------------
-     * 
-     *    Crée un fichier json pour un CC donné
-     * 
-     *      Input     : plf_swp_CC
-     *     
-     *      Appel     : SPW_CC_JSON(<numéro de CC>)
-     * 
-     *      Arguments : numéro de CC 
-     * 
-     *      Output    : Array contenant 3 éléments
-     *                      Array[0] : Code retour.
-     *                                  xx : entier >= 0 contenant le nombre de cantons
-     *                                  autres : voir le tableau
-     *                      Array[1] : Message d'erreur éventuel
-     *                      Array[2] : Array indexé qui contient le SHAPE du CC
-     *                                 Structure - Array[0] = SHAPE 
-     * 
-     *-------------------------------------------------------------------------------------------------------------------------------------------*/
-
-
-    public static function CC_JSON(string $CC) : array | false
+    public static function Canton_JSON(string $Canton): array | false
     {
 
         self::$RC = 0;
@@ -1445,7 +1316,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
 
         $db_conn = $database->getConnection();
 
@@ -1466,9 +1337,9 @@ class PLF
         $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT GEOM,
-                                    ABREVIATION
-                    FROM $GLOBALS[spw_cc] 
-                    WHERE ABREVIATION = '$CC'";
+                                     CAN
+                     FROM $GLOBALS[spw_cantonnements] 
+                     WHERE CAN = '$Canton'";
 
 
         $gateway->set_Sql_Statement($sql_cmd);
@@ -1510,7 +1381,136 @@ class PLF
 
         $value = $results[0];
 
-        $Geometry = $value['GEOM']; 
+        $Geometry = $value['GEOM'];
+
+        $headers = '
+             {
+                 "type" : "Feature",';
+
+
+        $Geometry = '      "geometry" : ' . $Geometry;
+        $Geometry .= ",";
+
+
+        $properties = '
+             "properties": {
+                 "ABREVIATION": "<ABREVIATION>"
+             }
+             }';
+
+        $properties = preg_replace("/<ABREVIATION>/", $Canton, $properties);
+
+
+        $footer = "";
+
+
+
+        $Geometry = $headers . $Geometry . $properties .  $footer;
+
+        return array(self::$RC, self::$RC_Msg, $Geometry);
+    }
+
+
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
+     *    Crée un fichier json pour un CC donné
+     * 
+     *      Input     : plf_swp_CC
+     *     
+     *      Appel     : SPW_CC_JSON(<numéro de CC>)
+     * 
+     *      Arguments : numéro de CC 
+     * 
+     *      Output    : Array contenant 3 éléments
+     *                      Array[0] : Code retour.
+     *                                  xx : entier >= 0 contenant le nombre de cantons
+     *                                  autres : voir le tableau
+     *                      Array[1] : Message d'erreur éventuel
+     *                      Array[2] : Array indexé qui contient le SHAPE du CC
+     *                                 Structure - Array[0] = SHAPE 
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+    public static function CC_JSON(string $CC): array | false
+    {
+
+        self::$RC = 0;
+        self::$RC_Msg = "";
+        self::$List_Array = [];
+
+
+        // Make a new database connection and test if connection is OK
+
+        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+
+        $db_conn = $database->getConnection();
+
+        if ($db_conn == false) {
+
+            self::$RC = -13;
+            self::$RC_Msg = $database->Get_Error_Message();
+
+            return array(
+                self::$RC, self::$RC_Msg, self::$List_Array
+            );;
+        }
+
+
+
+        // Build SQL statement and pass it to the database and prccess the statement.
+
+        $gateway = new Functions_Gateway($database);
+
+        $sql_cmd = "SELECT DISTINCT GEOM,
+                                    ABREVIATION
+                    FROM $GLOBALS[spw_cc] 
+                    WHERE ABREVIATION = '$CC'";
+
+
+        $gateway->set_Sql_Statement($sql_cmd);
+
+        $results = $gateway->DB_Query();
+
+        // Check if everything went OK
+
+        if (count($results) == 0) {
+            self::$RC = -2;
+            self::$RC_Msg = self::$Return_Codes[self::$RC];
+            return array(self::$RC, self::$RC_Msg, self::$List_Array
+            );
+        }
+
+        if ($results[0] == "error") {
+
+            switch ($results[1]) {
+
+                case 1054:                 // invalid column name     
+                case 1064:                 // SQL syntax error
+                    self::$RC = -6;
+                    self::$RC_Msg = $results[2];
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+
+                default:                    // other errors
+                    self::$RC = -999;
+                    self::$RC_Msg = $database->Get_Error_Message();
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+            }
+        }
+
+
+
+
+
+        // process the data and return the result
+
+        self::$RC = 0;
+
+        $value = $results[0];
+
+        $Geometry = $value['GEOM'];
 
         $headers = '
             {
@@ -1528,7 +1528,7 @@ class PLF
             }';
 
         $properties = preg_replace("/<ABREVIATION>/", $CC, $properties);
-    
+
 
         $footer = "";
 
@@ -1537,7 +1537,6 @@ class PLF
         $Geometry = $headers . $Geometry . $properties .  $footer;
 
         return array(self::$RC, self::$RC_Msg, $Geometry);
-
     }
 
 
@@ -1591,9 +1590,9 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
-        $sql_cmd = "SELECT itineraire_id, nom, localite  
+        $sql_cmd = "SELECT itineraire_id, nom, localite, commune, gpx_url
                     FROM $GLOBALS[cgt_itineraires]  
-                    ORDER BY nom";
+                    ORDER BY commune";
 
         $gateway->set_Sql_Statement($sql_cmd);
 
@@ -1632,10 +1631,17 @@ class PLF
 
         foreach ($results as $result => $value) {
 
+            $has_gpx = true;
+            if (empty($value["gpx_url"]) == true ) {
+                $has_gpx = false;
+            }
+
             array_push(self::$List_Array, [
                 "itineraire_id" => $value["itineraire_id"],
                 "nom" => $value["nom"],
                 "localite" => $value["localite"],
+                "commune" => $value["commune"],
+                "has_gpx" => $has_gpx,
             ]);
 
             self::$RC++;      // the number of records = last $value (index number) + 1
@@ -1776,133 +1782,6 @@ class PLF
     }
 
 
-/**-------------------------------------------------------------------------------------------------------------------------------------------
-     * 
-     *    Retourne toutes les informations concernant un itineraire
-     * 
-     *      Input     : Database "tbl_cgt_itineraires"
-     *     
-     *      Appel     : Get_Itineraire_Info(<itineraire_id>)
-     * 
-     *      Arguments : Itineraire_id
-     * 
-     *      Output    : Array contenant 3 éléments
-     *                      Array[0] : Code retour.
-     *                                  xx : entier >= 0 contenant le nombre d'information pour le territoire sélectionné 
-     *                                  autres : voir le tableau
-     *                      Array[1] : Message d'erreur éventuel
-     *                      Array[2] : Associative array qui contient toutes les informations de l'itineraire
-     *                                 Structure - Array[clé] = valeur
-     * 
-     *-------------------------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-    public static function Get_Itineraire_Infos_All(): array
-    {
-
-
-        self::$RC = 0;
-        self::$RC_Msg = "";
-        self::$List_Array = [];
-
-        // Make a new database connection and test if connection is OK
-
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
-
-        $db_conn = $database->getConnection();
-
-        if ($db_conn == false) {
-
-            self::$RC = -13;
-            self::$RC_Msg = $database->Get_Error_Message();
-
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-        }
-
-        // Build SQL statement and pass it to the database and prccess the statement.
-
-        $gateway = new Functions_Gateway($database);
-
-        $sql_cmd = "SELECT DISTINCT itineraire_id,
-                                    nom,
-                                    organisme,
-                                    localite,
-                                    urlweb,
-                                    idreco,
-                                    distance,
-                                    typecirc,
-                                    signaletique,
-                                    hdifmin,
-                                    hdifmax,
-                                    gpx_url
-                    FROM $GLOBALS[cgt_itineraires] 
-                    ORDER BY nom"; 
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
-
-
-        // Check if everything went OK
-
-        if (count($results) == 0) {
-            self::$RC = -21;
-            self::$RC_Msg = self::$Return_Codes[self::$RC];
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);
-        }
-
-        if ($results[0] == "error") {
-
-            switch ($results[1]) {
-
-                case 1054:                 // invalid column name     
-                case 1064:                 // SQL syntax error
-                    self::$RC = -6;
-                    self::$RC_Msg = $results[2];
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
-
-                default:                    // other errors
-                    self::$RC = -999;
-                    self::$RC_Msg = $database->Get_Error_Message();
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
-            }
-        }
-
-
-
-        // process the data and return the result
-
-        self::$RC = 0;
-
-        foreach ($results as $result => $value) {
-
-           
-            array_push(self::$List_Array, [
-                "itineraire_id" => $value["itineraire_id"],
-                "nom" => $value["nom"],
-                "organisme" => $value["organisme"],
-                "localite" => $value["localite"],
-                "urlweb" => $value["urlweb"],
-                "idreco" => $value["idreco"],
-                "distance" => floatval($value["distance"]),
-                "typecirc" => $value["typecirc"],
-                "signaletique" => $value["signaletique"],
-                "hdifmin" => $value["hdifmin"],
-                "hdifmax" => $value["hdifmax"],
-                "gpx_url" => $value["gpx_url"],
-                 ]);
-
-
-
-
-            self::$RC++;      // the number of records = last $value (index number) + 1
-
-        }
-
-
-        return array(self::$RC, self::$RC_Msg, self::$List_Array);
-    }
 
     /**-------------------------------------------------------------------------------------------------------------------------------------------
      * 
@@ -2134,4 +2013,114 @@ class PLF
         return true;
     }
 
+
+    public static function Get_Itineraire_Infos_All(): array
+    {
+
+
+        self::$RC = 0;
+        self::$RC_Msg = "";
+        self::$List_Array = [];
+
+        // Make a new database connection and test if connection is OK
+
+        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+
+        $db_conn = $database->getConnection();
+
+        if ($db_conn == false) {
+
+            self::$RC = -13;
+            self::$RC_Msg = $database->Get_Error_Message();
+
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+        }
+
+        // Build SQL statement and pass it to the database and prccess the statement.
+
+        $gateway = new Functions_Gateway($database);
+
+        $sql_cmd = "SELECT DISTINCT itineraire_id,
+                                    nom,
+                                    organisme,
+                                    localite,
+                                    urlweb,
+                                    idreco,
+                                    distance,
+                                    typecirc,
+                                    signaletique,
+                                    hdifmin,
+                                    hdifmax,
+                                    gpx_url
+                    FROM $GLOBALS[cgt_itineraires] 
+                    ORDER BY localite ASC"; 
+
+        $gateway->set_Sql_Statement($sql_cmd);
+
+        $results = $gateway->DB_Query();
+
+
+        // Check if everything went OK
+
+        if (count($results) == 0) {
+            self::$RC = -21;
+            self::$RC_Msg = self::$Return_Codes[self::$RC];
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);
+        }
+
+        if ($results[0] == "error") {
+
+            switch ($results[1]) {
+
+                case 1054:                 // invalid column name     
+                case 1064:                 // SQL syntax error
+                    self::$RC = -6;
+                    self::$RC_Msg = $results[2];
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+
+                default:                    // other errors
+                    self::$RC = -999;
+                    self::$RC_Msg = $database->Get_Error_Message();
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+            }
+        }
+
+
+
+        // process the data and return the result
+
+        self::$RC = 0;
+
+        foreach ($results as $result => $value) {
+
+           
+            array_push(self::$List_Array, [
+                "itineraire_id" => $value["itineraire_id"],
+                "nom" => $value["nom"],
+                "organisme" => $value["organisme"],
+                "localite" => $value["localite"],
+                "urlweb" => $value["urlweb"],
+                "idreco" => $value["idreco"],
+                "distance" => floatval($value["distance"]),
+                "typecirc" => $value["typecirc"],
+                "signaletique" => $value["signaletique"],
+                "hdifmin" => $value["hdifmin"],
+                "hdifmax" => $value["hdifmax"],
+                "gpx_url" => $value["gpx_url"],
+                 ]);
+
+
+
+
+            self::$RC++;      // the number of records = last $value (index number) + 1
+
+        }
+
+
+        return array(self::$RC, self::$RC_Msg, self::$List_Array);
+    }
+
 }
+
+
+

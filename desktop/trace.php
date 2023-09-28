@@ -95,7 +95,7 @@ $LRT = PLF::Get_LastRunTime();
                 
             </div>
             <div class="sidebar-footer">
-                <button id="btnRetour"onclick="window.location.href = 'https://plf.partageonslaforet.be/desktop';">QUITTER</button>
+                <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
                  <div class="" id="GPXName"></div>
             </div>
         </div>
@@ -346,7 +346,7 @@ $LRT = PLF::Get_LastRunTime();
                         console.log('ERROR:',err.message);
                     });
             
-            let url = new URL('http://plf.partageonslaforet.be/desktop/assets/datas/uploadgpx/');
+            let url = new URL('assets/datas/uploadgpx/');
             let newUrl = new URL(myFile, url);
             console.log(newUrl);
             console.log(lyrCircuits)
