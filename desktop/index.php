@@ -32,8 +32,8 @@ if (isset($_POST['submit'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- FICHIERS CSS -->
-        <link rel="stylesheet" href="assets/css/index.css">
-        <link rel="stylesheet" href="assets/css/header.css">
+        <link rel="stylesheet" href="../assets/css/index.css">
+        <link rel="stylesheet" href="../assets/css/header.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
        
@@ -57,20 +57,20 @@ if (isset($_POST['submit'])) {
         
         <div class="logo-header">
             <div class="menu">
-                <a class="toggle" href="https://plf.partageonslaforet.be/desktop/calendrier.php"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
+                <a class="toggle" href="../calendrier.php"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
                 <li style="--i:0;">
                     <!--<a data-modal-target="#calendar"><i class="fa-solid fa-calendar-days" title="CALENDRIER"></i></a>-->
-                    <a href="http://plf.partageonslaforet.be/desktop/calendrier.php"><i class="fa fa-calendar" title="CALENDRIER DES BATTUES"></i></a>
+                    <a href="../calendrier.php"><i class="fa fa-calendar" title="CALENDRIER DES BATTUES"></i></a>
                 </li>
                 <li style="--i:1;">
                     <a id="icon"><i class="fa fa-envelope" title="NOUS CONTACTER"></i></a>
                 </li>
                 <li style="--i:2;">
-                    <a href="https://plf.partageonslaforet.be/desktop/informations.php"class="disable"><i class="fa fa-info" title="INFORMATION"></i></a>
+                    <a href="../informations.php"class="disable"><i class="fa fa-info" title="INFORMATION"></i></a>
                 </li>
                 <li style="--i:3;">
                      <!--<a data-modal-target="#traceSidebar"><i class="fa fa-hiking" title="PARCOURS"></i></a>-->
-                    <a href="https://plf.partageonslaforet.be/desktop/parcours.php"><i class="fa fa-hiking" title="PARCOURS"></i></a>
+                    <a href="../parcours.php"><i class="fa fa-hiking" title="PARCOURS"></i></a>
                 </li>
                 <!--<li style="--i:3;">
                      <a data-modal-target="#territoriesSidebar"><i class="fa fa-location-dot" title="TERRITOIRES"></i></a>
@@ -78,15 +78,15 @@ if (isset($_POST['submit'])) {
                 </li>-->
                 <li style="--i:4;">
                      <!--<a data-modal-target="#dnfSidebar"><i class="fa fa-tree" title="DNF"></i></a>-->
-                    <a href="https://plf.partageonslaforet.be/desktop/dnf.php"><i class="fa fa-tree title" title="INFORMATIONS DNF"></i></a>
+                    <a href="../dnf.php"><i class="fa fa-tree title" title="INFORMATIONS DNF"></i></a>
                 </li>
                 <li style="--i:5;">
                     <!--<a ><i class="fas fa-user" title="LOGINS"></i></a>
                     <a href="http://plf.partageonslaforet.be/desktop/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
-                    <a href="https://plf.partageonslaforet.be/desktop/cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
+                    <a href="../cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
                 </li>
                 <li style="--i:6;">
-                    <a href="https://plf.partageonslaforet.be/desktop/trace.php"><i class="fa fa-location-arrow" title="CHARGER UN GPX<"></i></a>
+                    <a href="../trace.php"><i class="fa fa-location-arrow" title="CHARGER UN GPX<"></i></a>
                 </li>
             </div>
         </div>
@@ -97,13 +97,13 @@ if (isset($_POST['submit'])) {
             <p>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative.
                 Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.
             </p>
-            <a href="http://plf.partageonslaforet.be/desktop/informations.php" id="btnLink"><button id="btnInfo">Plus d'informations</button></a>
+            <a href="informations.php" id="btnLink"><button id="btnInfo">Plus d'informations</button></a>
         </div>
         
         <div id="sponsors">
-            <img src="assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
-            <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" alt="Visit Wallonia.be">
-            <img src="assets/img/soutien_v_fr.png" alt="SPW">
+            <img src="../assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
+            <img src="../assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" alt="Visit Wallonia.be">
+            <img src="../assets/img/soutien_v_fr.png" alt="SPW">
         </div>
         <div id="popup">
             <div id="mailHeader">
@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
                 <span class="title" id="popupTitle">ENVOYER UN MESSAGE</span>
             </div>
             <div id="infoEmail">Une question ? Une suggestion?</div>
-            <form class="contact-form" action="assets/inc/php/contactform.php" method="post">
+            <form class="contact-form" action="../assets/inc/php/contactform.php" method="post">
                     <div class="form-group input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                         <input type="text" class="form-control" name="name" placeholder="Votre nom & prénom" Required>
