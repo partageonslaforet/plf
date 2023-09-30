@@ -20,6 +20,8 @@ if (isset($_POST['submit'])) {
     header("Location:index.php?mailsend");
 }
 
+// ceci ests un commentaire
+
 ?>
 
 <!DOCTYPE html>
