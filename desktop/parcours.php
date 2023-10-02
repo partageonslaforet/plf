@@ -100,6 +100,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     <div id="parcoursSignal"></div>
                     <div id="parcoursType"></div>
                     <div id="messageErreur"></div>
+                    <div id="messageTest">coucou</div>
                 </div>
             <div>
                 <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
@@ -290,7 +291,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
         // ************ LIST OF ROUTE NAME ************************************************************
     
         listByRouteDB = <?php echo json_encode($List_Parcours);?>;
-        //listParcoursInfo = <?php// echo json_encode($List_Parcours_info);?>;
+     
         var listByRoute = Object.values(listByRouteDB[2]);
         //var listCityName = Object.values(listParcoursInfo[2])
         var routeNbre = listByRoute.length;
