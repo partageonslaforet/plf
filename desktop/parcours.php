@@ -100,7 +100,6 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     <div id="parcoursSignal"></div>
                     <div id="parcoursType"></div>
                     <div id="messageErreur"></div>
-                    <div id="messageTest">coucou</div>
                 </div>
             <div>
                 <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
