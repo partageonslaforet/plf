@@ -290,28 +290,29 @@ $List_Parcours = PLF::Get_Itineraires_List();
         // ************ LIST OF ROUTE NAME ************************************************************
     
         listByRouteDB = <?php echo json_encode($List_Parcours);?>;
-        //listParcoursInfo = <?php echo json_encode($List_Parcours_info);?>;
-        var listByRoute = Object.values(listByRouteDB[2])
+        //listParcoursInfo = <?php// echo json_encode($List_Parcours_info);?>;
+        var listByRoute = Object.values(listByRouteDB[2]);
         //var listCityName = Object.values(listParcoursInfo[2])
         var routeNbre = listByRoute.length;
         console.log(listByRoute);
-        console.log(listCityName)
+        //console.log(listCityName)
         
         for(i=0; i<routeNbre; i++){    
             
             if(!arCityName.includes(listByRoute[i]["localite"])){
                 arCityName.push(listByRoute[i]["localite"]); 
-                arCityName.sort();
             }  
         }    
+
+        arCityName.sort((a,b) => a.localeCompare(b, 'fr'));
         
         for(i=0; i<routeNbre; i++){    
             
             if(!arRouteNber.includes(listByRoute[i]["nom"])){
                 arRouteNber.push(listByRoute[i]["nom"]); 
-                arRouteNber.sort();
             }  
         }      
+        arRouteNber.sort((a,b) => a.localeCompare(b, 'fr'));
         
         const selectCity = $("#txtFindCityName");
         arCityName.forEach(function (item) {
