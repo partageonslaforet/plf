@@ -1705,6 +1705,7 @@ class PLF
                                     nom,
                                     organisme,
                                     localite,
+                                    commune,
                                     urlweb,
                                     idreco,
                                     distance,
@@ -1760,6 +1761,7 @@ class PLF
                 "nom" => $value["nom"],
                 "organisme" => $value["organisme"],
                 "localite" => $value["localite"],
+                "commune" => $value["commune"],
                 "urlweb" => $value["urlweb"],
                 "idreco" => $value["idreco"],
                 "distance" => floatval($value["distance"]),
@@ -2014,111 +2016,6 @@ class PLF
     }
 
 
-    public static function Get_Itineraire_Infos_All(): array
-    {
-
-
-        self::$RC = 0;
-        self::$RC_Msg = "";
-        self::$List_Array = [];
-
-        // Make a new database connection and test if connection is OK
-
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
-
-        $db_conn = $database->getConnection();
-
-        if ($db_conn == false) {
-
-            self::$RC = -13;
-            self::$RC_Msg = $database->Get_Error_Message();
-
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-        }
-
-        // Build SQL statement and pass it to the database and prccess the statement.
-
-        $gateway = new Functions_Gateway($database);
-
-        $sql_cmd = "SELECT DISTINCT itineraire_id,
-                                    nom,
-                                    organisme,
-                                    localite,
-                                    urlweb,
-                                    idreco,
-                                    distance,
-                                    typecirc,
-                                    signaletique,
-                                    hdifmin,
-                                    hdifmax,
-                                    gpx_url
-                    FROM $GLOBALS[cgt_itineraires] 
-                    ORDER BY localite ASC"; 
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
-
-
-        // Check if everything went OK
-
-        if (count($results) == 0) {
-            self::$RC = -21;
-            self::$RC_Msg = self::$Return_Codes[self::$RC];
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);
-        }
-
-        if ($results[0] == "error") {
-
-            switch ($results[1]) {
-
-                case 1054:                 // invalid column name     
-                case 1064:                 // SQL syntax error
-                    self::$RC = -6;
-                    self::$RC_Msg = $results[2];
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
-
-                default:                    // other errors
-                    self::$RC = -999;
-                    self::$RC_Msg = $database->Get_Error_Message();
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
-            }
-        }
-
-
-
-        // process the data and return the result
-
-        self::$RC = 0;
-
-        foreach ($results as $result => $value) {
-
-           
-            array_push(self::$List_Array, [
-                "itineraire_id" => $value["itineraire_id"],
-                "nom" => $value["nom"],
-                "organisme" => $value["organisme"],
-                "localite" => $value["localite"],
-                "urlweb" => $value["urlweb"],
-                "idreco" => $value["idreco"],
-                "distance" => floatval($value["distance"]),
-                "typecirc" => $value["typecirc"],
-                "signaletique" => $value["signaletique"],
-                "hdifmin" => $value["hdifmin"],
-                "hdifmax" => $value["hdifmax"],
-                "gpx_url" => $value["gpx_url"],
-                 ]);
-
-
-
-
-            self::$RC++;      // the number of records = last $value (index number) + 1
-
-        }
-
-
-        return array(self::$RC, self::$RC_Msg, self::$List_Array);
-    }
 
 }
 

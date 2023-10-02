@@ -145,7 +145,7 @@ span.leaflet-control-locate-location-marker{
     margin-top:-1rem;
 }
 
-#parcoursOrganisme, #parcoursLocalite, #parcoursDistance, #parcoursD,#parcoursSignal, #parcoursType {
+#parcoursOrganisme, #parcoursLocalite, #parcoursDistance, #parcoursD,#parcoursSignal, #parcoursType, #parcoursCommune {
     padding-left: 5%;
     font-weight: 600;
     color: #2c3e50;
