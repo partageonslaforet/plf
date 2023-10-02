@@ -1,3 +1,5 @@
 Parameters.php
 *.json
 *.gpx
+.DS_Store
+.env
