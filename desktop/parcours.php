@@ -16,7 +16,7 @@ $LRT = PLF::Get_LastRunTime();
 $List_Parcours = PLF::Get_Itineraires_List();
 //var_dump($List_Parcours);
 
-$List_Parcours_info = PLF::Get_Itineraire_Infos_All();
+//$List_Parcours_info = PLF::Get_Itineraire_infos();
 
 
 ?>
@@ -94,6 +94,7 @@ $List_Parcours_info = PLF::Get_Itineraire_Infos_All();
                 <div id="parcoursInfoDetails">
                     <div id="parcoursOrganisme"></div>
                     <div id="parcoursLocalite"></div>
+                    <div id="parcoursCommune"></div>
                     <div id="parcoursDistance"></div>
                     <div id="parcoursD"></div>
                     <div id="parcoursSignal"></div>
@@ -289,17 +290,17 @@ $List_Parcours_info = PLF::Get_Itineraire_Infos_All();
         // ************ LIST OF ROUTE NAME ************************************************************
     
         listByRouteDB = <?php echo json_encode($List_Parcours);?>;
-        listParcoursInfo = <?php echo json_encode($List_Parcours_info);?>;
+        //listParcoursInfo = <?php echo json_encode($List_Parcours_info);?>;
         var listByRoute = Object.values(listByRouteDB[2])
-        var listCityName = Object.values(listParcoursInfo[2])
+        //var listCityName = Object.values(listParcoursInfo[2])
         var routeNbre = listByRoute.length;
         console.log(listByRoute);
         console.log(listCityName)
         
         for(i=0; i<routeNbre; i++){    
             
-            if(!arCityName.includes(listCityName[i]["localite"])){
-                arCityName.push(listCityName[i]["localite"]); 
+            if(!arCityName.includes(listByRoute[i]["localite"])){
+                arCityName.push(listByRoute[i]["localite"]); 
                 arCityName.sort();
             }  
         }    
@@ -450,6 +451,7 @@ $List_Parcours_info = PLF::Get_Itineraire_Infos_All();
                     $('#parcoursNom').html(resultat[0]["nom"]);
                     $('#parcoursOrganisme').html('Organisation : '+resultat[0]["organisme"]);             
                     $('#parcoursLocalite').html('Localité : '+resultat[0]["localite"]);
+                    $('#parcoursCommune').html('Commune : '+resultat[0]["commune"]);
                     $('#parcoursDistance').html('Distance : '+resultat[0]["distance"]+' km');
                     //$('#parcoursD').html(resultat[0]["distance"]);
                     $('#parcoursSignal').html('Signalisation : '+resultat[0]["signaletique"]);
