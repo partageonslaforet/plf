@@ -87,7 +87,7 @@ if ($List_Territoires[0] < 0) {
                 </div>
             </div>
             <div class="sidebar-footer">   
-                <button id="btnRetour"onclick="window.location.href = 'https://plf.partageonslaforet.be/desktop';">QUITTER</button>
+                <button id="btnRetour"onclick="window.location.href = 'https://partageonslaforet.be';">QUITTER</button>
             </div>   
         </div>
         <container id ="Container"><center>

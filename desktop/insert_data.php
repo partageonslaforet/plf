@@ -82,7 +82,7 @@ if ($List_Territoires[0] < 0) {
                 <input type="date" id="dateChasse" name="dateChasse" value="2023-10-01" min="2023-10-01" max="2024-01-31" required></input>
             </div>
             <input id="btnFindTerritoryNumber" type="button" value="ENREGISTRER"></input>
-            <button id="btnRetour"onclick="window.location.href = 'https://plf.partageonslaforet.be/desktop';">QUITTER</button>
+            <button id="btnRetour"onclick="window.location.href = 'https://partageonslaforet.be';">QUITTER</button>
             <div id="existing_info"></div>    
         </container>
         
