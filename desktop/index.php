@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
                 </li>
                 <!--<li style="--i:3;">
                      <a data-modal-target="#territoriesSidebar"><i class="fa fa-location-dot" title="TERRITOIRES"></i></a>
-                    <a href="https://plf.partageonslaforet.be/desktop/territories.php" class="disabled"><i class="fa fa-location-dot" title="TERRITOIRES" ></i></a>
+                    <a href="https://partageonslaforet.be/territories.php" class="disabled"><i class="fa fa-location-dot" title="TERRITOIRES" ></i></a>
                 </li>-->
                 <li style="--i:4;">
                      <!--<a data-modal-target="#dnfSidebar"><i class="fa fa-tree" title="DNF"></i></a>-->
@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
                 </li>
                 <li style="--i:5;">
                     <!--<a ><i class="fas fa-user" title="LOGINS"></i></a>
-                    <a href="http://plf.partageonslaforet.be/desktop/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
+                    <a href="http://partageonslaforet.be/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
                     <a href="cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
                 </li>
                 <li style="--i:6;">

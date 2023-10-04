@@ -6,7 +6,7 @@ if(!isset($_COOKIE[$cookie_name])) {
   setcookie($cookie_name,session_id(),time() + (86400 * 2), "/");  
 } else { $file_suffix = $_COOKIE[$cookie_name];}
 
-header('Access-Control-Allow-Origin','http://plf.partageonslaforet.be');
+header('Access-Control-Allow-Origin','https://partageonslaforet.be');
 header('Access-Control-Allow-Headers','accept, content-type');
 
 require "Parameters.php";
