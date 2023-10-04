@@ -275,7 +275,7 @@ $LRT = PLF::Get_LastRunTime();
             
        
             if (document.getElementById('allConseils').checked == true){
-                var url = "http://plf.partageonslaforet.be/desktop/assets/inc/php/createAllCC.php"
+                var url = "https://partageonslaforet.be/assets/inc/php/createAllCC.php"
                 fetch(url, {
                     method: 'GET',
                     headers: {

@@ -208,17 +208,17 @@ font-family: 'poppins', sans-serif;
 }
 
 /*.leaflet-control-locate-location-marker{
-    background-image: url(http://www.plf.partageonslaforet.be/desktop/assets/img/location-arrow-solid.svg);
+    background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
 }
 
 
 
 .leaflet-control-locate a.leaflet-bar-part div.loading {
-	background-image: url(http://www.plf.partageonslaforet.be/desktop/assets/img/location-arrow-solid.svg);
+	background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
 }*/
 
 .leaflet-control-locate a.leaflet-bar-part div.locate {
-	background-image: url(http://www.plf.partageonslaforet.be/desktop/assets/img/location-arrow-solid.svg);
+	background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
 }
 
 .custom-popup .leaflet-popup-content-wrapper {
