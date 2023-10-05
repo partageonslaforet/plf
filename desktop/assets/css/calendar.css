@@ -1,303 +1,54 @@
 *{
-font-family: 'poppins', sans-serif;
-}
-
-
-/******** PAGE CARTE ***********/
-
-#map
-{
-    height: 100vh;
-    position: static !important;
-}
-
-/******** DATE PICKER ***********/
-
-#calendar{
-    position:absolute;
-    list-style: none;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    transform-origin: 100px;
-    transition: 0.5s;
-    left:50%;
-    color:#24445c;
-    background-color: rgba(255,255,255,1.0);
-    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
-    inset 2px 2px 3px rgba(36,68,92,0.25),
-    inset 0px 0px 5px rgba(36,68,92,0.5);
-    border : 0px solid rgba(255,255,255,0.5); 
-    width: 90px;
-    height: 90px;
-}
-
-#calendarBtn a{
-    z-index:2001;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    background: rgba(255,255,255,0.0);
-    border-radius:50%;
-    color: #24445c;
-    border: 2px solid #24445c;
-    transition: 0.3s;
-    top: 5%;
-    width: 90px;
-    height: 90px;
-    cursor: pointer; 
+    font-family: 'poppins', sans-serif;
     }
-
-.popup{
-    z-index:2001;
-    margin-right: auto;
-    margin-left: auto;
-    position:fixed;
-    display: none;
-    align-items: center;
-    /*border: 1px solid rgba(9,106,9,0.8);*/
-    width: 20%;
-    height: 17%;
-    max-width: 80%;
-    background-color: rgba(255,255,255,0.6);
-    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
-    inset 2px 2px 3px rgba(36,68,92,0.25),
-    inset 0px 0px 5px rgba(36,68,92,0.5);
-    border-radius: 10px;
-    top: 3.5%;
-    left: 40%;
-    transition: 200ms ease-in-out;
-}
-
-#headPopup{
-    display: flex;
-}
-
-#closebtn{
-    font-size: 0.7rem;
-    color:#fe7924;
-    border: solid 1px #fe7924;
-    border-radius: 5px;
-    margin: 5px 0 0 5px;
-    font-weight: 900;
-}
-
-#maj {
-    color:#fe7924;
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    margin-right: 15%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -1rem;
-}
-
-.date-calendar {
-    color: #34495e;
-    text-align: center;
-}
-
-#datepicker{
-    border-radius:10px;
-    border: 1px solid #34495e;
-    text-align: center;
-    width: 80%;
-}
-
-#controlButtons{
-    display: grid; /* Utilise une grille pour aligner les boutons */
-    grid-template-columns: repeat(2, auto); /* Crée deux colonnes de largeur automatique */
-    justify-content: center; /* Pour centrer les boutons horizontalement (facultatif) */
-    gap: 20%; /* Facultatif : Ajoute un espacement entre les boutons */
-}
-
-#btonSearchDate{
-    color: rgba(255,255,255,0.75);
-    background-color: #B2D039;
-    border-radius: 10px;
-    width: 120%;
-    font-size: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px solid #B2D039;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-
-#btonSearchDate:hover{
-    color: rgba(255,255,255,1);
-    background-color: #fe7924;
-    border-radius: 10px;
-    width: 120%;
-    font-size: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px solid #fe7924;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-}
-
-#btnRetour{
-    color: rgba(255,255,255,0.75);
-    background-color: #B2D039;
-    border-radius: 10px;
-    width: 120%;
-    font-size: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px solid #B2D039;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#btnRetour:hover{
-    color: rgba(255,255,255,1);
-    background-color: #fe7924;
-    border-radius: 10px;
-    width: 120%;
-    font-size: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px solid #fe7924;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#message.active{
-    color: #34495e;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1rem;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    background-color: rgba(255,255,255,0.6);
-    z-index: 2001;
-    position: absolute;
-    left: 40%;
-    width: 20%;
-    display: grid;
-    top: 20%;
-    padding: 10px 0px;
-     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
-    inset 2px 2px 3px rgba(36,68,92,0.25),
-    inset 0px 0px 5px rgba(36,68,92,0.5);
-    border-radius: 10px;
-}
-
-#infoRetour.active{
-    background-color:#34495e;
-    margin-right:auto;
-    margin-left:auto;
-    width:80%;
-    border-radius:5px;
-}
-
-#squareOpen, #squareClose{
-    visibility:hidden;
-}
     
-#squareOpen.active{
-    color: #fdef49;
-    height: 20px;
-    Padding:0 0 0 5%;
-    visibility:visible;
-}
     
-#squareClose.active{
-    color: #ef3d33;
-    height: 20px;
-    Padding: 0 0 0 5%;
-    margin-bottom:5px;
-    visibility:visible;
-}
-
-
-.ui-datepicker {
-background-color: #fff;
-}
-
-.ui-datepicker-header {
-background-color: #616eff;
-}
-
-.ui-datepicker-title {
-color: white;
-}
-
-.ui-widget-content .ui-state-default {
-border: 0px;
-text-align: center;
-background: #fff;
-font-weight: normal;
-color: #000;
-}
-
-.ui-widget-content .ui-state-default:hover {
-border: 0px;
-text-align: center;
-background: #fe7924;
-font-weight: normal;
-color: #fff;
-}
-
-.ui-widget-content .ui-state-active {
-border: 0px;
-background: #616eff;
-color: #fff;
-}
-.ui-icon ui-icon-circle-triangle-e{
-    color:#24445c;
-}
-
-#sponsors{
-    z-index:2001;
-    margin-right: auto;
-    margin-left: auto;
-    position:absolute;
-    display:flex;
-    align-items: center;
-    width: 40%;
-    height: 10%;
-    background-color: rgba(255,255,255,0.6);
-    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
-    inset 2px 2px 3px rgba(36,68,92,0.25),
-    inset 0px 0px 5px rgba(36,68,92,0.5);
-    border-radius: 10px;
-    top: 85%;
-    overflow: hidden;
-    left: 30%;
-}
-
-img {
-    height: 9rem;
-}
-
-
-#sponsors img{
-    margin-right: auto;
-    margin-left: auto;
-    object-fit: contain;
-}
-
-@media (max-width: 1450px) {
-    #sponsors img{
-        justify-content:space-between;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        margin-left: auto;
-        margin-right: auto;
+    /******** PAGE CARTE ***********/
+    
+    #map
+    {
+        height: 100vh;
+        position: static !important;
     }
+    
+    /******** DATE PICKER ***********/
+    
+    #calendar{
+        position:absolute;
+        list-style: none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: 100px;
+        transition: 0.5s;
+        left:50%;
+        color:#24445c;
+        background-color: rgba(255,255,255,1.0);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border : 0px solid rgba(255,255,255,0.5); 
+        width: 90px;
+        height: 90px;
+    }
+    
+    #calendarBtn a{
+        z-index:2001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background: rgba(255,255,255,0.0);
+        border-radius:50%;
+        color: #24445c;
+        border: 2px solid #24445c;
+        transition: 0.3s;
+        top: 5%;
+        width: 90px;
+        height: 90px;
+        cursor: pointer; 
+        }
     
     .popup{
         z-index:2001;
@@ -320,35 +71,56 @@ img {
         transition: 200ms ease-in-out;
     }
     
+    #headPopup{
+        display: flex;
+    }
+    
     #closebtn{
-        font-size: 0.5rem;
+        font-size: 0.7rem;
         color:#fe7924;
         border: solid 1px #fe7924;
         border-radius: 5px;
         margin: 5px 0 0 5px;
         font-weight: 900;
-        width:15px;
     }
     
     #maj {
         color:#fe7924;
         text-align: center;
         font-weight: 600;
-        font-size: 0.6rem;
+        font-size: 0.8rem;
         margin-top: 5px;
         margin-right: 15%;
         margin-left: auto;
         margin-right: auto;
         margin-top: -1rem;
-        
+    }
+    
+    .date-calendar {
+        color: #34495e;
+        text-align: center;
+    }
+    
+    #datepicker{
+        border-radius:10px;
+        border: 1px solid #34495e;
+        text-align: center;
+        width: 80%;
+    }
+    
+    #controlButtons{
+        display: grid; /* Utilise une grille pour aligner les boutons */
+        grid-template-columns: repeat(2, auto); /* Crée deux colonnes de largeur automatique */
+        justify-content: center; /* Pour centrer les boutons horizontalement (facultatif) */
+        gap: 20%; /* Facultatif : Ajoute un espacement entre les boutons */
     }
     
     #btonSearchDate{
         color: rgba(255,255,255,0.75);
         background-color: #B2D039;
         border-radius: 10px;
-        width: 100%;
-        font-size: 7px;
+        width: 120%;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #B2D039;
@@ -357,12 +129,13 @@ img {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     
+    
     #btonSearchDate:hover{
         color: rgba(255,255,255,1);
         background-color: #fe7924;
         border-radius: 10px;
         width: 120%;
-        font-size: 7px;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #fe7924;
@@ -371,13 +144,13 @@ img {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
     }
-
+    
     #btnRetour{
         color: rgba(255,255,255,0.75);
         background-color: #B2D039;
         border-radius: 10px;
-        width: 100%;
-        font-size: 10px;
+        width: 120%;
+        font-size: 20px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #B2D039;
@@ -390,8 +163,8 @@ img {
         color: rgba(255,255,255,1);
         background-color: #fe7924;
         border-radius: 10px;
-        width: 100%;
-        font-size:10px;
+        width: 120%;
+        font-size: 20px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #fe7924;
@@ -400,25 +173,22 @@ img {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     
-    #controlButtons{
-        margin-top: -10px;
-    }
-    
     #message.active{
         color: #34495e;
         text-align: center;
         font-weight: 600;
-        font-size: 0.7rem;
+        font-size: 1rem;
         text-transform: uppercase;
+        margin-top: 1rem;
         background-color: rgba(255,255,255,0.6);
-        z-index: 2000;
+        z-index: 2001;
         position: absolute;
         left: 40%;
         width: 20%;
         display: grid;
         top: 20%;
-        padding: 5px 0px 5px 0px;
-        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        padding: 10px 0px;
+         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
         inset 2px 2px 3px rgba(36,68,92,0.25),
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
@@ -435,21 +205,252 @@ img {
     #squareOpen, #squareClose{
         visibility:hidden;
     }
-    
+        
     #squareOpen.active{
+        color: #fdef49;
         height: 20px;
         Padding:0 0 0 5%;
         visibility:visible;
-        padding-top:5px;
     }
- 
+        
     #squareClose.active{
         color: #ef3d33;
         height: 20px;
-        Padding: 0 0 0 5%;;
+        Padding: 0 0 0 5%;
+        margin-bottom:5px;
         visibility:visible;
-        padding-bottom:5px;
-        margin-bottom:0px;
     }
     
-}
+    
+    .ui-datepicker {
+    background-color: #fff;
+    }
+    
+    .ui-datepicker-header {
+    background-color: #616eff;
+    }
+    
+    .ui-datepicker-title {
+    color: white;
+    }
+    
+    .ui-widget-content .ui-state-default {
+    border: 0px;
+    text-align: center;
+    background: #fff;
+    font-weight: normal;
+    color: #000;
+    }
+    
+    .ui-widget-content .ui-state-default:hover {
+    border: 0px;
+    text-align: center;
+    background: #fe7924;
+    font-weight: normal;
+    color: #fff;
+    }
+    
+    .ui-widget-content .ui-state-active {
+    border: 0px;
+    background: #616eff;
+    color: #fff;
+    }
+    .ui-icon ui-icon-circle-triangle-e{
+        color:#24445c;
+    }
+    
+    #sponsors{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:absolute;
+        display:flex;
+        align-items: center;
+        width: 40%;
+        height: 10%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 85%;
+        overflow: hidden;
+        left: 30%;
+    }
+    
+    img {
+        height: 9rem;
+    }
+    
+    
+    #sponsors img{
+        margin-right: auto;
+        margin-left: auto;
+        object-fit: contain;
+    }
+    
+    @media (max-width: 1450px) {
+        #sponsors img{
+            justify-content:space-between;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .popup{
+            z-index:2001;
+            margin-right: auto;
+            margin-left: auto;
+            position:fixed;
+            display: none;
+            align-items: center;
+            /*border: 1px solid rgba(9,106,9,0.8);*/
+            width: 20%;
+            height: 17%;
+            max-width: 80%;
+            background-color: rgba(255,255,255,0.6);
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+            top: 3.5%;
+            left: 40%;
+            transition: 200ms ease-in-out;
+        }
+        
+        #closebtn{
+            font-size: 0.5rem;
+            color:#fe7924;
+            border: solid 1px #fe7924;
+            border-radius: 5px;
+            margin: 5px 0 0 5px;
+            font-weight: 900;
+            width:15px;
+        }
+        
+        #maj {
+            color:#fe7924;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.6rem;
+            margin-top: 5px;
+            margin-right: 15%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -1rem;
+            
+        }
+        
+        #btonSearchDate{
+            color: rgba(255,255,255,0.75);
+            background-color: #B2D039;
+            border-radius: 10px;
+            width: 200%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #B2D039;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #btonSearchDate:hover{
+            color: rgba(255,255,255,1);
+            background-color: #fe7924;
+            border-radius: 10px;
+            width: 200%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #fe7924;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
+        }
+    
+        #btnRetour{
+            color: rgba(255,255,255,0.75);
+            background-color: #B2D039;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #B2D039;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #btnRetour:hover{
+            color: rgba(255,255,255,1);
+            background-color: #fe7924;
+            border-radius: 10px;
+            width: 100%;
+            font-size:10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #fe7924;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #controlButtons{
+            margin-top: -10px;
+        }
+        
+        #message.active{
+            color: #34495e;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 2000;
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            display: grid;
+            top: 20%;
+            padding: 5px 0px 5px 0px;
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+        }
+        
+        #infoRetour.active{
+            background-color:#34495e;
+            margin-right:auto;
+            margin-left:auto;
+            width:80%;
+            border-radius:5px;
+        }
+        
+        #squareOpen, #squareClose{
+            visibility:hidden;
+        }
+        
+        #squareOpen.active{
+            height: 20px;
+            Padding:0 0 0 5%;
+            visibility:visible;
+            padding-top:5px;
+        }
+     
+        #squareClose.active{
+            color: #ef3d33;
+            height: 20px;
+            Padding: 0 0 0 5%;;
+            visibility:visible;
+            padding-bottom:5px;
+            margin-bottom:0px;
+        }
+        
+    }
+    
