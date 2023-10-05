@@ -1,0 +1,2 @@
+master - file02 - ligne 1
+master - file02 - ligne 2
