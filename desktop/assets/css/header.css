@@ -442,7 +442,7 @@ a:hover span {
 /***************** MOBILE *******************************/
 
 
-@media (max-width: 950px){
+@media screen and (max-width: 600px){
     body{
         /*background-image: url("https://partageonslaforet.be/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG");*/
         /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");*/

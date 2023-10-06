@@ -74,7 +74,7 @@ $LRT = PLF::Get_LastRunTime();
                 </div>    
                 <div id="controlButtons" class="list">
                     <div id="search" class='list-item'>
-                        <button id="btonSearchDate" ><i class="fa fa-search fa-2x"></i></button>
+                        <button id="btonSearchDate" ><i class="fa fa-search"></i></button>
                     </div>
                     <div class="menuReturn" class='list-item'>   
                         <button id="btnRetour"  onclick="window.location.href = '..';">RETOUR</button>
@@ -237,6 +237,7 @@ $LRT = PLF::Get_LastRunTime();
         var cookieNber= "<?php echo $file_suffix; ?>";
         console.log(cookieNber);
         lRT = <?php echo json_encode($LRT);?>;
+        console.log(lRT)
         lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
         lRTEUR = dayjs(lRTUS,'DD-MMM-YYYY HH:mm')
         lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
