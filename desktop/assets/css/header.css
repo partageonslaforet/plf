@@ -10,12 +10,13 @@
 body{
     /*background-image: url("https://partageonslaforet.be/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG");*/
     /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");*/
-    /*coucou*/
     background-image: url("https://partageonslaforet.be/assets/img/plf-foret1.jpg");
     background-repeat: no-repeat;
     background-size:cover;
     
 }
+
+/************** HEADER *************************/
 
 .site-header{
     display: flex;
@@ -151,6 +152,8 @@ img {
     cursor:pointer;
 }
 
+
+
 #infoDate { 
     margin-left:auto;
     margin-right:auto;
@@ -175,6 +178,8 @@ img {
 #search-date{
     color: #34495e;
 }
+
+/*********************  BODY  *************************/
 
 #siteName{
     z-index:2001;
@@ -431,5 +436,92 @@ a:hover span {
         top:50%;
         left:30%;
         position:absolute;
+    }
+}
+
+/***************** MOBILE *******************************/
+
+
+@media (max-width: 950px){
+    body{
+        /*background-image: url("https://partageonslaforet.be/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG");*/
+        /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");*/
+        background-image: url("https://partageonslaforet.be/assets/img/plf-foret1.jpg");
+        background-repeat: no-repeat; 
+        background-position: center;
+        background-attachment: fixed;       
+        webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height:100%;
+        width:100%; 
+        
+    }
+
+    .menu {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+        background: rgba(255,255,255,0.01);
+        z-index: 1;
+        margin-top: 1em;
+    }
+
+    #siteName{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:absolute;
+        text-align: center;
+        width: 80%;
+        font-size: 1.2rem;
+        color:#34495e;
+        background-color: rgba(255,255,255,0.7);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        margin-top: 1rem;
+        overflow: hidden;
+        left: 10%;
+        padding: 1rem 0.5rem;
+        text-transform: uppercase;
+    }
+
+    #popupInfo{
+        background-color: rgba(255,255,255,0.8);
+        border-radius: 5px;
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 1rem;
+        box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
+        margin-top: 2rem;
+        top:45%;
+        left:10%;
+        position:absolute;
+    }
+
+    #sponsors{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:absolute;
+        display:flex;
+        align-items: center;
+        width: 80%;
+        height: 10%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 85%;
+        overflow: hidden;
+        left: 10%;
     }
 }

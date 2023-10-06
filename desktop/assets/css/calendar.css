@@ -347,7 +347,7 @@ img {
         color: rgba(255,255,255,0.75);
         background-color: #B2D039;
         border-radius: 10px;
-        width: 100%;
+        width: 150%;
         font-size: 7px;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -361,7 +361,7 @@ img {
         color: rgba(255,255,255,1);
         background-color: #fe7924;
         border-radius: 10px;
-        width: 120%;
+        width: 150%;
         font-size: 7px;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -451,5 +451,69 @@ img {
         padding-bottom:5px;
         margin-bottom:0px;
     }
-    
+}   
+/***************** MOBILE **************************/
+
+@media (max-width: 950px){
+    #calendarBtn a{
+        z-index:2001;
+        background: rgba(255,255,255,0.0);
+        border-radius:50%;
+        color: #24445c;
+        border: 2px solid #24445c;
+        transition: 0.3s;
+        top: 5%;
+        width: 22%;
+        height: 10%;
+        cursor: pointer; 
+        left: 39%;
+        }
+
+    .popup{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:fixed;
+        display: none;
+        align-items: center;
+        width: 50%;
+        height: 12%;
+        max-width: 80%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 3.5%;
+        left: 25%;
+        transition: 200ms ease-in-out;
+    }
+
+    #datepicker{
+        border-radius:10px;
+        border: 1px solid #34495e;
+        text-align: center;
+        width: 80%;
+        font-size: 11px;
+    }
+
+    #message.active{
+        color: #34495e;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        background-color: rgba(255,255,255,0.6);
+        z-index: 2000;
+        position: absolute;
+        left: 25%;
+        width: 50%;
+        display: grid;
+        top: 15%;
+        padding: 5px 0px 5px 0px;
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+    }
 }
