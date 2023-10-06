@@ -352,7 +352,7 @@
         grid-template-columns: repeat(2, auto); /* Crée deux colonnes de largeur automatique */
         justify-content: center; /* Pour centrer les boutons horizontalement (facultatif) */
         gap: 20%; /* Facultatif : Ajoute un espacement entre les boutons */
-        margin-top:-0.3rem;
+        margin-top:-0.5rem;
     }
 
     #message.active{
