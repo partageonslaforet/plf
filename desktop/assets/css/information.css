@@ -13,7 +13,7 @@ body{
     /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");*/
     background-image: url("https://partageonslaforet.be/assets/img/plf-foret1.jpg");
     background-repeat: no-repeat;
-    background-size:cover;
+    /*background-size:cover;*/
     
 }
 
@@ -222,5 +222,91 @@ a.brochure{
         object-fit: contain;
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+/***************** MOBILE *******************************/
+
+
+@media screen and (max-width: 600px){
+    #messageSPW{
+        margin-top:2%;
+        background-color: rgba(255,255,255,1);
+        border-radius: 5px;
+        font-size: 11px;
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 1rem;
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+    }
+    #infoGenerale{
+        color: #34495e;
+        background-color: #B2D039;
+        border-radius: 10px;
+        margin-top: 0.5rem;
+        font-size: 1.0rem;
+        font-weight: 600;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        border: 1px solid #B2D039;
+        text-align: center;
+        margin-right:auto;
+        margin-left:auto;
+      
+    }
+
+    a.brochure{
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        color:#B2D039;
+        background-color: #34495e;
+        border-radius: 5px;
+        text-align:center;
+        margin-right:auto;
+        margin-left:auto;
+        width: 100%;
+        display: inline-block;
+    }
+    
+    #btnRetour{
+        color: #34495e;
+        background-color: #B2D039;
+        border-radius: 5px;
+        margin: 0.5rem 0;
+        font-size: 12px;
+        padding-top: 7px;
+        padding-bottom: 5px;
+        border: 1px solid #B2D039;
+        text-align: center;
+        margin-right:auto;
+        margin-left:auto;
+        margin-bottom:1rem;
+        bottom: 5%;
+        display: grid;
+        font-weight: 600;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width:35%;
+    }
+
+    #sponsors{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:absolute;
+        display:flex;
+        align-items: center;
+        width: 80%;
+        height: 10%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 85%;
+        overflow: hidden;
+        left: 10%;
     }
 }

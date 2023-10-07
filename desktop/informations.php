@@ -37,11 +37,11 @@
             </center>
             
             <button id="btnRetour"  onclick="window.location.href = '.';">RETOUR</button>
-        </div>
-        <div id="sponsors">
-            <img src="../assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
-            <img src="../assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" alt="Visit Wallonia.be">
-            <img src="../assets/img/soutien_v_fr.png" alt="SPW">
-        </div>
         
+            <div id="sponsors">
+                <img src="../assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
+                <img src="../assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" alt="Visit Wallonia.be">
+                <img src="../assets/img/soutien_v_fr.png" alt="SPW">
+            </div>
+        </div>
     </body>
