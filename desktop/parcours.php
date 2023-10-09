@@ -76,23 +76,17 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     <div>PARCOURS BALISES</div>
                 </div>
                 <div id="findParcours">
-                    <form>
-                        <label for="selectType" id="selectType">Sélectionner une Localité ou une Commune</label>
-                        <select id="selectCityType">
-                            <!--<option value="choix">Votre choix</option>-->
-                            <option value="arLocaliteName">Localité</option>
-                            <option value="arCommuneName">Commune</option>
-                        </select>
-                    <form>
-                    <div id="city">
-                        <label for="selectCity" id="selectCity">Sélectionner une localité</label>
-                        <select type="search" id="txtFindCityName" placeholder="Localité"></select>
-                        <button id="btnFindCityName" class="searchItems"><i class="fa fa-search"></i></button>
+                    <!--<div class="custom-checkbox">
+                        <input type="checkbox" id="allCantons">
+                        <label for="allParcours">Voir tous les parcours</label> 
+                    </div>-->
+                    <div id="selectCity" class "searchItems">
+                        <select type="search" id="txtFindCityName" placeholder="Commune"></select>
+                        <button id="btnFindCityName"><i class="fa fa-search"></i></button>
                     </div>
-                    <div id="parcours">
-                        <label for="selectParcours" id= "selectParcours">Sélectionner un parcours</label>
+                    <div id= "selectParcours" class "searchItems">
                         <select type="search" id="txtFindParcoursName" placeholder="Parcours"></select>
-                        <button id="btnFindParcoursName" class="searchItems"><i class="fa fa-search"></i></button>
+                        <button id="btnFindParcoursName"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div id="parcoursInfo"></div>
@@ -173,7 +167,6 @@ $List_Parcours = PLF::Get_Itineraires_List();
     var arRouteNber = [];
     var arCityName= [];
     var arSelectedCityList= [];
-    var arCityList= [];
     var listArrayN = [];
     var territoriesInfo = [] ;
     var lyrTerritories;
@@ -299,87 +292,40 @@ $List_Parcours = PLF::Get_Itineraires_List();
         listByRouteDB = <?php echo json_encode($List_Parcours);?>;
      
         var listByRoute = Object.values(listByRouteDB[2]);
+        //var listCityName = Object.values(listParcoursInfo[2])
         var routeNbre = listByRoute.length;
-       
-        var selectedCategory;
-       
-        var arLocaliteName = [];
-        var arCommuneName = [];
-        var routeNbre = listByRoute.length;  
+        console.log(listByRoute);
+        //console.log(listCityName)
+        
         for(i=0; i<routeNbre; i++){    
-                if(!arLocaliteName.includes(listByRoute[i]["localite"])){
-                    arLocaliteName.push(listByRoute[i]["localite"]); 
-                }  
-                if(!arCommuneName.includes(listByRoute[i]["commune"])){
-                    arCommuneName.push(listByRoute[i]["commune"]); 
-                }  
-            }
-        arLocaliteName.sort((a,b) => a.localeCompare(b, 'fr')); 
-        arCommuneName.sort((a,b) => a.localeCompare(b, 'fr'));  
-        
-        console.log(arLocaliteName);
-        console.log(arCommuneName);
-
-        const initialChoices = {
-            arLocaliteName,
-            arCommuneName
-        }
-
-        console.log(initialChoices);
-   
-        const selectCity = $("#txtFindCityName").selectmenu();
-       
-        $("#selectCityType").on('change', function() {
-            selectedCategory = $(this).val();
-            console.log(selectedCategory)
-            const choices = initialChoices[selectedCategory];
-            console.log(choices);
-            selectCity.empty();
-
-            if (choices) {
-                choices.forEach(function(choice) {
-                    selectCity.append($("<option>", { value: choice, text: choice }));
-                });
-                selectCity.selectmenu("refresh");
-            }
             
-        });
-        $("#selectCityType").trigger("change");
+            if(!arCityName.includes(listByRoute[i]["localite"])){
+                arCityName.push(listByRoute[i]["localite"]); 
+            }  
+        }    
+
+        arCityName.sort((a,b) => a.localeCompare(b, 'fr'));
+        
+        for(i=0; i<routeNbre; i++){    
+            
+            if(!arRouteNber.includes(listByRoute[i]["nom"])){
+                arRouteNber.push(listByRoute[i]["nom"]); 
+            }  
+        }      
+        arRouteNber.sort((a,b) => a.localeCompare(b, 'fr'));
+        
+        const selectCity = $("#txtFindCityName");
+        arCityName.forEach(function (item) {
+            selectCity.append($("<option>", { value: item, text: item }));
+        });   
+        
+        selectCity.selectmenu();
        
         
-        $("#btnFindCityName").click(function(event){ 
-            event.preventDefault()
+        $("#btnFindCityName").click(function(){ 
             selectedCity = $("#txtFindCityName").val();
             const selectMenu = $("#txtFindParcoursName");
-           
-            console.log(selectedCategory)
-            console.log(listByRoute);
-            if(selectedCategory=="arLocaliteName"){
-                for(i=0; i<listByRoute.length; i++){   
-            
-                    console.log(selectedCity)
-                    console.log(listByRoute[i]["localite"])
-
-                    if(selectedCity == listByRoute[i]["localite"]){
-                            arSelectedCityList.push(listByRoute[i]["localite"]);
-                            arSelectedCityList.push(listByRoute[i]['itineraire_id']);
-                            arSelectedCityList.push(listByRoute[i]['nom']);
-                            console.log(arSelectedCityList)
-                        }
-                    else{
-                        if(selectedCity == listByRoute[i]["commune"]){
-                            arSelectedCityList.push(listByRoute[i]['commune'])
-                            arSelectedCityList.push(listByRoute[i]['itineraire_id'])
-                            arSelectedCityList.push(listByRoute[i]['nom'])
-                        }
-                    }
-                
-                }
-                arSelectedCityList.sort((a,b) => a.localeCompare(b, 'fr')); 
-                console.log(arSelectedCityList)
-            }
-
-
+            console.log(selectedCity)
             var arselectedParcoursList = [];
             var arSelectedCityList = [];
             var count =0;
@@ -400,7 +346,17 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     selectMenu.remove(i);
                 }
             }
-           
+            for(i=0; i<routeNbre; i++){    
+            //console.log(listByRoute[i]["localite"])
+            
+                if(selectedCity == listByRoute[i]["localite"]){
+                    
+                        arSelectedCityList.push(listByRoute[i]['localite'])
+                        arSelectedCityList.push(listByRoute[i]['itineraire_id'])
+                        arSelectedCityList.push(listByRoute[i]['nom'])
+                   }
+                    
+                }
             
                 
             
