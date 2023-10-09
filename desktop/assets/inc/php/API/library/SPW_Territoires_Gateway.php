@@ -5,6 +5,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Handler;
 class SPW_Territoires_Gateway
 {
 
+    private int $_duplicate_seq = 1;
 
     private PDO $conn;
 
@@ -24,6 +25,7 @@ class SPW_Territoires_Gateway
                     " KEYG," .
                     " SAISON," .
                     " N_LOT," .
+                    " SEQ, " .
                     " NUGC," .
                     " SERVICE," .
                     " TITULAIRE_ADH_UGC," . 
@@ -34,6 +36,7 @@ class SPW_Territoires_Gateway
                     " :KEYG," .
                     " :SAISON," .
                     " :N_LOT," .
+                    " :SEQ1," .
                     " :NUGC," .
                     " :SERVICE," .
                     " :TITULAIRE_ADH_UGC," .
@@ -49,6 +52,7 @@ class SPW_Territoires_Gateway
             $stmt->bindValue(":KEYG", $data["KEYG"], PDO::PARAM_STR);
             $stmt->bindValue(":SAISON", $data["SAISON"], PDO::PARAM_INT);
             $stmt->bindValue(":N_LOT", $data["N_LOT"], PDO::PARAM_STR);
+            $stmt->bindValue(":SEQ1", $this->_duplicate_seq, PDO::PARAM_INT);
 
             $data["SHAPE"] = preg_replace('/\n\s+/', ' ', $data["SHAPE"]);
             $stmt->bindValue(":SHAPE", $data["SHAPE"] ?? "", PDO::PARAM_LOB);
@@ -58,10 +62,10 @@ class SPW_Territoires_Gateway
             $stmt->bindValue(":DATE_MAJ", $data["DATE_MAJ"], PDO::PARAM_STR);
 
 
-
             $stmt->execute();
             SPW_Territoires_Controller::__Increment_Total_Territoires();
             //array_push(errorHandler::$Run_Information, ["Info", "new territoire : KEYG = " . $data["KEYG"] . PHP_EOL]);
+
             return $this->conn->lastInsertId();
 
         } catch (pdoException $e) {
@@ -72,6 +76,8 @@ class SPW_Territoires_Gateway
                     case 1062:
                         SPW_Territoires_Controller::__Increment_Duplicate_Territoires();
                         array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for territoire : KEYG = " . $data["KEYG"]  . PHP_EOL]);
+                        $this->_duplicate_seq++;
+                        $this->New_Territoire($data);
                         break;
                     default:
                         throw new pdoDBException($SQL_Error, $e, "SQL Error :" . $this->rebuildSql($sql,$data));
@@ -108,17 +114,19 @@ class SPW_Territoires_Gateway
 
 
         $sql = "CREATE TABLE $tablename (
-                    `OBJECTID` INT NULL DEFAULT NULL,
+                    `OBJECTID` INT NULL,
                     `SAISON` SMALLINT NOT NULL,
-                    `KEYG` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `N_LOT` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+                    `KEYG` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+                    `SEQ` TINYINT NOT NULL,
                     `SERVICE` VARCHAR(5) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
                     `NUGC` SMALLINT NULL DEFAULT NULL,
                     `TITULAIRE_ADH_UGC` TINYINT(1) NOT NULL,
                     `DATE_MAJ` DATE NULL DEFAULT NULL,
                     `SHAPE` MEDIUMBLOB NULL DEFAULT NULL,
-                    PRIMARY KEY (`N_LOT`, `SAISON`) USING BTREE,
-                    UNIQUE INDEX `uk_Saison_N_lot` (`SAISON`, `N_LOT`) USING BTREE)
+
+                    PRIMARY KEY (`N_LOT`, `SAISON`, `SEQ`) USING BTREE,
+                    UNIQUE INDEX `uk_Saison_lot_seq` (`SAISON`, `N_LOT`, `SEQ`) USING BTREE)
             COLLATE='utf8mb4_unicode_ci'
             ENGINE=InnoDB;";
             
@@ -158,6 +166,7 @@ class SPW_Territoires_Gateway
           `plf_spw_territoires`.`KEYG` AS `KEYG`,
           `plf_spw_territoires`.`SAISON` AS `SAISON`,
           `plf_spw_territoires`.`N_LOT` AS `N_LOT`,
+          `plf_spw_territoires`.`SEQ` AS `SEQ`,
           `plf_spw_territoires`.`SERVICE` AS `SERVICE`,
           `plf_spw_cantonnements`.`CAN` AS `CAN`,
           `plf_spw_cantonnements`.`CANTON` AS `CANTON`,
