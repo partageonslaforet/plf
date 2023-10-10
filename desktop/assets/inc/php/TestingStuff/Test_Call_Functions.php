@@ -10,7 +10,7 @@ $mydate = date("d-m-Y");
 echo $mydate;
 
 
-//goto Test1_new;
+goto Test1_new;
 //goto Test2_new;
 //goto Test3_new;
 //goto Test4_new;
@@ -21,7 +21,7 @@ echo $mydate;
 //goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
-goto Test15_new;
+//goto Test15_new;
 //goto Test16_new;
 
 
@@ -49,7 +49,7 @@ if ($List_Territoires[0] < 0) {
 
 Test2_new:
 
-$Territories_Info = PLF::Get_Territoire_Info("6113105040", "2023");
+$Territories_Info = PLF::Get_Territoire_Info("6130000222", "2023");
 
 if ($Territories_Info[0] < 0) {
 

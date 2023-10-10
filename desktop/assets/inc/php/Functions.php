@@ -101,10 +101,10 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
-        $sql_cmd = "SELECT DISTINCT KEYG, SAISON, N_LOT 
+        $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ
                     FROM $GLOBALS[spw_tbl_territoires] 
                     WHERE SAISON = $Saison  
-                    ORDER BY SAISON, N_LOT";
+                    ORDER BY SAISON, N_LOT, SEQ";
 
         $gateway->set_Sql_Statement($sql_cmd);
 
@@ -144,8 +144,8 @@ class PLF
         foreach ($results as $result => $value) {
 
             array_push(self::$List_Array, [
-                "KEYG" => $value["KEYG"],
-                "DA_Numero" => $value["N_LOT"],
+                "KEYG" => $value["KEYG"] . "-" . $value["SEQ"],
+                "DA_Numero" => $value["N_LOT"] . "-" . $value["SEQ"],
                 "DA_Nom" => "N/A",
                 "DA_Saison" => $value["SAISON"],
                 "Territories_id" => "obsolete",
@@ -216,44 +216,50 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
-        $sql_cmd = "SELECT DISTINCT KEYG,
-                                    SAISON,
-                                    N_LOT,
-                                    CANTONNEMENT,
-                                    FIRST_CANTON,
-                                    tel_canton,
-                                    direction_canton,
-                                    email_canton,
-                                    attache_canton,
-                                    CP_canton,
-                                    localite_canton,
-                                    rue_canton,
-                                    numero_canton,
-                                    latitude_canton,
-                                    longitude_canton,
-                                    NUGC_CC,
-                                    N_AGREMENT_CC,
-                                    DENOMINATION_CC,
-                                    ABREVIATION_CC,
-                                    RUE_CC,
-                                    NUM_CC,
-                                    CP_CC,
-                                    LOCALITE_CC,
-                                    NOM_PSDT_CC,
-                                    PRENOM_PSDT_CC,
-                                    NOM_SECR_CC,
-                                    PRENOM_SECR_CC,
-                                    SUPERFICIE_CC,
-                                    email_CC,                                    
-                                    latitude_CC,
-                                    longitude_CC,
-                                    site_internet_CC,
-                                    logo_CC,
-                                    DATE_MAJ
+        $sql_cmd = "SELECT  KEYG,
+                            SAISON,
+                            N_LOT,
+                            SEQ,
+                            CAN,
+                            CANTON,
+                            GSM,
+                            PREPOSE,
+                            TEL_CAN,
+                            TITULAIRE_ADH_UGC,
+                            direction_CANTON,
+                            email_CANTON,
+                            attache_CANTON,
+                            CP_CANTON,
+                            localite_CANTON,
+                            rue_CANTON,
+                            numero_CANTON,
+                            latitude_CANTON,
+                            longitude_CANTON,
+                            NUGC_CC,
+                            N_AGREMENT_CC,
+                            DENOMINATION_CC,
+                            ABREVIATION_CC,
+                            RUE_CC,
+                            NUM_CC,
+                            CP_CC,
+                            LOCALITE_CC,
+                            NOM_PSDT_CC,
+                            PRENOM_PSDT_CC,
+                            NOM_SECR_CC,
+                            PRENOM_SECR_CC,
+                            SUPERFICIE_CC,
+                            LIEN_CARTE_CC,
+                            email_CC,                                    
+                            latitude_CC,
+                            longitude_CC,
+                            site_internet_CC,
+                            logo_CC,
+                            DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
                     WHERE N_LOT = $Territoire_Name 
                     AND SAISON = $Saison
-                    ORDER BY SAISON, N_LOT";
+                    ORDER BY SAISON, N_LOT
+                    LIMIT 1";
 
 
 
@@ -309,8 +315,8 @@ class PLF
        
 
             array_push(self::$List_Array, [
-                "KEYG" => $value["KEYG"],
-                "DA_Numero" => $value["N_LOT"],
+                "KEYG" => $value["KEYG"] . "-" . $value["SEQ"],
+                "DA_Numero" => $value["N_LOT"] . "-" . $value["SEQ"],
                 "DA_Saison" => $value["SAISON"],
                 "Territories_id" => "obsolete",
                 "Territories_Name" => "obsolete",
@@ -320,23 +326,21 @@ class PLF
                 "PRENOM_TIT" => "N/A",
                 "TITULAIRE1" => "N/A",
                 "COMMENTAIR" => "N/A",
+                "TITULAIRE_ADH_UGC" => $value["TITULAIRE_ADH_UGC"],
                 "DATE_MAJ" => $value["DATE_MAJ"],
 
-
-
-                "num_canton" => $value["CANTONNEMENT"],
-                "nom_canton" => $value["FIRST_CANTON"],
+                "num_canton" => $value["CAN"],
+                "nom_canton" => $value["CANTON"],
+                "gsm_canton" => $value["GSM"],
+                "prepose_canton" => $value["PREPOSE"],
                 "direction_canton" => $value["direction_CANTON"],
                 "attache_canton" => $value["attache_CANTON"],
-
-                "tel_canton" => $value["tel_CANTON"],
+                "tel_canton" => $value["TEL_CAN"],
                 "email_canton" => $value["email_CANTON"],
-
                 "rue_canton" => $value["rue_CANTON"],
                 "numero_canton" => $value["numero_CANTON"],
                 "CP_canton" => $value["CP_CANTON"],
                 "localite_canton" => $value["localite_CANTON"],
-
                 "latitude_canton" => $value["latitude_CANTON"],
                 "longitude_canton" => $value["longitude_CANTON"],
 
@@ -454,10 +458,11 @@ class PLF
         $sql_cmd = "SELECT KEYG,
                            SAISON,
                            N_LOT,
+                           SEQ,
                            FERMETURE
-                    FROM $GLOBALS[spw_chasses] 
+                    FROM $GLOBALS[spw_view_chasses] 
                     WHERE DATE_CHASSE = '$date_Chasse_Sql' AND SAISON = $Saison
-                    ORDER BY SAISON, N_LOT";
+                    ORDER BY SAISON, N_LOT, SEQ";
 
         $gateway->set_Sql_Statement($sql_cmd);
 
@@ -495,9 +500,9 @@ class PLF
         foreach ($results as $result => $value) {
 
             array_push(self::$List_Array, [
-                "KEYG" => $value["KEYG"], 
+                "KEYG" => $value["KEYG"] . "-" . $value["SEQ"], 
                 "DA_Saison" => $value["SAISON"],
-                "DA_Numero" => $value["N_LOT"],
+                "DA_Numero" => $value["N_LOT"]  . "-" . $value["SEQ"],
                 "FERMETURE" => $value["FERMETURE"],
                 ]);
 
@@ -817,11 +822,11 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
-        $sql_cmd = "SELECT DISTINCT KEYG, SAISON, N_LOT 
+        $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ 
                     FROM $GLOBALS[spw_tbl_territoires] 
                     WHERE SERVICE = '$Num_Canton'
                     AND SAISON = $Saison
-                    ORDER BY SAISON, N_LOT";
+                    ORDER BY SAISON, N_LOT, SEQ";
 
 
         $gateway->set_Sql_Statement($sql_cmd);
@@ -863,8 +868,8 @@ class PLF
         foreach ($results as $result => $value) {
 
             array_push(self::$List_Array, [
-                "KEYG" => $value["KEYG"],
-                "DA_Numero" => $value["N_LOT"],
+                "KEYG" => $value["KEYG"] . "-" . $value["SEQ"],
+                "DA_Numero" => $value["N_LOT"] . "-" . $value["SEQ"],
                 "DA_Saison" => $value["SAISON"],
 
 
@@ -1086,11 +1091,11 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
-        $sql_cmd = "SELECT DISTINCT KEYG, SAISON, N_LOT 
+        $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ 
                      FROM $GLOBALS[spw_view_territoires] 
                      WHERE SAISON = $Saison
                      AND ABREVIATION_CC = '$Code_CC'
-                     ORDER BY N_LOT";
+                     ORDER BY SAISON, N_LOT, SEQ";
 
 
         $gateway->set_Sql_Statement($sql_cmd);
@@ -1132,8 +1137,8 @@ class PLF
         foreach ($results as $result => $value) {
 
             array_push(self::$List_Array, [
-                "KEYG" => $value["KEYG"],
-                "DA_Numero" => $value["N_LOT"],
+                "KEYG" => $value["KEYG"] . "-" . $value["SEQ"],
+                "DA_Numero" => $value["N_LOT"] . "-" . $value["SEQ"],
                 "DA_Saison" => $value["SAISON"],
             ]);
 
@@ -1175,6 +1180,13 @@ class PLF
         self::$RC_Msg = "";
         self::$List_Array = [];
 
+
+        if (str_contains($N_LOT, "-") == false) 
+        {
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);
+        }
+
+
         if (empty($Saison)) {
             $Saison = self::__Compute_Saison();
         }
@@ -1193,7 +1205,7 @@ class PLF
 
             return array(
                 self::$RC, self::$RC_Msg, self::$List_Array
-            );;
+            );
         }
 
 
@@ -1202,11 +1214,18 @@ class PLF
 
         $gateway = new Functions_Gateway($database);
 
+        $lot_seq = explode("-", $N_LOT);
+
+        $lot = $lot_seq[0];
+        $seq = $lot_seq[1];
+
         $sql_cmd = "SELECT DISTINCT SHAPE,
-                                    N_LOT
+                                    N_LOT,
+                                    SEQ
                     FROM $GLOBALS[spw_tbl_territoires] 
                     WHERE SAISON = $Saison 
-                    AND N_LOT = '$N_LOT'";
+                    AND N_LOT = '$lot' 
+                    AND SEQ = '$seq'";
 
 
         $gateway->set_Sql_Statement($sql_cmd);
