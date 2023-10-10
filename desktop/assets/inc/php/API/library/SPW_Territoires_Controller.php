@@ -41,7 +41,7 @@ class SPW_Territoires_Controller
         $this->_spw_Query_Parameters .= "&returnIdsOnly=false";
         $this->_spw_Query_Parameters .= "&returnCountOnly=false";
         $this->_spw_Query_Parameters .= "&orderByFields=KEYG";
-        $this->_spw_Query_Parameters .= "&outSR=31370";
+        // $this->_spw_Query_Parameters .= "&outSR=31370";
         $this->_spw_Query_Parameters .= "&returnDistinctValues=false";
         $this->_spw_Query_Parameters .= "&resultOffset=";
         $this->_spw_Query_Parameters .= "<OFFSET>";
@@ -126,7 +126,7 @@ class SPW_Territoires_Controller
         
 
         $this->_spw_Url_Where_Clause = urlencode("SAISON >= 2023");
-        $this->_spw_Url_Where_Clause = urlencode("KEYG = '2023/6130000222'");
+        //$this->_spw_Url_Where_Clause = urlencode("KEYG = '2023/6130000222' OR KEYG = '2023/9120000047' OR KEYG = '2023/6113105007' OR KEYG = '2023/9533500089'");
 
         $this->_Rest_Url = $GLOBALS['spw_URL'];
         $this->_Rest_Url .= "/" . $GLOBALS['spw_Folder'];
