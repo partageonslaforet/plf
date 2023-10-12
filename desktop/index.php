@@ -35,11 +35,16 @@ if (isset($_POST['submit'])) {
         
         <!-- FICHIERS CSS -->
         <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/fontawesome.css">
         <link rel="stylesheet" href="assets/css/header.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
        
         <!-- FICHIERS JS -->
+        <script src = "assets/inc/js/script.js"></script>
+        <script src = "assets/inc/js/bootstrap.bundle.min.js"></script>
         <script src = "https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src = "https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -60,8 +65,8 @@ if (isset($_POST['submit'])) {
         });   
         
     </script>
-    
-    <head class="site-header">
+    <header class="header">
+    <!--<head class="site-header">-->
         
         <div class="logo-header">
             <div class="menu">
