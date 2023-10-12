@@ -66,7 +66,7 @@ class SPW_Chasses_Controller
 
 
     public static function __Increment_Total_Chasses(): void {
-        self::$_Total_Chasses++ ;
+        self::$_Total_Chasses++ ; 
     }
 
 
