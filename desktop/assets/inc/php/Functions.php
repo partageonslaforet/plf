@@ -459,7 +459,8 @@ class PLF
                            SAISON,
                            N_LOT,
                            SEQ,
-                           FERMETURE
+                           FERMETURE,
+                           NUGC
                     FROM $GLOBALS[spw_view_chasses] 
                     WHERE DATE_CHASSE = '$date_Chasse_Sql' AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT, SEQ";
@@ -504,6 +505,7 @@ class PLF
                 "DA_Saison" => $value["SAISON"],
                 "DA_Numero" => $value["N_LOT"]  . "-" . $value["SEQ"],
                 "FERMETURE" => $value["FERMETURE"],
+                "NUGC" => $value["NUGC"],
                 ]);
 
 
@@ -1183,7 +1185,7 @@ class PLF
 
         if (str_contains($N_LOT, "-") == false) 
         {
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);
+            $N_LOT = $N_LOT . "-1";
         }
 
 

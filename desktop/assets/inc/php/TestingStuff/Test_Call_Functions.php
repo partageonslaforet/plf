@@ -10,7 +10,7 @@ $mydate = date("d-m-Y");
 echo $mydate;
 
 
-goto Test1_new;
+//goto Test1_new;
 //goto Test2_new;
 //goto Test3_new;
 //goto Test4_new;
@@ -18,7 +18,7 @@ goto Test1_new;
 //goto Test6_new;
 //goto Test7_new;
 //goto Test8_new;
-//goto Test12_new;
+goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
 //goto Test15_new;
@@ -90,7 +90,7 @@ if ($List_Chasse_Territories_By_Date[0] == -14) {
 Test4_new:
 
 
-$List_Chasse_Dates_By_Territories = PLF::Get_Chasse_By_Territoire("7113184002", "2023");
+$List_Chasse_Dates_By_Territories = PLF::Get_Chasse_By_Territoire("9120000047", "2023");
 
 if ($List_Chasse_Dates_By_Territories[0] < 0) {
 
@@ -192,7 +192,7 @@ if ($List_Territoire_By_CC[0] < 0) {
 
 Test12_new:
 
-$Territoire_Geometry = PLF::Territoire_JSON("6113105040", "2023");
+$Territoire_Geometry = PLF::Territoire_JSON("6130000222-2", "2023");
 
 if ($Territoire_Geometry[0] < 0) {
 
