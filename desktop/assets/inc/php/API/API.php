@@ -144,6 +144,8 @@ if ($parts[2] == "CGT" and $parts[3] == "ITINERAIRES" and $parts[4] == "STEP2") 
 }
 
 
+
+
 if ($parts[2] == "SPW" and $parts[3] == "TERRITOIRES" and $parts[4] == "1") {
 
     echo json_encode([

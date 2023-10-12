@@ -92,6 +92,11 @@ class SPW_Chasses_Gateway
 
     }
 
+    public function Drop_View(string $viewName) {
+
+        $rc = Database::drop_View($this->conn, $viewName);
+
+    }
 
     public function Rename_Table(string $Table_tmp, string $Table_final) {
 
@@ -147,6 +152,50 @@ class SPW_Chasses_Gateway
 
     }
 
+    public function Create_View_Chasses() {
+
+        
+
+        $sql = "CREATE VIEW " . $GLOBALS["spw_view_chasses"] . " AS
+        SELECT
+            `plf_spw_chasses`.`SAISON` AS `SAISON`,
+            `plf_spw_chasses`.`N_LOT` AS `N_LOT`,
+            `plf_spw_chasses`.`NUM` AS `NUM`,
+            `plf_spw_chasses`.`MODE_CHASSE` AS `MODE_CHASSE`,
+            `plf_spw_chasses`.`chasse_id` AS `chasse_id`,
+            `plf_spw_chasses`.`DATE_CHASSE` AS `DATE_CHASSE`,
+            `plf_spw_chasses`.`FERMETURE` AS `FERMETURE`,
+            `plf_spw_chasses`.`KEYG` AS `KEYG`,
+            `plf_spw_territoires`.`SEQ` AS `SEQ`,
+            `plf_spw_territoires`.`NUGC` AS `NUGC`
+        FROM (
+            `plf_spw_chasses` 
+            LEFT JOIN `plf_spw_territoires` 
+                ON (`plf_spw_chasses`.`SAISON` = `plf_spw_territoires`.`SAISON` 
+                    AND `plf_spw_chasses`.`N_LOT` = `plf_spw_territoires`.`N_LOT`));";
+    
+        try {
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+        } catch (pdoException $e) {
+
+            $SQL_Error = $e->errorInfo[1];
+
+            switch ($SQL_Error) {
+
+                default:
+                    throw new pdoDBException($SQL_Error, $e, "SQL Error :" . $sql);
+
+            }
+        } catch (Exception $e) {
+
+        }    
+
+        return true;
+
+    }
 
 
 
