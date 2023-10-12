@@ -2008,7 +2008,12 @@ class PLF
             self::$RC = -13;
             self::$RC_Msg = $database->Get_Error_Message();
 
+            try {$db_conn = null;} catch (pdoException $e) {}
+
+
             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+
+
         }
 
 
@@ -2026,12 +2031,14 @@ class PLF
 
         // Check if everything went OK
 
+        $rc_bool = true;
         if (count($results) == 0) {
-
-            return false;
+            $rc_bool = false;
         }
 
-        return true;
+        try {$db_conn = null;} catch (pdoException $e) {}
+
+        return $rc_bool;
     }
 
 
