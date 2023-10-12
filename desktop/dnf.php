@@ -108,7 +108,7 @@ $LRT = PLF::Get_LastRunTime();
                     <div id="messageErreur"></div>
                 </div>
             </div>
-            <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
+            <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
         </div>
         <div id="calendarBtn">
             <a id="calendar"><i class="fa fa-calendar fa-2x" title="CLIQUEZ"></i></a>

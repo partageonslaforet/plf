@@ -53,8 +53,11 @@ $LRT = PLF::Get_LastRunTime();
         <script src = "https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src = "assets/src/js/jquery-ui.js"></script>
         <script src = "assets/inc/js/search_hunting_dates.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
         <script src = "assets/src/js/leaflet.rainviewer.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.2/proj4leaflet.min.js"></script>
+       
 
     </header>
     
@@ -141,22 +144,34 @@ $LRT = PLF::Get_LastRunTime();
     
     $(document).ready(function() {
         
-    // ************ MAP INITIALIZATION ************************************************************
-    
-    map = L.map('map',{zoomControl: false}).setView([49.567574, 5.533507], 13);
+    // ************ MAP INITIALIZATION ************************************************************ 
+    var crs=  new L.Proj.CRS(
+        'EPSG:31370',
+        '+proj=lcc +lat_1=51.16666723333334 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1 +units=m +no_defs',
+        {
+            resolutions: [8192, 4096, 2048, 1024, 512],
+            origin: [0, 0],
+            bounds: L.bounds([0, 0], [8192, 8192])
+        }),
+
+                
+
+
+    map = L.map('map',{zoomControl: false},{crs: crs} ).setView([49.567574, 5.533507], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
+        crs : crs,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
       
-    
+        
     //ctlScale = L.control.scale({position:'bottomleft', imperial:false, maxWidth:200}).addTo(map);
     //ctlZoomslider = L.control.zoomslider({position:'topleft'}).addTo(map);
     //ctlMeasure = L.control.polylineMeasure({position:'topleft'}).addTo(map);  
     
     // ************ LAYERS INITIALIZATION *******************************************************
 
-    var lyrOSM = L.tileLayer.provider('OpenStreetMap.France').addTo(map);
+    var lyrOSM = L.tileLayer.provider('OpenStreetMap.France', {crs: crs}).addTo(map);
     var lyrmagnifiedTiles = L.tileLayer.provider('OpenStreetMap.France');
     var lyrCyclo = L.tileLayer.provider('CyclOSM');
     var lyrEsri_WorldImagery = L.tileLayer.provider('Esri.WorldImagery');
@@ -398,8 +413,9 @@ $LRT = PLF::Get_LastRunTime();
                                                     })    
                                             } 
                                             
-                                        lyrTerritories.on('data:loaded',function(){
+                                            lyrTerritories.on('data:loaded',function(){
                                             map.fitBounds(lyrTerritories.getBounds().pad(0));
+                                            crs:crs;
                                             }).addTo(map);
                                         }
                                     }
