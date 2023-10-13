@@ -55,7 +55,10 @@ $parts = array_flip($parts);
  *  2 = "cgt"
  *  3 = "itineraires"
  * 
-
+ *
+ *  0 = ""
+ *  1 = "api"
+ *  2 = "clean_temporary_files"
  * 
  */
 
@@ -142,6 +145,8 @@ if ($parts[2] == "CGT" and $parts[3] == "ITINERAIRES" and $parts[4] == "STEP2") 
     return;
 
 }
+
+
 
 
 if ($parts[2] == "SPW" and $parts[3] == "TERRITOIRES" and $parts[4] == "1") {
@@ -280,6 +285,48 @@ if ($parts[2] == "SPW" and $parts[3] == "CANTONNEMENT" and $parts[4] == "1") {
         return;
 
 }
+
+
+
+
+
+
+
+if ($parts[2] == "CLEAN_TEMPORARY_FILES") {
+
+    echo("<pre>");
+    print_r( json_encode([
+        "0" => "", 
+        "1" => "api",
+        "2" => "clean_temporary_files",
+        ]));
+    echo("</pre>");
+    
+
+
+    $Print_Mail_Title = "Clean Temporary files.";
+    $Print_Mail_header = "<br><i>Clean Temporary files.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";     
+  
+
+
+    $Clean_Temp_Files = new Clean_Temp_Files();
+
+    array_push(errorHandler::$Run_Information, ["Info", "calling URI : api/clean_temporary_files" . PHP_EOL]); 
+
+    $Clean_Temp_Files->Clean_Temporary_Files();
+
+    
+    $Print_Mail_Footer = "<br><br><i>Clean Temporary files. - Web Service call.</i> - run of " . date("d/m/Y H:i:s") . "<br><br>";
+
+    Send_Run_logs_By_eMail();
+
+    return;
+
+}
+
+
+
+
 
 
 
