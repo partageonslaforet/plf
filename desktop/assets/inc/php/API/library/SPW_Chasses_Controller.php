@@ -66,7 +66,7 @@ class SPW_Chasses_Controller
 
 
     public static function __Increment_Total_Chasses(): void {
-        self::$_Total_Chasses++ ;
+        self::$_Total_Chasses++ ; 
     }
 
 
@@ -91,6 +91,8 @@ class SPW_Chasses_Controller
 
         $this->gateway->Rename_Table($GLOBALS["spw_chasses_tmp"], $GLOBALS["spw_chasses"]);
 
+        $this->gateway->Drop_View($GLOBALS["spw_view_chasses"]);
+        $this->gateway->Create_View_Chasses();
 
         array_push(errorHandler::$Run_Information, ["Info", "" . PHP_EOL]);
         array_push(errorHandler::$Run_Information, ["Info", self::$_Duplicate_Chasses . " duplicate date chasses records." . PHP_EOL]);
