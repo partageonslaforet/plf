@@ -43,8 +43,8 @@ if (isset($_POST['submit'])) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
        
         <!-- FICHIERS JS -->
-        <script src = "assets/inc/js/script.js"></script>
-        <script src = "assets/inc/js/bootstrap.bundle.min.js"></script>
+        <script src = "../assets/inc/js/script.js"></script>
+        <script src = "../assets/inc/js/bootstrap.bundle.min.js"></script>
         <script src = "https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src = "https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -67,45 +67,53 @@ if (isset($_POST['submit'])) {
     </script>
     <header class="header">
     <!--<head class="site-header">-->
-        
-        <div class="logo-header">
-            <div class="menu">
-                <a class="toggle" href="calendrier.php"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
-                <li style="--i:0;">
-                    <!--<a data-modal-target="#calendar"><i class="fa-solid fa-calendar-days" title="CALENDRIER"></i></a>-->
-                    <a href="calendrier.php"><i class="fa fa-calendar" title="CALENDRIER DES BATTUES"></i></a>
-                </li>
-                <li style="--i:1;">
-                    <a id="icon"><i class="fa fa-envelope" title="NOUS CONTACTER"></i></a>
-                </li>
-                <li style="--i:2;">
-                    <a href="informations.php"class="disable"><i class="fa fa-info" title="INFORMATION"></i></a>
-                </li>
-                <li style="--i:3;">
-                     <!--<a data-modal-target="#traceSidebar"><i class="fa fa-hiking" title="PARCOURS"></i></a>-->
-                    <a href="parcours.php"><i class="fa fa-hiking" title="PARCOURS"></i></a>
-                </li>
-                <!--<li style="--i:3;">
-                     <a data-modal-target="#territoriesSidebar"><i class="fa fa-location-dot" title="TERRITOIRES"></i></a>
-                    <a href="https://plf.partageonslaforet.be/desktop/territories.php" class="disabled"><i class="fa fa-location-dot" title="TERRITOIRES" ></i></a>
-                </li>-->
-                <li style="--i:4;">
-                     <!--<a data-modal-target="#dnfSidebar"><i class="fa fa-tree" title="DNF"></i></a>-->
-                    <a href="dnf.php"><i class="fa fa-tree title" title="INFORMATIONS DNF"></i></a>
-                </li>
-                <li style="--i:5;">
-                    <!--<a ><i class="fas fa-user" title="LOGINS"></i></a>
-                    <a href="http://plf.partageonslaforet.be/desktop/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
-                    <a href="cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
-                </li>
-                <li style="--i:6;">
-                    <a href="trace.php"><i class="fa fa-location-arrow" title="CHARGER UN GPX<"></i></a>
-                </li>
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="logo-header">
+                    <div class="menu">
+                        <a class="toggle" href="calendrier.php"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
+                        <li style="--i:0;">
+                            <!--<a data-modal-target="#calendar"><i class="fa-solid fa-calendar-days" title="CALENDRIER"></i></a>-->
+                            <a href="calendrier.php"><i class="fa fa-calendar" title="CALENDRIER DES BATTUES"></i></a>
+                        </li>
+                        <li style="--i:1;">
+                            <a id="icon"><i class="fa fa-envelope" title="NOUS CONTACTER"></i></a>
+                        </li>
+                        <li style="--i:2;">
+                            <a href="informations.php"><i class="fa fa-info" title="INFORMATION"></i></a>
+                        </li>
+                        <li style="--i:3;">
+                            <!--<a data-modal-target="#traceSidebar"><i class="fa fa-hiking" title="PARCOURS"></i></a>-->
+                            <a href="parcours.php"><i class="fa fa-hiking" title="PARCOURS"></i></a>
+                        </li>
+                        <li style="--i:4;">
+                            <a href="#territories.php"><i class="fa fa-location-dot" title="TERRITOIRES"></i></a>
+                        </li>
+                        <li style="--i:5;">
+                            <!--<a data-modal-target="#dnfSidebar"><i class="fa fa-tree" title="DNF"></i></a>-->
+                            <a href="dnf.php"><i class="fa fa-tree title" title="INFORMATIONS DNF"></i></a>
+                        </li>
+                        <li style="--i:6;">
+                            <!--<a ><i class="fas fa-user" title="LOGINS"></i></a>
+                            <a href="http://plf.partageonslaforet.be/desktop/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
+                            <a href="cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
+                        </li>
+                        <li style="--i:7;">
+                            <a href="trace.php"><i class="fa fa-location-arrow" title="CHARGER UN GPX<"></i></a>
+                        </li>
+                    </div>
+                </div>
             </div>
         </div>
     </head>
     <body>
-        <div id="siteName">Soyez les bienvenus sur le site partageonslaforet.be</div>
+    <section class="card">
+        <div class="card-body">
+            <div class="card-body-title d-flex rounded-3 justify-content-center"><h2>Soyez les bienvenus sur le site partageonslaforet.be</h2></div>
+        </div>
+    </section>     
+    
         <div id="popupInfo">
             <p>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative.
                 Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.
