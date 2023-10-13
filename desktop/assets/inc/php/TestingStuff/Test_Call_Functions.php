@@ -5,7 +5,7 @@ require __DIR__ . "/../Parameters.php";
 //require __DIR__ . "/../functions.php";
 
 
-$mydate = date("d-m-Y");
+$mydate = date("d-m-Y");  
 
 echo $mydate;
 
