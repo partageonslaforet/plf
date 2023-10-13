@@ -15,6 +15,7 @@ require_once "Functions.php";
 $territoriesNber = array();
 $huntedTerritories = array();
 
+
 if (isset($_GET["territoriesNber"])) {
     
     $territoriesNber = explode(",", $_GET['territoriesNber']);
@@ -36,16 +37,20 @@ if (isset($_GET["territoriesNber"])) {
         }
         $nomenclature = $territoriesNber[$i];
         
-        $Territoire_Geometry = PLF::Territoire_JSON($nomenclature);
-        if ($Territoire_Geometry[0] < 0) {
+        if ($territoriesNber[$i] <> "") {
+
+            $Territoire_Geometry = PLF::Territoire_JSON($nomenclature);
+            if ($Territoire_Geometry[0] < 0) {
     
-            // echo "J'ai un problème:( pour : " . $nomenclature;
+                // echo "J'ai un problème:( pour : " . $nomenclature;
 
             }else {
                 print_r($Territoire_Geometry[2]);
                 fwrite ($file, $Territoire_Geometry[2].$delimiter);
             }
         }
+
+    }
 
     fwrite ($file, '] }');
 
