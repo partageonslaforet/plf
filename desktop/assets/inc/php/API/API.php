@@ -307,7 +307,8 @@ if ($parts[2] == "CLEAN_TEMPORARY_FILES") {
     $Print_Mail_Title = "Clean Temporary files.";
     $Print_Mail_header = "<br><i>Clean Temporary files.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";     
   
-
+    $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+    $database->update_LastRuntime("cron_clean_temporary_files", $start=true);
 
     $Clean_Temp_Files = new Clean_Temp_Files();
 
@@ -317,6 +318,8 @@ if ($parts[2] == "CLEAN_TEMPORARY_FILES") {
 
     
     $Print_Mail_Footer = "<br><br><i>Clean Temporary files. - Web Service call.</i> - run of " . date("d/m/Y H:i:s") . "<br><br>";
+
+    $database->update_LastRuntime("cron_clean_temporary_files", $start=false);
 
     Send_Run_logs_By_eMail();
 
