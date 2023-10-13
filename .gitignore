@@ -4,9 +4,4 @@ Parameters.php
 desktop/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG
 .DS_Store
 .env
-<<<<<<< HEAD
 node_modules
-.DS_Store
-=======
-node_modules
->>>>>>> origin/dev
