@@ -42,6 +42,7 @@ class PLF
         -19 => "Le territoire (SAISON/TERRITOIRE) n'existe pas",
         -20 => "Aucun itinéraire trouvé",
         -21 => "L'itinéraire n'existe pas",
+        -22 => "argument invalide",
         -999 => "Autres erreurs"
 
     );
@@ -1674,6 +1675,339 @@ class PLF
  
     /**-------------------------------------------------------------------------------------------------------------------------------------------
      * 
+     *    Retourne la liste des communes des itineraires
+     * 
+     *      Input     : Database "plf_cgt_itineraires"
+     *     
+     *      Appel     : Get_Itineraires_List_Communes()
+     * 
+     *      Arguments : néant
+     * 
+     *      Output    : Array contenant 3 éléments
+     *                      Array[0] : Code retour.
+     *                                  xx : entier >= 0 contenant le nombre d'itinéraires 
+     *                                  autres : voir le tableau
+     *                      Array[1] : Message d'erreur éventuel (voir tableau)
+     *                      Array[2] : Array indexée qui contient la liste des communes.
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+     public static function Get_Itineraires_List_Communes(): array
+     {
+ 
+ 
+         self::$RC = 0;
+         self::$RC_Msg = "";
+         self::$List_Array = [];
+ 
+ 
+         // Make a new database connection and test if connection is OK
+ 
+         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+ 
+         $db_conn = $database->getConnection();
+ 
+         if ($db_conn == false) {
+ 
+             self::$RC = -13;
+             self::$RC_Msg = $database->Get_Error_Message();
+ 
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+         }
+ 
+ 
+         // Build SQL statement and pass it to the database and prccess the statement.
+ 
+         $gateway = new Functions_Gateway($database);
+ 
+         $sql_cmd = "SELECT DISTINCT Commune
+                     FROM $GLOBALS[cgt_itineraires]  
+                     ORDER BY commune";
+ 
+         $gateway->set_Sql_Statement($sql_cmd);
+ 
+         $results = $gateway->DB_Query();
+ 
+         // Check if everything went OK
+ 
+         if (count($results) == 0) {
+             self::$RC = -20;
+             self::$RC_Msg = self::$Return_Codes[self::$RC];
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);
+         }
+ 
+ 
+         if ($results[0] == "error") {
+ 
+             switch ($results[1]) {
+ 
+                 case 1054:                 // invalid column name     
+                 case 1064:                 // SQL syntax error
+                     self::$RC = -6;
+                     self::$RC_Msg = $results[2];
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
+ 
+                 default:                    // other errors
+                     self::$RC = -999;
+                     self::$RC_Msg = $database->Get_Error_Message();
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+             }
+         }
+ 
+ 
+         // process the data and return the result
+ 
+         self::$RC = 0;
+ 
+         foreach ($results as $result => $value) {
+  
+             array_push(self::$List_Array, $value["Commune"]);
+ 
+             self::$RC++;      // the number of records = last $value (index number) + 1
+ 
+         }
+ 
+ 
+         return array(self::$RC, self::$RC_Msg, self::$List_Array);
+     }
+
+
+
+
+
+
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
+     *    Retourne la liste des localites des itineraires
+     * 
+     *      Input     : Database "plf_cgt_itineraires"
+     *     
+     *      Appel     : Get_Itineraires_List_Localites()
+     * 
+     *      Arguments : néant
+     * 
+     *      Output    : Array contenant 3 éléments
+     *                      Array[0] : Code retour.
+     *                                  xx : entier >= 0 contenant le nombre d'itinéraires 
+     *                                  autres : voir le tableau
+     *                      Array[1] : Message d'erreur éventuel (voir tableau)
+     *                      Array[2] : Array indexée qui contient la liste des communes.
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+     public static function Get_Itineraires_List_Localites(): array
+     {
+ 
+ 
+         self::$RC = 0;
+         self::$RC_Msg = "";
+         self::$List_Array = [];
+ 
+ 
+         // Make a new database connection and test if connection is OK
+ 
+         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+ 
+         $db_conn = $database->getConnection();
+ 
+         if ($db_conn == false) {
+ 
+             self::$RC = -13;
+             self::$RC_Msg = $database->Get_Error_Message();
+ 
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+         }
+ 
+ 
+         // Build SQL statement and pass it to the database and prccess the statement.
+ 
+         $gateway = new Functions_Gateway($database);
+ 
+         $sql_cmd = "SELECT DISTINCT Localite
+                     FROM $GLOBALS[cgt_itineraires]  
+                     ORDER BY Localite";
+ 
+         $gateway->set_Sql_Statement($sql_cmd);
+ 
+         $results = $gateway->DB_Query();
+ 
+         // Check if everything went OK
+ 
+         if (count($results) == 0) {
+             self::$RC = -20;
+             self::$RC_Msg = self::$Return_Codes[self::$RC];
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);
+         }
+ 
+ 
+         if ($results[0] == "error") {
+ 
+             switch ($results[1]) {
+ 
+                 case 1054:                 // invalid column name     
+                 case 1064:                 // SQL syntax error
+                     self::$RC = -6;
+                     self::$RC_Msg = $results[2];
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
+ 
+                 default:                    // other errors
+                     self::$RC = -999;
+                     self::$RC_Msg = $database->Get_Error_Message();
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+             }
+         }
+ 
+ 
+         // process the data and return the result
+ 
+         self::$RC = 0;
+ 
+         foreach ($results as $result => $value) {
+  
+             array_push(self::$List_Array, $value["Localite"]);
+ 
+             self::$RC++;      // the number of records = last $value (index number) + 1
+ 
+         }
+ 
+ 
+         return array(self::$RC, self::$RC_Msg, self::$List_Array);
+     }
+
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
+     *    Retourne la liste des balades par lieu (localites ou commune)
+     * 
+     *      Input     : Database "plf_cgt_itineraires"
+     *     
+     *      Appel     : Get_Itineraires_List_Balades_By_Location(<type de lieu>, <nom du lieu>)
+     * 
+     *      Arguments : <type de lieu> -> C pour Commune
+     *                                    L pour Localite
+     * 
+     *      Output    : Array contenant 3 éléments
+     *                      Array[0] : Code retour.
+     *                                  xx : entier >= 0 contenant le nombre d'itinéraires 
+     *                                  autres : voir le tableau
+     *                      Array[1] : Message d'erreur éventuel (voir tableau)
+     *                      Array[2] : Array qui contient la liste des balades avec leur ID dans la base.
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+     public static function Get_Itineraires_List_By_Location(string $type_lieu, string $Location): array
+     {
+ 
+ 
+         self::$RC = 0;
+         self::$RC_Msg = "";
+         self::$List_Array = [];
+ 
+ 
+         // Make a new database connection and test if connection is OK
+ 
+         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+ 
+         $db_conn = $database->getConnection();
+ 
+         if ($db_conn == false) {
+ 
+             self::$RC = -13;
+             self::$RC_Msg = $database->Get_Error_Message();
+ 
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+         }
+ 
+ 
+         // Build SQL statement and pass it to the database and prccess the statement.
+ 
+         $gateway = new Functions_Gateway($database);
+ 
+         $where_Clause = "";
+
+         switch (strtoupper($type_lieu)) {
+            case "L":
+                $where_Clause = " WHERE localite = '" . $Location . "' "; 
+                break;
+            case "C":
+                $where_Clause = " WHERE Commune = '" . $Location . "' "; 
+                break;
+            default:    
+                self::$RC = -22;
+                self::$RC_Msg = "Argument Invalide.";
+                return array(self::$RC, self::$RC_Msg, self::$List_Array);
+            }
+
+
+         $sql_cmd = "SELECT itineraire_id, nom
+                     FROM $GLOBALS[cgt_itineraires]
+                     $where_Clause  
+                     ORDER BY Localite";
+ 
+         $gateway->set_Sql_Statement($sql_cmd);
+ 
+         $results = $gateway->DB_Query();
+ 
+         // Check if everything went OK
+ 
+         if (count($results) == 0) {
+             self::$RC = -20;
+             self::$RC_Msg = self::$Return_Codes[self::$RC];
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);
+         }
+ 
+ 
+         if ($results[0] == "error") {
+ 
+             switch ($results[1]) {
+ 
+                 case 1054:                 // invalid column name     
+                 case 1064:                 // SQL syntax error
+                     self::$RC = -6;
+                     self::$RC_Msg = $results[2];
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
+ 
+                 default:                    // other errors
+                     self::$RC = -999;
+                     self::$RC_Msg = $database->Get_Error_Message();
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+             }
+         }
+ 
+ 
+         // process the data and return the result
+ 
+         self::$RC = 0;
+ 
+         foreach ($results as $result => $value) {
+ 
+
+
+             array_push(self::$List_Array, [
+                "itineraire_id" => $value["itineraire_id"],
+                "nom" => $value["nom"],
+            ]);
+
+             self::$RC++;      // the number of records = last $value (index number) + 1
+ 
+         }
+ 
+ 
+         return array(self::$RC, self::$RC_Msg, self::$List_Array);
+     }
+
+
+
+
+
+
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
      *    Retourne toutes les informations concernant un itineraire
      * 
      *      Input     : Database "tbl_cgt_itineraires"
@@ -2018,18 +2352,6 @@ class PLF
             $SQL_Error = $e->errorInfo[1];
         }
 
-        // $gateway = new Functions_Gateway($database);
-
-        // $gateway->set_Sql_Statement($sql_cmd);
-
-        // $results = $gateway->DB_Query();
-
-        // // Check if everything went OK
-
-        // if (count($results) == 0) {
-
-        //     return false;
-        // }
 
         return true;
     }

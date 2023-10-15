@@ -10,7 +10,7 @@ $mydate = date("d-m-Y");
 echo $mydate;
 
 
-goto Test1_new;
+//goto Test1_new;
 //goto Test2_new;
 //goto Test3_new;
 //goto Test4_new;
@@ -23,6 +23,9 @@ goto Test1_new;
 //goto Test14_new;
 //goto Test15_new;
 //goto Test16_new;
+//goto Test17_new;
+//goto Test18_new;
+goto Test19_new;
 
 
 exit;
@@ -280,14 +283,49 @@ if ($List_Itineraires[0] < 0) {
 }
 
 
-
-
-
-
-
 Test16_new:
 
-$Itineraire_Info = PLF::Get_Itineraire_Infos(10);
+$List_Itineraires_Communes = PLF::Get_Itineraires_List_Communes();
+
+if ($List_Itineraires_Communes[0] < 0) {
+
+   echo $List_Itineraires_Communes[1];
+
+   //
+   // .... traitement de l'erreur
+   //
+}
+
+
+Test17_new:
+
+$List_Itineraires_Localites = PLF::Get_Itineraires_List_Localites();
+
+if ($List_Itineraires_Localites[0] < 0) {
+
+   echo $List_Itineraires_Localites[1];
+
+   //
+   // .... traitement de l'erreur
+   //
+}
+
+Test18_new:
+
+$List_Itineraires_By_Location = PLF::Get_Itineraires_List_By_Location("L", "Gerpinnes");
+
+if ($List_Itineraires_By_Location[0] < 0) {
+
+   echo $List_Itineraires_By_Location[1];
+
+   //
+   // .... traitement de l'erreur
+   //
+}
+
+Test19_new:
+
+$Itineraire_Info = PLF::Get_Itineraire_Infos(1648);
 
 if ($Itineraire_Info[0] < 0) {
 
@@ -298,7 +336,7 @@ if ($Itineraire_Info[0] < 0) {
    //
 }
 
-Test17_new:
+Test20_new:
 
 $lastRunTime = PLF::Get_LastRunTime();
 
