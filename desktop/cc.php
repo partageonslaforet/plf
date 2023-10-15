@@ -670,52 +670,84 @@ $LRT = PLF::Get_LastRunTime();
                     
                     function createMultiJson(territoriesNber){
                         $.ajax({
-                        type: 'GET',
-                        url: "assets/inc/php/createMultiJson_by_n.php",
-                        data: {territoriesNber:territoriesNber},
-                        
-                        success: function(response){
-                            console.log(response);
-                           
-                            if(lyrTerritories){
-                                lyrTerritories.remove();
-                                map.removeLayer(lyrTerritories);
-                            }
+                            type: 'GET',
+                            url: "assets/inc/php/createMultiJson_by_n.php",
+                            data: {territoriesNber:territoriesNber},
                             
-                            lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
-                            {style:styleTerritories,onEachFeature:processTerritories});
+                            success: function(response){
+                                console.log(response);
                             
-                                function styleTerritories (json) {
-                                return {
-                                    fillOpacity: 0.3,
-                                    weight: 4,
-                                    color:'#24445c'
-                                    };
-                                }
-                            
-                                function processTerritories (json,lyr){
-                                var att=json.properties;
+                                if (resultat[0]==-14){
+                                        document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
+                                        retour.classList.add('active');
+                                        message.classList.remove('active');
+                                        infoRetour.classList.remove('active');
+                                        squareOpen.classList.remove('active');
+                                        squareClose.classList.remove('active');
+                                        }
+                                    else {
+                                    console.log(lyrTerritories)
+                                        if(lyrTerritories){
+                                            lyrTerritories.remove();
+                                            map.removeLayer(lyrTerritories);
+                                        }
+                                        console.log(huntedNber)
+                                        lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
+                                        {style:styleTerritories,onEachFeature:processTerritories});
+                                        console.log(lyrTerritories)
+                                        
+                                        function styleTerritories (json) {
+                                            var att=json.properties;
+                                            for(i=0; i<huntedNber; i++){
+                                                console.log(att.Numero_Lot) 
+                                                console.log(dnfTerritoriesNber)
+                                                for(j=0;j<(dnfTerritoriesNber); j++){
+                                                    console.log(huntedTerritories[2][j]["DA_Numero"]);
+                                                    if(att.Numero_Lot == huntedTerritories[2][j]["DA_Numero"]){
+                                                        console.log("coucou")  
+                                                        if(huntedTerritories[2][j]["FERMETURE"]=="O"){  
+                                                            console.log("coucou1")   
+                                                            return {
+                                                                fillOpacity: 0.5,
+                                                                weight: 4, 
+                                                                color:'#ef3d33'
+                                                                };
+                                                        } else{
+                                                            return {
+                                                                fillOpacity: 0.5,
+                                                                weight: 4,
+                                                                color:'#fdef49'
+                                                            };
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            }
+                                        }       
                                 
-                                lyr.on('mouseover', function(){
-                                    lyr.setStyle({fillOpacity: 0.7})
-                                    lyr.bindTooltip('<div class="custom-popup">'+att.Territories_name+'br>'+att.Nomenclature);
-                                })
-                                lyr.on('mouseout', function(){
-                                    lyr.setStyle({fillOpacity: 0.3} );  
-                                    })    
-                                } 
-                            
-                            lyrTerritories.on('data:loaded',function(){
-                               // map.fitBounds(lyrTerritories.getBounds().pad(0));
-                                }).addTo(map);
+                                        function processTerritories (json,lyr){
+                                            var att=json.properties;
+                                            
+                                            lyr.on('mouseover', function(){
+                                                lyr.setStyle({fillOpacity: 0.7})
+                                                lyr.bindTooltip('<div class="custom-popup">'+att.Territories_name+'br>'+att.Nomenclature);
+                                            })
+                                            lyr.on('mouseout', function(){
+                                                lyr.setStyle({fillOpacity: 0.3} );  
+                                                })    
+                                        } 
                                 
+                                        lyrTerritories.on('data:loaded',function(){
+                                        // map.fitBounds(lyrTerritories.getBounds().pad(0));
+                                        }).addTo(map);
+                                    }    
+                            
                             }
-                        }) 
-                    }
+                        })
                     }
                 }
-            });
-         });
-    
-    })      
+            }
+        });
+    }) 
+})     
 </script>

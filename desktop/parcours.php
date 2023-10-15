@@ -112,9 +112,9 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     <div id="parcoursTrace"></div>
                     <div id="messageErreur"></div>
                 </div>
-            <div>
-                <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
-            </div>
+                <div>
+                <button id="btnRetour" onclick="window.location='../index.php';">RETOUR</button>
+                </div>
             </div>
         </div>
         <div id="calendarBtn">
@@ -456,7 +456,6 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     routeValue = listByRoute[j]["itineraire_id"]
                     break;
                 }
-                console.log("coucou")
                 messageErreur.classList.remove('active');
                 parcoursNom.classList.add('active');
                 
@@ -522,59 +521,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
                             }
                         }).on('loaded', function(e) {
                             map.fitBounds(e.target.getBounds().pad(1));
-                    }).addTo(map);
-                    
-
-            
-        // *********** MAP ELEVATION *********************************************
-          
-            
-            /*var elevation_options = {
-        
-            theme: "lime-theme",// Default chart colors: theme lime-theme, magenta-theme, ...
-            detached: false, // Chart container outside/inside map container
-            elevationDiv: "#elevation-div",// if (detached), the elevation chart container
-            autohide: true,// if (!detached) autohide chart profile on chart mouseleave
-            collapsed: false,// if (!detached) initial state of chart profile control
-            position: "bottomleft", // if (!detached) control position on one of map corners
-            closeBtn: true,// Toggle close icon visibility
-            followMarker: true,// Autoupdate map center on chart mouseover.
-            autofitBounds: false, // Autoupdate map bounds on chart update.
-            imperial: false,// Chart distance/elevation units.
-            reverseCoords: false,// [Lat, Long] vs [Long, Lat] points. (leaflet default: [Lat, Long])
-            acceleration: false,// Acceleration chart profile: true || "summary" || "disabled" || false
-            slope: false,// Slope chart profile: true || "summary" || "disabled" || false
-            speed: false,// Speed chart profile: true || "summary" || "disabled" || false
-            altitude: true, // Altitude chart profile: true || "summary" || "disabled" || false
-            time: false,// Display time info: true || "summary" || false
-            distance: true, // Display distance info: true || "summary" || false
-            summary: 'inline',   // Summary track info style: "inline" || "multiline" || false
-            downloadLink: 'false',    // Download link: "link" || false || "modal"
-            ruler: false,    // Toggle chart ruler filter
-            legend: true,// Toggle chart legend filter
-            almostOver: true,// Toggle "leaflet-almostover" integration
-            distanceMarkers: true,// Toggle "leaflet-distance-markers" integration
-            edgeScale: true,// Toggle "leaflet-edgescale" integration
-            hotline: false,// Toggle "leaflet-hotline" integration
-            timestamps: false,// Display track datetimes: true || false
-            waypoints: true,// Display track waypoints: true || "markers" || "dots" || false
-            wptLabels: true,// Toggle waypoint labels: true || "markers" || "dots" || false
-            preferCanvas: true,// Render chart profiles as Canvas or SVG Paths
-            
-            // Toggle custom waypoint icons: true || { associative array of <sym> tags } || false
-            wptIcons: {
-              '': L.divIcon({
-                    className: 'elevation-waypoint-marker',
-                    html: '<i class="elevation-waypoint-icon"></i>',
-                    iconSize: [30, 30],
-                    iconAnchor: [8, 30],
-                    }),
-                },
-            };
-          
-            controlElevation = L.control.elevation(elevation_options).addTo(map);
-            controlElevation.load(Url);*/
-           
+                    }).addTo(map);       
                 }   
                     
             })
@@ -778,7 +725,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
                                                 var att=json.properties;
                                                 lyr.on('mouseover', function(){
                                                     lyr.setStyle({fillOpacity: 0.7})
-                                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> '+att.Nom+'</h3></b><br>'+att.Numero_Lot);
+                                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center>N° de Territoire: <br>'+att.Numero_Lot+'</h3>');
                                                 })
                                                 lyr.on('mouseout', function(){
                                                     lyr.setStyle({fillOpacity: 0.3} );  
