@@ -3,12 +3,15 @@
 class CGT_Itineraires_Gateway_Step2
 {
 
+    private int $_sequence = 1;
+    private array $List_Itineraires;
 
     private PDO $conn;
 
     public function __construct(Database $database)
     {
         $this->conn = $database->getConnection();
+        $this->List_Itineraires = array();
 
     }
 
@@ -17,8 +20,32 @@ class CGT_Itineraires_Gateway_Step2
     public function New_Itineraire(array $data) {
 
 
+        if (in_array($data["nom"], $this->List_Itineraires) == true) {
+
+            // itineraire existe deja
+            $this->_sequence++;
+            CGT_Itineraires_Controller_Step2::__Increment_Duplicate_Itineraires();
+            array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for itineraire = " . mb_convert_encoding($data["nom"], 'Windows-1252', 'UTF-8')  . PHP_EOL]);
+
+        } else {
+            // nouvel itineraire
+            array_push($this->List_Itineraires, $data["nom"]);
+            $this->_sequence = 1;
+        }
+
+
+        // ajouter la séquence si plusieurs balades avec le même nom
+        $nom_balade = $data["nom"];
+        if ($this->_sequence > 1 ) {
+            $nom_balade = $data["nom"] . "(" . $this->_sequence . ")";
+        }
+
+
+
+
         $sql = "INSERT INTO " . $GLOBALS["cgt_itineraires_tmp"] . " (" .
                     " nom," .
+                    " SEQ, " .
                     " organisme," .
                     " localite," .
                     " commune," .
@@ -32,6 +59,7 @@ class CGT_Itineraires_Gateway_Step2
                     " gpx_url" .
                 "  ) VALUES (" .
                     " :nom," .
+                    " :SEQ," .
                     " :organisme," .
                     " :localite," .
                     " :commune," .
@@ -56,7 +84,8 @@ class CGT_Itineraires_Gateway_Step2
 
             $stmt = $this->conn->prepare($sql);
             
-            $stmt->bindValue(":nom", $data["nom"], PDO::PARAM_STR);
+            $stmt->bindValue(":nom", $nom_balade, PDO::PARAM_STR);
+            $stmt->bindValue(":SEQ", $this->_sequence, PDO::PARAM_INT);
             $stmt->bindValue(":organisme", empty($data["organisme"]) ? "" : $data["organisme"], PDO::PARAM_STR);
             $stmt->bindValue(":localite", empty($data["localite"]) ? "" : $data["localite"], PDO::PARAM_STR);
             $stmt->bindValue(":commune", empty($data["commune"]) ? "" : $data["commune"], PDO::PARAM_STR);
@@ -74,6 +103,7 @@ class CGT_Itineraires_Gateway_Step2
 
             CGT_Itineraires_Controller_Step2::__Increment_Total_Itineraires();
             //array_push(errorHandler::$Run_Information, ["Info", "new itineraire : name = " . mb_convert_encoding($data["nom"], 'Windows-1252', 'UTF-8') . PHP_EOL]);
+
             return $this->conn->lastInsertId();
 
         } catch (pdoException $e) {
@@ -82,10 +112,10 @@ class CGT_Itineraires_Gateway_Step2
 
                 switch ($SQL_Error) {
                     case 1062:
-                        CGT_Itineraires_Controller_Step2::__Increment_Duplicate_Itineraires();
-                        array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for itineraire = " . mb_convert_encoding($data["nom"], 'Windows-1252', 'UTF-8')  . PHP_EOL]);
                         
+                        $this->New_Itineraire($data);
                         break;
+
                     default:
                         throw new pdoDBException($SQL_Error, $e, "SQL Error : " . $e->getMessage() . " --- " . $this->rebuildSql($sql,$data));
 
@@ -121,6 +151,7 @@ class CGT_Itineraires_Gateway_Step2
         $sql = "CREATE TABLE $tablename (
                     `itineraire_id` INT NOT NULL AUTO_INCREMENT,
                     `nom` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+                    `SEQ` TINYINT NOT NULL,
                     `organisme` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `localite` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
                     `commune` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
@@ -134,8 +165,9 @@ class CGT_Itineraires_Gateway_Step2
                     `gpx_url` VARCHAR(200) DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
                     INDEX itineraire_id (itineraire_id),
                     INDEX commune (commune),
+                    INDEX localite (localite),
                     PRIMARY KEY (`itineraire_id`) USING BTREE,
-                    UNIQUE INDEX `uk_nom` (`nom`) USING BTREE)
+                    UNIQUE INDEX `uk_nom_seq` (`nom`, `seq`) USING BTREE)
             COLLATE='utf8mb4_unicode_ci'
             ENGINE=InnoDB;";
             
