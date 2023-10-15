@@ -101,7 +101,7 @@ $LRT = PLF::Get_LastRunTime();
                 <div id="ccSecretaire"></div>
             </div>
             <div id="btonClose">
-                <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
+                <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
             </div>
         </div>
         <div id="calendarBtn">
@@ -163,14 +163,19 @@ $LRT = PLF::Get_LastRunTime();
     var listArrayN = [];
     var listByCanton =[];
     var territoriesInfo = [] ;
+    var territoriesNber;
     var lyrTerritoriesCC;
     var lyrTerritories;
     var map;
     var territoireValue;
     var huntedTerritories =[];
+    var territoriesList=[];
+    var territoriesClosed = [];
+    var territoriesOpened = [];
     var dateValue;
     var formatDate;
     var ccNber;
+    var huntedNber;
     
     
     $(document).ready(function() {
@@ -626,6 +631,23 @@ $LRT = PLF::Get_LastRunTime();
                     huntedNber=(huntedTerritories[2].length);
                     console.log(huntedNber)
                
+
+                    for(i=0; i<huntedNber; i++){
+                        console.log(huntedTerritories[2][i]["FERMETURE"]);
+                        territory = huntedTerritories[2][i]["DA_Numero"];
+                        territoriesList.push(territory);
+                        if (huntedTerritories[2][i]["FERMETURE"]=="O"){
+                            territoriesClosed.push(territory)
+                        }
+                        else {
+                            territoriesOpened.push(territory)
+                        }
+                    }
+                                                
+                    console.log(territoriesClosed);
+                    console.log(territoriesOpened);
+
+
                     var tab=[]
                     var keys=[]
                     if(huntedNber>0){
@@ -636,8 +658,36 @@ $LRT = PLF::Get_LastRunTime();
                         }
                   
                     }
+                    var territoriesNberAll = huntedTerritories
+                        console.log(territoriesNberAll)
+                        console.log(territoireValue)
+                        territoriesNber = territoriesSelection (territoriesNberAll,territoireValue)        
+
+                        function territoriesSelection(territoriesNberAll,territoireValue){
+                            dnfTerritoriesNber= territoriesNberAll[2].length
+                            console.log(dnfTerritoriesNber)
+                            arhuntedTerritories = [];
+                            for (i=0; i<((dnfTerritoriesNber));i++){
+                                var dnfCode = huntedTerritories[2][i]["DA_Numero"].substring(0, 3);
+                                console.log(i);
+                                if(territoireValue == dnfCode ){
+                                    console.log(territoireValue)
+                                    console.log(dnfCode)
+                                    arhuntedTerritories.push(huntedTerritories[2][i]["DA_Numero"])
+                                    console.log(arhuntedTerritories)
+                                }        
+                            }
+                            
+                            huntedNber=(arhuntedTerritories.length);
+                            console.log(huntedNber)
+                        }
+
+                        console.log(territoriesNber)
+                        console.log(huntedNber)
+
+
                         
-                    var territoriesNber = territoriesNbers.join(',');
+                    territoriesNber = territoriesNbers.join(',');
                     console.log(territoriesNber)
                     var territoryNber = (territoriesNbers.length);
                     console.log(territoryNber)
@@ -675,8 +725,7 @@ $LRT = PLF::Get_LastRunTime();
                             data: {territoriesNber:territoriesNber},
                             
                             success: function(response){
-                                console.log(response);
-                            
+                                console.log(resultat);
                                 if (resultat[0]==-14){
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                                         retour.classList.add('active');
