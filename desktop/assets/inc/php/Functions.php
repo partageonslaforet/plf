@@ -1997,46 +1997,41 @@ class PLF
 
     // check if territoire exists
 
-    public static function __Check_If_Territoire_Exists($keyg): bool {
-
-        // Make a new database connection and test if connection is OK
-
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
-
-        $db_conn = $database->getConnection();
-
-        if ($db_conn == false) {
-
-            self::$RC = -13;
-            self::$RC_Msg = $database->Get_Error_Message();
-
-            try {$db_conn = null;} catch (pdoException $e) {}
-
-
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
- 
-
-        }
-
+    public static function __Check_If_Territoire_Exists($db_conn, $keyg): bool {
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $sql_cmd = "SELECT KEYG  
+        $sql_cmd = "SELECT count(*)  
                      FROM $GLOBALS[spw_tbl_territoires]  
                      WHERE KEYG = " .  "'" . $keyg . "'";
 
-        $gateway = new Functions_Gateway($database);
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
-
-        // Check if everything went OK
-
-        $rc_bool = true;
-        if (count($results) == 0) {
-            $rc_bool = false;
+        try {
+            $result = $db_conn->query($sql_cmd);
+            $count_Territoires = $result->fetchColumn();
+            
+            if ($count_Territoires > 0)  {
+                return true;
+            } else {
+                return false;
+            }
+        
+        } catch (PDOException $e) {
+            $SQL_Error = $e->errorInfo[1];
         }
+
+        // $gateway = new Functions_Gateway($database);
+
+        // $gateway->set_Sql_Statement($sql_cmd);
+
+        // $results = $gateway->DB_Query();
+
+        // // Check if everything went OK
+
+        // if (count($results) == 0) {
+
+        //     return false;
+        // }
 
         try {$db_conn = null;} catch (pdoException $e) {}
 

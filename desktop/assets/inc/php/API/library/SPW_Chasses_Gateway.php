@@ -18,7 +18,7 @@ class SPW_Chasses_Gateway
 
     public function New_Chasse(array $data) {
 
-        $Territoire_Exists = PLF::__Check_If_Territoire_Exists($data["KEYG"]);
+        $Territoire_Exists = PLF::__Check_If_Territoire_Exists($this->conn, $data["KEYG"]);
 
         if ( ! $Territoire_Exists) {
 

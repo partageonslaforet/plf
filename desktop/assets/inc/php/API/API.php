@@ -350,10 +350,10 @@ function Send_Run_logs_By_eMail(): void {
         $start_time = strtotime("18:30:00");
         $end_time = strtotime("19:10:00");
 
-        if ($cur_time < $start_time or $cur_time > $end_time) {
-            echo "Job ended without sending email. ";
-            return;
-        }
+        // if ($cur_time < $start_time or $cur_time > $end_time) {
+        //     echo "Job ended without sending email. ";
+        //     return;
+        // }
     }
 
 
