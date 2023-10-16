@@ -2267,4 +2267,126 @@ class PLF
 
         return true;
     }
+
+
+
+
+
+
+
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
+     *    Retourne la liste des itineraires
+     * 
+     *      Input     : Database "plf_cgt_itineraires"
+     *     
+     *      Appel     : Get_Itineraires_List()
+     * 
+     *      Arguments : néant
+     * 
+     *      Output    : Array contenant 3 éléments
+     *                      Array[0] : Code retour.
+     *                                  xx : entier >= 0 contenant le nombre d'itinéraires 
+     *                                  autres : voir le tableau
+     *                      Array[1] : Message d'erreur éventuel (voir tableau)
+     *                      Array[2] : Array indexé qui contient chacun une associate array
+     *                                      TRI SUR "nom"
+     *                                 Structure - Array[<index>] = ["Itineraire_id   = <Itineraire_id>, 
+     *                                                               "Itineraire_nom = <Nom>]
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+     public static function Get_Itineraires_List(): array
+     {
+ 
+ 
+         self::$RC = 0;
+         self::$RC_Msg = "";
+         self::$List_Array = [];
+ 
+ 
+         // Make a new database connection and test if connection is OK
+ 
+         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+ 
+         $db_conn = $database->getConnection();
+ 
+         if ($db_conn == false) {
+ 
+             self::$RC = -13;
+             self::$RC_Msg = $database->Get_Error_Message();
+ 
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+         }
+ 
+ 
+         // Build SQL statement and pass it to the database and prccess the statement.
+ 
+         $gateway = new Functions_Gateway($database);
+ 
+         $sql_cmd = "SELECT itineraire_id, nom, localite, commune, gpx_url
+                     FROM $GLOBALS[cgt_itineraires]  
+                     ORDER BY commune";
+ 
+         $gateway->set_Sql_Statement($sql_cmd);
+ 
+         $results = $gateway->DB_Query();
+ 
+         // Check if everything went OK
+ 
+         if (count($results) == 0) {
+             self::$RC = -20;
+             self::$RC_Msg = self::$Return_Codes[self::$RC];
+             return array(self::$RC, self::$RC_Msg, self::$List_Array);
+         }
+ 
+ 
+         if ($results[0] == "error") {
+ 
+             switch ($results[1]) {
+ 
+                 case 1054:                 // invalid column name     
+                 case 1064:                 // SQL syntax error
+                     self::$RC = -6;
+                     self::$RC_Msg = $results[2];
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
+ 
+                 default:                    // other errors
+                     self::$RC = -999;
+                     self::$RC_Msg = $database->Get_Error_Message();
+                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+             }
+         }
+ 
+ 
+         // process the data and return the result
+ 
+         self::$RC = 0;
+ 
+         foreach ($results as $result => $value) {
+ 
+             $has_gpx = true;
+             if (empty($value["gpx_url"]) == true ) {
+                 $has_gpx = false;
+             }
+ 
+             array_push(self::$List_Array, [
+                 "itineraire_id" => $value["itineraire_id"],
+                 "nom" => $value["nom"],
+                 "localite" => $value["localite"],
+                 "commune" => $value["commune"],
+                 "has_gpx" => $has_gpx,
+             ]);
+ 
+             self::$RC++;      // the number of records = last $value (index number) + 1
+ 
+         }
+ 
+ 
+         return array(self::$RC, self::$RC_Msg, self::$List_Array);
+     }
+ 
+ 
 }
