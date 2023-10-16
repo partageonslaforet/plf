@@ -363,7 +363,7 @@ $LRT = PLF::Get_LastRunTime();
                                             console.log(att.Numero_Lot);
                                             console.log(huntedNber);
                                             for(i=0; i<huntedNber; i++){
-                                            console.log(huntedTerritories[2][i]["DA_Numero"]);
+                                            //console.log(huntedTerritories[2][i]["DA_Numero"]);
            
                                                if(att.Numero_Lot==huntedTerritories[2][i]["DA_Numero"]){
                                                 console.log(att.Numero_Lot);
@@ -383,7 +383,6 @@ $LRT = PLF::Get_LastRunTime();
                                                             };
                                                         }
                                                     }
-                                                    console.log("erreur")
                                                 }
                                             }
                                                 
