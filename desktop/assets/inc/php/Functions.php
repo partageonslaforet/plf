@@ -1007,6 +1007,7 @@ class PLF
 
             self::$List_Array[$value["ABREVIATION_CC"]] = [
                 "ugc"=> $value["ABREVIATION_CC"],
+                "nugc_cc"=> $value["nugc_CC"],
                 "nom" => $value["DENOMINATION_CC"],
                 "rue" => $value["RUE_CC"],
                 "numero" => $value["NUM_CC"],
