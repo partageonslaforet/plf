@@ -21,11 +21,12 @@ echo $mydate;
 //goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
-//goto Test15_new;
+goto Test15_new;
 //goto Test16_new;
 //goto Test17_new;
 //goto Test18_new;
-goto Test19_new;
+//goto Test19_new;
+//goto Test20_new;
 
 
 exit;
@@ -269,13 +270,14 @@ if ($Canton_Geometry[0] < 0) {
 
 
 
+
 Test15_new:
 
-$List_Itineraires = PLF::Get_Itineraires_List();
+$List_Itineraires_List_Lieu = PLF::Get_Itineraires_List_Lieu("L");
 
-if ($List_Itineraires[0] < 0) {
+if ($List_Itineraires_List_Lieu[0] < 0) {
 
-   echo $List_Itineraires[1];
+   echo $List_Itineraires_List_Lieu[1];
 
    //
    // .... traitement de l'erreur
@@ -283,13 +285,16 @@ if ($List_Itineraires[0] < 0) {
 }
 
 
+
+
+
 Test16_new:
 
-$List_Itineraires_Communes = PLF::Get_Itineraires_List_Communes();
+$List_Itineraires_List_Lieu = PLF::Get_Itineraires_List_Lieu("C");
 
-if ($List_Itineraires_Communes[0] < 0) {
+if ($List_Itineraires_List_Lieu[0] < 0) {
 
-   echo $List_Itineraires_Communes[1];
+   echo $List_Itineraires_List_Lieu[1];
 
    //
    // .... traitement de l'erreur
@@ -298,19 +303,6 @@ if ($List_Itineraires_Communes[0] < 0) {
 
 
 Test17_new:
-
-$List_Itineraires_Localites = PLF::Get_Itineraires_List_Localites();
-
-if ($List_Itineraires_Localites[0] < 0) {
-
-   echo $List_Itineraires_Localites[1];
-
-   //
-   // .... traitement de l'erreur
-   //
-}
-
-Test18_new:
 
 $List_Itineraires_By_Location = PLF::Get_Itineraires_List_By_Location("L", "Gerpinnes");
 
@@ -322,6 +314,22 @@ if ($List_Itineraires_By_Location[0] < 0) {
    // .... traitement de l'erreur
    //
 }
+
+
+Test18_new:
+
+$List_Itineraires_By_Location = PLF::Get_Itineraires_List_By_Location("C", "habay");
+
+if ($List_Itineraires_By_Location[0] < 0) {
+
+   echo $List_Itineraires_By_Location[1];
+
+   //
+   // .... traitement de l'erreur
+   //
+}
+
+
 
 Test19_new:
 
