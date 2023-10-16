@@ -459,7 +459,7 @@ ul.ui-menu { max-height: 420px !important; }
     color: #34495e;
     text-align: center;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     margin-top: 1rem;
     background-color: rgba(255,255,255,0.6);
@@ -469,8 +469,9 @@ ul.ui-menu { max-height: 420px !important; }
     width: 20%;
     display: grid;
     top: 20%;
-    padding: 10px 0px;
-     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+    padding-top: 10px;
+    padding-bottom: 15px;
+    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
     inset 2px 2px 3px rgba(36,68,92,0.25),
     inset 0px 0px 5px rgba(36,68,92,0.5);
     border-radius: 10px;
@@ -482,8 +483,6 @@ ul.ui-menu { max-height: 420px !important; }
     margin-left:auto;
     width:80%;
     border-radius:5px;
-    margin-top: 5px;
-    padding-top: 5px;
 }
 
 #squareOpen, #squareClose{
@@ -495,6 +494,7 @@ ul.ui-menu { max-height: 420px !important; }
     height: 20px;
     Padding:0 0 0 5%;
     visibility:visible;
+    margin-top: 5px;
 }
     
 #squareClose.active{

@@ -176,6 +176,8 @@ $LRT = PLF::Get_LastRunTime();
     var territoriesList = [];
     var territoriesClosed = [];
     var territoriesOpened = [];
+    var ccHuntingList = [];
+    var arCCinfo = [];
     var dateValue;
     var formatDate;
     var ccNber;
@@ -425,7 +427,7 @@ $LRT = PLF::Get_LastRunTime();
             }
 
             document.getElementById("messageErreur").innerHTML = "";
-            var arCCinfo = [];
+            arCCinfo = [];
 
             var territoireName = $("#txtFindCCName").val().toLowerCase();
             document.getElementById("txtFindCCName").value = "";
@@ -454,6 +456,7 @@ $LRT = PLF::Get_LastRunTime();
                         console.log(territoireValue)
                         arCCinfo.push(listByCC[i]["nom"],
                             listByCC[i]["ugc"],
+                            listByCC[i]["nugc_cc"],
                             listByCC[i]["numero"],
                             listByCC[i]["rue"],
                             listByCC[i]["CP"],
@@ -473,6 +476,7 @@ $LRT = PLF::Get_LastRunTime();
 
 
                 console.log(arCCinfo);
+                console.log(arCCinfo[2]);
                 console.log(territoireValue);
 
                 // ************ SEARCH CC TERRITORIES ************************************************************
@@ -517,7 +521,7 @@ $LRT = PLF::Get_LastRunTime();
                                     lyr.setStyle({
                                         fillOpacity: 0.7
                                     })
-                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> ' + att.Nom + '</h3></b><br>' + att.Numero_Lot);
+                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> N° de Territoire : <br>' + att.Numero_Lot);
                                 })
                                 lyr.on('mouseout', function() {
                                     lyr.setStyle({
@@ -540,21 +544,9 @@ $LRT = PLF::Get_LastRunTime();
                                 //$('#ccInfo').html('<h3><center><b>CONSEIL CYNEGETIQUE</b></h3><h3 style="color:#fe7924";><b><center>');
                                 $('#ccNbre').html(ccNber + ' territoires gérés');
                                 $('#ccFullName').html(arCCinfo[0] + '</br> (' + arCCinfo[1] + ')');
-                                $('#ccAddress').html(arCCinfo[2] + ', ' + arCCinfo[3] + '</br>' + arCCinfo[4] + ' ' + arCCinfo[5]);
-                                $('#ccPresident').html('President : ' + arCCinfo[7] + ' ' + arCCinfo[6]);
-                                $('#ccSecretaire').html('Secrétaire : ' + arCCinfo[9] + ' ' + arCCinfo[8]);
-                                //$('#ccTerritoriesNber').html('Nombre de territoires : '+territoryCC.length);
-                                //var lat = (arCCInfo[6]);
-                                //var long = (arCCInfo[7]);
-
-
-                                /*var dnfIcon = L.icon({
-                                    iconUrl: 'assets/img/Logo_dnf.png',
-                                    iconSize:     [25, 25], // size of the icon
-                                });
-                                marker = new L.marker([lat,long], {icon: dnfIcon});
-                                map.addLayer(marker);*/
-
+                                $('#ccAddress').html(arCCinfo[3] + ', ' + arCCinfo[4] + '</br>' + arCCinfo[5] + ' ' + arCCinfo[6]);
+                                $('#ccPresident').html('President : ' + arCCinfo[8] + ' ' + arCCinfo[7]);
+                                $('#ccSecretaire').html('Secrétaire : ' + arCCinfo[10] + ' ' + arCCinfo[9]);
                             }).addTo(map);
 
                         }
@@ -562,7 +554,6 @@ $LRT = PLF::Get_LastRunTime();
                 });
             }
         })
-
 
 
         // ************ POPUP CALENDAR ************************************************************
@@ -575,10 +566,12 @@ $LRT = PLF::Get_LastRunTime();
         function showPopup() {
             popup.style.display = 'block';
             search.style.display = 'none';
+            message.style.display = 'block';
         }
 
         function hidePopup() {
             popup.style.display = 'none';
+            message.style.display = 'none';
             search.style.display = 'block';
             message.classList.remove('active');
             retour.classList.remove('active');
@@ -658,7 +651,7 @@ $LRT = PLF::Get_LastRunTime();
 
 
                         for (i = 0; i < huntedNber; i++) {
-                            console.log(huntedTerritories[2][i]["FERMETURE"]);
+                            //console.log(huntedTerritories[2][i]["FERMETURE"]);
                             territory = huntedTerritories[2][i]["DA_Numero"];
                             territoriesList.push(territory);
                             if (huntedTerritories[2][i]["FERMETURE"] == "O") {
@@ -667,12 +660,21 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                         }
-
+                        console.log(territoriesList);
                         console.log(territoriesClosed);
                         console.log(territoriesOpened);
+                        console.log(arCCinfo[2]);
+                        for (i=0; i<territoriesList.length;i++){
+                            console.log(huntedTerritories[2][i]["DA_Numero"])
+                            if(arCCinfo[2] == huntedTerritories[2][i]["NUGC"]){
+                               
+                                ccHuntingList.push(huntedTerritories[2][i]["DA_Numero"])
+                            }
 
+                        }
+                        console.log(ccHuntingList)
 
-                        var tab = []
+                        /*var tab = []
                         var keys = []
                         if (huntedNber > 0) {
 
@@ -707,29 +709,17 @@ $LRT = PLF::Get_LastRunTime();
                         }
 
                         console.log(territoriesNber)
-                        console.log(huntedNber)
+                        console.log(huntedNber)*/
 
 
-
-                        territoriesNber = territoriesNbers.join(',');
+                        huntedNbers = (ccHuntingList.length);
+                        territoriesNber = ccHuntingList.join(',');
                         console.log(territoriesNber)
-                        var territoryNber = (territoriesNbers.length);
+                        var territoryNber = (ccHuntingList.length);
                         console.log(territoryNber)
 
-                        const arTerNber = territoriesNber.split(/,/);
-                        var territoriesNbersCC = [];
-                        for (i = 0; i < territoryNber; i++) {
-                            codeCC = arTerNber[i]
-                            console.log(codeCC);
-                            //code= codeCC.substr(0, 3)
-                            //console.log(code);
-                            if (codeCC == territoireValue) {
-                                territoriesNbersCC.push(codeCC)
-                            }
-                        }
-
-                        if (huntedNber > 0) {
-                            document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le " + formatDate;
+                        if (huntedNbers > 0) {
+                            document.getElementById("retour").innerHTML = huntedNbers + " territoires chassés le " + formatDate;
                             retour.classList.add('active');
                             message.classList.add('active');
                             infoRetour.classList.add('active');
@@ -756,9 +746,6 @@ $LRT = PLF::Get_LastRunTime();
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                                         retour.classList.add('active');
                                         message.classList.remove('active');
-                                        infoRetour.classList.remove('active');
-                                        squareOpen.classList.remove('active');
-                                        squareClose.classList.remove('active');
                                     } else {
                                         console.log(lyrTerritories)
                                         if (lyrTerritories) {
@@ -771,33 +758,33 @@ $LRT = PLF::Get_LastRunTime();
                                             onEachFeature: processTerritories
                                         });
                                         console.log(lyrTerritories)
+                                        console.log(huntedTerritories)
+                                        console.log(huntedNber)
 
                                         function styleTerritories(json) {
                                             var att = json.properties;
+                                            console.log(att.Numero_Lot)
                                             for (i = 0; i < huntedNber; i++) {
-                                                console.log(att.Numero_Lot)
-                                                console.log(dnfTerritoriesNber)
-                                                for (j = 0; j < (dnfTerritoriesNber); j++) {
-                                                    console.log(huntedTerritories[2][j]["DA_Numero"]);
-                                                    if (att.Numero_Lot == huntedTerritories[2][j]["DA_Numero"]) {
-                                                        console.log("coucou")
-                                                        if (huntedTerritories[2][j]["FERMETURE"] == "O") {
-                                                            console.log("coucou1")
-                                                            return {
-                                                                fillOpacity: 0.5,
-                                                                weight: 4,
-                                                                color: '#ef3d33'
-                                                            };
-                                                        } else {
-                                                            return {
-                                                                fillOpacity: 0.5,
-                                                                weight: 4,
-                                                                color: '#fdef49'
-                                                            };
-                                                        }
+                                                
+                                                console.log(huntedTerritories[2][i]["DA_Numero"]);
+                                                if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
+                                                    console.log("coucou")
+                                                    if (huntedTerritories[2][i]["FERMETURE"] == "O") {
+                                                        console.log("coucou1")
+                                                        return {
+                                                            fillOpacity: 0.5,
+                                                            weight: 4,
+                                                            color: '#ef3d33'
+                                                        };
+                                                    
+                                                    } else {
+                                                        return {
+                                                            fillOpacity: 0.5,
+                                                            weight: 4,
+                                                            color: '#fdef49'
+                                                        };
                                                     }
                                                 }
-
                                             }
                                         }
 
@@ -808,7 +795,7 @@ $LRT = PLF::Get_LastRunTime();
                                                 lyr.setStyle({
                                                     fillOpacity: 0.7
                                                 })
-                                                lyr.bindTooltip('<div class="custom-popup">' + att.Territories_name + 'br>' + att.Nomenclature);
+                                                lyr.bindTooltip('<h3 style="color:#2c3e50"><center>N° de Territoire: <br>' + att.Numero_Lot + '</h3>');
                                             })
                                             lyr.on('mouseout', function() {
                                                 lyr.setStyle({
