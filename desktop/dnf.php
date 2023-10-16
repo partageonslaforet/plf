@@ -108,7 +108,7 @@ $LRT = PLF::Get_LastRunTime();
                     <div id="messageErreur"></div>
                 </div>
             </div>
-            <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
+            <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
         </div>
         <div id="calendarBtn">
             <a id="calendar"><i class="fa fa-calendar fa-2x" title="CLIQUEZ"></i></a>
@@ -136,13 +136,15 @@ $LRT = PLF::Get_LastRunTime();
         </div>
         <div id="message">
             <div id="retour"></div>
-            <div id="squareOpen">
-                <i class='fa-solid fa-square'></i>
-                <span>Chemins ouverts</span>
-            </div>
-            <div id="squareClose">
-                <i class='fa-solid fa-square'></i>
-                <span>Chemins fermés</span>
+            <div id="infoRetour">
+                <div id="squareOpen">
+                    <i class='fa-solid fa-square'></i>
+                    <span>Chemins ouverts</span>
+                </div>
+                <div id="squareClose">
+                    <i class='fa-solid fa-square'></i>
+                    <span>Chemins fermés</span>
+                </div>
             </div>
         </div>
         <container id ="Container"><center>
@@ -158,12 +160,15 @@ $LRT = PLF::Get_LastRunTime();
     var listTerritories = [];
     var listHuntingDates =[];
     var huntingDates = [];
+    var huntedTerritories =[];
     var territoriesListByCanton = [];
+    var arhuntedTerritories = [];
     var arTerritoriesNber = [];
     var listArrayN = [];
     var listByCanton =[];
     var territoriesInfo = [] ;
     var territoriesNbers = [] ;
+    var territoriesList = [];
     var lyrTerritories;
     var lyrTerritoriesDnf;
     var map;
@@ -172,8 +177,9 @@ $LRT = PLF::Get_LastRunTime();
     var territoriesCheck;
     var territoireName;
     var territoriesNbersDnf =[];
+    var dnfTerritoriesNber;
     
-    $(document).ready(function() {
+$(document).ready(function() {
        
         
     // ************ MAP INITIALIZATION ************************************************************
@@ -189,21 +195,23 @@ $LRT = PLF::Get_LastRunTime();
     //ctlZoomslider = L.control.zoomslider({position:'topleft'}).addTo(map);
     //ctlMeasure = L.control.polylineMeasure({position:'topleft'}).addTo(map);  
     
-        // ************ LOCALISATION FUNCTION *********************************************************
-    
-           /* L.control.locate({
-                position: 'topleft',
-                strings:{
-                    title:"Localisez-moi",
-                },
-                flyTo:true,
-                initialZoomLevel:15,
-                clickBehavior:{inView: 'stop', outOfView: 'setView', inViewNotFollowing: 'inView'},
-                returnToPrevBounds:true
-            }).addTo(map);*/
-            
-          // ************ LAYERS INITIALIZATION *******************************************************
-    
+    // ************ LOCALISATION FUNCTION *********************************************************
+
+        /* L.control.locate({
+            position: 'topleft',
+            strings:{
+                title:"Localisez-moi",
+            },
+            flyTo:true,
+            initialZoomLevel:15,
+            clickBehavior:{inView: 'stop', outOfView: 'setView', inViewNotFollowing: 'inView'},
+            returnToPrevBounds:true
+        }).addTo(map);*/
+
+    // ************ LEAFLET INITIALIZATION *******************************************************
+     
+        // ************ LAYERS INITIALIZATION *******************************************************
+        
             var lyrOSM = L.tileLayer.provider('OpenStreetMap.France');
             var lyrmagnifiedTiles = L.tileLayer.provider('OpenStreetMap.France');
             var lyrCyclo = L.tileLayer.provider('CyclOSM');
@@ -212,55 +220,60 @@ $LRT = PLF::Get_LastRunTime();
                 attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
                 });
             var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-             
+                
             var baseLayers = {
             "osm":lyrOSM,
             "Satellite":lyrEsri_WorldImagery,
             "Altitude":lyrOpenTopoMap,
             "Cyclo":lyrCyclo
             };
-           
-           var overlays = {
-               
+            
+            var overlays = {
+                
                 };
-    
+
             L.control.layers(baseLayers,overlays).addTo(map);
-    
+
         // ************ MINIMAP INITIALIZATION *******************************************************
-    
+
             var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    		var osmAttrib='Map data &copy; OpenStreetMap contributors';
-    		
+            var osmAttrib='Map data &copy; OpenStreetMap contributors';
+            
             var osm2 = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 10, attribution: osmAttrib,  });
             var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true,position: 'bottomright',zoomControl: false }).addTo(map);
             
-         // *********** LEAFLET METEO **************************************************
+            // *********** LEAFLET METEO **************************************************
 
             //var osm = new L.TileLayer(osmUrl, {
-        	//	minZoom: 6,
-        	//	maxZoom: 12
-        	//});
-        	//map.addLayer(osm);
+            //	minZoom: 6,
+            //	maxZoom: 12
+            //});
+            //map.addLayer(osm);
         
             L.control.rainviewer({
-        		position: 'bottomright',
-        		nextButtonText: '>',
-        		playStopButtonText: 'Start/Stop',
-        		prevButtonText: '<',
-        		positionSliderLabelText: "Time:",
-        		opacitySliderLabelText: "Opacity:",
-        		animationInterval: 500,
-        		opacity: 0.5
-        	}).addTo(map);
+                position: 'bottomright',
+                nextButtonText: '>',
+                playStopButtonText: 'Start/Stop',
+                prevButtonText: '<',
+                positionSliderLabelText: "Time:",
+                opacitySliderLabelText: "Opacity:",
+                animationInterval: 500,
+                opacity: 0.5
+            }).addTo(map);
         	
   
+    // ************ DNF SEARCH CODE************************************************************       
+
     	// ************ LIST OF CANTON NAME ************************************************************
    
         listByCantonBt = <?php echo json_encode($List_Canton);?>;
+        listTerritories =<?php echo json_encode($List_Territoires[2]);?>;
+        listTerritoriesNb=listTerritories.length;
+        console.log(listTerritoriesNb)
         var listByCanton = Object.values(listByCantonBt[2])
         var cantonNbre = listByCanton.length;
         console.log(listByCanton);
-        for(i=0; i<cantonNbre; i++){    
+        for(i=0; i<cantonNbre; i++){     
             
             if(!arTerritoriesNber.includes(listByCanton[i]["nom"])){
                 arTerritoriesNber.push(listByCanton[i]["nom"]); 
@@ -381,8 +394,7 @@ $LRT = PLF::Get_LastRunTime();
                     success: function(response){
                         console.log(response);
                         if(typeof response === 'undefined'){
-                            alert("erreur");
-                                
+                            alert("erreur");    
                             } else {
                                 console.log(lyrTerritoriesDnf)
                                 if(lyrTerritoriesDnf){
@@ -398,7 +410,8 @@ $LRT = PLF::Get_LastRunTime();
                                     function styleTerritories (json) {
                                         return {
                                             fillOpacity: 0.3,
-                                            weight: 4,
+                                            weight: 2,
+                                            fillColor:'#fe7924',
                                             color:'#fe7924'
                                             };
                                     }
@@ -408,7 +421,7 @@ $LRT = PLF::Get_LastRunTime();
                                         cantonNber=cantonNber+1 
                                         lyr.on('mouseover', function(){
                                             lyr.setStyle({fillOpacity: 0.7})
-                                            lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> '+att.Nom+'</h3></b><br>'+att.Numero_Lot);
+                                            lyr.bindTooltip('<h3 style="color:#2c3e50"><center>N° de Territoire: <br>'+att.Numero_Lot+'</h3>');
                                         })
                                         lyr.on('mouseout', function(){
                                             lyr.setStyle({fillOpacity: 0.3} );  
@@ -450,15 +463,9 @@ $LRT = PLF::Get_LastRunTime();
                                 }).addTo(map);
                                     
                             }  
-                        }
-                    });
-                        
-                
-                
-               
-            
-                   
-                   
+                    }
+                });
+                                          
                 // ********** FUNCTIONS TERRITORIES *********************************************************************
     
                     function styleTerritories (json) {
@@ -472,43 +479,43 @@ $LRT = PLF::Get_LastRunTime();
                     function processTerritories (json,lyr){
                         var att=json.properties;
                         lyr.on('mouseover', function(){
-                        lyr.setStyle({fillOpacity: 0.5})
-                        lyr.bindTooltip('<div class="custom-popup">'+att.Territories_name+'<br>'+att.Nomenclature+'</div>');
-                    })
+                            lyr.setStyle({fillOpacity: 0.5})
+                            lyr.bindTooltip('<div class="custom-popup" N° du territoire : <br>'+att.Nomenclature+'</div>');
+                        })
                         
-                    lyr.on('mouseout', function(){
-                        lyr.setStyle({fillOpacity: 0.3} );
-                        $('#divTerritoriesData1').html('');     
-                    })    
-                }    
+                        lyr.on('mouseout', function(){
+                            lyr.setStyle({fillOpacity: 0.3} );
+                            $('#divTerritoriesData1').html('');     
+                        })    
+                    }    
             }   
         })       
         
-         // ************ POPUP CALENDAR ************************************************************
+        // ************ POPUP CALENDAR ************************************************************
       
-          const popup = document.getElementById('popup');
-          const closebtn = document.getElementById('closebtn');
-          const search = document.getElementById('calendarBtn');
-          
-          function showPopup(){
-              popup.style.display = 'block';
-              search.style.display = 'none';
-          }
-          
-          function hidePopup(){
+        const popup = document.getElementById('popup');
+        const closebtn = document.getElementById('closebtn');
+        const search = document.getElementById('calendarBtn');
+        
+        function showPopup(){
+            popup.style.display = 'block';
+            search.style.display = 'none';
+        }
+        
+        function hidePopup(){
             popup.style.display = 'none';
             search.style.display = 'block';
             message.classList.remove('active');
             retour.classList.remove('active');
             squareOpen.classList.remove('active');
             squareClose.classList.remove('active');
-          }
-          
-          calendar.addEventListener('click', showPopup);
-          
-          closebtn.addEventListener('click', hidePopup);
-          
-          window.addEventListener('click', (event) =>{
+            }
+        
+        calendar.addEventListener('click', showPopup);
+        
+        closebtn.addEventListener('click', hidePopup);
+        
+        window.addEventListener('click', (event) =>{
             if (event.target === popup){
                 hidePopup();
             }
@@ -517,7 +524,7 @@ $LRT = PLF::Get_LastRunTime();
       
     
          // *************** DATE SELECTION ***********************************************************
-         var cookieNber= "<?php echo $file_suffix; ?>";
+        var cookieNber= "<?php echo $file_suffix; ?>";
         lRT = <?php echo json_encode($LRT);?>;
         lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
         lRTEUR = dayjs(lRTUS,'DD-MMM-YYYY HH:mm')
@@ -525,7 +532,7 @@ $LRT = PLF::Get_LastRunTime();
         
         document.getElementById("maj").innerHTML = "Dernière màj : "+lRTBE;
          
-         $("#btonSearchDate").click(function(){
+        $("#btonSearchDate").click(function(){
             if (lyrTerritories){
                     lyrTerritories.remove();
                     map.removeLayer(lyrTerritories);
@@ -545,130 +552,173 @@ $LRT = PLF::Get_LastRunTime();
                 // *************** SETTINGS ***********************************************************
                  
                 document.getElementById("retour").innerHTML = "";
-                var huntedTerritories =[];
+                
                 var huntedTerritoriesList =[];
                 var huntedNber=[];
                 var territoriesNbers=[];
+                var territoriesClosed = [];
+                var territoriesOpened = [];
+                var territoriesList = [];
                 
-                 // ************ SEARCH HUNTING DATES ************************************************************
-                    $.ajax({
+                // ************ SEARCH HUNTING DATES ************************************************************
+                $.ajax({
                     type: 'GET',
                     url: "assets/inc/php/hunting_dates_search_by_date.php",
                     data: "formatDate="+formatDate,
                 
-                        success: function(response){
-                            resultat = JSON.parse(response);
-                            if(response =="Pas de chasse pour cette date."){
-                                document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
-                                retour.classList.add('active');
+                    success: function(response){
+                        console.log(response);
+                        resultat = JSON.parse(response);
+                        console.log(resultat)
+                        if (resultat[0]==-14){
+                            document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
+                            retour.classList.add('active');
+                            message.classList.add('active');
+                            infoRetour.classList.remove('active');
+                            squareOpen.classList.remove('active');
+                            squareClose.classList.remove('active');
+                        }else{
+                            huntedTerritories = JSON.parse(response);
+                            console.log(huntedTerritories)
+                            huntedNber=(huntedTerritories[2].length);
+                            console.log(huntedNber)
+
+                            for(i=0; i<huntedNber; i++){
+                                console.log(huntedTerritories[2][i]["FERMETURE"]);
+                                territory = huntedTerritories[2][i]["DA_Numero"];
+                                territoriesList.push(territory);
+                                if (huntedTerritories[2][i]["FERMETURE"]=="O"){
+                                    territoriesClosed.push(territory)
+                                }
+                                else {
+                                    territoriesOpened.push(territory)
+                                }
                             }
-                            else {
-                                huntedTerritories = JSON.parse(response);
-                                console.log(huntedTerritories)
+                                                       
+                            console.log(territoriesClosed);
+                            console.log(territoriesOpened);
+                    
+                            var territoriesNberAll = huntedTerritories
+                            console.log(territoriesNberAll)
+                            console.log(territoireValue)
+                            territoriesNber = territoriesSelection (territoriesNberAll,territoireValue)        
+
+                            function territoriesSelection(territoriesNberAll,territoireValue){
+                                dnfTerritoriesNber= territoriesNberAll[2].length
+                                console.log(dnfTerritoriesNber)
+                                arhuntedTerritories = [];
+                                for (i=0; i<((dnfTerritoriesNber));i++){
+                                    var dnfCode = huntedTerritories[2][i]["DA_Numero"].substring(0, 3);
+                                    console.log(i);
+                                    if(territoireValue == dnfCode ){
+                                        console.log(territoireValue)
+                                        console.log(dnfCode)
+                                        arhuntedTerritories.push(huntedTerritories[2][i]["DA_Numero"])
+                                        console.log(arhuntedTerritories)
+                                    }        
+                                }
                                 
-                                huntedNber=(huntedTerritories[2].length);
+                                huntedNber=(arhuntedTerritories.length);
                                 console.log(huntedNber)
-                           
-                                var tab=[]
-                                var keys=[]
-                                if(huntedNber>0){
-    
-                                    for(i=0; i<huntedNber; i++){
-                                        keys = Object.entries(huntedTerritories[2][i])
-                                        territoriesNbers.push(keys[2][1])
-                                    }
-                              
-                                }
+                            }
+
+                            console.log(territoriesNber)
+                            console.log(huntedNber)
+                            if(huntedNber>0){
+                                console.log("coucou");
+                                document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le "+ formatDate;
+                                retour.classList.add('active');
+                                message.classList.add('active');
+                                infoRetour.classList.add('active');
+                                squareOpen.classList.add('active');
+                                squareClose.classList.add('active');
+                            }
+                            console.log(arhuntedTerritories) 
+                                 
+                            territoriesNber=arhuntedTerritories.join(',');
+                            var lyrhuntingterritoriesClosed = createMultiJson(territoriesNber);
+                            //var lyrhuntingterritoriesOpened = createMultiJson(territoriesNber);
                             
-                                var territoriesNber = territoriesNbers.join(',');
-                                console.log(territoriesNber)
-                                var territoryNber = (territoriesNbers.length);
-                                console.log(territoryNber)
-                                
-                                const arTerNber = territoriesNber.split(/,/);
-                                var territoriesNbersDnf=[];
-                                for(i=0;i<territoryNber; i++){
-                                    codeDnf=arTerNber[i]
-                                    console.log(codeDnf);
-                                    code= codeDnf.substr(0, 3)
-                                    console.log(code);
-                                    if(code==territoireValue){
-                                        territoriesNbersDnf.push(codeDnf)
-                                    }
-                                }
-                             
-                                console.log(territoriesNbersDnf)
-                                var dnfnber= territoriesNbersDnf.length
-                                if(huntedNber>0){
-                                    document.getElementById("retour").innerHTML = dnfnber + " territoires chassés le "+ formatDate+" dans le Canton de "+territoireName;
+                // ************ SEARCH HUNTING TERRITORIES ************************************************************
+                    
+                    function createMultiJson(territoriesNber){
+                        $.ajax({
+                            type: 'GET',
+                            url: "assets/inc/php/createMultiJson_by_n.php",
+                            data: {territoriesNber:territoriesNber},
+                            
+                            success: function(response){
+                                console.log(response);
+                            
+                                if (resultat[0]==-14){
+                                    document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                                     retour.classList.add('active');
-                                    squareOpen.classList.add('active');
-                                    squareClose.classList.add('active');
-                                    message.classList.add('active');
-                                }
-                             
-                                territoriesNber=territoriesNbersDnf.toString();
-                                console.log(territoriesNber)              
-                                var lyrhuntingterritories = createMultiJson(territoriesNber);
-                                
-                                // ************ SEARCH HUNTING TERRITORIES ************************************************************
-                                
-                                function createMultiJson(territoriesNber){
-                                    $.ajax({
-                                    type: 'GET',
-                                    url: "assets/inc/php/createMultiJson_by_n.php",
-                                    data: {territoriesNber:territoriesNber},
+                                    message.classList.remove('active');
+                                    infoRetour.classList.remove('active');
+                                    squareOpen.classList.remove('active');
+                                    squareClose.classList.remove('active');
+                                    }
+                                else {
+                                console.log(lyrTerritories)
+                                    if(lyrTerritories){
+                                        lyrTerritories.remove();
+                                        map.removeLayer(lyrTerritories);
+                                    }
+                                    console.log(huntedNber)
+                                    lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
+                                    {style:styleTerritories,onEachFeature:processTerritories});
+                                    console.log(lyrTerritories)
                                     
-                                        success: function(response){
-                                            console.log(response);
-                                           if(typeof response === 'undefined'){
-                                                if(response =="Pas de chasse pour cette date."){
-                                                    document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
-                                                    retour.classList.add('active');
-                                                }
-                                                    
-                                            }
-                                            else {
-                                                console.log(lyrTerritories)
-                                                if(lyrTerritories){
-                                                    lyrTerritories.remove();
-                                                    map.removeLayer(lyrTerritories);
-                                                }
-                                                console.log(lyrTerritories)
-                                                lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
-                                                {style:styleTerritories,onEachFeature:processTerritories});
-                                                
-                                                    function styleTerritories (json) {
-                                                    return {
-                                                        fillOpacity: 0.3,
-                                                        weight: 4,
-                                                        color:'#24445c'
+                                    function styleTerritories (json) {
+                                        var att=json.properties;
+                                        for(i=0; i<huntedNber; i++){
+                                            console.log(att.Numero_Lot) 
+                                            console.log(dnfTerritoriesNber)
+                                            for(j=0;j<(dnfTerritoriesNber); j++){
+                                                console.log(huntedTerritories[2][j]["DA_Numero"]);
+                                                if(att.Numero_Lot == huntedTerritories[2][j]["DA_Numero"]){
+                                                    console.log("coucou")  
+                                                    if(huntedTerritories[2][j]["FERMETURE"]=="O"){  
+                                                        console.log("coucou1")   
+                                                        return {
+                                                            fillOpacity: 0.5,
+                                                            weight: 4, 
+                                                            color:'#ef3d33'
+                                                            };
+                                                    } else{
+                                                        return {
+                                                            fillOpacity: 0.5,
+                                                            weight: 4,
+                                                            color:'#fdef49'
                                                         };
                                                     }
-                                                    
-                                                    function processTerritories (json,lyr){
-                                                    var att=json.properties;
-                                                    
-                                                    lyr.on('mouseover', function(){
-                                                        lyr.setStyle({fillOpacity: 0.7})
-                                                        lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> '+att.Territories_name+'</h3></b><br>'+att.Numero_Lot);
-                                                    })
-                                                    lyr.on('mouseout', function(){
-                                                        lyr.setStyle({fillOpacity: 0.3} );  
-                                                        })    
-                                                    } 
-                                                    
-                                                lyrTerritories.on('data:loaded',function(){
-                                                    //map.fitBounds(lyrTerritories.getBounds().pad(1));
-                                                    }).addTo(map);
+                                                }
                                             }
-                                    }
-                                })    
+                                            
+                                        }
+                                    }       
+                                    function processTerritories (json,lyr){
+                                        var att=json.properties;
+                                        lyr.on('mouseover', function(){
+                                            lyr.setStyle({fillOpacity: 0.7})
+                                            lyr.bindTooltip('<h3 style="color:#2c3e50"><center>N° de Territoire: <br>'+att.Numero_Lot+'</h3>');
+                                        })
+                                        lyr.on('mouseout', function(){
+                                            lyr.setStyle({fillOpacity: 0.3} );  
+                                            })    
+                                    } 
+                                    
+                                    lyrTerritories.on('data:loaded',function(){
+                                        map.fitBounds(lyrTerritories.getBounds().pad(0));
+                                        }).addTo(map);
+                                }
                             }
-                        }    
+                        })
                     }
-                })
-            }  
-        })    
-    })      
+                    }
+                }
+            });
+        }   
+    });
+});
 </script>
