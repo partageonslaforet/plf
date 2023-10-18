@@ -35,10 +35,11 @@ if (isset($_POST['submit'])) {
         
         <!-- FICHIERS CSS -->
         <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/header.css">
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/fontawesome.css">
-        <link rel="stylesheet" href="assets/css/header.css">
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
        
@@ -54,17 +55,6 @@ if (isset($_POST['submit'])) {
         <div class="loader-wrapper">
             <span class="loader"><span class="loader-inner"></span></span> 
         </div>
-        <script>
-            if (isMobile()) {
-            window.location.href="https://partageonslaforet.be/mobile/index.php";
-                }
-        </script>
-    <script>
-        $(window).on("load",function(){
-            $(".loader-wrapper").fadeOut("slow");
-        });   
-        
-    </script>
     <header class="header">
     <!--<head class="site-header">-->
     <div class="container-xl">
@@ -74,7 +64,6 @@ if (isset($_POST['submit'])) {
                     <div class="menu">
                         <a class="toggle" href="calendrier.php"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
                         <li style="--i:0;">
-                            <!--<a data-modal-target="#calendar"><i class="fa-solid fa-calendar-days" title="CALENDRIER"></i></a>-->
                             <a href="calendrier.php"><i class="fa fa-calendar" title="CALENDRIER DES BATTUES"></i></a>
                         </li>
                         <li style="--i:1;">
@@ -84,19 +73,15 @@ if (isset($_POST['submit'])) {
                             <a href="informations.php"><i class="fa fa-info" title="INFORMATION"></i></a>
                         </li>
                         <li style="--i:3;">
-                            <!--<a data-modal-target="#traceSidebar"><i class="fa fa-hiking" title="PARCOURS"></i></a>-->
                             <a href="parcours.php"><i class="fa fa-hiking" title="PARCOURS"></i></a>
                         </li>
                         <li style="--i:4;">
                             <a href="#territories.php"><i class="fa fa-location-dot" title="TERRITOIRES"></i></a>
                         </li>
                         <li style="--i:5;">
-                            <!--<a data-modal-target="#dnfSidebar"><i class="fa fa-tree" title="DNF"></i></a>-->
                             <a href="dnf.php"><i class="fa fa-tree title" title="INFORMATIONS DNF"></i></a>
                         </li>
                         <li style="--i:6;">
-                            <!--<a ><i class="fas fa-user" title="LOGINS"></i></a>
-                            <a href="http://plf.partageonslaforet.be/desktop/insert_data.php"><i class="fa fa-user" title="LOGIN"></i></a>-->
                             <a href="cc.php"><i class="fa-solid fa-bullseye" title="INFORMATIONS CONSEILS CYNEGETIQUES"></i></a>
                         </li>
                         <li style="--i:7;">
@@ -108,24 +93,82 @@ if (isset($_POST['submit'])) {
         </div>
     </head>
     <body>
-    <section class="card">
-        <div class="card-body">
-            <div class="card-body-title d-flex rounded-3 justify-content-center"><h2>Soyez les bienvenus sur le site partageonslaforet.be</h2></div>
+    <section id="title" class=""  >
+        <div class="container col-md-8 text-center rounded-3 mt-5">
+            <div class="text-uppercase fw-bold text-danger d-flex justify-content-center"><h2>Soyez les bienvenus sur le site partageonslaforet.be</h2></div>
         </div>
-    </section>     
-    
-        <div id="popupInfo">
-            <p>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative.
-                Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.
-            </p>
-            <a href="informations.php" id="btnLink"><button id="btnInfo">Plus d'informations</button></a>
+        <div id="message" class="details my-5">
+            <div class="container col-md-8 bg-white rounded-3 text-dark pb-4">
+                <div class="row">
+                    <div class="text-container flex-column d-flex justify-content-cente h-100 p-4">
+                        <h5>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur  informative.
+                            Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.
+                        </h5>
+                    </div>
+                </div>
+             
+                <!-- Button trigger modal -->
+                <button type="button" id="btnInfo" class="text-container d-flex justify-content-center " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Plus d'informations
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">INFORMATION GENERALE</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <p>
+                        Bienvenue sur l'application permettant de localiser les territoires de chasse ayant obtenu une autorisation de fermeture des chemins en forêt les jours où des actions de chasse sont organisées <a class="affiche" href="../assets/img/Affiche Battues.jpg" id="affichesR" target="_blank">(affiches rouges).</a></br>
+                        </p>
+                        <p>
+                        Elle permet également de localiser les territoires sur lesquels des titulaires du droit de chasse ont déclaré des actions de chasse, sans pour autant solliciter une autorisation de fermeture des chemins <a class="affiche" href="../assets/img/Affiche Annonce.jpg" id="affichesJ" target="_blank">(affiches jaunes).</a></br>
+                        </p>
+                        <p>
+                        Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative. Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.</br> 
+                        </p>
+                        <p>
+                        En effet, plusieurs points d’attention sont à prendre en considération :</br>
+                        •	Les limites des territoires de chasse sur cette carte interactive sont celles qui ont été communiquées à l'administration par les conseils cynégétiques ou les titulaires de droit de chasse eux-mêmes. Elles ne sont pas toutes nécessairement d’une grande précision et parfaitement à jour. En conséquence et à titre d’exemple, un chemin/sentier en périphérie du territoire peut également être fermé alors qu’il apparaît en dehors du périmètre du territoire sur la carte. Cette donnée sera chaque année améliorée dans sa qualité. </br>
+                        •	Précisons également que les titulaires n'ont pas nécessairement le droit de chasse sur l'entièreté de la surface comprise à l'intérieur de ces limites (exemple : les zones habitées).</br> 
+                        •	Dans l'état actuel de la réglementation, des actions de chasse peuvent être organisées sans que le titulaire du droit de chasse en informe l’administration ou sans qu’il ne demande la fermeture des chemins. L’application vous présente les territoires chassés (avec ou sans fermeture des chemins) dont l’administration a connaissance.</br>
+                        •	Les informations communiquées sur ce site sont normalement mises à jour quotidiennement. </br>
+                        </p>
+                        <p>
+                        La responsabilité du SPW ne peut être invoquée du fait que les informations communiquées sur ce site seraient inexactes en ce que ces dernières ont une valeur purement informative.</br>
+                        </p>
+                    <center>
+                        <a class="brochure" href="../assets/img/brochure_partageons_la_foret.pdf" download="brochure_partageons_la_foret.pdf">Télécharger la brochure "Comment entrer en foret en la respectant"</a>
+                    </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
+    </section> 
+    <footer>   
         <div id="sponsors">
-            <img src="assets/img/Couleurs 2 verts vague.png" alt="Logo PNHSFA">
-            <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" alt="Visit Wallonia.be">
-            <img src="assets/img/soutien_v_fr.png" alt="SPW">
+            <div class="container col-md-9">
+                <div class="row mt-5">
+                    <div class="col-3">
+                        <img src="assets/img/Couleurs 2 verts vague.png" class="img-fluid max-width: 50% height: auto" alt="Logo PNHSFA">
+                    </div>
+                    <div class="col-3">
+                        <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" class="img-fluid max-width: 50% height: auto"  alt="Visit Wallonia.be">
+                    </div>
+                    <div lass="col-3">
+                        <img src="assets/img/soutien_v_fr.png" class="img-fluid max-width: 50% height: auto"  alt="SPW">
+                    </div>
+                </div>
+            </div>
         </div>
+    </footer>
+
         <div id="popup">
             <div id="mailHeader">
                 <span class="close" id="close-popup">&times;</span>
