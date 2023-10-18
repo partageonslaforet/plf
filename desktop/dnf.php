@@ -305,7 +305,7 @@ $(document).ready(function() {
         document.getElementById("btnFindDnfName").addEventListener("focusout", focusOut);
 
         function focusOut() {
-          document.getElementById("allCantons").disabled = false;
+          //document.getElementById("allCantons").disabled = false;
         }
         
         
@@ -709,7 +709,7 @@ $(document).ready(function() {
                                     } 
                                     
                                     lyrTerritories.on('data:loaded',function(){
-                                        map.fitBounds(lyrTerritories.getBounds().pad(0));
+                                       // map.fitBounds(lyrTerritories.getBounds().pad(0));
                                         }).addTo(map);
                                 }
                             }

@@ -431,7 +431,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
             e.preventDefault()
             //console.log(lyrRoute);
             if (lyrRoute) {
-                console.log(lyrRoute);
+                //console.log(lyrRoute);
                 lyrRoute.remove();
                 map.removeLayer(lyrRoute);
             }
@@ -496,7 +496,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     headers.append('Content-Type', 'application/json');
                     headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 
-                    console.log(traceGPX)
+                    //console.log(traceGPX)
 
                     if (traceGPX) {
                         map.removeLayer(traceGPX);
@@ -554,7 +554,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
 
             closebtn.addEventListener('click', hidePopup);
 
-            indow.addEventListener('click', (event) => {
+            window.addEventListener('click', (event) => {
                 if (event.target === popup) {
                     hidePopup();
                 }
@@ -657,7 +657,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
                                 //var lyrhuntingterritoriesOpened = createMultiJson(territoriesNber);
 
 
-                                // ************ SEARCH HUNTING TERRITORIES ************************************************************
+                                // ************ SEARCH HUNTING TERRITORIE ************************************************************
 
                                 function createMultiJson(territoriesNber) {
                                     $.ajax({
@@ -688,6 +688,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
 
                                                 function styleTerritories(json) {
                                                     var att = json.properties;
+                                                    console.log(huntedNber)
                                                     for (i = 0; i < huntedNber; i++) {
                                                         //console.log(huntedTerritories[2][i]["DA_Numero"]);
 

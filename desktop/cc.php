@@ -65,13 +65,12 @@ $LRT = PLF::Get_LastRunTime();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="assets/src/js/jquery-ui.js">
-        >
-    </script>
+    <script src="assets/src/js/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
 
 </header>
+
 
 <body>
     <div id="sidebar">
@@ -625,6 +624,7 @@ $LRT = PLF::Get_LastRunTime();
             //document.getElementById("retour").innerHTML = "";
             var huntedTerritories = [];
             var huntedTerritoriesList = [];
+            var huntedNber = [];
 
             // ************ SEARCH HUNTING DATES ************************************************************
             var cookieNber = "<?php echo $file_suffix; ?>";
@@ -645,9 +645,9 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     } else {
                         huntedTerritories = JSON.parse(response);
-                        console.log(huntedTerritories)
+                        //console.log(huntedTerritories)
                         huntedNber = (huntedTerritories[2].length);
-                        console.log(huntedNber)
+                        //console.log(huntedNber)
 
 
                         for (i = 0; i < huntedNber; i++) {
@@ -660,10 +660,7 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                         }
-                        console.log(territoriesList);
-                        console.log(territoriesClosed);
-                        console.log(territoriesOpened);
-                        console.log(arCCinfo[2]);
+                       
                         for (i=0; i<territoriesList.length;i++){
                             console.log(huntedTerritories[2][i]["DA_Numero"])
                             if(arCCinfo[2] == huntedTerritories[2][i]["NUGC"]){
@@ -672,7 +669,7 @@ $LRT = PLF::Get_LastRunTime();
                             }
 
                         }
-                        console.log(ccHuntingList)
+                        //console.log(ccHuntingList)
 
                         /*var tab = []
                         var keys = []
@@ -714,9 +711,9 @@ $LRT = PLF::Get_LastRunTime();
 
                         huntedNbers = (ccHuntingList.length);
                         territoriesNber = ccHuntingList.join(',');
-                        console.log(territoriesNber)
+                        //console.log(territoriesNber)
                         var territoryNber = (ccHuntingList.length);
-                        console.log(territoryNber)
+                        //console.log(territoryNber)
 
                         if (huntedNbers > 0) {
                             document.getElementById("retour").innerHTML = huntedNbers + " territoires chassés le " + formatDate;
@@ -741,7 +738,7 @@ $LRT = PLF::Get_LastRunTime();
                                 },
 
                                 success: function(response) {
-                                    console.log(resultat);
+                                    //console.log(resultat);
                                     if (resultat[0] == -14) {
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                                         retour.classList.add('active');
@@ -757,20 +754,17 @@ $LRT = PLF::Get_LastRunTime();
                                             style: styleTerritories,
                                             onEachFeature: processTerritories
                                         });
-                                        console.log(lyrTerritories)
-                                        console.log(huntedTerritories)
-                                        console.log(huntedNber)
+                                      
 
                                         function styleTerritories(json) {
                                             var att = json.properties;
-                                            console.log(att.Numero_Lot)
                                             for (i = 0; i < huntedNber; i++) {
                                                 
-                                                console.log(huntedTerritories[2][i]["DA_Numero"]);
+                                                //console.log(huntedTerritories[2][i]["DA_Numero"]);
                                                 if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
-                                                    console.log("coucou")
+                                               
                                                     if (huntedTerritories[2][i]["FERMETURE"] == "O") {
-                                                        console.log("coucou1")
+                                                        
                                                         return {
                                                             fillOpacity: 0.5,
                                                             weight: 4,
