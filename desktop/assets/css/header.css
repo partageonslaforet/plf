@@ -18,6 +18,8 @@
 
 /************** HEADER *************************/
 
+
+
 .site-header{
     display: flex;
     justify-content: center;
@@ -62,9 +64,9 @@
     transition: transform 1s; 
 }
 
-/*.menu.active .toggle{
+.menu.active .toggle{
     transform: rotate(360deg);
-} */
+} 
 
 .menu li{
     position:absolute;
@@ -386,6 +388,17 @@ a:hover span {
         padding: 1rem 0;
         text-transform: uppercase;
     }
+}
+
+.thumbnail {
+    height: 100px;
+    width: auto;
+}
+
+
+.thumbnail img {
+    max-height: 100%;
+    max-width: 100%;
 }
 
 /***************** MOBILE *******************************/

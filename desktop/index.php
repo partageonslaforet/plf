@@ -38,6 +38,7 @@ if (isset($_POST['submit'])) {
         <link rel="stylesheet" href="assets/css/header.css">
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/lightbox.css">
         <link rel="stylesheet" href="css/fontawesome.css">
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
@@ -46,6 +47,7 @@ if (isset($_POST['submit'])) {
         <!-- FICHIERS JS -->
         <script src = "../assets/inc/js/script.js"></script>
         <script src = "../assets/inc/js/bootstrap.bundle.min.js"></script>
+        <script src = "../assets/inc/js/lightbox.js"></script>
         <script src = "https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src = "https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -94,13 +96,13 @@ if (isset($_POST['submit'])) {
     </head>
     <body>
     <section id="title" class=""  >
-        <div class="container col-md-8 text-center rounded-3 mt-5">
-            <div class="text-uppercase fw-bold text-danger d-flex justify-content-center"><h2>Soyez les bienvenus sur le site partageonslaforet.be</h2></div>
+        <div class="container col-md-8 text-center rounded-3 mt-3">
+            <div class="text-uppercase fw-bold text-danger d-flex justify-content-center"><h1>Soyez les bienvenus sur le site partageonslaforet.be</h1></div>
         </div>
         <div id="message" class="details my-5">
-            <div class="container col-md-8 bg-white rounded-3 text-dark pb-4">
+            <div class="container col-md-8 bg-white rounded-3 text-dark pb-4" style="--bs-bg-opacity: .6;">
                 <div class="row">
-                    <div class="text-container flex-column d-flex justify-content-cente h-100 p-4">
+                    <div class="text-container flex-column d-flex justify-content-center h-100 p-4">
                         <h5>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur  informative.
                             Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.
                         </h5>
@@ -114,18 +116,25 @@ if (isset($_POST['submit'])) {
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">INFORMATION GENERALE</h5>
+                        <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="exampleModalLabel">INFORMATION GENERALE</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                    <div class="text-container text-secondary d-flex justify-content-center fw-bold ">
+                        <a class="brochure text-secondary d-flex justify-content-center" href="../assets/img/brochure_partageons_la_foret.pdf" download="brochure_partageons_la_foret.pdf">Télécharger la brochure : "Comment entrer en foret en la respectant"</a>
+                    </div>
+                   
                     <p>
-                        Bienvenue sur l'application permettant de localiser les territoires de chasse ayant obtenu une autorisation de fermeture des chemins en forêt les jours où des actions de chasse sont organisées <a class="affiche" href="../assets/img/Affiche Battues.jpg" id="affichesR" target="_blank">(affiches rouges).</a></br>
+                        Bienvenue sur l'application permettant de localiser les territoires de chasse ayant obtenu une autorisation de fermeture des chemins en forêt les jours où des actions de chasse sont organisées <a class="affiche text-danger w50%" href="../assets/img/Affiche Battues.jpg" data-lightbox="affiche-Rouge" id="affichesR"  target="_blank"  data-title="Affiche Rouge">
+                        <!--<img src="../assets/img/Affiche Battues.jpg" class="img-fluid rounded-3">    -->
+                        (affiches rouges)
+                        </a></br>
                         </p>
                         <p>
-                        Elle permet également de localiser les territoires sur lesquels des titulaires du droit de chasse ont déclaré des actions de chasse, sans pour autant solliciter une autorisation de fermeture des chemins <a class="affiche" href="../assets/img/Affiche Annonce.jpg" id="affichesJ" target="_blank">(affiches jaunes).</a></br>
+                        Elle permet également de localiser les territoires sur lesquels des titulaires du droit de chasse ont déclaré des actions de chasse, sans pour autant solliciter une autorisation de fermeture des chemins <a class="affiche text-warning w-100" href="../assets/img/Affiche Annonce.jpg" id="affichesJ" target="_blank">(affiches jaunes).</a></br>
                         </p>
                         <p>
                         Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative. Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.</br> 
@@ -140,9 +149,6 @@ if (isset($_POST['submit'])) {
                         <p>
                         La responsabilité du SPW ne peut être invoquée du fait que les informations communiquées sur ce site seraient inexactes en ce que ces dernières ont une valeur purement informative.</br>
                         </p>
-                    <center>
-                        <a class="brochure" href="../assets/img/brochure_partageons_la_foret.pdf" download="brochure_partageons_la_foret.pdf">Télécharger la brochure "Comment entrer en foret en la respectant"</a>
-                    </center>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -153,23 +159,33 @@ if (isset($_POST['submit'])) {
     </section> 
     <footer>   
         <div id="sponsors">
-            <div class="container col-md-9">
-                <div class="row mt-5">
-                    <div class="col-3">
-                        <img src="assets/img/Couleurs 2 verts vague.png" class="img-fluid max-width: 50% height: auto" alt="Logo PNHSFA">
+            <div class="row bg-white col-md-4 rounded-3 mx-auto" style="--bs-bg-opacity: .6;">
+                <div class="col-md-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <a href="#" class="thumbnail">
+                            <img src="assets/img/Couleurs 2 verts vague.png" class="img-fluid" alt="Logo PNHSFA">
+                        </a>   
                     </div>
-                    <div class="col-3">
-                        <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" class="img-fluid max-width: 50% height: auto"  alt="Visit Wallonia.be">
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <a href="#" class="thumbnail">
+                            <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" class="img-fluid"  alt="Visit Wallonia.be">
+                        </a>
                     </div>
-                    <div lass="col-3">
-                        <img src="assets/img/soutien_v_fr.png" class="img-fluid max-width: 50% height: auto"  alt="SPW">
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="thumbnail">
+                        <div class="d-flex flex-column align-items-center">
+                        <img src="assets/img/soutien_v_fr.png" class="img-fluid" alt="SPW">
+                    </a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-        <div id="popup">
+        <!--<div id="popup">
             <div id="mailHeader">
                 <span class="close" id="close-popup">&times;</span>
                 <span class="title" id="popupTitle">ENVOYER UN MESSAGE</span>
@@ -235,7 +251,7 @@ if (isset($_POST['submit'])) {
                             
                 
         
-        })      
+        })-->      
     </script>
         
 </html>
