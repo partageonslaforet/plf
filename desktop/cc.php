@@ -415,6 +415,10 @@ $LRT = PLF::Get_LastRunTime();
         $("#btnFindCCName").click(function() {
             //document.getElementById("allConseils").disabled = true;
 
+            if (lyrTerritories) {
+                lyrTerritories.remove();
+            }
+
             if (lyrTerritoriesCC) {
                 lyrTerritoriesCC.remove();
                 map.removeLayer(lyrTerritoriesCC);
@@ -604,6 +608,12 @@ $LRT = PLF::Get_LastRunTime();
         document.getElementById("maj").innerHTML = "Dernière màj : " + lRTBE;
 
         $("#btonSearchDate").click(function() {
+            console.log(lyrTerritories)
+            if (lyrTerritories){
+                    lyrTerritories.remove();
+                    map.removeLayer(lyrTerritories);
+                }
+                console.log(lyrTerritories)
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
             console.log(dateValue);
@@ -628,13 +638,14 @@ $LRT = PLF::Get_LastRunTime();
 
             // ************ SEARCH HUNTING DATES ************************************************************
             var cookieNber = "<?php echo $file_suffix; ?>";
+            territoriesList=[];
             $.ajax({
                 type: 'GET',
                 url: "assets/inc/php/hunting_dates_search_by_date.php",
                 data: "formatDate=" + formatDate,
 
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     resultat = JSON.parse(response);
                     if (resultat[0] == -14) {
                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -645,9 +656,9 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     } else {
                         huntedTerritories = JSON.parse(response);
-                        //console.log(huntedTerritories)
+                        console.log(huntedTerritories)
                         huntedNber = (huntedTerritories[2].length);
-                        //console.log(huntedNber)
+                        console.log(huntedNber)
 
 
                         for (i = 0; i < huntedNber; i++) {
@@ -660,9 +671,10 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                         }
-                       
+                        console.log(territoriesList)
+                        console.log(territoriesList.length)
                         for (i=0; i<territoriesList.length;i++){
-                            console.log(huntedTerritories[2][i]["DA_Numero"])
+                            //console.log(huntedTerritories[2][i]["DA_Numero"])
                             if(arCCinfo[2] == huntedTerritories[2][i]["NUGC"]){
                                
                                 ccHuntingList.push(huntedTerritories[2][i]["DA_Numero"])
@@ -711,9 +723,9 @@ $LRT = PLF::Get_LastRunTime();
 
                         huntedNbers = (ccHuntingList.length);
                         territoriesNber = ccHuntingList.join(',');
-                        //console.log(territoriesNber)
+                        console.log(territoriesNber)
                         var territoryNber = (ccHuntingList.length);
-                        //console.log(territoryNber)
+                        console.log(territoryNber)
 
                         if (huntedNbers > 0) {
                             document.getElementById("retour").innerHTML = huntedNbers + " territoires chassés le " + formatDate;
@@ -743,26 +755,34 @@ $LRT = PLF::Get_LastRunTime();
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                                         retour.classList.add('active');
                                         message.classList.remove('active');
-                                    } else {
+                                        infoRetour.classList.remove('active');
+                                        squareOpen.classList.remove('active');
+                                        squareClose.classList.remove('active');
+                                    } 
+                                    else {
                                         console.log(lyrTerritories)
                                         if (lyrTerritories) {
                                             lyrTerritories.remove();
                                             map.removeLayer(lyrTerritories);
                                         }
+
                                         console.log(huntedNber)
                                         lyrTerritories = L.geoJSON.ajax('assets/datas/' + cookieNber + 'huntedTerritoryByDate.json', {
                                             style: styleTerritories,
                                             onEachFeature: processTerritories
                                         });
-                                      
+                                        console.log(lyrTerritories.length)
 
                                         function styleTerritories(json) {
                                             var att = json.properties;
+                                           // console.log(territoriesList.length);
                                             for (i = 0; i < huntedNber; i++) {
-                                                
+                                               // console.log(att);
+                                                //console.log(territoriesList.length);
                                                 //console.log(huntedTerritories[2][i]["DA_Numero"]);
                                                 if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
-                                               
+                                                    console.log(huntedTerritories[2][i]["FERMETURE"])
+                                                    console.log(huntedTerritories[2][i]["DA_Numero"])
                                                     if (huntedTerritories[2][i]["FERMETURE"] == "O") {
                                                         
                                                         return {

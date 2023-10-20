@@ -533,10 +533,12 @@ $(document).ready(function() {
         document.getElementById("maj").innerHTML = "Dernière màj : "+lRTBE;
          
         $("#btonSearchDate").click(function(){
+            console.log(lyrTerritories)
             if (lyrTerritories){
                     lyrTerritories.remove();
                     map.removeLayer(lyrTerritories);
                 }
+                console.log(lyrTerritories)
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
             console.log(dateValue);
@@ -657,7 +659,7 @@ $(document).ready(function() {
                                     infoRetour.classList.remove('active');
                                     squareOpen.classList.remove('active');
                                     squareClose.classList.remove('active');
-                                    }
+                                }
                                 else {
                                 console.log(lyrTerritories)
                                     if(lyrTerritories){
