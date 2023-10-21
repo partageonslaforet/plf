@@ -1264,7 +1264,7 @@ ui.front{
 /***************** LARGE SCREEN **************************/
 
 
-    @media screen and (min-width: 1600px){
+    @media screen and (min-width: 1400px){
     .popup{
         z-index:2001;
         margin-right: auto;
