@@ -505,7 +505,7 @@ ul.ui-menu { max-height: 420px !important; }
     visibility:visible;
 }
 
-@media (max-width: 1450px) {
+@media (max-width: 1200px) {
     #sponsors img{
         justify-content:space-between;
         width: 100%;
@@ -523,8 +523,8 @@ ul.ui-menu { max-height: 420px !important; }
         display: none;
         align-items: center;
         /*border: 1px solid rgba(9,106,9,0.8);*/
-        width: 20%;
-        height: 15%;
+        width: 30%;
+        height: 13%;
         max-width: 80%;
         background-color: rgba(255,255,255,0.6);
         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
@@ -532,7 +532,7 @@ ul.ui-menu { max-height: 420px !important; }
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
         top: 3.5%;
-        left: 40%;
+        left: 35%;
         transition: 200ms ease-in-out;
     }
     
@@ -942,7 +942,7 @@ ul.ui-menu { max-height: 420px !important; }
     align-items: center;
     /*border: 1px solid rgba(9,106,9,0.8);*/
     width: 20%;
-    height: 10%;
+    height: 14%;
     max-width: 80%;
     background-color: rgba(255,255,255,0.6);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),

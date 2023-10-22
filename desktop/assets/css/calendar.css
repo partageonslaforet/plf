@@ -58,8 +58,8 @@
     display: none;
     align-items: center;
     /*border: 1px solid rgba(9,106,9,0.8);*/
-    width: 20%;
-    height: 17%;
+    width: 32%;
+    height: 13%;
     max-width: 80%;
     background-color: rgba(255,255,255,0.6);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
@@ -67,7 +67,7 @@
     inset 0px 0px 5px rgba(36,68,92,0.5);
     border-radius: 10px;
     top: 3.5%;
-    left: 40%;
+    left: 34%;
     transition: 200ms ease-in-out;
 }
 
@@ -185,12 +185,11 @@
     background-color: rgba(255,255,255,0.6);
     z-index: 2001;
     position: absolute;
-    left: 40%;
-    width: 20%;
+    left: 39%;
+    width: 22%;
     display: grid;
-    top: 20%;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    top: 12%;
+    padding: 10px 5px 15px 5px;
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
     inset 2px 2px 3px rgba(36,68,92,0.25),
     inset 0px 0px 5px rgba(36,68,92,0.5);
@@ -378,7 +377,7 @@
 
 /***************** LARGE SCREEN **************************/
 
-@media screen and (min-width: 1400px){
+@media screen and (min-width: 1200px){
 
     .popup{
         z-index:2001;
@@ -389,7 +388,7 @@
         align-items: center;
         /*border: 1px solid rgba(9,106,9,0.8);*/
         width: 20%;
-        height: 12%;
+        height: 15%;
         max-width: 80%;
         background-color: rgba(255,255,255,0.6);
         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
@@ -427,7 +426,7 @@
         background-color: #B2D039;
         border-radius: 10px;
         width: 150%;
-        font-size: 25px;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #B2D039;
@@ -441,7 +440,7 @@
         background-color: #fe7924;
         border-radius: 10px;
         width: 150%;
-        font-size: 25px;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #fe7924;
@@ -455,7 +454,7 @@
         background-color: #B2D039;
         border-radius: 10px;
         width: 120%;
-        font-size: 25px;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #B2D039;
@@ -469,7 +468,7 @@
         background-color: #fe7924;
         border-radius: 10px;
         width: 120%;
-        font-size: 25px;
+        font-size: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         border: 1px solid #fe7924;
