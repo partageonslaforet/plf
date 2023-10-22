@@ -118,12 +118,10 @@ $List_Parcours = PLF::Get_Itineraires_List();
                 <div id="btnRetour" >RETOUR</div>
             </div>
             <script>
-                 document.getElementById("btnRetour").addEventListener("click", function() {
+                document.getElementById("btnRetour").addEventListener("click", function() {
                     window.location.reload(true);
                     window.location.href = "index.php";
-            console.log("coucou");
-           
-        });
+                });
             </script>
         </div>
     </div>
