@@ -181,15 +181,13 @@ img {
 
 /*********************  BODY  *************************/
 
-#siteName{
+#title{
     z-index:2001;
     margin-right: auto;
     margin-left: auto;
     position:absolute;
     text-align: center;
     width: 40%;
-    font-size: 1.5rem;
-    color:#34495e;
     background-color: rgba(255,255,255,0.6);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
     inset 2px 2px 3px rgba(36,68,92,0.25),
@@ -199,8 +197,24 @@ img {
     overflow: hidden;
     left: 30%;
     padding: 1rem 0;
+}
+
+#siteName{
+    margin-top: 1rem;
+    font-size: 2rem;
+    color:#34495e;
     text-transform: uppercase;
 }
+
+#slogan{
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color:#fe7924;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
 
 #close-button-calendar {
     float:right;
@@ -252,6 +266,7 @@ img {
     top:45%;
     left:30%;
     position:absolute;
+    font-size: 1.2rem;
 }
 
 p{

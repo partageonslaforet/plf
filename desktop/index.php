@@ -100,7 +100,10 @@ if (isset($_POST['submit'])) {
         </div>
     </head>
     <body>
-        <div id="siteName">Soyez les bienvenus sur le site partageonslaforet.be</div>
+        <div id="title">
+            <div id="siteName">Soyez les bienvenus sur le site partageonslaforet.be </div>
+            <div id="slogan">Découvrez les dates de chasse de la saison 2023/2024 en Wallonie</div>
+        </div>
         <div id="popupInfo">
             <p>Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative.
                 Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.

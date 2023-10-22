@@ -427,6 +427,8 @@ $LRT = PLF::Get_LastRunTime();
                 $('#ccPresident').html('');
                 $('#ccSecretaire').html('');
                 $('#ccTerritoriesNber').html('');
+                retour.classList.remove('active');
+                document.getElementById("datepicker").value = "";
             }
 
             document.getElementById("messageErreur").innerHTML = "";
@@ -673,7 +675,10 @@ $LRT = PLF::Get_LastRunTime();
                         }
                         console.log(territoriesList)
                         console.log(territoriesList.length)
+
+                        ccHuntingList=[];
                         for (i=0; i<territoriesList.length;i++){
+                            
                             //console.log(huntedTerritories[2][i]["DA_Numero"])
                             if(arCCinfo[2] == huntedTerritories[2][i]["NUGC"]){
                                
@@ -681,46 +686,8 @@ $LRT = PLF::Get_LastRunTime();
                             }
 
                         }
-                        //console.log(ccHuntingList)
-
-                        /*var tab = []
-                        var keys = []
-                        if (huntedNber > 0) {
-
-                            for (i = 0; i < huntedNber; i++) {
-                                keys = Object.entries(huntedTerritories[2][i])
-                                territoriesNbers.push(keys[2][1])
-                            }
-
-                        }
-                        var territoriesNberAll = huntedTerritories
-                        console.log(territoriesNberAll)
-                        console.log(territoireValue)
-                        territoriesNber = territoriesSelection(territoriesNberAll, territoireValue)
-
-                        function territoriesSelection(territoriesNberAll, territoireValue) {
-                            dnfTerritoriesNber = territoriesNberAll[2].length
-                            console.log(dnfTerritoriesNber)
-                            arhuntedTerritories = [];
-                            for (i = 0; i < ((dnfTerritoriesNber)); i++) {
-                                var dnfCode = huntedTerritories[2][i]["DA_Numero"].substring(0, 3);
-                                console.log(i);
-                                if (territoireValue == dnfCode) {
-                                    console.log(territoireValue)
-                                    console.log(dnfCode)
-                                    arhuntedTerritories.push(huntedTerritories[2][i]["DA_Numero"])
-                                    console.log(arhuntedTerritories)
-                                }
-                            }
-
-                            huntedNber = (arhuntedTerritories.length);
-                            console.log(huntedNber)
-                        }
-
-                        console.log(territoriesNber)
-                        console.log(huntedNber)*/
-
-
+                        
+                    
                         huntedNbers = (ccHuntingList.length);
                         territoriesNber = ccHuntingList.join(',');
                         console.log(territoriesNber)
