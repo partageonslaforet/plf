@@ -116,9 +116,17 @@ $List_Parcours = PLF::Get_Itineraires_List();
                 <div id="parcoursTrace"></div>
                 <div id="messageErreur"></div>
             </div>
-            <div>
-                <button id="btnRetour" onclick="window.location='../index.php';">RETOUR</button>
+            <div id="btonClose">
+                <div id="btnRetour" >RETOUR</div>
             </div>
+            <script>
+                 document.getElementById("btnRetour").addEventListener("click", function() {
+                    window.location.reload(true);
+                    window.location.href = "index.php";
+            console.log("coucou");
+           
+        });
+            </script>
         </div>
     </div>
     <div id="calendarBtn">
@@ -297,6 +305,11 @@ $List_Parcours = PLF::Get_Itineraires_List();
         }).addTo(map);
 
 
+
+
+        // ************ BTN RETOUR ********************************************************
+
+       
 
         // ************ LIST OF ROUTE NAME ************************************************************
 
