@@ -7,14 +7,38 @@
 
 }
 
-/*body{
-    background-image: url("https://partageonslaforet.be/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG");*/
-    /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");
-    background-image: url("https://partageonslaforet.be/assets/img/plf-foret1.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-    
-}*/
+/************** IMG SPONSORS *************************/
+
+
+.vh-10 {
+    height: 10vh; /* 10% de la hauteur de la vue (viewport) */
+    width: auto;
+    max-width: 100%; /* Pour éviter le débordement de l'image */
+    display: block;
+    margin: 0 auto; /* Centrage horizontal */
+}
+
+.img-fluid {
+    max-width: 80%!important;
+}
+ /* Centrage vertical pour les mobiles */
+@media (max-width: 576px) {
+    .vertical-center {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .img-fluid {
+        max-width: 60%!important;
+    }
+}
+
+
+.btn-close{
+    color: #990047 !important;
+}
 
 /************** HEADER *************************/
 
@@ -454,7 +478,7 @@ a:hover span {
         text-transform: uppercase;
     }
 
-    #sponsors{
+   /*#sponsors{
         z-index:2001;
         margin-right: auto;
         margin-left: auto;
@@ -471,5 +495,5 @@ a:hover span {
         top: 85%;
         overflow: hidden;
         left: 10%;
-    }
+    }*/
 }

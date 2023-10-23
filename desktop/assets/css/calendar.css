@@ -13,6 +13,12 @@
 
 /******** DATE PICKER ***********/
 
+#calendarModal{
+    z-index:2000;
+    position:relative;
+}
+
+
 #calendar{
     position:absolute;
     list-style: none;

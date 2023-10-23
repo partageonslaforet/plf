@@ -61,6 +61,29 @@ $LRT = PLF::Get_LastRunTime();
     
      <body>
          <!-- **************** CALENDAR POPUP**************** -->
+
+        <div class="modal" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel">INFORMATION GENERALE</h5>
+                        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-container text-secondary d-flex justify-content-center fw-bold ">
+                        </div>
+                    
+                        <p>
+                        </p>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+               
+
+
+
         <div id="popup" class="popup">
             <button id="closebtn">&times;</button>
             <div id="headPopup">
@@ -81,16 +104,7 @@ $LRT = PLF::Get_LastRunTime();
 
                    
 
-                <script>
-                $( function() {
-                    $("#datepicker").datepicker({
-                        dateFormat: "dd-mm-yy",
-                        dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
-                        monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "December" ],
-                        buttonImageOnly: true
-                    });
-                 });
-                </script>
+               
             </div>
         </div>
         <div id="message">
@@ -109,8 +123,11 @@ $LRT = PLF::Get_LastRunTime();
         <div id="field"></div>
         <div id="overlay"></div>
  
-        <container id ="Container"><center>
+        <container id ="Container">
             <div id="map"></div>
+            <div id="calendarBtn">
+                <a id="calendar"><i class="fa fa-calendar fa-2x text-container d-flex justify-content-center " data-bs-toggle="modal" data-bs-target="#calendarModal"" title="CALENDRIER DES BATTUES"></i></a>
+            </div>
         </container>
         
         
@@ -121,9 +138,7 @@ $LRT = PLF::Get_LastRunTime();
             <div class="header_toggle"> 
                 <i class='bx bx-menu' id="header-toggle"></i>
             </div>
-            <div id="calendarBtn">
-                <a id="calendar"><i class="fa fa-calendar fa-2x" title="CALENDRIER DES BATTUES"></i></a>
-            </div>
+            
         </header>
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">

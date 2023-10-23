@@ -124,7 +124,7 @@ if (isset($_POST['submit'])) {
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="exampleModalLabel">INFORMATION GENERALE</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                         <div class="text-container text-secondary d-flex justify-content-center fw-bold ">
@@ -167,27 +167,15 @@ if (isset($_POST['submit'])) {
         </section> 
         <footer>   
             <div class="container position-absolute " id="sponsors" style= "bottom: 5%;">
-                <div class="row bg-white col-md-4 rounded-3 mx-auto " style="--bs-bg-opacity: .6; ">
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <div class="d-flex flex-column align-items-center">
-                            <a href="#" class="thumbnail">
-                                <img src="assets/img/Couleurs 2 verts vague.png" class="img-fluid" alt="Logo PNHSFA">
-                            </a>   
-                        </div>
+                <div class="col-8 row bg-white rounded-3 mx-auto vertical-center p-2" style="--bs-bg-opacity: .6;">
+                    <div class="col-sm-4 col-12 d-flex align-items-center justify-content-center vh-10" >
+                        <img src="assets/img/Couleurs 2 verts vague.png" class="img-fluid" alt="Logo PNHSFA">  
                     </div>
-                    <div class="col-md-4">
-                        <div class="d-flex flex-column align-items-center">
-                            <a href="#" class="thumbnail">
-                                <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" class="img-fluid"  alt="Visit Wallonia.be">
-                            </a>
-                        </div>
+                    <div class="col-sm-4 col-12 d-flex align-items-center justify-content-center vh-10">
+                        <img src="assets/img/00042517-WBT-Logo VISITWallonia.be - Vertical - Pantone 2995C - PNG.png" class="img-fluid"  alt="Visit Wallonia.be">
                     </div>
-                    <div class="col-md-4">
-                        <a href="#" class="thumbnail">
-                            <div class="d-flex flex-column align-items-center">
-                            <img src="assets/img/soutien_v_fr.png" class="img-fluid" alt="SPW">
-                        </a>
-                        </div>
+                    <div class="col-sm-4 col-12 d-flex align-items-center justify-content-center vh-10">
+                        <img src="assets/img/soutien_v_fr.png" class="img-fluid" alt="SPW">
                     </div>
                 </div>
             </div>
