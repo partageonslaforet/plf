@@ -279,99 +279,14 @@ $LRT = PLF::Get_LastRunTime();
         }).addTo(map);
 
 
-        // ************ ALL CONSEILS************************************************************
-        /* document.getElementById('allConseils').onclick = function() {
-            var arConseilRef=[];
-            var tab=[]
-            var keys=[]
-            conseilNber =  arTerritoriesNber.length
-            console.log(conseilNber);
-            
-            for(i=0; i<conseilNber; i++){
-                keys = arTerritoriesNber[i];
-                console.log(keys)
-                arConseilRef.push(keys)
-            }
-            
-            
-            var territoriesNber = arConseilRef.join(',');
-            console.log(territoriesNber)
-            
-       
-            if (document.getElementById('allConseils').checked == true){
-                var url = "https://partageonslaforet.be/assets/inc/php/createAllCC.php"
-                fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                    },
-                })
-                .then(response => {
-                    if(!response.ok){
-                        throw new Error('Network response was not ok');
-                    }
-                     return response.json();
-                })
-                .then(data => {
-                  console.log(data); // Faire quelque chose avec les données
-                })
-                .catch(error => {
-                  console.error('Fetch error:', error);
-                });
-                
-                
-                
-                
-                $.ajax({
-                type: 'GET',
-                url: "assets/inc/php/createAllCC.php",
-                data: {territoriesNber:territoriesNber},
-            
-                    success: function(response){
-                        console.log(response);
-                        if(lyrTerritoriesCC){
-                            lyrTerritoriesCC.remove();
-                            map.removeLayer(lyrTerritoriesCC);
-                        }
-
-                        lyrTerritoriesCC = L.geoJSON.ajax('assets/datas/'+cookieNber+'territoriesAllCC.json',
-                        {style:styleTerritories,onEachFeature:processTerritories});
-                        
-                        
-                        
-                        function styleTerritories (json) {
-                            return {
-                                fillOpacity: 0.3,
-                                weight: 4,
-                                color:'#fe7924'
-                                };
-                        }
-                            
-                        function processTerritories (json,lyr){
-                            var att=json.properties;
-                     
-                            lyr.on('mouseover', function(){
-                                lyr.setStyle({fillOpacity: 0.7})
-                                lyr.bindTooltip('<h3 style="color:#2c3e50"><center><b> '+att.Nom+'</h3></b><br>'+att.Numero_Lot);
-                            })
-                            lyr.on('mouseout', function(){
-                                lyr.setStyle({fillOpacity: 0.3} );  
-                                })    
-                        } 
-                    }
-                })
-            }
-        }*/
-
-
         // ************ LIST OF CC NAME ************************************************************
 
         listBycc = <?php echo json_encode($List_CC); ?>;
         var listByCC = Object.values(listBycc[2])
 
-        console.log(listByCC)
+        //console.log(listByCC)
         var ccNbre = Object.keys(listByCC).length;
-        console.log(ccNbre);
+        //console.log(ccNbre);
 
         for (i = 0; i < (ccNbre); i++) {
             //console.log(listByCC[i]["nom"]);
@@ -437,7 +352,7 @@ $LRT = PLF::Get_LastRunTime();
             var territoireName = $("#txtFindCCName").val().toLowerCase();
             document.getElementById("txtFindCCName").value = "";
             //document.getElementById("allConseils").disabled = false;
-            console.log(territoireName);
+            //console.log(territoireName);
             if (territoireName === '') {
                 document.getElementById("messageErreur").innerHTML = "Sélectionnez un Conseil";
                 messageErreur.classList.add('active');
@@ -453,12 +368,12 @@ $LRT = PLF::Get_LastRunTime();
 
                 for (i = 0; i < (listByCC.length); i++) {
                     territoireCheck = listByCC[i]["ugc"].toLowerCase()
-                    console.log(territoireName)
-                    console.log(territoireCheck);
+                    //console.log(territoireName)
+                    //console.log(territoireCheck);
 
                     if (territoireName == territoireCheck) {
                         territoireValue = listByCC[i]["ugc"]
-                        console.log(territoireValue)
+                        //console.log(territoireValue)
                         arCCinfo.push(listByCC[i]["nom"],
                             listByCC[i]["ugc"],
                             listByCC[i]["nugc_cc"],
@@ -480,9 +395,9 @@ $LRT = PLF::Get_LastRunTime();
                 }
 
 
-                console.log(arCCinfo);
-                console.log(arCCinfo[2]);
-                console.log(territoireValue);
+                //console.log(arCCinfo);
+                //console.log(arCCinfo[2]);
+                //console.log(territoireValue);
 
                 // ************ SEARCH CC TERRITORIES ************************************************************
                 var ccNber = 0;
@@ -498,7 +413,7 @@ $LRT = PLF::Get_LastRunTime();
                             alert("erreur");
 
                         } else {
-                            console.log(response)
+                            //console.log(response)
                             if (lyrTerritoriesCC) {
                                 lyrTerritoriesCC.remove();
                                 map.removeLayer(lyrTerritoriesCC);
@@ -601,7 +516,7 @@ $LRT = PLF::Get_LastRunTime();
         var lRT = [];
 
         var cookieNber = "<?php echo $file_suffix; ?>";
-        console.log(cookieNber);
+        //console.log(cookieNber);
         lRT = <?php echo json_encode($LRT); ?>;
         lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
         lRTEUR = dayjs(lRTUS, 'DD-MMM-YYYY HH:mm')
@@ -610,15 +525,15 @@ $LRT = PLF::Get_LastRunTime();
         document.getElementById("maj").innerHTML = "Dernière màj : " + lRTBE;
 
         $("#btonSearchDate").click(function() {
-            console.log(lyrTerritories)
+            //console.log(lyrTerritories)
             if (lyrTerritories){
                     lyrTerritories.remove();
                     map.removeLayer(lyrTerritories);
                 }
-                console.log(lyrTerritories)
+                //console.log(lyrTerritories)
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
-            console.log(dateValue);
+            //console.log(dateValue);
             if (dateValue === null) {
                 document.getElementById("retour").innerHTML = "Veuillez sélectionner une date";
                 retour.classList.add('active');
@@ -658,9 +573,9 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     } else {
                         huntedTerritories = JSON.parse(response);
-                        console.log(huntedTerritories)
+                        //console.log(huntedTerritories)
                         huntedNber = (huntedTerritories[2].length);
-                        console.log(huntedNber)
+                        //onsole.log(huntedNber)
 
 
                         for (i = 0; i < huntedNber; i++) {
@@ -673,8 +588,8 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                         }
-                        console.log(territoriesList)
-                        console.log(territoriesList.length)
+                        //console.log(territoriesList)
+                        //console.log(territoriesList.length)
 
                         ccHuntingList=[];
                         for (i=0; i<territoriesList.length;i++){
@@ -690,9 +605,9 @@ $LRT = PLF::Get_LastRunTime();
                     
                         huntedNbers = (ccHuntingList.length);
                         territoriesNber = ccHuntingList.join(',');
-                        console.log(territoriesNber)
+                        //console.log(territoriesNber)
                         var territoryNber = (ccHuntingList.length);
-                        console.log(territoryNber)
+                        //console.log(territoryNber)
 
                         if (huntedNbers > 0) {
                             document.getElementById("retour").innerHTML = huntedNbers + " territoires chassés le " + formatDate;
@@ -727,18 +642,18 @@ $LRT = PLF::Get_LastRunTime();
                                         squareClose.classList.remove('active');
                                     } 
                                     else {
-                                        console.log(lyrTerritories)
+                                        //console.log(lyrTerritories)
                                         if (lyrTerritories) {
                                             lyrTerritories.remove();
                                             map.removeLayer(lyrTerritories);
                                         }
 
-                                        console.log(huntedNber)
+                                        //console.log(huntedNber)
                                         lyrTerritories = L.geoJSON.ajax('assets/datas/' + cookieNber + 'huntedTerritoryByDate.json', {
                                             style: styleTerritories,
                                             onEachFeature: processTerritories
                                         });
-                                        console.log(lyrTerritories.length)
+                                        //console.log(lyrTerritories.length)
 
                                         function styleTerritories(json) {
                                             var att = json.properties;
@@ -748,8 +663,8 @@ $LRT = PLF::Get_LastRunTime();
                                                 //console.log(territoriesList.length);
                                                 //console.log(huntedTerritories[2][i]["DA_Numero"]);
                                                 if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
-                                                    console.log(huntedTerritories[2][i]["FERMETURE"])
-                                                    console.log(huntedTerritories[2][i]["DA_Numero"])
+                                                    //console.log(huntedTerritories[2][i]["FERMETURE"])
+                                                    //console.log(huntedTerritories[2][i]["DA_Numero"])
                                                     if (huntedTerritories[2][i]["FERMETURE"] == "O") {
                                                         
                                                         return {

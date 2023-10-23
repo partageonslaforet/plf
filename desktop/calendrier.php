@@ -235,9 +235,9 @@ $LRT = PLF::Get_LastRunTime();
         var lRT = [];
        
         var cookieNber= "<?php echo $file_suffix; ?>";
-        console.log(cookieNber);
+        //console.log(cookieNber);
         lRT = <?php echo json_encode($LRT);?>;
-        console.log(lRT)
+        //console.log(lRT)
         lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
         lRTEUR = dayjs(lRTUS,'DD-MMM-YYYY HH:mm')
         lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
@@ -251,7 +251,7 @@ $LRT = PLF::Get_LastRunTime();
             }
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
-            console.log(dateValue);
+            //console.log(dateValue);
             if(dateValue === null){
                 document.getElementById("retour").innerHTML = "Veuillez sélectionner une date";
                 retour.classList.add('active');
@@ -282,7 +282,7 @@ $LRT = PLF::Get_LastRunTime();
                 data: "formatDate="+formatDate,
             
                 success: function(response){
-                    console.log(response);
+                    //console.log(response);
                     resultat = JSON.parse(response);
                     if (resultat[0]==-14){
                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -293,12 +293,12 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     }else{
                         huntedTerritories = JSON.parse(response);
-                        console.log(huntedTerritories)
+                        //console.log(huntedTerritories)
                         huntedNber=(huntedTerritories[2].length);
-                        console.log(huntedNber)
+                        //console.log(huntedNber)
                         
                         for(i=0; i<huntedNber; i++){
-                            console.log(huntedTerritories[2][i]["FERMETURE"]);
+                           // console.log(huntedTerritories[2][i]["FERMETURE"]);
                             territory = huntedTerritories[2][i]["DA_Numero"];
                             territoriesList.push(territory);
                             if (huntedTerritories[2][i]["FERMETURE"]=="O"){
@@ -308,13 +308,13 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                          }
-                        console.log(territoriesClosed);
-                        console.log(territoriesOpened);
+                        //console.log(territoriesClosed);
+                        //console.log(territoriesOpened);
                         
                         
                         
                         var territoriesNber = territoriesList.join(',');
-                        console.log(territoriesNber)
+                       // console.log(territoriesNber)
                         
                         if(huntedNber>0){
                             document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le "+ formatDate;
@@ -338,7 +338,7 @@ $LRT = PLF::Get_LastRunTime();
                             data: {territoriesNber:territoriesNber},
                             
                                  success: function(response){
-                                    console.log(response);
+                                    //console.log(response);
                                    
                                     if (resultat[0]==-14){
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -349,24 +349,24 @@ $LRT = PLF::Get_LastRunTime();
                                         squareClose.classList.remove('active');
                                         }
                                     else {
-                                    console.log(lyrTerritories)
+                                    //console.log(lyrTerritories)
                                         if(lyrTerritories){
                                             lyrTerritories.remove();
                                             map.removeLayer(lyrTerritories);
                                         }
-                                        console.log(lyrTerritories)
+                                        //console.log(lyrTerritories)
                                         lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
                                         {style:styleTerritories,onEachFeature:processTerritories});
                                         
                                             function styleTerritories (json) {
                                             var att=json.properties;
-                                            console.log(att.Numero_Lot);
-                                            console.log(huntedNber);
+                                            //console.log(att.Numero_Lot);
+                                            //console.log(huntedNber);
                                             for(i=0; i<huntedNber; i++){
                                             //console.log(huntedTerritories[2][i]["DA_Numero"]);
            
                                                if(att.Numero_Lot==huntedTerritories[2][i]["DA_Numero"]){
-                                                console.log(att.Numero_Lot);
+                                                //console.log(att.Numero_Lot);
                                                    
                                                   if(huntedTerritories[2][i]["FERMETURE"]=="O"){
                                                       

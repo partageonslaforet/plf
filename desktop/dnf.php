@@ -269,10 +269,10 @@ $(document).ready(function() {
         listByCantonBt = <?php echo json_encode($List_Canton);?>;
         listTerritories =<?php echo json_encode($List_Territoires[2]);?>;
         listTerritoriesNb=listTerritories.length;
-        console.log(listTerritoriesNb)
+        //console.log(listTerritoriesNb)
         var listByCanton = Object.values(listByCantonBt[2])
         var cantonNbre = listByCanton.length;
-        console.log(listByCanton);
+        //console.log(listByCanton);
         for(i=0; i<cantonNbre; i++){     
             
             if(!arTerritoriesNber.includes(listByCanton[i]["nom"])){
@@ -335,7 +335,7 @@ $(document).ready(function() {
             document.getElementById("messageErreur").innerHTML = "";
             var arDnfInfo = [];
             territoireName = $("#txtFindDnfName").val().toLowerCase();
-            console.log(territoireName)
+            //console.log(territoireName)
             
             if(territoireName === ''){
                 document.getElementById("messageErreur").innerHTML = "Sélectionnez un Cantonnement";
@@ -357,12 +357,12 @@ $(document).ready(function() {
                 for(j=0; j<(listByCanton.length); j++ ){
                     
                     territoriesCheck = listByCanton[j]["nom"].toLowerCase()
-                    console.log(territoriesCheck)
-                    console.log(territoireName)
+                    //console.log(territoriesCheck)
+                    //console.log(territoireName)
                     if (territoireName == territoriesCheck){
                         
                         territoireValue = listByCanton[j]["num_canton"]
-                        console.log(territoireValue)
+                        //console.log(territoireValue)
                         arDnfInfo.push(listByCanton[j]["nom"],
                             listByCanton[j]["num_canton"],
                             listByCanton[j]["direction"],
@@ -378,7 +378,7 @@ $(document).ready(function() {
                         
                         break;
                     }
-                    console.log(arDnfInfo);
+                    //console.log(arDnfInfo);
                 }
                 
               
@@ -392,11 +392,11 @@ $(document).ready(function() {
                 data: "territoireValue="+territoireValue,
             
                     success: function(response){
-                        console.log(response);
+                        //console.log(response);
                         if(typeof response === 'undefined'){
                             alert("erreur");    
                             } else {
-                                console.log(lyrTerritoriesDnf)
+                                //console.log(lyrTerritoriesDnf)
                                 if(lyrTerritoriesDnf){
                                     lyrTerritoriesDnf.remove();
                                     map.removeLayer(lyrTerritoriesDnf);
@@ -404,7 +404,7 @@ $(document).ready(function() {
 
                                 lyrTerritoriesDnf = L.geoJSON.ajax('assets/datas/'+cookieNber+'territoryDnf.json',
                                 {style:styleTerritories,onEachFeature:processTerritories});
-                                console.log(lyrTerritoriesDnf.length)
+                                //console.log(lyrTerritoriesDnf.length)
 
                                 
                                     function styleTerritories (json) {
@@ -450,8 +450,8 @@ $(document).ready(function() {
                                 
                                     var lat = (arDnfInfo[6]);
                                     var long = (arDnfInfo[7]);
-                                    console.log(lat);
-                                    console.log(long);
+                                    //console.log(lat);
+                                    //console.log(long);
                                     
                                     var dnfIcon = L.icon({
                                         iconUrl: 'assets/img/Logo_dnf.png',
@@ -533,15 +533,15 @@ $(document).ready(function() {
         document.getElementById("maj").innerHTML = "Dernière màj : "+lRTBE;
          
         $("#btonSearchDate").click(function(){
-            console.log(lyrTerritories)
+            //console.log(lyrTerritories)
             if (lyrTerritories){
                     lyrTerritories.remove();
                     map.removeLayer(lyrTerritories);
                 }
-                console.log(lyrTerritories)
+                //console.log(lyrTerritories)
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
-            console.log(dateValue);
+            //console.log(dateValue);
             if(dateValue === null){
                 document.getElementById("retour").innerHTML = "Veuillez sélectionner une date";
                     retour.classList.add('active');
@@ -569,9 +569,9 @@ $(document).ready(function() {
                     data: "formatDate="+formatDate,
                 
                     success: function(response){
-                        console.log(response);
+                        //console.log(response);
                         resultat = JSON.parse(response);
-                        console.log(resultat)
+                        //console.log(resultat)
                         if (resultat[0]==-14){
                             document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
                             retour.classList.add('active');
@@ -581,12 +581,12 @@ $(document).ready(function() {
                             squareClose.classList.remove('active');
                         }else{
                             huntedTerritories = JSON.parse(response);
-                            console.log(huntedTerritories)
+                            //console.log(huntedTerritories)
                             huntedNber=(huntedTerritories[2].length);
-                            console.log(huntedNber)
+                            //console.log(huntedNber)
 
                             for(i=0; i<huntedNber; i++){
-                                console.log(huntedTerritories[2][i]["FERMETURE"]);
+                                //console.log(huntedTerritories[2][i]["FERMETURE"]);
                                 territory = huntedTerritories[2][i]["DA_Numero"];
                                 territoriesList.push(territory);
                                 if (huntedTerritories[2][i]["FERMETURE"]=="O"){
@@ -597,37 +597,37 @@ $(document).ready(function() {
                                 }
                             }
                                                        
-                            console.log(territoriesClosed);
-                            console.log(territoriesOpened);
+                            //console.log(territoriesClosed);
+                            //console.log(territoriesOpened);
                     
                             var territoriesNberAll = huntedTerritories
-                            console.log(territoriesNberAll)
-                            console.log(territoireValue)
+                            //console.log(territoriesNberAll)
+                            //console.log(territoireValue)
                             territoriesNber = territoriesSelection (territoriesNberAll,territoireValue)        
 
                             function territoriesSelection(territoriesNberAll,territoireValue){
                                 dnfTerritoriesNber= territoriesNberAll[2].length
-                                console.log(dnfTerritoriesNber)
+                                //console.log(dnfTerritoriesNber)
                                 arhuntedTerritories = [];
                                 for (i=0; i<((dnfTerritoriesNber));i++){
                                     var dnfCode = huntedTerritories[2][i]["DA_Numero"].substring(0, 3);
-                                    console.log(i);
+                                    //console.log(i);
                                     if(territoireValue == dnfCode ){
-                                        console.log(territoireValue)
-                                        console.log(dnfCode)
+                                        //console.log(territoireValue)
+                                        //console.log(dnfCode)
                                         arhuntedTerritories.push(huntedTerritories[2][i]["DA_Numero"])
-                                        console.log(arhuntedTerritories)
+                                        //console.log(arhuntedTerritories)
                                     }        
                                 }
                                 
                                 huntedNber=(arhuntedTerritories.length);
-                                console.log(huntedNber)
+                                //console.log(huntedNber)
                             }
 
-                            console.log(territoriesNber)
-                            console.log(huntedNber)
+                            //console.log(territoriesNber)
+                            //console.log(huntedNber)
                             if(huntedNber>0){
-                                console.log("coucou");
+                                //console.log("coucou");
                                 document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le "+ formatDate;
                                 retour.classList.add('active');
                                 message.classList.add('active');
@@ -635,7 +635,7 @@ $(document).ready(function() {
                                 squareOpen.classList.add('active');
                                 squareClose.classList.add('active');
                             }
-                            console.log(arhuntedTerritories) 
+                            //console.log(arhuntedTerritories) 
                                  
                             territoriesNber=arhuntedTerritories.join(',');
                             var lyrhuntingterritoriesClosed = createMultiJson(territoriesNber);
@@ -650,7 +650,7 @@ $(document).ready(function() {
                             data: {territoriesNber:territoriesNber},
                             
                             success: function(response){
-                                console.log(response);
+                                //console.log(response);
                             
                                 if (resultat[0]==-14){
                                     document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -661,27 +661,27 @@ $(document).ready(function() {
                                     squareClose.classList.remove('active');
                                 }
                                 else {
-                                console.log(lyrTerritories)
+                                //console.log(lyrTerritories)
                                     if(lyrTerritories){
                                         lyrTerritories.remove();
                                         map.removeLayer(lyrTerritories);
                                     }
-                                    console.log(huntedNber)
+                                    //console.log(huntedNber)
                                     lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
                                     {style:styleTerritories,onEachFeature:processTerritories});
-                                    console.log(lyrTerritories)
+                                    //console.log(lyrTerritories)
                                     
                                     function styleTerritories (json) {
                                         var att=json.properties;
                                         for(i=0; i<huntedNber; i++){
-                                            console.log(att.Numero_Lot) 
-                                            console.log(dnfTerritoriesNber)
+                                            //console.log(att.Numero_Lot) 
+                                            //console.log(dnfTerritoriesNber)
                                             for(j=0;j<(dnfTerritoriesNber); j++){
-                                                console.log(huntedTerritories[2][j]["DA_Numero"]);
+                                                //console.log(huntedTerritories[2][j]["DA_Numero"]);
                                                 if(att.Numero_Lot == huntedTerritories[2][j]["DA_Numero"]){
-                                                    console.log("coucou")  
+                                                   // console.log("coucou")  
                                                     if(huntedTerritories[2][j]["FERMETURE"]=="O"){  
-                                                        console.log("coucou1")   
+                                                        //console.log("coucou1")   
                                                         return {
                                                             fillOpacity: 0.5,
                                                             weight: 4, 

@@ -166,7 +166,6 @@ if (isset($_POST['submit'])) {
                 
             icon.addEventListener('click', function() {
                 // Affichez le popup
-                console.log("coucou");
                 popup.style.display = 'block';
             });
             
