@@ -568,8 +568,8 @@ margin-left: auto;
         display: none;
         align-items: center;
         /*border: 1px solid rgba(9,106,9,0.8);*/
-        width: 20%;
-        height: 17%;
+        width: 34%;
+        height: 13%;
         max-width: 80%;
         background-color: rgba(255,255,255,0.6);
         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
@@ -577,7 +577,7 @@ margin-left: auto;
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
         top: 3.5%;
-        left: 40%;
+        left: 33%;
         transition: 200ms ease-in-out;
     }
     #btonSearchDate{
@@ -934,7 +934,7 @@ margin-left: auto;
 /***************** LARGE SCREEN **************************/
 
 
-@media screen and (min-width: 1400px){
+@media screen and (min-width: 1200px){
 .popup{
     z-index:2001;
     margin-right: auto;
@@ -944,7 +944,7 @@ margin-left: auto;
     align-items: center;
     /*border: 1px solid rgba(9,106,9,0.8);*/
     width: 20%;
-    height: 10%;
+    height: 14%;
     max-width: 80%;
     background-color: rgba(255,255,255,0.6);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),

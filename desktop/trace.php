@@ -100,7 +100,7 @@ $LRT = PLF::Get_LastRunTime();
             </div>
         </div>
         <div id="calendarBtn">
-            <a id="calendar"><i class="fa fa-calendar" title="CLIQUEZ"></i></a>
+            <a id="calendar"><i class="fa fa-calendar fa-2x" title="CLIQUEZ"></i></a>
         </div>
         <div id="popup" class="popup">
             <div id="headPopup">

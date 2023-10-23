@@ -368,6 +368,8 @@ ul {
     inset 2px 2px 3px rgba(36,68,92,0.25),
     inset 0px 0px 5px rgba(36,68,92,0.5);
     border : 0px solid rgba(255,255,255,0.5); 
+    width: 90px;
+    height: 90px;
 }
 
 #calendarBtn a{
@@ -383,6 +385,9 @@ ul {
     border: 2px solid #24445c;
     transition: 0.3s;
     top: 5%;
+    width: 90px;
+    height: 90px;
+    cursor: pointer; 
     }
 
 .popup{
@@ -395,7 +400,7 @@ ul {
     /*border: 1px solid rgba(36,68,92,0.5);*/
     background-color: rgba(255,255,255,0.8);
     width: 350px;
-    height: 20%;
+    height: 14%;
     max-width: 80%;
     background-color: rgba(255,255,255,0.5);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
@@ -403,7 +408,7 @@ ul {
     inset 0px 0px 5px rgba(36,68,92,0.5);
     border-radius: 10px;
     top: 3.5%;
-    left: 45%;
+    left: 42%;
     transition: 200ms ease-in-out;
 }
 
@@ -444,7 +449,7 @@ ul {
 }
 
 #datepicker{
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     text-align: center;
     font-weight: 600;
     border-radius:10px;
@@ -481,34 +486,35 @@ ul {
     margin:auto;
 }
 
-#message.active{
-    color: #fe7924;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1rem;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    background-color: rgba(255,255,255,0.6);
-    z-index: 2001;
-    position: absolute;
-    left: 35%;
-    width: 30%;
-    display: grid;
-    top: 20%;
-    padding: 10px 0px;
-    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
-    inset 2px 2px 3px rgba(36,68,92,0.25),
-    inset 0px 0px 5px rgba(36,68,92,0.5);
-    border-radius: 10px;
-}
-
-/*#squareOpen, #squareClose{
+#squareOpen, #squareClose{
         visibility:hidden;
     }
     
-     #message {
-        visibility:hidden;
-    }*/
+    #message {
+        z-index:2001;
+        position:absolute;
+    }
+    
+    #message.active{
+        color: #fe7924;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin-top: 1rem;
+        background-color: rgba(255,255,255,0.6);
+        z-index: 2001;
+        position: absolute;
+        left: 35%;
+        width: 30%;
+        display: grid;
+        top: 20%;
+        padding: 10px 0px;
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+    }
     
     
     #squareOpen.active{
@@ -546,7 +552,7 @@ ul {
     }
 
 
-@media (max-width: 1450px) {
+@media (max-width: 1200px) {
     #sponsors img{
         justify-content:space-between;
         width: 100%;
@@ -564,7 +570,7 @@ ul {
         display: none;
         align-items: center;
         /*border: 1px solid rgba(9,106,9,0.8);*/
-        width: 20%;
+        width: 40%;
         height: 17%;
         max-width: 80%;
         background-color: rgba(255,255,255,0.6);
@@ -573,7 +579,7 @@ ul {
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
         top: 3.5%;
-        left: 40%;
+        left: 30%;
         transition: 200ms ease-in-out;
     }
     
@@ -581,7 +587,7 @@ ul {
         color:#fe7924;
         text-align: center;
         font-weight: 600;
-        font-size: 0.8rem;
+        font-size: 0.6rem;
         margin-top: -1.2rem;
         margin-left: 15%;
     
