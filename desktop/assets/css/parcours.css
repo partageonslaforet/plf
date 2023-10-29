@@ -1,0 +1,1027 @@
+*{
+    font-family: 'poppins', sans-serif;
+    }
+    
+    /******** PAGE CARTE ***********/
+    
+    #map
+    {
+        height: 100vh;
+        position: static !important;
+        overflow-y:hidden;
+    }
+    
+    span.leaflet-control-locate-location-marker{
+         background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="black" d="M445 4 29 195c-48 23-32 93 19 93h176v176c0 51 70 67 93 19L508 67c16-38-25-79-63-63z"/></svg>');
+    }
+    
+    /******** SIDEBAR ***********/
+    
+    #sidebarIcon{
+        position:absolute;
+        list-style: none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: 100px;
+        transition: 0.5s;
+        left:14%;
+        color:#24445c;
+        background-color: rgba(255,255,255,1.0);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border : 0px solid rgba(255,255,255,0.5); 
+    }
+    
+    #sidebarBtn.active a{
+        z-index:2001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background: rgba(255,255,255,0.0);
+        border-radius:50%;
+        color: #24445c;
+        border: 2px solid #24445c;
+        transition: 0.3s;
+        top: 5%;
+        }
+    
+    
+    
+    
+    #sidebar {
+       position: absolute;
+        z-index: 2000;
+        background-color:rgba(255,255,255,0.5);
+        /*border: 2px solid #24445c;*/
+        margin-top: 2%;
+        margin-left: 2%;
+        width:25%;
+        height:90%;
+        border-radius:10px;
+        /*box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);*/
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        
+    }
+    
+    .sidebar-header{
+        font-size: 2rem;
+        text-align: center;
+        font-weight: 600;
+    }
+    
+    #sidebarclosebtn{
+        color:#fe7924;
+        border: solid 1px #fe7924;
+        border-radius: 5px;
+        margin: 5px 0 0 10px;
+        font-weight: 900;
+        width:1rem;
+        display:flex;
+        padding-left: 3px;
+    }
+    
+    #parcoursSearchLabel{
+        margin:1.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+        font-weight: 600;
+        color: #24445c;
+        margin-left:auto;
+        margin-right: auto;
+    }
+    
+    #findParcours{
+        text-align: center;
+        color:#24445c;
+        font-size: 1rem;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }   
+
+    #selectCityForm, #selectParcoursForm{
+        margin-top: -50px;
+    }
+
+    label {
+        color: #24445c;
+        display: block;
+        font-size: 0.8rem;
+        padding-top: 1rem;
+        padding-bottom: 0.3rem;
+        font-weight: 600;
+        }
+    
+    #selectCityType{
+        background-color:rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        text-align: center !important;
+        font-weight: 700;
+        border-radius:5px;
+        border: 2px solid #B2D039;
+        padding: 5px 0 5px 0;
+        width: 50%;
+        color: #24445c;   
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+    }
+
+
+    .ui-selectmenu-button.ui-button{
+        background-color:rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        text-align: center !important;
+        font-weight: 700;
+        border-radius:5px;
+        border: 2px solid #B2D039;
+        padding: 7px 0 5px 0;
+        width: 50%;
+        color: #24445c;   
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+    }
+    
+    #txtFindCityName{
+        background-color:rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        text-align: center !important;
+        font-weight: 700;
+        border-radius:5px;
+        border: 2px solid #B2D039;
+        padding: 5px 0 5px 0;
+        width: 50%;
+        color: #24445c;   
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+    }
+
+    #parcoursInfo.active{
+        font-size: 1.5rem;
+        text-align: center;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
+    
+    #parcoursInfoDetails.active{
+        background-color: rgba(255,255,255,0.7);
+        width: 85%;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    #parcoursNom.active {
+        width: 85%;
+        font-size: 1.2rem;
+        text-align: center;
+        font-weight: 600;
+        padding: 3px 0 0px 0;
+        color: white;
+        background-color: #B2D039;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        margin-top:-1rem;
+    }
+    
+    #parcoursOrganisme, #parcoursLocalite, #parcoursDistance, #parcoursD,#parcoursSignal, #parcoursType, #parcoursCommune {
+        padding-left: 5%;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 0.9rem;
+        overflow: hidden;
+        overflow-wrap: break-word;
+    
+    }
+    
+    #parcoursTrace {
+        padding-left: 5%;
+        font-weight: 600;
+        color: #fe7924;
+        font-size: 0.9rem;
+        overflow: hidden;
+        overflow-wrap: break-word;
+    }
+
+    #txtFindParcoursName{
+        background-color:rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        text-align: center !important;
+        font-weight: 700;
+        border-radius:5px;
+        border: 2px solid #B2D039;
+        padding: 7px 0 5px 0;
+        width: 50%;
+        color: #24445c;   
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+    }
+    
+    #search{
+        margin-top: -1.5rem;
+        font-size: 5rem;
+        text-align: center;
+    }
+    
+    .searchItems{
+        margin-top: 3rem;
+        background-color: #B2D039;
+        border: 1px solid #B2D039;
+        color: white;
+        border-radius:10px;
+        padding: 7px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+    .searchItems:hover{
+        margin-top: 3rem;
+        background-color: #fe7924;
+        border: 1px solid #fe7924;
+        color: white;
+        border-radius:10px;
+        padding: 7px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }   
+    
+    #btnRetour{
+        color: rgba(255,255,255,0.75);
+        background-color: #B2D039;
+        border-radius: 10px;
+        width: 60%;
+        margin-top: 1rem;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid #B2D039;
+        text-align: center;
+        margin:auto;
+        position: absolute;
+        display: grid;
+        font-weight: 600;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transform: translate(30%, 50%);
+        bottom: 5%;
+    }
+    
+    #btnRetour:hover{
+        color: rgba(255,255,255,1);
+        background-color: #fe7924;
+        border-radius: 10px;
+        width: 60%;
+        margin-top: 1rem;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid #fe7924;
+        text-align: center;
+        margin:auto;
+        position: absolute;
+        display: grid;
+        font-weight: 600;
+        transform: translate(30%, 50%);
+        bottom: 5%;
+    }
+    
+    
+    
+    /******** DATE PICKER ***********/
+    
+    #sidebarCalendar{
+        visibility:hidden;
+    }
+    
+    #sidebarCalendar.active{
+        position:absolute;
+        list-style: none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: 100px;
+        transition: 0.5s;
+        left:50%;
+        color:#24445c;
+        background-color: rgba(255,255,255,1.0);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border : 0px solid rgba(255,255,255,0.5); 
+    }
+    
+    #calendar{
+        position:absolute;
+        list-style: none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: 100px;
+        transition: 0.5s;
+        left:50%;
+        color:#24445c;
+        background-color: rgba(255,255,255,1.0);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border : 0px solid rgba(255,255,255,0.5); 
+        width: 90px;
+        height: 90px;
+    }
+    
+    #calendarBtn a{
+        z-index:2001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background: rgba(255,255,255,0.0);
+        border-radius:50%;
+        color: #24445c;
+        border: 2px solid #24445c;
+        transition: 0.3s;
+        top: 5%;
+        width: 90px;
+        height: 90px;
+        cursor: pointer; 
+    }
+    
+    .popup{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:fixed;
+        display: none;
+        align-items: center;
+        /*border: 1px solid rgba(9,106,9,0.8);*/
+        width: 20%;
+        height: 15%;
+        max-width: 80%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 3.5%;
+        left: 40%;
+        transition: 200ms ease-in-out;
+    }
+    
+    #message.active{
+        color: #fe7924;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-top: 1rem;
+        background-color: rgba(255,255,255,0.6);
+        z-index: 2001;
+        position: absolute;
+        left: 40%;
+        width: 20%;
+        display: grid;
+        top: 15%;
+        padding: 10px 0px;
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+    }
+    
+    
+    sibedarCalendar.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    
+    #headPopup{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    #closebtn{
+        font-size: 0.7rem;
+        color:#fe7924;
+        border: solid 1px #fe7924;
+        border-radius: 5px;
+        margin: 5px 0 0 5px;
+        font-weight: 900;
+    }
+    
+    .date-calendar {
+        color: #34495e;
+        text-align: center;
+    }
+    
+    #maj {
+        color:#fe7924;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        margin-right: 15%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -0.5rem;
+    }
+    
+    .date-calendar {
+        color: #34495e;
+        text-align: center;
+    }
+    
+    #datepicker{
+        border-radius:10px;
+        border: 1px solid #34495e;
+        text-align: center;
+        width: 80%;
+    }
+    
+    #controlButtons{
+        display: grid; /* Utilise une grille pour aligner les boutons */
+        justify-content: center; /* Pour centrer les boutons horizontalement (facultatif) */
+        margin-top: -0.6rem;
+    }
+    
+    #btonSearchDate{
+        color: rgba(255,255,255,0.75);
+        background-color: #B2D039;
+        border-radius: 10px;
+        width: 120%;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid #B2D039;
+        text-align: center;
+        font-weight: 600;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+    
+    #btonSearchDate:hover{
+        color: rgba(255,255,255,1);
+        background-color: #fe7924;
+        border-radius: 10px;
+        width: 120%;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid #fe7924;
+        text-align: center;
+        font-weight: 600;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    }
+    
+    #infoRetour.active{
+        background-color:#34495e;
+        margin-right:auto;
+        margin-left:auto;
+        width:80%;
+        border-radius:5px;
+        margin-top: 5px;
+        padding-top: 5px;
+    }
+    
+     #squareOpen, #squareClose{
+        visibility:hidden;
+    }
+        
+    #squareOpen.active{
+        color: #fdef49;
+        height: 20px;
+        Padding:0 0 0 5%;
+        visibility:visible;
+    }
+        
+    #squareClose.active{
+        color: #ef3d33;
+        height: 20px;
+        Padding: 0 0 0 5%;
+        margin-bottom:5px;
+        visibility:visible;
+    }
+    
+    
+    .ui-datepicker {
+    background-color: #fff;
+    }
+    
+    .ui-datepicker-header {
+    background-color: #616eff;
+    }
+    
+    .ui-datepicker-title {
+    color: white;
+    }
+    
+    .ui-widget-content .ui-state-default {
+    border: 0px;
+    text-align: center;
+    background: #fff;
+    font-weight: normal;
+    color: #000;
+    }
+    
+    .ui-widget-content .ui-state-default:hover {
+    border: 0px;
+    text-align: center;
+    background: #fe7924;
+    font-weight: normal;
+    color: #fff;
+    }
+    
+    .ui-widget-content .ui-state-active {
+    border: 0px;
+    background: #616eff;
+    color: #fff;
+    }
+    .ui-icon ui-icon-circle-triangle-e{
+        color:#24445c;
+    }
+    
+    ul.ui-menu { max-height: 420px !important; }
+    
+    .ui-selectmenu-text {
+      display: block;
+      margin-right: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #24445c;
+      z-index: 2001;
+      position: relative;
+    }
+    
+    ui.front{
+        z-index: 2001;
+      position: relative;
+    }
+    
+    @media (max-width: 1450px) {
+        #search{
+        
+        font-size: 5rem;
+        text-align: center;
+        }
+        
+       .popup{
+            z-index:2001;
+            margin-right: auto;
+            margin-left: auto;
+            position:fixed;
+            display: none;
+            align-items: center;
+            /*border: 1px solid rgba(9,106,9,0.8);*/
+            width: 20%;
+            height: 15%;
+            max-width: 80%;
+            background-color: rgba(255,255,255,0.6);
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+            top: 3.5%;
+            left: 40%;
+            transition: 200ms ease-in-out;
+        }
+        
+         #closebtn{
+            font-size: 0.5rem;
+            color:#fe7924;
+            border: solid 1px #fe7924;
+            border-radius: 5px;
+            margin: 5px 0 0 5px;
+            font-weight: 900;
+            width:15px;
+        }
+        
+        #maj {
+            color:#fe7924;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.6rem;
+            margin-top: 5px;
+            margin-right: 15%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -0.6rem;
+            
+        }
+        
+        #datepicker{
+            border-radius:10px;
+            border: 1px solid #34495e;
+            text-align: center;
+            width: 80%;
+        }
+        
+         #btonSearchDate{
+            color: rgba(255,255,255,0.75);
+            background-color: #B2D039;
+            border-radius: 10px;
+            width: 120%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #B2D039;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #btonSearchDate:hover{
+            color: rgba(255,255,255,1);
+            background-color: #fe7924;
+            border-radius: 10px;
+            width: 120%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #fe7924;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
+        }
+    
+        #btnRetour{
+            color: rgba(255,255,255,0.75);
+            background-color: #B2D039;
+            border-radius: 10px;
+            font-size: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #B2D039;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #btnRetour:hover{
+            color: rgba(255,255,255,1);
+            background-color: #fe7924;
+            border-radius: 10px;
+            font-size:10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #fe7924;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        #controlButtons{
+            margin-top: -10px;
+        }
+        
+        #message.active{
+            color: #34495e;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 2000;
+            position: absolute;
+            left: 40%;
+            width: 20%;
+            display: grid;
+            top: 20%;
+            padding: 5px 0px 5px 0px;
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+        }
+        
+        #infoRetour.active{
+            background-color:#34495e;
+            margin-right:auto;
+            margin-left:auto;
+            width:80%;
+            border-radius:5px;
+        }
+        
+        #squareOpen, #squareClose{
+            visibility:hidden;
+        }
+        
+        #squareOpen.active{
+            height: 20px;
+            Padding:0 0 0 5%;
+            visibility:visible;
+            padding-top:5px;
+        }
+     
+        #squareClose.active{
+            color: #ef3d33;
+            height: 20px;
+            Padding: 0 0 0 5%;;
+            visibility:visible;
+            padding-bottom:5px;
+            margin-bottom:0px;
+        }
+    }
+
+/***************** MOBILE **************************/
+
+    @media screen and (max-width: 600px){
+        #parcoursSearchLabel{
+            margin:1rem;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #24445c;
+            margin-left:auto;
+            margin-right: auto;
+        }
+
+        #selectCityType{
+            background-color:rgba(255,255,255,0.7);
+            font-size: 0.6rem;
+            text-align: center !important;
+            font-weight: 700;
+            border-radius:5px;
+            border: 2px solid #B2D039;
+            padding: 5px 0 5px 0;
+            width: 90%;
+            color: #24445c;   
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+        }
+
+        .ui-selectmenu-button.ui-button{
+            background-color:rgba(255,255,255,0.7);
+            font-size: 0.6rem;
+            text-align: center !important;
+            font-weight: 700;
+            border-radius:5px;
+            border: 2px solid #B2D039;
+            padding: 5px 0 5px 0;
+            width: 90%;
+            color: #24445c;   
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+            font-size: 0.6rem! important;
+            width: 90% !important;
+            margin-top: 3rem;
+        }
+
+        #sidebar {
+            position: absolute;
+             z-index: 2000;
+             background-color:rgba(255,255,255,0.5);
+             /*border: 2px solid #24445c;*/
+             margin-top: 1%;
+             margin-left: 1%;
+             width:35%;
+             height:95%;
+             border-radius:10px;
+             /*box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);*/
+             box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+             inset 2px 2px 3px rgba(36,68,92,0.25),
+             inset 0px 0px 5px rgba(36,68,92,0.5);    
+         }
+
+        label {
+            color: #24445c;
+            display: block;
+            font-size: 0.6rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.3rem;
+            font-weight: 600;
+            }
+
+        .searchItems{
+            margin-top: 0.5rem;
+            font-size: 0.6rem ;
+            background-color: #B2D039;
+            border: 1px solid #B2D039;
+            color: white;
+            border-radius:10px;
+            padding-top: 5px;
+            width: 90%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #txtFindParcoursName{
+            background-color:rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            text-align: center !important;
+            font-weight: 700;
+            border-radius:5px;
+            border: 2px solid #B2D039;
+            padding: 7px 0 5px 0;
+            width: 50%;
+            color: #24445c;   
+            margin-top: 3rem;
+            width: 90%;
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+        }
+
+        #parcoursInfo.active{
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        #parcoursInfoDetails.active{
+            background-color: rgba(255,255,255,0.7);
+            width: 70%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #parcoursOrganisme, #parcoursLocalite, #parcoursDistance, #parcoursD,#parcoursSignal, #parcoursType, #parcoursCommune {
+            padding-left: 5%;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 0.6rem;
+            overflow: hidden;
+            overflow-wrap: break-word;
+        
+        }
+        
+        #parcoursTrace {
+            padding-left: 5%;
+            font-weight: 500;
+            color: #fe7924;
+            font-size: 0.6rem;
+            overflow: hidden;
+            overflow-wrap: break-word;
+        }
+
+        #parcoursNom.active {
+            width: 70%;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            background-color: #B2D039;
+            margin-right: auto;
+            margin-left: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            margin-top:-1rem;
+        }
+
+        .popup{
+            z-index:2001;
+            margin-right: auto;
+            margin-left: auto;
+            position:fixed;
+            display: none;
+            align-items: center;
+            /*border: 1px solid rgba(9,106,9,0.8);*/
+            width: 40%;
+            height: 10%;
+            background-color: rgba(255,255,255,0.6);
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+            top: 1.5%;
+        }
+
+        #maj {
+            color:#fe7924;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.5rem;
+            margin-top: 5px;
+            margin-right: 15%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #datepicker{
+            border-radius:10px;
+            border: 1px solid #34495e;
+            text-align: center;
+            width: 80%;
+            font-size: 8px;
+        }
+
+        .popup-content{
+            margin-top: -1rem;
+        }
+
+        #btonSearchDate{
+            color: rgba(255,255,255,0.75);
+            background-color: #B2D039;
+            border-radius: 10px;
+            width: 500%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #B2D039;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-left: -200%;
+        }
+        
+        #btonSearchDate:hover{
+            color: rgba(255,255,255,1);
+            background-color: #fe7924;
+            border-radius: 10px;
+            width: 500%;
+            font-size: 7px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border: 1px solid #fe7924;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-left: -200%;
+        }
+
+        #message.active{
+            color: #34495e;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            background-color: rgba(255,255,255,0.6);
+            z-index: 2000;
+            position: absolute;
+            width: 40%;
+            display: grid;
+            top: 11%;
+            padding: 5px 0px 5px 0px;
+            box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+            inset 2px 2px 3px rgba(36,68,92,0.25),
+            inset 0px 0px 5px rgba(36,68,92,0.5);
+            border-radius: 10px;
+        }
+
+        #squareOpen.active{
+            height: 20px;
+            visibility:visible;
+            padding-top:5px;
+        }
+     
+        #squareClose.active{
+            color: #ef3d33;
+            height: 20px;
+            visibility:visible;
+            padding-bottom:5px;
+            margin-bottom:0px;
+        }
+    }
+    
+/***************** LARGE SCREEN **************************/
+
+
+    @media screen and (min-width: 1600px){
+    .popup{
+        z-index:2001;
+        margin-right: auto;
+        margin-left: auto;
+        position:fixed;
+        display: none;
+        align-items: center;
+        /*border: 1px solid rgba(9,106,9,0.8);*/
+        width: 20%;
+        height: 10%;
+        max-width: 80%;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+        top: 3.5%;
+        left: 40%;
+        transition: 200ms ease-in-out;
+    }
+
+    #message.active{
+        color: #fe7924;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        background-color: rgba(255,255,255,0.6);
+        z-index: 2001;
+        position: absolute;
+        left: 40%;
+        width: 20%;
+        display: grid;
+        top: 15%;
+        padding: 10px 0px;
+        box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+        inset 2px 2px 3px rgba(36,68,92,0.25),
+        inset 0px 0px 5px rgba(36,68,92,0.5);
+        border-radius: 10px;
+    }
+ }

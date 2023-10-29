@@ -1,0 +1,9 @@
+[user]
+email = Christian.Lurkin@hotmail.com
+name = lurkich_local
+
+[github]
+user = "lurkich"
+
+[core]
+sshCommand = "ssh -i ~/.ssh/lurkich_local

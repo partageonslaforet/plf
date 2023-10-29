@@ -1,0 +1,248 @@
+*{
+font-family: 'poppins', sans-serif;
+}
+
+
+/******** PAGE CARTE ***********/
+
+#map
+{
+    height: 100vh;
+}
+
+/******** SIDEBAR ***********/
+
+#sidebar {
+    position: absolute;
+    z-index: 2000;
+    background-color:rgba(255,255,255,0.5);
+    /*border: 2px solid #24445c;*/
+    margin-top: 2%;
+    margin-left: 2%;
+    width:25%;
+    height:90%;
+    border-radius:10px;
+    /*box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);*/
+    box-shadow:5px 5px 5px rgba(36,68,92,0.5),
+    inset 2px 2px 3px rgba(36,68,92,0.25),
+    inset 0px 0px 5px rgba(36,68,92,0.5);
+}
+
+.sidebar-header{
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+#territoriesSearchLabel{
+    margin:1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    color:#2c3e50;
+}
+
+#txtFindTerritoriesName{
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    background-color: rgba(255,255,255,0.6);
+    border-radius:10px;
+    border: 2px solid #B2D039;
+    padding: 5px 0 5px 0;
+    width: 80%;
+    color: #24445c;
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    box-shadow:5px 5px 5px rgba(36,68,92,0.5);
+}
+
+#findTerritories{
+    margin-top:-5px;
+    text-align: center;
+}
+
+#search{
+    margin-top: 1rem;
+    font-size: 5rem;
+    text-align: center;
+    
+    
+}
+
+#btnFindTerritoriesName{
+    background-color: #B2D039;
+    border: 1px solid #B2D039;
+    color: white;
+    border-radius:10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#btnFindTerritoriesName:hover{
+    background-color: #fe7924;
+    border: 1px solid #fe7924;
+    color: white;
+    border-radius:10px;
+    padding: 10px;
+}   
+
+#territoryInfo{
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    color:#2c3e50;
+    margin-top: 0.5rem;
+    margin-bottom:2rem;
+}
+
+#territoriesHuntingDatesLabel{
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color:#2c3e50;
+    margin: 1rem 0;
+}
+
+#territoryName.active{
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    padding: 3px 0 0px 0;
+    color: white;
+    background-color: #B2D039;
+    width: 77%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.sub-info{
+    background-color: rgba(255,255,255,0.6);
+    width: 85%;
+    margin: auto;
+    border-radius: 5px;
+}
+
+
+#territoryNbre{
+    text-align:center;
+    font-size: 0.8rem;
+}
+
+#territoryCanton{
+    text-align:center;
+    font-size: 0.8rem;
+}
+
+#territoryCC{
+    text-align:center;
+    font-size: 0.8rem;
+}
+
+#territoryArea{
+    text-align:center;
+    font-size: 0.8rem;
+}
+
+#data-Date{
+    text-align: center;
+    padding-left: 0;
+    font-size: 0.8rem;
+    background-color: rgba(255,255,255,0.6);
+    color:#2c3e50 ;
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    overflow-y:scroll;
+    height: 30%;
+}
+
+
+#btnRetour{
+    color: rgba(255,255,255,0.75);
+    background-color: #B2D039;
+    border-radius: 10px;
+    width: 60%;
+    margin-top: 1rem;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #B2D039;
+    text-align: center;
+    margin:auto;
+    position: absolute;
+    display: grid;
+    font-weight: 600;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: translate(30%, 50%);
+    bottom: 5%;
+}
+
+#btnRetour:hover{
+    color: rgba(255,255,255,1);
+    background-color: #fe7924;
+    border-radius: 10px;
+    width: 60%;
+    margin-top: 1rem;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #fe7924;
+    text-align: center;
+    margin:auto;
+    position: absolute;
+    display: grid;
+    font-weight: 600;
+    transform: translate(30%, 50%);
+    bottom: 5%;
+}
+
+.leaflet-control-locate a.leaflet-bar-part div {
+	background-position: left 8px top 8px;
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+}
+
+/*.leaflet-control-locate-location-marker{
+    background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
+}
+
+
+
+.leaflet-control-locate a.leaflet-bar-part div.loading {
+	background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
+}*/
+
+.leaflet-control-locate a.leaflet-bar-part div.locate {
+	background-image: url(https://partageonslaforet.be/assets/img/location-arrow-solid.svg);
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  background:#2c3e50;
+  color:#fff;
+  font-size:16px;
+  line-height:24px;
+  border-radius: 20px;
+  }
+.custom-popup .leaflet-popup-content-wrapper a {
+    color:rgba(255,255,255,0.1);
+  }
+.custom-popup .leaflet-popup-tip-container {
+  width:30px;
+  height:15px;
+  }
+.custom-popup .leaflet-popup-tip {
+    
+  }
+  
+.custom-popup{
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color:#2c3e50;
+    font-weight: 600;
+
+}  
