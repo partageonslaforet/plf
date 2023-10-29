@@ -133,6 +133,10 @@
     background-color:var(--primary-color-light) !important;
  }
 
+ .nav-link i {
+    font-size:1.5vw;
+ }
+
 /******** SIDEBAR SETTING ***********/
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -178,7 +182,7 @@ body.dark{
     --body-color: #18191a;
     --sidebar-color: #3a3b3c;
     --primary-color: #990047;
-    --primary-color-light: #B2D039;
+    --primary-color-light: #34495e;
     --toggle-color: #fff;
     --text-color: #ccc;
 }
