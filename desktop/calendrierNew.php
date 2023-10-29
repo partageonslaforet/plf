@@ -203,6 +203,10 @@ $LRT = PLF::Get_LastRunTime();
             });
         });
 
+        $(".selector").datepicker( "option", "gotoCurrent", true );
+        document.getElementById("datepicker").innerHTML = $.datepicker.formatDate('dd, MM, yy', new Date())
+
+
 
     // ************ MAP INITIALIZATION ************************************************************ 
     var crs=  new L.Proj.CRS(

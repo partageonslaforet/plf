@@ -57,7 +57,8 @@
     border: 1px solid #34495e;
     text-align: center;
     width: 80%;
-    font-size: 0.7rem;
+    font-size: 1vw;
+    color: #34495e;
 }
 
 .modal-dialog {
@@ -70,6 +71,68 @@
   margin-left: auto!important;
   margin-right: auto!important;
 }
+
+#message {
+    background-color:#24445c;
+    border-radius:5px;
+    padding: 10px;
+}
+
+#retour{
+    color:#ccc;
+}
+
+.modal-backdrop {
+    background-color: transparent !important;
+ }
+
+ #maj{
+    font-size: 0.8vw;
+    color:#990047;
+ }
+
+ .btn-close{
+    font-size: 0.8vw !important;
+    color:#990047 !important;
+ }
+
+ #search{
+    text-align: center;
+    width: 100%;
+ }
+
+ #btonSearchDate{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50px;
+ }
+
+ #btonSearchDate i{
+    text-align: center;
+    font-size: 1.5vw;
+ }
+
+ #message{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+ }
+
+ #squareOpen{
+    color:#fdef49;
+ }
+ #squareClose{
+    color:#990047;
+ }
+
+ .modal-content{
+    background-color:var(--primary-color-light) !important;
+ }
+
 /******** SIDEBAR SETTING ***********/
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -78,15 +141,16 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-size:0.8vw;
 }
 
 :root{
     /* ===== Colors ===== */
     --body-color: #E4E9F7;
     --primary-color: #34495e;
-    --primary-color-light: #F6F5FF;
+    --primary-color-light: rgba(255,255,255, 0.6);
     --sidebar-color: #B2D039;
-    --toggle-color: #DDD;
+    --toggle-color: #DDD#F6F5FF;
     --text-color: #707070;
     --white-color: #f3f6f9;
     --red-color: #990047;
@@ -105,10 +169,10 @@ body{
     transition: var(--tran-05);
 }
 
-::selection{
+/*::selection{
     background-color: var(--primary-color);
     color: #fff;
-}
+}*/
 
 body.dark{
     --body-color: #18191a;
@@ -127,7 +191,7 @@ body.dark{
     height: 100%;
     width: 20vw;
     padding: 10px 14px;
-    background: var(--sidebar-color);
+    background: var(--primary-color-light);
     transition: var(--tran-05);
     z-index: 2001;  
 }
@@ -157,7 +221,7 @@ body.dark{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2vw;
+    font-size: 1vw;
 }
 
 .sidebar .text,
@@ -167,7 +231,7 @@ body.dark{
 }
 
 .sidebar .text{
-    font-size: 1.2vw;
+    font-size: 1vw;
     padding-left:10px;
     font-weight: 500;
     white-space: nowrap;
@@ -232,7 +296,7 @@ header .image-text .profession{
 }
 
 body.dark .sidebar header .toggle{
-    color: var(--text-color);
+    color: var(--sidebar-color);
 }
 
 .sidebar.close .toggle{

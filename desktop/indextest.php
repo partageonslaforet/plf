@@ -152,53 +152,56 @@ $LRT = PLF::Get_LastRunTime();
     <section id="Container">
         <div id="map"></div>
         <div id="calendarBtn">
-            <a id="calendar"><i class="fa fa-calendar fa-2x text-container d-flex justify-content-center " data-bs-toggle="modal" data-bs-target="#calendarModal"" title="CALENDRIER DES BATTUES"></i></a>
+            <a id="calendar"><i class="fa fa-calendar fa-2x text-container d-flex justify-content-center " data-bs-toggle="modal" data-bs-target="#calendarModal" title="CALENDRIER DES BATTUES"></i></a>
         </div>
     </section>
 
     <!-- **************** CALENDAR POPUP**************** -->
 
      <div class="modal" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <div id="maj"></div>
-                        <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel"></h5>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div id="maj"></div>
+                    <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel"></h5>
 
-                        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="popup-content">
-                            <div class="date-calendar">
-                            <p><input type="text" id="datepicker" placeholder="Cliquez pour choisir une date"></p>
-                            </div>    
-                            <div id="controlButtons" class="list">
-                                
-                            </div>
+                    <button type="button" id="btn-close" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="popup-content">
+                        <div class="date-calendar">
+                        <p><input type="text" id="datepicker" placeholder="Cliquez pour choisir une date"></p>
+                        </div>    
+                        <div id="search" class='list-item'>
+                            <button type="button" class="btn btn-secondary " id="btonSearchDate" ><i class="fa fa-search"></i></button> 
                         </div>
                     </div>
-                <div class="modal-footer">
-                    <div id="search" class='list-item'>
-                        <button type="button" class="btn btn-secondary" id="btonSearchDate" ><i class="fa fa-search"></i></button>
-                        <div id="message">
-                            <div id="retour"></div>
-                            <div id="infoRetour">
-                                <div id="squareOpen">
-                                    <i class='fa-solid fa-square'></i>
-                                    <span>Chemins ouverts</span>
-                                </div>
-                                <div id="squareClose">
-                                    <i class='fa-solid fa-square'></i>
-                                    <span>Chemins fermés</span>
-                                </div>
-                            </div>
+                </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <div id="message">
+                    <div id="retour"></div>
+                    <div id="infoRetour">
+                        <div id="squareOpen">
+                            <i class='fa-solid fa-square'></i>
+                            <span>Chemins ouverts</span>
+                        </div>
+                        <div id="squareClose">
+                            <i class='fa-solid fa-square'></i>
+                            <span>Chemins fermés</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>      
+        <div class="spinner-border m-5 text-danger" id="spinner" role="status">
+            <span class="sr-only">Chargement...</span>
+        </div>
     </body>
 </html>
 <script src = "assets/inc/js/main.js"></script>
+<script>
+    
+</script>
 <script>
 
     var listTerritories = [];
@@ -218,19 +221,65 @@ $LRT = PLF::Get_LastRunTime();
     var dateValue;
     var formatDate;
     
+    window.addEventListener("load", function() {
+            // Masquer le spinner
+            console.log("coucou")
+            var spinner = document.getElementById("spinner");
+            spinner.style.display = "none";
+    
+
     $(document).ready(function() {
 
+
+       
+        
     // ************ INITIALIZATION DAY JS ************************************************************ 
 
-    $( function() {
-            $("#datepicker").datepicker({
-                dateFormat: "dd-mm-yy",
-                dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
-                monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "December" ],
-                buttonImageOnly: true
-            });
-        });
+    function modalVisible(){
+        return $('#calendarModal').hasClass('show');
+    }
 
+    function toggleButtonVisibility() {
+            var bouton = document.getElementById('calendarBtn');
+            if (modalVisible()) {
+                bouton.style.display = 'none'; // Cacher le bouton
+            } else {
+                bouton.style.display = 'block'; // Afficher le bouton
+            }
+        }
+
+    $('#calendarModal').on('shown.bs.modal', toggleButtonVisibility);
+    $('#calendarModal').on('hidden.bs.modal', toggleButtonVisibility);
+
+    toggleButtonVisibility();
+
+    $( function() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
+            monthNames: [ "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "December" ],
+            buttonImageOnly: true
+        });
+        var todayDate = new Date()
+        console.log(todayDate)
+        $('#datepicker').datepicker('setDate', todayDate);
+
+        var todayDate = new Date()
+        formatDate = $.datepicker.formatDate("dd-mm-yy", todayDate);
+        var x = findTerritories(formatDate)
+       
+        var modal = document.getElementById('calendarModal');
+
+        var modalInstance = new bootstrap.Modal(modal);
+        modalInstance.show();
+
+        /*if($("#calendarModal:visible").length>0){
+            var bouton = document.getElementById('calendarBtn');
+            bouton.style.display = 'none';
+        }*/
+    });
+
+    
 
     // ************ INITIALIZATION DAY MAJ ************************************************************ 
     
@@ -242,7 +291,6 @@ $LRT = PLF::Get_LastRunTime();
     lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
     
     document.getElementById("maj").innerHTML = "Dernière màj : "+lRTBE;
-
         
     // ************ MAP INITIALIZATION ************************************************************ 
     var crs=  new L.Proj.CRS(
@@ -313,44 +361,15 @@ $LRT = PLF::Get_LastRunTime();
 		animationInterval: 500,
 		opacity: 0.5
 	}).addTo(map);
-        
-    // ************ POPUP CALENDAR ************************************************************
-          
-    /*    const popup = document.getElementById('popup');
-        const closebtn = document.getElementById('closebtn');
-        const search = document.getElementById('calendarBtn');
-          
-        function showPopup(){
-            popup.style.display = 'block';
-            search.style.display = 'none';
-            
-        }
-          
-        function hidePopup(){
-            popup.style.display = 'none';
-            search.style.display = 'block';
-            message.classList.remove('active');
-            retour.classList.remove('active');
-            infoRetour.classList.remove('active');
-            squareOpen.classList.remove('active');
-            squareClose.classList.remove('active');
-        }
-          
-        calendar.addEventListener('click', showPopup);
-          
-        closebtn.addEventListener('click', hidePopup);
-          
-        window.addEventListener('click', (event) =>{
-            if (event.target === popup){
-                hidePopup();
-            }    
-        });*/
             
         // *************** DATE SELECTION ***********************************************************
         
          
         $("#btonSearchDate").click(function(){
-            console.log("coucou")
+        
+            
+
+
             if (lyrTerritories){
                 lyrTerritories.remove();
                 map.removeLayer(lyrTerritories);
@@ -368,7 +387,17 @@ $LRT = PLF::Get_LastRunTime();
                 
             }
             else{
-                
+
+                var x = findTerritories(dateValue)
+
+            }
+
+           
+ 
+        });
+
+        // *************** GENERAL FUNCTIONS ***********************************************************
+            function findTerritories(dateValue){
                 // *************** SETTINGS ***********************************************************
                  
                 document.getElementById("retour").innerHTML = "";
@@ -399,12 +428,12 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     }else{
                         huntedTerritories = JSON.parse(response);
-                        console.log(huntedTerritories)
+                        //console.log(huntedTerritories)
                         huntedNber=(huntedTerritories[2].length);
-                        console.log(huntedNber)
+                        //console.log(huntedNber)
                         
                         for(i=0; i<huntedNber; i++){
-                            console.log(huntedTerritories[2][i]["FERMETURE"]);
+                           // console.log(huntedTerritories[2][i]["FERMETURE"]);
                             territory = huntedTerritories[2][i]["DA_Numero"];
                             territoriesList.push(territory);
                             if (huntedTerritories[2][i]["FERMETURE"]=="O"){
@@ -469,17 +498,17 @@ $LRT = PLF::Get_LastRunTime();
                                             console.log(att.Numero_Lot);
                                             console.log(huntedNber);
                                             for(i=0; i<huntedNber; i++){
-                                            console.log(huntedTerritories[2][i]["DA_Numero"]);
+                                           
            
                                                if(att.Numero_Lot==huntedTerritories[2][i]["DA_Numero"]){
-                                                console.log(att.Numero_Lot);
+                                                
                                                    
                                                   if(huntedTerritories[2][i]["FERMETURE"]=="O"){
                                                       
                                                     return {
                                                         fillOpacity: 0.5,
                                                         weight: 4,
-                                                        color:'#ef3d33'
+                                                        color:'#990047'
                                                         };
                                                       } else{
                                                          return {
@@ -515,7 +544,7 @@ $LRT = PLF::Get_LastRunTime();
                         }
                     }   
                 });
-            }
-         });
+            };
+        });
     });
 </script>
