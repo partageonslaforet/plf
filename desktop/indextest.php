@@ -233,7 +233,7 @@ $LRT = PLF::Get_LastRunTime();
 
        
         
-    // ************ INITIALIZATION DAY JS ************************************************************ 
+    // ************ INITIALIZATION ************************************************************ 
 
     function modalVisible(){
         return $('#calendarModal').hasClass('show');
