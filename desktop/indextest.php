@@ -78,7 +78,7 @@ $LRT = PLF::Get_LastRunTime();
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="#messageSPWModal" data-bs-target="#messageSPWModal" data-bs-toggle="modal" title="INFORMATIONS GENERALES">
                             <i class='fa fa-info' ></i>
                             <span class="text nav-text">Informations</span>
                         </a>
@@ -162,11 +162,11 @@ $LRT = PLF::Get_LastRunTime();
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <div id="maj"></div>
-                    <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel"></h5>
+                    <div id="maj"></div>
+                        <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel"></h5>
 
-                    <button type="button" id="btn-close" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                        <button type="button" id="btn-close" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                 <div class="modal-body">
                     <div class="popup-content">
                         <div class="date-calendar">
@@ -196,13 +196,54 @@ $LRT = PLF::Get_LastRunTime();
         <div class="spinner-border m-5 text-danger" id="spinner" role="status">
             <span class="sr-only">Chargement...</span>
         </div>
+
+        <!-- **************** INFORMATION POPUP **************** -->
+
+        <div class="modal" id="messageSPWModal" tabindex="-1" aria-labelledby="messageSPWModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="infoGenerale">INFORMATION GENERALE</h5>
+
+                        <button type="button" id="btn-close" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="popup-content">
+                            <p>
+                            Bienvenue sur l'application permettant de localiser les territoires de chasse ayant obtenu une autorisation de fermeture des chemins en forêt les jours où des actions de chasse sont organisées <a class="affiche" href="../assets/img/Affiche Battues.jpg" id="affichesR" target="_blank">(affiches rouges).</a></br>
+                            </p>
+                            <p>
+                            Elle permet également de localiser les territoires sur lesquels des titulaires du droit de chasse ont déclaré des actions de chasse, sans pour autant solliciter une autorisation de fermeture des chemins <a class="affiche" href="../assets/img/Affiche Annonce.jpg" id="affichesJ" target="_blank">(affiches jaunes).</a></br>
+                            </p>
+                            <p>
+                            Les informations communiquées sur ce site visent à améliorer la transparence sur les activités de chasse et n’ont qu’une valeur informative. Seules les affiches d'interdiction de circulation apposées aux entrées des bois ont valeur légale.</br> 
+                            </p>
+                            <p>
+                            En effet, plusieurs points d’attention sont à prendre en considération :</br>
+                            •	Les limites des territoires de chasse sur cette carte interactive sont celles qui ont été communiquées à l'administration par les conseils cynégétiques ou les titulaires de droit de chasse eux-mêmes. Elles ne sont pas toutes nécessairement d’une grande précision et parfaitement à jour. En conséquence et à titre d’exemple, un chemin/sentier en périphérie du territoire peut également être fermé alors qu’il apparaît en dehors du périmètre du territoire sur la carte. Cette donnée sera chaque année améliorée dans sa qualité. </br>
+                            •	Précisons également que les titulaires n'ont pas nécessairement le droit de chasse sur l'entièreté de la surface comprise à l'intérieur de ces limites (exemple : les zones habitées).</br> 
+                            •	Dans l'état actuel de la réglementation, des actions de chasse peuvent être organisées sans que le titulaire du droit de chasse en informe l’administration ou sans qu’il ne demande la fermeture des chemins. L’application vous présente les territoires chassés (avec ou sans fermeture des chemins) dont l’administration a connaissance.</br>
+                            •	Les informations communiquées sur ce site sont normalement mises à jour quotidiennement. </br>
+                            </p>
+                            <p>
+                            La responsabilité du SPW ne peut être invoquée du fait que les informations communiquées sur ce site seraient inexactes en ce que ces dernières ont une valeur purement informative.</br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <center>
+                            <a class="brochure" href="../assets/img/brochure_partageons_la_foret.pdf" download="brochure_partageons_la_foret.pdf">Télécharger la brochure "Comment entrer en foret en la respectant"</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 <script src = "assets/inc/js/main.js"></script>
+
 <script>
-    
-</script>
-<script>
+
 
     var listTerritories = [];
     var listHuntingDates =[];
@@ -221,19 +262,15 @@ $LRT = PLF::Get_LastRunTime();
     var dateValue;
     var formatDate;
     
-    window.addEventListener("load", function() {
-            // Masquer le spinner
-            console.log("coucou")
-            var spinner = document.getElementById("spinner");
-            spinner.style.display = "none";
+window.addEventListener("load", function() {
+        // Masquer le spinner
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = "none";
     
 
     $(document).ready(function() {
 
-
-       
-        
-    // ************ INITIALIZATION DAY JS ************************************************************ 
+    // ************ INITIALIZATION ************************************************************ 
 
     function modalVisible(){
         return $('#calendarModal').hasClass('show');
@@ -273,10 +310,6 @@ $LRT = PLF::Get_LastRunTime();
         var modalInstance = new bootstrap.Modal(modal);
         modalInstance.show();
 
-        /*if($("#calendarModal:visible").length>0){
-            var bouton = document.getElementById('calendarBtn');
-            bouton.style.display = 'none';
-        }*/
     });
 
     
@@ -367,13 +400,11 @@ $LRT = PLF::Get_LastRunTime();
          
         $("#btonSearchDate").click(function(){
         
-            
-
-
             if (lyrTerritories){
                 lyrTerritories.remove();
                 map.removeLayer(lyrTerritories);
             }
+
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
             console.log(dateValue);
@@ -383,16 +414,11 @@ $LRT = PLF::Get_LastRunTime();
                 message.classList.add('active');
                 infoRetour.classList.remove('active');
                 squareOpen.classList.remove('active');
-                squareClose.classList.remove('active');
-                
+                squareClose.classList.remove('active');    
             }
             else{
-
                 var x = findTerritories(dateValue)
-
             }
-
-           
  
         });
 

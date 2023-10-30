@@ -340,6 +340,7 @@ body.dark .sidebar header .toggle{
     width: 100%;
     border-radius: 6px;
     text-decoration: none;
+    padding-left:1.5rem;
     transition: var(--tran-03);
 }
 
