@@ -78,10 +78,10 @@ $LRT = PLF::Get_LastRunTime();
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#messageSPWModal" data-bs-target="#messageSPWModal" data-bs-toggle="modal" title="INFORMATIONS GENERALES">
+                        <button type="button" data-bs-target="#SPWModal" data-bs-toggle="modal" title="INFORMATIONS GENERALES">
                             <i class='fa fa-info' ></i>
                             <span class="text nav-text">Informations</span>
-                        </a>
+                        </button>
                     </li>
 
                     <li class="nav-link">
@@ -113,10 +113,13 @@ $LRT = PLF::Get_LastRunTime();
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                            Launch modal contact form
+                        </button>
+                        <!--<a href="#staticBackdrop4" data-mdb-toggle="modal">
                             <i class='fa fa-envelope' ></i>
                             <span class="text nav-text">Contact</span>
-                        </a>
+                        </a>-->
                     </li>
 
                 </ul>
@@ -158,7 +161,7 @@ $LRT = PLF::Get_LastRunTime();
 
     <!-- **************** CALENDAR POPUP**************** -->
 
-     <div class="modal" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+     <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -199,8 +202,8 @@ $LRT = PLF::Get_LastRunTime();
 
         <!-- **************** INFORMATION POPUP **************** -->
 
-        <div class="modal" id="messageSPWModal" tabindex="-1" aria-labelledby="messageSPWModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="SPWModal" tabindex="-1" role="dialog" aria-labelledby="messageSPWModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="infoGenerale">INFORMATION GENERALE</h5>
@@ -238,6 +241,55 @@ $LRT = PLF::Get_LastRunTime();
                 </div>
             </div>
         </div>
+
+        <!-- **************** CONTACT FORM POPUP **************** -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop4" tabindex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+            <div class="modal-dialog d-flex justify-content-center">
+                <div class="modal-content w-75">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel4">Write to us</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form>
+                            <!-- Name input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="name4" class="form-control" />
+                                <label class="form-label" for="name4">Name</label>
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="email4" class="form-control" />
+                                <label class="form-label" for="email4">Email address</label>
+                            </div>
+
+                            <!-- textarea input -->
+                            <div class="form-outline mb-4">
+                                <textarea id="textarea4" rows="4" class="form-control"></textarea>
+                                <label class="form-label" for="textarea4">Your message</label>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="checkbox4" checked />
+                                <label class="form-check-label" for="checkbox4">
+                                    Send me a copy of this message
+                                </label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
+
     </body>
 </html>
 <script src = "assets/inc/js/main.js"></script>
