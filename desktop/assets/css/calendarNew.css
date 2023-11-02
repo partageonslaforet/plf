@@ -59,18 +59,19 @@
     width: 80%;
     font-size: 1vw;
     color: #34495e;
+    display: flex;
 }
 
-.modal-dialog {
+.calendarWidth {
   width: 20vw!important;
 }
 
-.modal-body {
+/*.modal-body {
   width: 20vw!important;
   text-align: center!important;
   margin-left: auto!important;
   margin-right: auto!important;
-}
+}*/
 
 #message {
     background-color:#24445c;
@@ -85,6 +86,11 @@
 .modal-backdrop {
     background-color: transparent !important;
  }
+
+ .offcanvas-backdrop.show {
+    background-color: transparent !important;
+ }
+
 
  #maj{
     font-size: 0.8vw;
@@ -129,13 +135,39 @@
     color:#990047;
  }
 
- .modal-content{
+ .calModal{
     background-color:var(--primary-color-light) !important;
  }
 
  .nav-link i {
     font-size:1.5vw;
  }
+/******** INFORMATION MODAL ***********/
+
+.brochure{
+    color:#B2D039 !important;
+    font-size: 1vw !important;
+    margin-bottom: 1rem !important;
+}
+@media screen and (max-width: 1200px){
+    .infoCustomheigth{
+        height: 80vh!important;
+        width: 70vw!important;
+    }
+}
+/*#btonClose{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50px;
+ }
+
+ #btonClose i{
+    text-align: center;
+    font-size: 1.5vw;
+ }*/
 
 /******** SIDEBAR SETTING ***********/
 
@@ -200,7 +232,7 @@ body.dark{
     z-index: 2001;  
 }
 .sidebar.close{
-    width: 88px;
+    width: 10vw;
 }
 
 /* ===== Reusable code - Here ===== */
@@ -393,7 +425,7 @@ body.dark .mode .sun-moon i.moon{
     opacity: 0;
 }
 
-.menu-bar .bottom-content .toggle-switch{
+.menu .bottom-content .toggle-switch{
     position: absolute;
     right: 0;
     height: 100%;

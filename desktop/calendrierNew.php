@@ -49,6 +49,7 @@ $LRT = PLF::Get_LastRunTime();
         <script src = "assets/src/js/L.Control.Locate.min.js"></script>
         <script src = "assets/inc/js/search_hunting_dates.js"></script>
         <script src = "assets/inc/js/main.js"></script>
+        <script src = "assets/inc/js/parcours.js"></script>
         <script src = "https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
         <script src = "assets/src/js/leaflet.rainviewer.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
