@@ -25,7 +25,7 @@
     arLocaliteName.sort((a, b) => a.localeCompare(b, 'fr'));
     arCommuneName.sort((a, b) => a.localeCompare(b, 'fr'));
 
-    const tableDatas = {
+    let tableDatas = {
         arLocaliteName,
         arCommuneName
     }

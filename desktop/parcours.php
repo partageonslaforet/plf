@@ -163,7 +163,7 @@ $List_Parcours = PLF::Get_Itineraires_List();
             </div>
         </div>
     <body>
-        <container id ="Container"><center>
+        <container id ="Container">
             <div id="map"></div>
         </container>
     </body>

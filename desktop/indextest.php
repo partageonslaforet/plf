@@ -24,7 +24,7 @@ $LRT = PLF::Get_LastRunTime();
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!---------------- CSS --------------------->
+    <!------------------------------- CSS --------------------------------------->
     <!--<link rel="stylesheet" href="assets/css/style.css">-->
 
     <link rel="stylesheet" href="assets/css/calendarNew.css">
@@ -42,7 +42,7 @@ $LRT = PLF::Get_LastRunTime();
     <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900">
 
-    <!----===== JS ===== -->
+    <!----------------------------- JS ------------------------------------------>
 
     <script src="assets/src/js/leaflet.js"></script>
     <script src="assets/src/js/jquery-3.7.1.js"></script>
@@ -59,12 +59,18 @@ $LRT = PLF::Get_LastRunTime();
     <script src="assets/src/js/Leaflet.ajax.min.js"></script>
     <script src="assets/src/js/leaflet.rainviewer.js"></script>
     <script src="assets/src/js/GpPluginLeaflet.js"></script>
+    <script src="assets/src/js/gpx.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.2/proj4leaflet.min.js"></script>
+
+
+
 </head>
+<!----------------------------- BODY ------------------------------------------>
 
 <body>
+    <!-- ******************   SIDEBAR  ************************************* -->
     <nav class="sidebar close">
         <header>
             <div class="image-text">
@@ -149,7 +155,7 @@ $LRT = PLF::Get_LastRunTime();
 
     </nav>
 
-    <!-- ****************   MAP  **************** -->
+    <!-- *************************   MAP  *********************************** -->
 
     <section id="Container">
         <div id="map"></div>
@@ -162,7 +168,7 @@ $LRT = PLF::Get_LastRunTime();
         </div>
     </section>
 
-    <!-- **************** CALENDAR POPUP**************** -->
+    <!-- ***************************** CALENDAR POPUP  ************************************* -->
 
     <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
         <div class="modal-dialog calendarWidth" role="document">
@@ -201,7 +207,7 @@ $LRT = PLF::Get_LastRunTime();
         </div>
     </div>
 
-    <!-- **************** INFORMATION POPUP **************** -->
+    <!-- ************************** INFORMATION POPUP ****************************** -->
 
     <div class="modal fade" id="SPWModal" tabindex="-1" role="dialog" aria-labelledby="messageSPWModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -257,7 +263,7 @@ $LRT = PLF::Get_LastRunTime();
     </div>
 
 
-    <!-- **************** CONTACT FORM POPUP **************** -->
+    <!-- **************************** CONTACT FORM POPUP ******************************** -->
 
     <div class="modal fade" id="emailContact" tabindex="-1" aria-labelledby="#emailContactLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -284,7 +290,6 @@ $LRT = PLF::Get_LastRunTime();
                         <div class="form-outline bs-4 form-floating border text-primary border-1 border border-primary rounded mb-1">
                             <input type="email" id="email" class="form-control" required>
                             <label class="form-label" for="email">Votre adresse Email</label>
-
                         </div>
 
                         <!-- textarea input -->
@@ -312,72 +317,116 @@ $LRT = PLF::Get_LastRunTime();
             </div>
         </div>
     </div>
-    <!-- **************** CANVAS PARCOURS **************** -->
+    <!-- ************************** CANVAS PARCOURS ************************************* -->
 
-    <div style='z-index:2001;' class="offcanvas offcanvas-start" tabindex="-1" id="parcours" aria-labelledby="parcoursLabel">
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="parcours" aria-labelledby="parcoursLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="parcoursLabel">PARCOURS BALISES</h5>
+            <div class="offcanvas-title text-primary fw-bold fs-4 mx-auto d-flex justify-content-center" id="parcoursLabel">PARCOURS BALISES</div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <?php require_once "parcoursNew.php"; ?>
         <div class="offcanvas-body">
-            <select class="btn btn-secondary form-select form-select-sm w-auto" id="selectCityType">
-                <option selected>Localité / Commune</option>
-                <option value="arLocaliteName">Localité</option>
-                <option value="arCommuneName">Commune</option>
-            </select>
+            <div class="container w-auto mx-auto">
+                <div class="row">
+                    <form class="d-flex justify-content-center mb-5">
+                        <div class="form-check-inline">
+                            <input class="form-check-input border border-primary" type="checkbox" value="typeMarche" id="typeMarche">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Marche
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input border border-primary" type="checkbox" value="typeVTT" id="typeVTT" checked>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                VTT
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="container w-auto mx-auto">
+                <div class="row">
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCityLabel" id="selectCityLabel">Commune ou Localité</label>
+                    <div class="row g-1 mb-5">
+                        <select id="selectCityType" class="form-select mx-auto text-primary border border-primary" style="width: 100%;" tabindex="-1" aria-hidden="true">>
+                            <option value="arLocaliteName">Localité</option>
+                            <option value="arCommuneName">Commune</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div id="city">
-                <label for="selectCity" id="selectCity">Sélectionnez un lieu</label>
-                <div id="selectCityForm">
-                    <select type="search" id="txtFindCityName" placeholder="Localité"></select>
-                    <button id="btnFindCityName" class="searchItems"><i class="fa fa-search"></i></button>
+                <div id="selectCityForm" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCity" id="selectCity">Sélectionnez un lieu</label>
+                    <div class="row g-1 mb-5">
+                        <div class="col-lg-9 d-flex align-items-center">
+                            <select id="txtFindCityName" class="form-select mx-auto fs-5 text-primary" style="width: 100%; z-index:2100;" placeholder="Localité"></select>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <button id="btnFindCityName" class="searchItems btn btn-secondary" style="width: 100%;"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="parcours">
-                <label for="selectParcours" id="selectParcours">Sélectionnez un parcours</label>
-                <div id="selectParcoursForm">
-                    <select type="search" id="txtFindParcoursName" placeholder="Parcours"></select>
-                    <button id="btnFindParcoursName" class="searchItems"><i class="fa fa-search"></i></button>
+                <div id="selectParcoursForm" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectParcours" id="selectParcours">Sélectionnez un parcours</label>
+                    <div class="row g-1 mb-5">
+                        <div class="col-lg-9 d-flex align-items-center">
+                            <select id="txtFindParcoursName" class="form-select mx-auto fs-5 text-primary border border-primary" style="width: 100%;z-index:2100;" placeholder="Parcours"></select>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <button id="btnFindParcoursName" class="searchItems btn btn-secondary " style="width: 100%;"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="parcoursInfo"></div>
-            <div id="parcoursNom"></div>
-            <div id="parcoursInfoDetails">
-                <div id="parcoursOrganisme"></div>
-                <div id="parcoursLocalite"></div>
-                <div id="parcoursCommune"></div>
-                <div id="parcoursDistance"></div>
-                <div id="parcoursD"></div>
-                <div id="parcoursSignal"></div>
-                <div id="parcoursType"></div>
-                <div id="parcoursTrace"></div>
-                <div id="messageErreur"></div>
+            <div class="container">
+                <div id="parcoursInfo" class=" my-3 fs-4 fw-bold text-primary mx-auto d-flex justify-content-center"></div>
+                <div id="parcoursNom" class="fs-4 fw-bold text-secondary mx-auto d-flex justify-content-center"></div>
+                <div id="parcoursInfoDetails" class="fs-6 text-primary mx-auto">
+                    <div id="parcoursOrganisme"></div>
+                    <div id="parcoursLocalite"></div>
+                    <div id="parcoursCommune"></div>
+                    <div id="parcoursDistance"></div>
+                    <div id="parcoursD"></div>
+                    <div id="parcoursSignal"></div>
+                    <div id="parcoursType"></div>
+                    <div id="parcoursTrace"></div>
+                    <div id="messageErreur"></div>
+                </div>
             </div>
+
         </div>-
     </div>
 
 </body>
 
 </html>
+
+
+<!----------------------------- SCRIPT JS ------------------------------------------>
+
 <script src="assets/inc/js/main.js"></script>
-<script src="assets/inc/js/parcours.js"></script>
+<!--<script src="assets/inc/js/parcours.js"></script>-->
 <script>
-    var listTerritories = [];
-    var listHuntingDates = [];
-    var huntingDates = [];
-    var territoriesList = [];
-    var arTerritoriesName = [];
-    var territoriesNbers = [];
-    var listArrayN = [];
-    var territoriesInfo = [];
-    var huntedTerritoriesListNber = [];
-    var huntedTerritoriesList = [];
-    var huntedNber = [];
-    var lyrTerritories;
-    var map;
-    var territoireValue;
-    var dateValue;
-    var formatDate;
+    // ************************** GLOBAL VARIABLE *************************************
+    let listTerritories = [];
+    let listHuntingDates = [];
+    let huntingDates = [];
+    let territoriesList = [];
+    let arTerritoriesName = [];
+    let territoriesNbers = [];
+    let listArrayN = [];
+    let territoriesInfo = [];
+    let huntedTerritoriesListNber = [];
+    let huntedTerritoriesList = [];
+    let huntedNber = [];
+    let lyrTerritories;
+    let map;
+    let territoireValue;
+    let dateValue;
+    let formatDate;
 
     /*window.addEventListener("load", function() {
         // Masquer le spinner
@@ -387,39 +436,22 @@ $LRT = PLF::Get_LastRunTime();
         Gp.Services.getConfig({
             apiKey: 'fm1imiky2s48ngh0mxqxtdz9',
             onSucess: function(response) {*/
+    document.addEventListener("DOMContentLoaded", function() {
+        let spinner = document.getElementById("spinner");
+        spinner.style.display = "block"; // Show the spinner
+        // You can add more loading logic here.
+    });
 
-
+    // Hide the spinner when the page is fully loaded
+    window.addEventListener("load", function() {
+        let spinner = document.getElementById("spinner");
+        spinner.style.display = "none"; // Hide the spinner
+        // You can add additional logic for when the page is fully loaded.
+    });
 
     $(document).ready(function() {
 
-        // ************ INITIALIZATION ************************************************************ 
-
-        toggleButtonVisibility();
-
-        function modalVisible() {
-            var modals = document.querySelectorAll('.modal');
-            return $('.modal').hasClass('show');
-        }
-
-        function toggleButtonVisibility() {
-            console.log(modalVisible)
-            var bouton = document.getElementById('calendarBtn');
-            if (modalVisible()) {
-                bouton.style.display = 'none'; // Cacher le bouton
-            } else {
-                bouton.style.display = 'block'; // Afficher le bouton
-            }
-        }
-
-        $('#calendarModal').on('shown.bs.modal', toggleButtonVisibility);
-        $('#calendarModal').on('hidden.bs.modal', toggleButtonVisibility);
-        $('#SPWModal').on('shown.bs.modal', toggleButtonVisibility);
-        $('#SPWModal').on('hidden.bs.modal', toggleButtonVisibility);
-        $('#emailContact').on('shown.bs.modal', toggleButtonVisibility);
-        $('#emailContact').on('hidden.bs.modal', toggleButtonVisibility);
-
-
-
+        // ********************* INITIALIZATION DATE PICKER ******************************************** 
 
         $(function() {
             $("#datepicker").datepicker({
@@ -429,7 +461,7 @@ $LRT = PLF::Get_LastRunTime();
                 buttonImageOnly: true
             });
             var todayDate = new Date()
-            console.log(todayDate)
+            //console.log(todayDate)
             $('#datepicker').datepicker('setDate', todayDate);
 
             var todayDate = new Date()
@@ -442,30 +474,10 @@ $LRT = PLF::Get_LastRunTime();
             modalInstance.show();
 
         });
-        // ************ FORM VALIDATION *******************************************
-
-        /*(function() {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()*/
 
 
-        // ************ INITIALIZATION DAY MAJ ************************************************************ 
+
+        // ********************* INITIALIZATION DAY MAJ *****************************************************
 
         var lRT = [];
         var cookieNber = "<?php echo $file_suffix; ?>";
@@ -476,8 +488,9 @@ $LRT = PLF::Get_LastRunTime();
 
         document.getElementById("maj").innerHTML = "Dernière màj : " + lRTBE;
 
-        // ************ MAP INITIALIZATION ************************************************************ 
-        proj4.defs("EPSG:31370", "+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs");
+        // ********************** MAP INITIALIZATION ***********************************************************
+
+        //proj4.defs("EPSG:31370", "+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs");
 
         /*var crs = new L.Proj.CRS(
                 'EPSG:31370',
@@ -493,8 +506,6 @@ $LRT = PLF::Get_LastRunTime();
         }).setView([49.567574, 5.533507], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-
-
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
@@ -503,9 +514,9 @@ $LRT = PLF::Get_LastRunTime();
         //ctlZoomslider = L.control.zoomslider({position:'topleft'}).addTo(map);
         //ctlMeasure = L.control.polylineMeasure({position:'topleft'}).addTo(map);  
 
-        // ************ LAYERS INITIALIZATION *******************************************************
+        // ********************** LAYERS INITIALIZATION *******************************************************
 
-        var lyrOSM = L.tileLayer.provider('OpenStreetMap.France').addTo(map);
+        var lyrOSM = L.tileLayer.provider('OpenStreetMap.France');
         var lyrmagnifiedTiles = L.tileLayer.provider('OpenStreetMap.France');
         var lyrCyclo = L.tileLayer.provider('CyclOSM');
         var lyrEsri_WorldImagery = L.tileLayer.provider('Esri.WorldImagery');
@@ -514,7 +525,22 @@ $LRT = PLF::Get_LastRunTime();
         });
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-        // ************ SET LOCATION *******************************************************
+        //var lyrlambert = L.geoJSON.ajax('assets/datas/Trotti.gpx');
+
+        var baseLayers = {
+            "osm": lyrOSM,
+            "Satellite": lyrEsri_WorldImagery,
+            "Altitude": lyrOpenTopoMap,
+            "Cyclo": lyrCyclo
+        };
+
+        var overlays = {
+
+        };
+
+        L.control.layers(baseLayers, overlays).addTo(map);
+
+        // **************************** SET LOCATION *************************************************************
 
         L.control.locate({
             position: "bottomright",
@@ -527,7 +553,7 @@ $LRT = PLF::Get_LastRunTime();
         }).addTo(map);
 
 
-        // ************ MINIMAP INITIALIZATION *******************************************************
+        // ************************** MINIMAP INITIALIZATION *******************************************************
 
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttrib = 'Map data &copy; OpenStreetMap contributors';
@@ -543,7 +569,7 @@ $LRT = PLF::Get_LastRunTime();
             zoomControl: false
         }).addTo(map);
 
-        // *********** LEAFLET METEO *****************************************************************
+        // **************************** LEAFLET METEO *****************************************************************
 
         L.control.rainviewer({
             position: 'bottomright',
@@ -556,7 +582,7 @@ $LRT = PLF::Get_LastRunTime();
             opacity: 0.5
         }).addTo(map);
 
-        // *************** DATE SELECTION ***********************************************************
+        // **************************** DATE SELECTION *****************************************************************
 
 
         $("#btonSearchDate").click(function() {
@@ -568,7 +594,7 @@ $LRT = PLF::Get_LastRunTime();
 
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
-            console.log(dateValue);
+            //console.log(dateValue);
             if (dateValue === null) {
                 document.getElementById("retour").innerHTML = "Veuillez sélectionner une date";
                 retour.classList.add('active');
@@ -582,20 +608,22 @@ $LRT = PLF::Get_LastRunTime();
 
         });
 
-        // *************** GENERAL FUNCTIONS ***********************************************************
+        // ******************************** GENERAL FUNCTIONS ***********************************************************
+
         function findTerritories(dateValue) {
-            // *************** SETTINGS ***********************************************************
+
+            // ******************************** INITIALISATION ***********************************************************
 
             document.getElementById("retour").innerHTML = "";
-            var huntedTerritories = [];
-            var huntedTerritoriesList = [];
-            var huntedNber = [];
-            var territoriesNbers = [];
-            var territoriesClosed = [];
-            var territoriesOpened = [];
-            var territoriesList = [];
+            let huntedTerritories = [];
+            let huntedTerritoriesList = [];
+            let huntedNber = [];
+            let territoriesNbers = [];
+            let territoriesClosed = [];
+            let territoriesOpened = [];
+            let territoriesList = [];
 
-            // ************ SEARCH HUNTING DATES ************************************************************
+            // ************************** SEARCH HUNTING DATES ************************************************************
 
             $.ajax({
                 type: 'GET',
@@ -603,7 +631,7 @@ $LRT = PLF::Get_LastRunTime();
                 data: "formatDate=" + formatDate,
 
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     resultat = JSON.parse(response);
                     if (resultat[0] == -14) {
                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -628,13 +656,11 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                         }
-                        console.log(territoriesClosed);
-                        console.log(territoriesOpened);
-
-
+                        //console.log(territoriesClosed);
+                        //console.log(territoriesOpened);
 
                         var territoriesNber = territoriesList.join(',');
-                        console.log(territoriesNber)
+                        //console.log(territoriesNber)
 
                         if (huntedNber > 0) {
                             document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le " + formatDate;
@@ -648,8 +674,7 @@ $LRT = PLF::Get_LastRunTime();
                         var lyrhuntingterritoriesClosed = createMultiJson(territoriesNber);
                         //var lyrhuntingterritoriesOpened = createMultiJson(territoriesNber);
 
-
-                        // ************ SEARCH HUNTING TERRITORIES ************************************************************
+                        // ************************ SEARCH HUNTING TERRITORIES ************************************************************
 
                         function createMultiJson(territoriesNber) {
                             $.ajax({
@@ -670,12 +695,12 @@ $LRT = PLF::Get_LastRunTime();
                                         squareOpen.classList.remove('active');
                                         squareClose.classList.remove('active');
                                     } else {
-                                        console.log(lyrTerritories)
+                                        //console.log(lyrTerritories)
                                         if (lyrTerritories) {
                                             lyrTerritories.remove();
                                             map.removeLayer(lyrTerritories);
                                         }
-                                        console.log(lyrTerritories)
+                                        //console.log(lyrTerritories)
                                         lyrTerritories = L.geoJSON.ajax('assets/datas/' + cookieNber + 'huntedTerritoryByDate.json', {
                                             style: styleTerritories,
                                             onEachFeature: processTerritories
@@ -686,13 +711,8 @@ $LRT = PLF::Get_LastRunTime();
                                             //console.log(att.Numero_Lot);
                                             //console.log(huntedNber);
                                             for (i = 0; i < huntedNber; i++) {
-
-
                                                 if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
-
-
                                                     if (huntedTerritories[2][i]["FERMETURE"] == "O") {
-
                                                         return {
                                                             fillOpacity: 0.5,
                                                             weight: 4,
@@ -706,9 +726,11 @@ $LRT = PLF::Get_LastRunTime();
                                                         };
                                                     }
                                                 }
-                                                console.log("erreur")
+                                                //console.log("erreur")
                                             }
                                         }
+
+                                        // ************************ POPOVER HUNTING TERRITORIES ************************************************************
 
                                         function processTerritories(json, lyr) {
                                             var att = json.properties;
@@ -738,21 +760,61 @@ $LRT = PLF::Get_LastRunTime();
             });
         };
 
-        // ************ LIST OF ROUTE NAME ************************************************************
+        // ********************** PARCOURS SCRIPT ***********************************************************
+
+        let lyrRoute;
+        let traceGPX;
+        let arselectedParcoursList;
+        let routeValue;
+
+
+        // ********************** CHECKBOX MARCHE / VTT ***********************************************************
+
+
+        const walk = document.getElementById("typeMarche")
+
+        walk.addEventListener("change", function() {
+            if (walk.checked) {
+                let checkboxWalk = "OK";
+                console.log("La case est cochée marche.");
+            } else {
+                console.log("La case n'est pas cochée marche.");
+            }
+        });
+
+        const VTT =  document.getElementById("typeVTT");
+
+        VTT.addEventListener("change", function() {
+            if (VTT.checked) {
+                let checkboxVTT="OK";
+                console.log("La case est cochée VTT.");
+            } else {
+                console.log("La case n'est pas cochée VTT.");
+            }
+        });
+
+        
+
+        // ******************* LIST OF ROUTE NAME ************************************************************
 
         listByRouteDB = <?php echo json_encode($List_Parcours); ?>;
 
-        var listByRoute = Object.values(listByRouteDB[2]);
+        let listByRoute = Object.values(listByRouteDB[2]);
         console.log(listByRoute)
         //var listCityName = Object.values(listParcoursInfo[2])
-        var routeNbre = listByRoute.length;
+        let routeNbre = listByRoute.length;
+
+        let parcoursList = [];
+
+        
 
 
-        var selectedCategory;
-        var arLocaliteName = [];
-        var arCommuneName = [];
+        let selectedCategory;
+        let arLocaliteName = [];
+        let arCommuneName = [];
 
-        // ************ Chargement des tables localité & Commune ************************************************************
+        // ************ LOADING LOCALITE & COMMUNE ARRAY ********************************************************
+
         for (i = 0; i < routeNbre; i++) {
             if (!arLocaliteName.includes(listByRoute[i]["localite"])) {
                 arLocaliteName.push(listByRoute[i]["localite"]);
@@ -764,7 +826,7 @@ $LRT = PLF::Get_LastRunTime();
         arLocaliteName.sort((a, b) => a.localeCompare(b, 'fr'));
         arCommuneName.sort((a, b) => a.localeCompare(b, 'fr'));
 
-        const tableDatas = {
+        let tableDatas = {
             arLocaliteName,
             arCommuneName
         }
@@ -772,79 +834,145 @@ $LRT = PLF::Get_LastRunTime();
         menuSelectionCity = selectionMenu(tableDatas)
 
 
-        // ************ Fonction SelectMenu Localité/Commune ************************************************************  
-
+        // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
 
         function selectionMenu(initialChoices) {
-
             selectOption = $("#txtFindCityName").selectmenu();
-        
 
             $("#selectCityType").on('change', function() {
                 selectedCategory = $(this).val();
                 console.log(selectedCategory)
                 const choices = initialChoices[selectedCategory];
-                console.log(choices);
+                //console.log(choices);
                 selectOption.empty();
 
                 if (choices) {
                     choices.forEach(function(choice) {
+                        //console.log(choice)
                         selectOption.append($("<option>", {
                             value: choice,
                             text: choice
+
                         }));
                     });
                     selectOption.selectmenu("refresh");
                 }
-
             });
+
             $("#selectCityType").trigger("change");
         }
 
-        //*************************** Parcours Selection *********************************/
+        //********************  PARCOURS SELECTION  **************************************************************
+
         $("#btnFindCityName").click(function(e) {
             e.preventDefault()
-            //$("#txtFindCityName-button").on('focusout', function() {
             selectedCity = $("#txtFindCityName").val()
-            console.log(selectedCity)
-            console.log(selectedCategory)
+            //console.log(selectedCity)
+            //console.log(selectedCategory)
             arSelectedCityList = [];
 
             switch (selectedCategory) {
                 case "arLocaliteName":
                     console.log("coucou")
-                    for (i = 0; i < listByRoute.length; i++) {
-                        console.log(selectedCity)
-                        if (selectedCity == listByRoute[i]["localite"]) {
-                            arSelectedCityList.push(listByRoute[i]["localite"]);
-                            arSelectedCityList.push(listByRoute[i]['itineraire_id']);
-                            arSelectedCityList.push(listByRoute[i]['nom']);
-                            console.log(arSelectedCityList)
-                        }
-                    }
+                    getArselectedCity("localite")
                 case "arCommuneName":
                     console.log("coucou1")
-                    for (i = 0; i < listByRoute.length; i++) {
-                        console.log(selectedCity)
-                        if (selectedCity == listByRoute[i]["commune"]) {
-                            arSelectedCityList.push(listByRoute[i]['commune'])
-                            arSelectedCityList.push(listByRoute[i]['itineraire_id'])
-                            arSelectedCityList.push(listByRoute[i]['nom'])
+                    getArselectedCity("commune")
 
-                        }
+            }
+
+            function getArselectedCity(typeSearch) {
+                for (i = 0; i < listByRoute.length; i++) {
+                    //console.log(selectedCity)
+                    if (selectedCity == listByRoute[i][typeSearch]) {
+                        arSelectedCityList.push([listByRoute[i]["localite"], listByRoute[i]['itineraire_id'], listByRoute[i]['nom'], listByRoute[i]['has_gpx']]);
                     }
-            }
-            arselectedParcoursList = [];
-            for (i = 2; i < arSelectedCityList.length; i++) {
-
-                console.log(i)
-                console.log(arSelectedCityList[i])
-                arselectedParcoursList.push(arSelectedCityList[i])
-                i = i + 2
+                }
             }
 
-            // ************ Fonction SelectMenu Parcours ************************************************************  
+            console.log(arSelectedCityList)
 
+            for (i = 0; i < (arSelectedCityList.length); i++) {
+                let routeValue;
+                routeValue = arSelectedCityList[i][1]
+                console.log(routeValue)
+
+                let cookieNber = "<?php echo $file_suffix; ?>";
+
+                searchTrace(routeValue);
+
+                function searchTrace(routeValue) {
+                    console.log(routeValue)
+                    $.ajax({
+                        type: 'GET',
+                        url: "assets/inc/php/searchRouteInfo.php",
+                        data: "routeValue=" + routeValue,
+
+                        success: function(response) {
+                            resultat = JSON.parse(response);
+                            console.log(resultat);
+                            var argpx = resultat[0]["gpx_url"]
+                            console.log(argpx);
+                            if (resultat[0]["gpx_url"] == "") {
+                                $('#parcoursTrace').html('Pas de trace disponible');
+
+                            }
+
+                            const headers = new Headers();
+                            headers.append('Access-Control-Allow-Origin', argpx);
+                            headers.append('Content-Type', 'application/json');
+                            headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+
+                            console.log(traceGPX)
+
+                            var fetchResult = fetch(argpx);
+
+                            traceGPX = new L.GPX(argpx, {
+                                onEachFeature: processTerritories,
+                                polyline_options: [{
+                                    color: '#34495e',
+                                    opacity: 0.75,
+                                    weight: 3,
+                                    lineCap: 'round'
+                                }],
+                                async: true,
+                                marker_options: {
+                                    startIconUrl: 'assets/img/pin-icon-start.png',
+                                    endIconUrl: 'assets/img/pin-icon-end.png',
+                                    shadowUrl: 'assets/img/pin-shadow.png'
+                                }
+                            }).on('loaded', function(e) {
+                                map.fitBounds(e.target.getBounds().pad(1));
+                                map.on("addpoint", function(e) {
+                                    var point = e.point;
+                                    point.bindPopup("Latitude: " + point._latlng.lat + "<br>Longitude: " + point._latlng.lng).openPopup();
+                                });
+                            }).addTo(map);
+
+                            function processTerritories(json, lyr) {
+                                //var att = trk.properties;
+                                lyr.on('mouseover', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.7
+                                    })
+                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center>' + trk.name + '</h3>');
+                                })
+                                lyr.on('mouseout', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.3
+                                    });
+                                })
+                            }
+                        }
+
+                    })
+                }
+
+
+            }
+
+            /*
+            // ************ PARCOURS SELECTION MENU ************************************************************  
 
             selectOption1 = $("#txtFindParcoursName").selectmenu();
             console.log(arselectedParcoursList)
@@ -862,46 +990,40 @@ $LRT = PLF::Get_LastRunTime();
                 selectOption1.selectmenu("refresh");
             }
 
-        });
+            $("#txtFindCityName").trigger("focusout");
 
-        $("#txtFindCityName").trigger("focusout");
+            // ***************** SEARCH PARCOURS MAP ************************************************************
 
+            $("#btnFindParcoursName").click(function(e) {
+                e.preventDefault()
 
-        // ************ SEARCH ROUTE MAP ************************************************************
-
-
-
-        $("#btnFindParcoursName").click(function(e) {
-            e.preventDefault()
-            console.log(lyrRoute);
-            if (lyrRoute) {
-                console.log(lyrRoute);
-                lyrRoute.remove();
-                map.removeLayer(lyrRoute);
-            }
-            routeName = $("#txtFindParcoursName").val().toLowerCase();
-            console.log(routeName)
-
-            for (j = 0; j < (listByRoute.length); j++) {
-
-                routeCheck = listByRoute[j]["nom"].toLowerCase()
-                console.log(routeCheck)
-                console.log(routeName)
-                if (routeName == routeCheck) {
-
-                    routeValue = listByRoute[j]["itineraire_id"]
-                    break;
+                if (lyrRoute) {
+                    console.log(lyrRoute);
+                    lyrRoute.remove();
+                    map.removeLayer(lyrRoute);
                 }
-                console.log("coucou")
-                messageErreur.classList.remove('active');
-                parcoursNom.classList.add('active');
+                routeName = $("#txtFindParcoursName").val().toLowerCase();
+                console.log(routeName)
 
-                parcoursInfo.classList.add('active');
-                parcoursInfoDetails.classList.add('active');
-            }
+                for (j = 0; j < (listByRoute.length); j++) {
 
+                    routeCheck = listByRoute[j]["nom"].toLowerCase()
+                    console.log(routeCheck)
+                    console.log(routeName)
+                    if (routeName == routeCheck) {
 
-            // ************ SEARCH ROUTE INFO ************************************************************
+                        routeValue = listByRoute[j]["itineraire_id"]
+                        break;
+                    }
+                    console.log("coucou")
+                    messageErreur.classList.remove('active');
+                    parcoursNom.classList.add('active');
+
+                    parcoursInfo.classList.add('active');
+                    parcoursInfoDetails.classList.add('active');
+                }*/
+
+            // ************ SEARCH PARCOURS INFO ************************************************************
 
             var cookieNber = "<?php echo $file_suffix; ?>";
 
@@ -962,6 +1084,7 @@ $LRT = PLF::Get_LastRunTime();
                 }
 
             })
-        })
+
+        });
     });
 </script>
