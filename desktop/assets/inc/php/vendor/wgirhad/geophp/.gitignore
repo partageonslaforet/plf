@@ -1,0 +1,8 @@
+/vendor
+/build
+composer.phar
+.phpunit.result.cache
+phpstan.neon
+
+# JetBrains (PhpStorm)
+.idea/

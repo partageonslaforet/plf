@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    colors="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    beStrictAboutOutputDuringTests="true"
+    verbose="false">
+  <testsuites>
+    <testsuite name="funiQ/geoPHP tests">
+      <directory>tests/unit/Geometry</directory>
+      <directory>tests/unit/Exception</directory>
+      <directory>tests/unit/Adapter</directory>
+    </testsuite>
+  </testsuites>
+  <coverage
+      includeUncoveredFiles="true"
+      cacheDirectory="build/cache/phpunit">
+    <include>
+      <directory>src/</directory>
+    </include>
+    <report>
+      <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="false"/>
+      <clover outputFile="build/logs/clover.xml"/>
+      <html outputDirectory="build/coverage"/>
+    </report>
+  </coverage>
+  <php>
+    <env name="GEOS_DISABLED" value="1"/>
+  </php>
+</phpunit>

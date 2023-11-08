@@ -85,7 +85,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -100,16 +100,15 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ
                     FROM $GLOBALS[spw_tbl_territoires] 
                     WHERE SAISON = $Saison  
                     ORDER BY SAISON, N_LOT, SEQ";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -201,7 +200,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -215,7 +214,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT  KEYG,
                             SAISON,
@@ -263,19 +262,8 @@ class PLF
                     LIMIT 1";
 
 
-
-
-
-
-
-
-
-
-
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
         // Check if everything went OK
@@ -436,7 +424,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -452,7 +440,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $date_Chasse_Sql = PLF::__Convert_2_Sql_Date(Date_DD_MM_YYYY: $Chasse_Date);
 
@@ -466,9 +454,8 @@ class PLF
                     WHERE DATE_CHASSE = '$date_Chasse_Sql' AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT, SEQ";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -557,7 +544,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -573,7 +560,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
 
         $sql_cmd = "SELECT DATE_CHASSE, 
@@ -583,9 +570,8 @@ class PLF
                      AND SAISON = $Saison
                      ORDER BY DATE_CHASSE";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -671,7 +657,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -686,7 +672,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT CAN, 
                                     PREPOSE,
@@ -706,9 +692,8 @@ class PLF
                     ORDER BY CAN";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -806,7 +791,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -823,7 +808,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ 
                     FROM $GLOBALS[spw_tbl_territoires] 
@@ -832,9 +817,8 @@ class PLF
                     ORDER BY SAISON, N_LOT, SEQ";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -923,7 +907,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -939,7 +923,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT nugc_CC,
                                     DENOMINATION_CC,
@@ -962,9 +946,8 @@ class PLF
                     ORDER BY ABREVIATION_CC";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -1075,7 +1058,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -1093,7 +1076,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT KEYG, SAISON, N_LOT, SEQ 
                      FROM $GLOBALS[spw_view_territoires] 
@@ -1102,9 +1085,8 @@ class PLF
                      ORDER BY SAISON, N_LOT, SEQ";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -1198,9 +1180,9 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
-
-        $db_conn = $database->getConnection();
+        $database = new Database();
+                        
+        $db_conn = $database->getConnection(IsPostgreSQL: true);
 
         if ($db_conn == false) {
 
@@ -1214,27 +1196,47 @@ class PLF
 
 
 
-        // Build SQL statement and pass it to the database and prccess the statement.
-
-        $gateway = new Functions_Gateway($database);
+        /**
+         * 
+         *  The geom column in the database has a SRID of 31370 (Belgium Lambert 72)
+         *  Retrieve the geometry data with the geometry converted to GeoJSON.
+         *  Include also the raw data which will be converted to SRID 4329
+         * 
+         */
 
         $lot_seq = explode("-", $N_LOT);
 
         $lot = $lot_seq[0];
         $seq = $lot_seq[1];
 
-        $sql_cmd = "SELECT DISTINCT SHAPE,
-                                    N_LOT,
-                                    SEQ
-                    FROM $GLOBALS[spw_tbl_territoires] 
-                    WHERE SAISON = $Saison 
-                    AND N_LOT = '$lot' 
-                    AND SEQ = '$seq'";
+        $sql_cmd = "SELECT saison,
+                           n_lot,
+                           seq,
+                           json_build_object('type', 
+                                             'Feature',
+                                             'geometry', 
+                                             ST_Transform(geom, 4326),
+                                             'properties',
+                                             json_build_object('Numero_Lot', '<N_LOT>',
+                                                               'Nom', '<TERRITOIRE_NAME>') 
+                                             ) as geom_4326,
+                           json_build_object('type', 
+                                             'Feature',
+                                             'geometry', 
+                                              geom,
+                                              'properties',
+                                              json_build_object('Numero_Lot', '<N_LOT>',
+                                                                'Nom', '<TERRITOIRE_NAME>') 
+                                            ) as geom_lambert
+                    FROM $GLOBALS[spw_tbl_territoires_PG] 
+                    WHERE saison = $Saison 
+                    AND n_lot = '$lot' 
+                    AND seq = $seq";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $results = $gateway->DB_Query();
 
         // Check if everything went OK
 
@@ -1269,41 +1271,19 @@ class PLF
 
         self::$RC = 0;
 
-        $value = $results[0];
+        $seq = $results[0]['seq'];
 
-        $Geometry = $value['SHAPE'];
-        $Territories_name = "N/A";
-        $DA_Numero = $value['N_LOT'];
-
-
-
-        $headers = '
-            {
-                "type" : "Feature",';
+        $Geometry_4326 = $results[0]['geom_4326'];   
+        $Geometry_4326 = preg_replace("/<N_LOT>/", $lot . "-" . $seq, $Geometry_4326);
+        $Geometry_4326 = preg_replace("/<TERRITOIRE_NAME>/", "N/A", $Geometry_4326);
 
 
-        $Geometry = '      "geometry" : ' . $Geometry;
-        $Geometry .= ",";
+        $Geometry_Lambert = $results[0]['geom_lambert'];
+        $Geometry_Lambert = preg_replace("/<N_LOT>/", $lot . "-" . $seq, $Geometry_Lambert);
+        $Geometry_Lambert = preg_replace("/<TERRITOIRE_NAME>/", "N/A", $Geometry_Lambert);
 
 
-        $properties = '
-              "properties": {
-                  "Numero_Lot": "<N_LOT>", 
-                  "Nom": "<TERRITOIRE_NAME>"
-              }
-            }';
-
-        $properties = preg_replace("/<N_LOT>/", $N_LOT, $properties);
-        $properties = preg_replace("/<TERRITOIRE_NAME>/", "N/A", $properties);
-    
-
-        $footer = "";
-
-
-
-        $Geometry = $headers . $Geometry . $properties .  $footer;
-
-        return array(self::$RC, self::$RC_Msg, $Geometry);
+        return array(self::$RC, self::$RC_Msg, $Geometry_4326);
 
     }
 
@@ -1329,7 +1309,8 @@ class PLF
      *-------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
-    public static function Canton_JSON(string $Canton): array | false
+    
+     public static function Canton_JSON(string $Canton): array | false
     {
 
         self::$RC = 0;
@@ -1339,7 +1320,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -1357,7 +1338,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT GEOM,
                                      CAN
@@ -1365,9 +1346,8 @@ class PLF
                      WHERE CAN = '$Canton'";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -1467,7 +1447,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -1485,7 +1465,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT GEOM,
                                     ABREVIATION
@@ -1493,9 +1473,8 @@ class PLF
                     WHERE ABREVIATION = '$CC'";
 
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -1563,123 +1542,6 @@ class PLF
     }
 
 
-    /**-------------------------------------------------------------------------------------------------------------------------------------------
-     * 
-     *    Retourne la liste des itineraires
-     * 
-     *      Input     : Database "plf_cgt_itineraires"
-     *     
-     *      Appel     : Get_Itineraires_List()
-     * 
-     *      Arguments : néant
-     * 
-     *      Output    : Array contenant 3 éléments
-     *                      Array[0] : Code retour.
-     *                                  xx : entier >= 0 contenant le nombre d'itinéraires 
-     *                                  autres : voir le tableau
-     *                      Array[1] : Message d'erreur éventuel (voir tableau)
-     *                      Array[2] : Array indexé qui contient chacun une associate array
-     *                                      TRI SUR "nom"
-     *                                 Structure - Array[<index>] = ["Itineraire_id   = <Itineraire_id>, 
-     *                                                               "Itineraire_nom = <Nom>]
-     * 
-     *-------------------------------------------------------------------------------------------------------------------------------------------*/
-
-    public static function TODEL_Get_Itineraires_List(): array
-    {
-
-
-        self::$RC = 0;
-        self::$RC_Msg = "";
-        self::$List_Array = [];
-
-
-        // Make a new database connection and test if connection is OK
-
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
-
-        $db_conn = $database->getConnection();
-
-        if ($db_conn == false) {
-
-            self::$RC = -13;
-            self::$RC_Msg = $database->Get_Error_Message();
-
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-        }
-
-
-        // Build SQL statement and pass it to the database and prccess the statement.
-
-        $gateway = new Functions_Gateway($database);
-
-        $sql_cmd = "SELECT itineraire_id, nom, localite, commune, gpx_url
-                    FROM $GLOBALS[cgt_itineraires]  
-                    ORDER BY commune";
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
-
-        // Check if everything went OK
-
-        if (count($results) == 0) {
-            self::$RC = -20;
-            self::$RC_Msg = self::$Return_Codes[self::$RC];
-            return array(self::$RC, self::$RC_Msg, self::$List_Array);
-        }
-
-
-        if ($results[0] == "error") {
-
-            switch ($results[1]) {
-
-                case 1054:                 // invalid column name     
-                case 1064:                 // SQL syntax error
-                    self::$RC = -6;
-                    self::$RC_Msg = $results[2];
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
-
-                default:                    // other errors
-                    self::$RC = -999;
-                    self::$RC_Msg = $database->Get_Error_Message();
-                    return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-            }
-        }
-
-
-        // process the data and return the result
-
-        self::$RC = 0;
-
-        foreach ($results as $result => $value) {
-
-            $has_gpx = true;
-            if (empty($value["gpx_url"]) == true ) {
-                $has_gpx = false;
-            }
-
-            array_push(self::$List_Array, [
-                "itineraire_id" => $value["itineraire_id"],
-                "nom" => $value["nom"],
-                "localite" => $value["localite"],
-                "commune" => $value["commune"],
-                "has_gpx" => $has_gpx,
-            ]);
-
-            self::$RC++;      // the number of records = last $value (index number) + 1
-
-        }
-
-
-        return array(self::$RC, self::$RC_Msg, self::$List_Array);
-    }
-
-
-
-
-
-
 
     /**-------------------------------------------------------------------------------------------------------------------------------------------
      * 
@@ -1700,8 +1562,8 @@ class PLF
      * 
      *-------------------------------------------------------------------------------------------------------------------------------------------*/
 
-     public static function Get_Itineraires_List_Lieu(string $Type_Lieu): array
-     {
+    public static function Get_Itineraires_List_Lieu(string $Type_Lieu): array
+    {
  
  
          self::$RC = 0;
@@ -1711,7 +1573,7 @@ class PLF
  
          // Make a new database connection and test if connection is OK
  
-         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+         $database = new Database();
  
          $db_conn = $database->getConnection();
  
@@ -1726,7 +1588,7 @@ class PLF
  
          // Build SQL statement and pass it to the database and prccess the statement.
  
-         $gateway = new Functions_Gateway($database);
+        //  $gateway = new Functions_Gateway($database);
  
          switch (strtoupper($Type_Lieu)) {
 
@@ -1745,9 +1607,8 @@ class PLF
         FROM $GLOBALS[cgt_itineraires]  
         ORDER BY $lieu";
  
-         $gateway->set_Sql_Statement($sql_cmd);
- 
-         $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
  
          // Check if everything went OK
  
@@ -1790,7 +1651,7 @@ class PLF
  
  
          return array(self::$RC, self::$RC_Msg, self::$List_Array);
-     }
+    }
  
  
  
@@ -1825,7 +1686,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -1840,7 +1701,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $where_Clause = "";
 
@@ -1863,9 +1724,8 @@ class PLF
                      $where_Clause  
                      ORDER BY Localite";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -1954,7 +1814,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -1968,7 +1828,7 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT DISTINCT itineraire_id,
                                     nom,
@@ -1986,9 +1846,8 @@ class PLF
                     FROM $GLOBALS[cgt_itineraires] 
                     WHERE itineraire_id = $itineraire_id";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
         // Check if everything went OK
@@ -2056,6 +1915,212 @@ class PLF
 
     /**-------------------------------------------------------------------------------------------------------------------------------------------
      * 
+     *    Retourne une chaine POSTGIS de type LINESTRING aud départ d'un gpx.
+     * 
+     * 
+     *      Input     : gpx file name
+     *     
+     *      Appel     : Convert_Gpx_To_Linestring(<filename>)
+     * 
+     *      Arguments : Gpx file name
+     * 
+     *      Output    : String containing the LINESTRING POSTGIS gpx conversion
+     * 
+     *-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+    public static function Convert_Gpx_To_GeoJson(string $Gpx_File_Name, array $properties): string
+    {
+        
+
+        /**
+         * 
+         *  Global parameters
+         * 
+         */
+
+        // Make a new database connection and test if connection is OK
+
+        $database = new Database();
+                        
+        $db_conn = $database->getConnection(IsPostgreSQL: true);
+
+        if ($db_conn == false) {
+
+            self::$RC = -13;
+            self::$RC_Msg = $database->Get_Error_Message();
+
+            return array(
+                self::$RC, self::$RC_Msg, self::$List_Array
+            );
+        }
+
+
+
+        $XML_file = __DIR__ . "/../../datas/uploadgpx/" . $Gpx_File_Name;
+        $srid = 4326;
+        
+        $coordinate_Delimiter = ",";
+        
+        
+        /**
+         * 
+        *  PostGis LineString data
+        * 
+        */
+
+        $postGis_LineString_Prefix = "'LINESTRING(";
+        $postGis_LineString_Sufix = ")'";
+        
+        
+        /**
+         *  Read Gpx file
+        */
+        
+        $gpx = simplexml_load_file($XML_file);
+        
+        
+        /**
+         *  Open and write prefix for PostGis file
+        */
+        
+        // $postGis_Final_String .= $postGis_Prefix;
+        
+        $PostGisCoordinate = "";
+        
+        
+        /**
+         * Process GPX data
+        */
+        
+        
+        foreach ($gpx->trk->trkseg as $seg) {
+        
+            foreach ($seg->trkpt as $pt) {
+        
+                $lon = (string) $pt["lon"];
+                $lat = (string) $pt["lat"];
+                $elevation = (string)$seg->trkpt->ele;
+        
+                // PostGis
+        
+        
+                $PostGisCoordinate .= $lon .
+                                    " " . 
+                                    $lat . 
+                                    ", " . 
+                                    "\n";
+        
+        
+            }
+        }
+        
+        
+        /**
+         * PostGis Final processing
+        */
+        
+        $PostGisCoordinate = preg_replace("/,\s*\n$/m", "\n", $PostGisCoordinate);
+        
+        $postGis_Final_LineString = $postGis_LineString_Prefix;
+        $postGis_Final_LineString .= $PostGisCoordinate;
+        $postGis_Final_LineString .= $postGis_LineString_Sufix;     
+        
+        
+        /**
+         * 
+         *  return GeoJSON string for GPX
+         * 
+         */
+        
+
+        //  
+        $sql_cmd = "SELECT json_build_object('type', 
+                                             'Feature',
+                                             'geometry',
+                                             ST_GeomFromText($postGis_Final_LineString, 4326),
+                                             'properties',";
+
+        $array_count = count($properties);
+
+        if ($array_count == 0) {
+            
+            $sql_cmd .= "json_build_object()";
+
+        } else {
+
+            for ($i = 0; $i < $array_count; $i++) {
+
+                if ($i ==0 ) {
+                    $sql_cmd .= "json_build_object(";
+                }
+
+                $sql_cmd .= "'" . $properties[$i][0] . "', " . "'" . $properties[$i][1] . "'";
+
+                if ($i <> $array_count - 1) {
+                    $sql_cmd .= ",";
+                } else {
+                    $sql_cmd .= ")";
+                }
+
+
+            }
+        }
+
+        $sql_cmd .= ") as geom_4326";
+
+
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // Check if everything went OK
+
+        if (count($results) == 0) {
+            self::$RC = -2;
+            self::$RC_Msg = self::$Return_Codes[self::$RC] . " - GPX conversion error.";
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);
+        }
+
+        if ($results[0] == "error") {
+
+            switch ($results[1]) {
+
+                case 1054:                 // invalid column name     
+                case 1064:                 // SQL syntax error
+                    self::$RC = -6;
+                    self::$RC_Msg = $results[2];
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+
+                default:                    // other errors
+                    self::$RC = -999;
+                    self::$RC_Msg = $database->Get_Error_Message();
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+            }
+        }
+
+
+
+
+
+
+
+        /**
+         * Final process
+        */
+        
+        unset($gpx);
+
+        return $results[0]["geom_4326"];
+
+
+    }
+
+
+    /**-------------------------------------------------------------------------------------------------------------------------------------------
+     * 
      *    Retourne Date et status du job cron
      * 
      *      Input     : Database "plf_infos"
@@ -2087,7 +2152,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"], $_SERVER["MySql_Login"], $_SERVER["MySql_Password"]);
+        $database = new Database();
 
         $db_conn = $database->getConnection();
 
@@ -2102,15 +2167,14 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+        // $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT Infos_Name, Infos_Date, Infos_Value  
                      FROM $GLOBALS[plf_infos]  
                      ORDER BY Infos_Name";
 
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Check if everything went OK
 
@@ -2270,7 +2334,7 @@ class PLF
 
         try {$db_conn = null;} catch (pdoException $e) {}
 
-        return $rc_bool;
+        return false;
     }
 
 
@@ -2303,95 +2367,94 @@ class PLF
      * 
      *-------------------------------------------------------------------------------------------------------------------------------------------*/
 
-     public static function Get_Itineraires_List(): array
-     {
- 
- 
-         self::$RC = 0;
-         self::$RC_Msg = "";
-         self::$List_Array = [];
- 
- 
-         // Make a new database connection and test if connection is OK
- 
-         $database = new Database($_SERVER["MySql_Server"], $_SERVER["MySql_DB"],$_SERVER["MySql_Login"] ,$_SERVER["MySql_Password"] );
- 
-         $db_conn = $database->getConnection();
- 
-         if ($db_conn == false) {
- 
-             self::$RC = -13;
-             self::$RC_Msg = $database->Get_Error_Message();
- 
-             return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-         }
- 
- 
-         // Build SQL statement and pass it to the database and prccess the statement.
- 
-         $gateway = new Functions_Gateway($database);
- 
-         $sql_cmd = "SELECT itineraire_id, nom, localite, commune, gpx_url
+    public static function Get_Itineraires_List(): array
+    {
+
+
+        self::$RC = 0;
+        self::$RC_Msg = "";
+        self::$List_Array = [];
+
+
+        // Make a new database connection and test if connection is OK
+
+        $database = new Database();
+
+        $db_conn = $database->getConnection();
+
+        if ($db_conn == false) {
+
+            self::$RC = -13;
+            self::$RC_Msg = $database->Get_Error_Message();
+
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+        }
+
+
+        // Build SQL statement and pass it to the database and prccess the statement.
+
+        //  $gateway = new Functions_Gateway($database);
+
+        $sql_cmd = "SELECT itineraire_id, nom, localite, commune, gpx_url
                      FROM $GLOBALS[cgt_itineraires]  
                      ORDER BY commune";
- 
-         $gateway->set_Sql_Statement($sql_cmd);
- 
-         $results = $gateway->DB_Query();
- 
-         // Check if everything went OK
- 
-         if (count($results) == 0) {
-             self::$RC = -20;
-             self::$RC_Msg = self::$Return_Codes[self::$RC];
-             return array(self::$RC, self::$RC_Msg, self::$List_Array);
-         }
- 
- 
-         if ($results[0] == "error") {
- 
-             switch ($results[1]) {
- 
-                 case 1054:                 // invalid column name     
-                 case 1064:                 // SQL syntax error
-                     self::$RC = -6;
-                     self::$RC_Msg = $results[2];
-                     return array(self::$RC, self::$RC_Msg, self::$List_Array);
- 
-                 default:                    // other errors
-                     self::$RC = -999;
-                     self::$RC_Msg = $database->Get_Error_Message();
-                     return array(self::$RC, self::$RC_Msg, self::$List_Array);;
-             }
-         }
- 
- 
-         // process the data and return the result
- 
-         self::$RC = 0;
- 
-         foreach ($results as $result => $value) {
- 
-             $has_gpx = true;
-             if (empty($value["gpx_url"]) == true ) {
-                 $has_gpx = false;
-             }
- 
-             array_push(self::$List_Array, [
-                 "itineraire_id" => $value["itineraire_id"],
-                 "nom" => $value["nom"],
-                 "localite" => $value["localite"],
-                 "commune" => $value["commune"],
-                 "has_gpx" => $has_gpx,
-             ]);
- 
-             self::$RC++;      // the number of records = last $value (index number) + 1
- 
-         }
- 
- 
-         return array(self::$RC, self::$RC_Msg, self::$List_Array);
-     }
+
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Check if everything went OK
+
+        if (count($results) == 0) {
+            self::$RC = -20;
+            self::$RC_Msg = self::$Return_Codes[self::$RC];
+            return array(self::$RC, self::$RC_Msg, self::$List_Array);
+        }
+
+
+        if ($results[0] == "error") {
+
+            switch ($results[1]) {
+
+                case 1054:                 // invalid column name     
+                case 1064:                 // SQL syntax error
+                    self::$RC = -6;
+                    self::$RC_Msg = $results[2];
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);
+
+                default:                    // other errors
+                    self::$RC = -999;
+                    self::$RC_Msg = $database->Get_Error_Message();
+                    return array(self::$RC, self::$RC_Msg, self::$List_Array);;
+            }
+        }
+
+
+        // process the data and return the result
+
+        self::$RC = 0;
+
+        foreach ($results as $result => $value) {
+
+            $has_gpx = true;
+            if (empty($value["gpx_url"]) == true) {
+                $has_gpx = false;
+            }
+
+            array_push(self::$List_Array, [
+                "itineraire_id" => $value["itineraire_id"],
+                "nom" => $value["nom"],
+                "localite" => $value["localite"],
+                "commune" => $value["commune"],
+                "has_gpx" => $has_gpx,
+            ]);
+
+            self::$RC++;      // the number of records = last $value (index number) + 1
+
+        }
+
+
+        return array(self::$RC, self::$RC_Msg, self::$List_Array);
+    }
  
  
 }
