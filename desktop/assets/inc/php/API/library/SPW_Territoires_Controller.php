@@ -13,6 +13,7 @@ class SPW_Territoires_Controller
     private string $_spw_Query_Count_Parameters;
     private string $_spw_Url_Where_Clause;
     private string $_Rest_Url;
+    private string $_SRID;
     private int $_iteration_Count;
     private int $_API_Total_Territoires;
 
@@ -25,6 +26,7 @@ class SPW_Territoires_Controller
 
     {
         
+        $this->_SRID = 31370;
         $this->_Rest_Url = "";
         $this->_iteration_Count = 0;
         self::$_Duplicate_Territoires = 0;
@@ -41,7 +43,7 @@ class SPW_Territoires_Controller
         $this->_spw_Query_Parameters .= "&returnIdsOnly=false";
         $this->_spw_Query_Parameters .= "&returnCountOnly=false";
         $this->_spw_Query_Parameters .= "&orderByFields=KEYG";
-        // $this->_spw_Query_Parameters .= "&outSR=31370";
+        $this->_spw_Query_Parameters .= "&outSR=$this->_SRID";
         $this->_spw_Query_Parameters .= "&returnDistinctValues=false";
         $this->_spw_Query_Parameters .= "&resultOffset=";
         $this->_spw_Query_Parameters .= "<OFFSET>";
@@ -81,17 +83,23 @@ class SPW_Territoires_Controller
 
         // $this->_API_Total_Territoires = 5;
         
-        $this->Get_Json_Data_Into_Files();
+        //$this->Get_Json_Data_Into_Files();
 
         $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_tmp"]);
+        $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_tmp_PG"], IsPostgreSQL: true);
 
         $this->gateway->Create_DB_Table_Territoires($GLOBALS["spw_tbl_territoires_tmp"]);
+        $this->gateway->Create_DB_Table_Territoires_geom($GLOBALS["spw_tbl_territoires_tmp_PG"], $this->_SRID);
 
         $this->Process_Json_Files();
         
         $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires"]);
-
         $this->gateway->Rename_Table($GLOBALS["spw_tbl_territoires_tmp"], $GLOBALS["spw_tbl_territoires"]);
+
+
+        $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_PG"], IsPostgreSQL: true);
+        $this->gateway->Rename_Table($GLOBALS["spw_tbl_territoires_tmp_PG"], $GLOBALS["spw_tbl_territoires_PG"], IsPostgreSQL: true);
+
 
         $this->gateway->Drop_View($GLOBALS["spw_view_territoires"]);
         $this->gateway->Create_View_Territoires();
@@ -268,11 +276,12 @@ class SPW_Territoires_Controller
      *   OUTPUT : MySql table updated
      * 
      * =======================================================================*/
+
     private function Process_Json_Files(): void {
 
         ///// _______________________
         ///// TO REMOVE AFTER TESTING
-        /// $this->_iteration_Count = 3;        
+        $this->_iteration_Count = 3;        
         ///// _______________________
 
 

@@ -11,10 +11,7 @@ class Database
 
     // Construct the class
 
-    public function __construct(private $host,
-                                private $name,
-                                private $user,
-                                private $password) {
+    public function __construct() {
     
         $this->_error_message = "";
         $this->start_time = strtotime(date("Y-m-d H:i:s"));
@@ -24,17 +21,24 @@ class Database
 
 
 
-    // create the connection to the database
+    // create the connection to the MySql database
 
-    public function getConnection(): PDO | false
+    public function getConnection( bool $IsPostgreSQL = false ): PDO | false
     {
 
-        $dsn = "mysql:host={$this->host};dbname={$this->name};charset=utf8";
+        $dsn = "mysql:host={$_SERVER["MySql_Server"]};dbname={$_SERVER["MySql_DB"]};charset=utf8";
+        $user = $_SERVER["MySql_Login"];
+        $password = $_SERVER["MySql_Password"];
 
+        if ($IsPostgreSQL == true) {
+            $dsn = "pgsql:host={$_SERVER["PostgreSql_Server"]};dbname={$_SERVER["PostgreSql_DB"]}";
+            $user = $_SERVER["PostgreSql_Login"];
+            $password = $_SERVER["PostgreSql_Password"];
+        }
 
         try {
 
-            $connection = new PDO($dsn, $this->user, $this->password, [
+            $connection = new PDO($dsn, $user, $password, [
                 PDO::ATTR_EMULATE_PREPARES => false,
                 PDO::ATTR_STRINGIFY_FETCHES => false,
                 PDO::ATTR_TIMEOUT => 3600
@@ -45,14 +49,14 @@ class Database
 
             switch ($e->getCode()) {
                 case 1049:                      // Database does not exist.
-                    throw new pdoDBException(1049, $e, "SQL Database does not exist : " . $e->getMessage(), );
+                    throw new pdoDBException(1049, $e, "Database does not exist : " . $e->getMessage(), );
                     $x = 4;
 
                 case 2002:                      // Database is unreachable
                     throw new pdoDBException(2002, $e, "Unable to access database : " . $e->getMessage(), );
                 
                 default:
-                    throw new pdoDBException($e->getCode(), $e, "unexpected error : " . $e->getMessage(), );
+                    throw new pdoDBException($e->getCode(), $e, "Unexpected error : " . $e->getMessage(), );
 
                 }
 
@@ -66,6 +70,7 @@ class Database
     }
 
 
+
     public static function drop_Table(PDO $conn, string $tablename): bool {
 
 
@@ -76,9 +81,8 @@ class Database
         $sql = "DROP TABLE IF EXISTS $tablename";
 
         try {
-            $stmt = $conn->prepare($sql);
 
-            $RC = $stmt->execute();
+            $RC = $conn->exec($sql);
     
         } catch(PDOException $e) {
 
@@ -117,9 +121,7 @@ class Database
         $sql = "DROP VIEW IF EXISTS $viewname";
 
         try {
-            $stmt = $conn->prepare($sql);
-
-            $RC = $stmt->execute();
+            $rc = $conn->exec($sql);
     
         } catch(PDOException $e) {
 
@@ -138,15 +140,14 @@ class Database
 
     public static function rename_Table(PDO $conn, string $old_tablename, string $new_tablename): bool {
 
-        $sql = "ALTER TABLE $old_tablename RENAME $new_tablename";
+        $sql = "ALTER TABLE $old_tablename RENAME TO $new_tablename";
 
-        $stmt = $conn->prepare($sql);
-
-        $RC = $stmt->execute();
+        $RC = $conn->exec($sql);
     
         return $RC;
     
     }
+
 
 
     public function update_LastRuntime(string $cron_load, bool $start): void {

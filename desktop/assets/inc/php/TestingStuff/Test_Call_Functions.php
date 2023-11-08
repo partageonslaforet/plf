@@ -16,9 +16,9 @@ echo $mydate;
 //goto Test4_new;
 //goto Test5_new;
 //goto Test6_new;
-goto Test7_new;
+//goto Test7_new;
 //goto Test8_new;
-goto Test12_new;
+//goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
 //goto Test15_new;
@@ -27,6 +27,7 @@ goto Test12_new;
 //goto Test18_new;
 //goto Test19_new;
 //goto Test20_new;
+goto TEST21;
 
 
 exit;
@@ -225,7 +226,7 @@ if ($Territoire_Geometry[0] < 0) {
 
 } else {
 
-   $fp = fopen("C:\Users\chris\OneDrive\temp\Result_DA_Numero-2.json", 'w');
+   $fp = fopen("C:\Users\chris\OneDrive\\temp\Result_DA_Numero-2.json", 'w');
    fwrite($fp, $Territoire_Geometry[2]);
 }
 
@@ -358,6 +359,16 @@ if ($lastRunTime[0] < 0) {
 }
 
 
+
+TEST21:
+
+$fields = array(["field1", "Value1"], ["field2", "Value2"], ["field3", "Value3"] );
+$fields = array();
+$fields = array(["field1", "Value1"] );
+$strPostgis = PLF::Convert_Gpx_To_GeoJson("Lesse - Entre Lesse et Lomme.gpx", $fields);
+
+$fp = fopen("C:\Users\chris\OneDrive\\temp\ConvertedGpx.txt", 'w');
+fwrite($fp, $strPostgis);
 
 
 End:
