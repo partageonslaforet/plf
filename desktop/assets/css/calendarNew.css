@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 /******** MAP SETTING ***********/
 
 #map
@@ -6,6 +6,10 @@
     height: 100vh;
     position: static !important;
 
+}
+
+ul.menu-links{
+    padding-left:0;
 }
 
 /******** CALENDAR BUTTON SETTING ***********/
@@ -117,6 +121,7 @@
 
 #retour{
     color:#ccc;
+    font-size: 1vw;
 }
 
 .modal-backdrop {
@@ -208,7 +213,14 @@
 .ui-selectmenu-menu{
     z-index:2100 !important;
     overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
+    max-height: 20vh;
+    max-width: 20vw;
+}
+
+#txtFindCityName{
+    overflow-y: auto;
 }
 
 #parcoursLabel{
@@ -222,7 +234,7 @@
 
 /******** SIDEBAR SETTING ***********/
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 *{
     margin: 0;
     padding: 0;

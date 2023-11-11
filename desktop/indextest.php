@@ -97,16 +97,16 @@ $LRT = PLF::Get_LastRunTime();
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="#parcours" data-bs-toggle="offcanvas" role="button" aria-controls="parcours">
-                            <i class='fa fa-hiking'></i>
+                        <a href="#">
+                            <i class='fa fa-hiking' data-bs-target="#parcours" data-bs-toggle="offcanvas" role="button" aria-controls="parcoursLabel1"></i>
                             <span class="text nav-text">Parcours</span>
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">
-                            <i class='fa fa-location-dot'></i>
-                            <span class="text nav-text">Territoires</span>
-                        </a>
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas"></a>
+                        <i class='fa fa-location-dot'></i>
+                        <span class="text nav-text">Territoires</span>
+                        </button>
                     </li>
                     <li class="nav-link">
                         <a href="#">
@@ -173,22 +173,19 @@ $LRT = PLF::Get_LastRunTime();
     <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
         <div class="modal-dialog calendarWidth" role="document">
             <div class="modal-content w-auto calModal">
-                <div class="modal-header">
+                <div class="modal-header py-1">
                     <div id="maj"></div>
                     <h5 class="modal-title text-uppercase fw-bold text-danger mx-auto d-flex justify-content-center" id="calendarModalLabel"></h5>
                     <button type="button" id="btn-close" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body py-1">
                     <div class="popup-content">
-                        <div class="date-calendar align-self-center">
-                            <p><input type="text" id="datepicker" class="align-self-center" placeholder="Cliquez pour choisir une date"></p>
-                        </div>
-                        <div id="search" class='list-item'>
-                            <button type="button" class="btn btn-secondary " id="btonSearchDate"><i class="fa fa-search"></i></button>
+                        <div class="date-calendar inline-block d-flex justify-content-center mx-auto my-auto align-middle" style="height: 2.5vh; width: 20vw;">
+                            <p><input type="text" id="datepicker" placeholder="Cliquez pour choisir une date"></p>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
+                <div class="modal-footer d-flex justify-content-center py-1">
                     <div id="message">
                         <div id="retour"></div>
                         <div id="infoRetour">
@@ -276,7 +273,7 @@ $LRT = PLF::Get_LastRunTime();
                     <form class="needs-validation" novalidate>
                         <!-- Name input -->
                         <div class="form-floating border border-1 border text-primary border-primary rounded mb-1">
-                            <input type="text" id="name" class="form-control" required>
+                            <input type="text" id="name" class="form-control" autocomplete="off" required>
                             <label for="name" class="form-label">Votre nom</label>
                             <div class="valid-feedback">
                                 C'est parfait !
@@ -288,7 +285,7 @@ $LRT = PLF::Get_LastRunTime();
 
                         <!-- Email input -->
                         <div class="form-outline bs-4 form-floating border text-primary border-1 border border-primary rounded mb-1">
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email" class="form-control" autocomplete="off" required>
                             <label class="form-label" for="email">Votre adresse Email</label>
                         </div>
 
@@ -319,7 +316,7 @@ $LRT = PLF::Get_LastRunTime();
     </div>
     <!-- ************************** CANVAS PARCOURS ************************************* -->
 
-    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="parcours" aria-labelledby="parcoursLabel">
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="parcours" aria-labelledby="parcoursLabel1">
         <div class="offcanvas-header">
             <div class="offcanvas-title text-primary fw-bold fs-4 mx-auto d-flex justify-content-center" id="parcoursLabel">PARCOURS BALISES</div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -331,13 +328,13 @@ $LRT = PLF::Get_LastRunTime();
                     <form class="d-flex justify-content-center mb-5">
                         <div class="form-check-inline">
                             <input class="form-check-input border border-primary" type="checkbox" value="typeMarche" id="typeMarche">
-                            <label class="form-check-label" for="flexCheckChecked">
+                            <label class="form-check-label" for="typeMarche">
                                 Marche
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <input class="form-check-input border border-primary" type="checkbox" value="typeVTT" id="typeVTT" checked>
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <label class="form-check-label" for="typeVTT">
                                 VTT
                             </label>
                         </div>
@@ -346,7 +343,7 @@ $LRT = PLF::Get_LastRunTime();
             </div>
             <div class="container w-auto mx-auto">
                 <div class="row">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCityLabel" id="selectCityLabel">Commune ou Localité</label>
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCityType" id="selectCityLabel">Commune ou Localité</label>
                     <div class="row g-1 mb-5">
                         <select id="selectCityType" class="form-select mx-auto text-primary border border-primary" style="width: 100%;" tabindex="-1" aria-hidden="true">>
                             <option value="arLocaliteName">Localité</option>
@@ -357,10 +354,10 @@ $LRT = PLF::Get_LastRunTime();
             </div>
             <div id="city">
                 <div id="selectCityForm" class="container w-100 mx-auto">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCity" id="selectCity">Sélectionnez un lieu</label>
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindCityName" id="selectCity">Sélectionnez un lieu</label>
                     <div class="row g-1 mb-5">
                         <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindCityName" class="form-select mx-auto fs-5 text-primary" style="width: 100%; z-index:2100;" placeholder="Localité"></select>
+                            <select id="txtFindCityName" class="form-select mx-auto fs-5 text-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
                         </div>
                         <div class="col-lg-3 d-flex align-items-center">
                             <button id="btnFindCityName" class="searchItems btn btn-secondary" style="width: 100%;"><i class="fa fa-search"></i></button>
@@ -370,7 +367,7 @@ $LRT = PLF::Get_LastRunTime();
             </div>
             <div id="parcours">
                 <div id="selectParcoursForm" class="container w-100 mx-auto">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectParcours" id="selectParcours">Sélectionnez un parcours</label>
+                    <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindParcoursName" id="selectParcours">Sélectionnez un parcours</label>
                     <div class="row g-1 mb-5">
                         <div class="col-lg-9 d-flex align-items-center">
                             <select id="txtFindParcoursName" class="form-select mx-auto fs-5 text-primary border border-primary" style="width: 100%;z-index:2100;" placeholder="Parcours"></select>
@@ -399,6 +396,17 @@ $LRT = PLF::Get_LastRunTime();
 
         </div>-
     </div>
+    <!-- ************************** CANVAS Territoires ************************************* -->
+
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="myOffcanvas" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Offcanvas content -->
+            Content goes here.
+        </div>
 
 </body>
 
@@ -408,6 +416,9 @@ $LRT = PLF::Get_LastRunTime();
 <!----------------------------- SCRIPT JS ------------------------------------------>
 
 <script src="assets/inc/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
 <!--<script src="assets/inc/js/parcours.js"></script>-->
 <script>
     // ************************** GLOBAL VARIABLE *************************************
@@ -584,9 +595,7 @@ $LRT = PLF::Get_LastRunTime();
 
         // **************************** DATE SELECTION *****************************************************************
 
-
-        $("#btonSearchDate").click(function() {
-
+        $("#datepicker").on('change', function() {
             if (lyrTerritories) {
                 lyrTerritories.remove();
                 map.removeLayer(lyrTerritories);
@@ -594,18 +603,13 @@ $LRT = PLF::Get_LastRunTime();
 
             dateValue = $('#datepicker').datepicker('getDate');
             formatDate = $.datepicker.formatDate("dd-mm-yy", dateValue);
-            //console.log(dateValue);
+
             if (dateValue === null) {
                 document.getElementById("retour").innerHTML = "Veuillez sélectionner une date";
-                retour.classList.add('active');
-                message.classList.add('active');
-                infoRetour.classList.remove('active');
-                squareOpen.classList.remove('active');
-                squareClose.classList.remove('active');
+                modalInfo()
             } else {
-                var x = findTerritories(dateValue)
+                findTerritories(dateValue)
             }
-
         });
 
         // ******************************** GENERAL FUNCTIONS ***********************************************************
@@ -623,6 +627,14 @@ $LRT = PLF::Get_LastRunTime();
             let territoriesOpened = [];
             let territoriesList = [];
 
+            function modalInfo() {
+                retour.classList.add('active');
+                message.classList.add('active');
+                infoRetour.classList.remove('active');
+                squareOpen.classList.remove('active');
+                squareClose.classList.remove('active');
+            }
+
             // ************************** SEARCH HUNTING DATES ************************************************************
 
             $.ajax({
@@ -635,11 +647,7 @@ $LRT = PLF::Get_LastRunTime();
                     resultat = JSON.parse(response);
                     if (resultat[0] == -14) {
                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
-                        retour.classList.add('active');
-                        message.classList.add('active');
-                        infoRetour.classList.remove('active');
-                        squareOpen.classList.remove('active');
-                        squareClose.classList.remove('active');
+                        modalInfo()
                     } else {
                         huntedTerritories = JSON.parse(response);
                         //console.log(huntedTerritories)
@@ -685,7 +693,7 @@ $LRT = PLF::Get_LastRunTime();
                                 },
 
                                 success: function(response) {
-                                    console.log(response);
+                                    //console.log(response);
 
                                     if (resultat[0] == -14) {
                                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -782,36 +790,31 @@ $LRT = PLF::Get_LastRunTime();
             }
         });
 
-        const VTT =  document.getElementById("typeVTT");
+        const VTT = document.getElementById("typeVTT");
 
         VTT.addEventListener("change", function() {
             if (VTT.checked) {
-                let checkboxVTT="OK";
+                let checkboxVTT = "OK";
                 console.log("La case est cochée VTT.");
             } else {
                 console.log("La case n'est pas cochée VTT.");
             }
         });
 
-        
+
 
         // ******************* LIST OF ROUTE NAME ************************************************************
 
-        listByRouteDB = <?php echo json_encode($List_Parcours); ?>;
+        listByRoute = <?php echo json_encode($List_Parcours[2]); ?>;
 
-        let listByRoute = Object.values(listByRouteDB[2]);
         console.log(listByRoute)
-        //var listCityName = Object.values(listParcoursInfo[2])
+
         let routeNbre = listByRoute.length;
-
         let parcoursList = [];
-
-        
-
-
         let selectedCategory;
         let arLocaliteName = [];
         let arCommuneName = [];
+        let arSelectedCityList = [];
 
         // ************ LOADING LOCALITE & COMMUNE ARRAY ********************************************************
 
@@ -826,15 +829,14 @@ $LRT = PLF::Get_LastRunTime();
         arLocaliteName.sort((a, b) => a.localeCompare(b, 'fr'));
         arCommuneName.sort((a, b) => a.localeCompare(b, 'fr'));
 
+        // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
+
         let tableDatas = {
             arLocaliteName,
             arCommuneName
         }
 
-        menuSelectionCity = selectionMenu(tableDatas)
-
-
-        // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
+        selectionMenu(tableDatas)
 
         function selectionMenu(initialChoices) {
             selectOption = $("#txtFindCityName").selectmenu();
@@ -843,7 +845,7 @@ $LRT = PLF::Get_LastRunTime();
                 selectedCategory = $(this).val();
                 console.log(selectedCategory)
                 const choices = initialChoices[selectedCategory];
-                //console.log(choices);
+                console.log(choices);
                 selectOption.empty();
 
                 if (choices) {
@@ -859,232 +861,246 @@ $LRT = PLF::Get_LastRunTime();
                 }
             });
 
-            $("#selectCityType").trigger("change");
+            //$("#selectCityType").trigger("change");
+
+
+            //********************  PARCOURS SELECTION  **************************************************************
+
+
+            let selectedCityName = $("#txtFindCityName").val()
+            console.log("coucou")
+            console.log(selectedCityName)
+            $("#txtFindCityName").on('change', handleInput)
+
+            function handleInput() {
+                console.log("coucou")
+                //$("#btnFindCityName").click(function(e) {
+                //$("#txtFindCityName").on('change', function() {
+                e.preventDefault()
+                //selectedCity = $(this).val()
+                //selectedCity = $("#txtFindCityName").val()
+                console.log(selectedCity)
+                //console.log(selectedCategory)
+                arSelectedCityList = [];
+
+                switch (selectedCategory) {
+                    case "arLocaliteName":
+                        console.log("coucou")
+                        getArselectedCity("localite")
+                    case "arCommuneName":
+                        console.log("coucou1")
+                        getArselectedCity("commune")
+
+                }
+                // })
+                function getArselectedCity(typeSearch) {
+                    for (i = 0; i < listByRoute.length; i++) {
+                        //console.log(selectedCity)
+                        if (selectedCity == listByRoute[i][typeSearch]) {
+                            arSelectedCityList.push([listByRoute[i]["localite"], listByRoute[i]['itineraire_id'], listByRoute[i]['nom'], listByRoute[i]['has_gpx']]);
+                        }
+                    }
+                }
+            }
+
         }
 
-        //********************  PARCOURS SELECTION  **************************************************************
 
-        $("#btnFindCityName").click(function(e) {
-            e.preventDefault()
-            selectedCity = $("#txtFindCityName").val()
-            //console.log(selectedCity)
-            //console.log(selectedCategory)
-            arSelectedCityList = [];
+        console.log(arSelectedCityList)
 
-            switch (selectedCategory) {
-                case "arLocaliteName":
-                    console.log("coucou")
-                    getArselectedCity("localite")
-                case "arCommuneName":
-                    console.log("coucou1")
-                    getArselectedCity("commune")
+        for (i = 0; i < (arSelectedCityList.length); i++) {
+            let routeValue;
+            routeValue = arSelectedCityList[i][1]
+            console.log(routeValue)
 
-            }
+            let cookieNber = "<?php echo $file_suffix; ?>";
 
-            function getArselectedCity(typeSearch) {
-                for (i = 0; i < listByRoute.length; i++) {
-                    //console.log(selectedCity)
-                    if (selectedCity == listByRoute[i][typeSearch]) {
-                        arSelectedCityList.push([listByRoute[i]["localite"], listByRoute[i]['itineraire_id'], listByRoute[i]['nom'], listByRoute[i]['has_gpx']]);
-                    }
-                }
-            }
+            searchTrace(routeValue);
 
-            console.log(arSelectedCityList)
-
-            for (i = 0; i < (arSelectedCityList.length); i++) {
-                let routeValue;
-                routeValue = arSelectedCityList[i][1]
+            function searchTrace(routeValue) {
                 console.log(routeValue)
+                $.ajax({
+                    type: 'GET',
+                    url: "assets/inc/php/searchRouteInfo.php",
+                    data: "routeValue=" + routeValue,
 
-                let cookieNber = "<?php echo $file_suffix; ?>";
+                    success: function(response) {
+                        resultat = JSON.parse(response);
+                        console.log(resultat);
+                        var argpx = resultat[0]["gpx_url"]
+                        console.log(argpx);
+                        if (resultat[0]["gpx_url"] == "") {
+                            $('#parcoursTrace').html('Pas de trace disponible');
 
-                searchTrace(routeValue);
+                        }
 
-                function searchTrace(routeValue) {
-                    console.log(routeValue)
-                    $.ajax({
-                        type: 'GET',
-                        url: "assets/inc/php/searchRouteInfo.php",
-                        data: "routeValue=" + routeValue,
+                        const headers = new Headers();
+                        headers.append('Access-Control-Allow-Origin', argpx);
+                        headers.append('Content-Type', 'application/json');
+                        headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 
-                        success: function(response) {
-                            resultat = JSON.parse(response);
-                            console.log(resultat);
-                            var argpx = resultat[0]["gpx_url"]
-                            console.log(argpx);
-                            if (resultat[0]["gpx_url"] == "") {
-                                $('#parcoursTrace').html('Pas de trace disponible');
+                        console.log(traceGPX)
 
+                        var fetchResult = fetch(argpx);
+
+                        traceGPX = new L.GPX(argpx, {
+                            onEachFeature: processTerritories,
+                            polyline_options: [{
+                                color: '#34495e',
+                                opacity: 0.75,
+                                weight: 3,
+                                lineCap: 'round'
+                            }],
+                            async: true,
+                            marker_options: {
+                                startIconUrl: 'assets/img/pin-icon-start.png',
+                                endIconUrl: 'assets/img/pin-icon-end.png',
+                                shadowUrl: 'assets/img/pin-shadow.png'
                             }
+                        }).on('loaded', function(e) {
+                            map.fitBounds(e.target.getBounds().pad(1));
+                            map.on("addpoint", function(e) {
+                                var point = e.point;
+                                point.bindPopup("Latitude: " + point._latlng.lat + "<br>Longitude: " + point._latlng.lng).openPopup();
+                            });
+                        }).addTo(map);
 
-                            const headers = new Headers();
-                            headers.append('Access-Control-Allow-Origin', argpx);
-                            headers.append('Content-Type', 'application/json');
-                            headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-
-                            console.log(traceGPX)
-
-                            var fetchResult = fetch(argpx);
-
-                            traceGPX = new L.GPX(argpx, {
-                                onEachFeature: processTerritories,
-                                polyline_options: [{
-                                    color: '#34495e',
-                                    opacity: 0.75,
-                                    weight: 3,
-                                    lineCap: 'round'
-                                }],
-                                async: true,
-                                marker_options: {
-                                    startIconUrl: 'assets/img/pin-icon-start.png',
-                                    endIconUrl: 'assets/img/pin-icon-end.png',
-                                    shadowUrl: 'assets/img/pin-shadow.png'
-                                }
-                            }).on('loaded', function(e) {
-                                map.fitBounds(e.target.getBounds().pad(1));
-                                map.on("addpoint", function(e) {
-                                    var point = e.point;
-                                    point.bindPopup("Latitude: " + point._latlng.lat + "<br>Longitude: " + point._latlng.lng).openPopup();
+                        function processTerritories(json, lyr) {
+                            //var att = trk.properties;
+                            lyr.on('mouseover', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.7
+                                })
+                                lyr.bindTooltip('<h3 style="color:#2c3e50"><center>' + trk.name + '</h3>');
+                            })
+                            lyr.on('mouseout', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.3
                                 });
-                            }).addTo(map);
-
-                            function processTerritories(json, lyr) {
-                                //var att = trk.properties;
-                                lyr.on('mouseover', function() {
-                                    lyr.setStyle({
-                                        fillOpacity: 0.7
-                                    })
-                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center>' + trk.name + '</h3>');
-                                })
-                                lyr.on('mouseout', function() {
-                                    lyr.setStyle({
-                                        fillOpacity: 0.3
-                                    });
-                                })
-                            }
+                            })
                         }
+                    }
 
-                    })
-                }
-
-
+                })
             }
 
-            /*
-            // ************ PARCOURS SELECTION MENU ************************************************************  
 
-            selectOption1 = $("#txtFindParcoursName").selectmenu();
-            console.log(arselectedParcoursList)
-            var choices1 = arselectedParcoursList;
-            console.log(choices1);
-            selectOption1.empty();
+        }
 
-            if (choices1) {
-                choices1.forEach(function(choice1) {
-                    selectOption1.append($("<option>", {
-                        value: choice1,
-                        text: choice1
-                    }));
-                });
-                selectOption1.selectmenu("refresh");
+        /*
+        // ************ PARCOURS SELECTION MENU ************************************************************  
+
+        selectOption1 = $("#txtFindParcoursName").selectmenu();
+        console.log(arselectedParcoursList)
+        var choices1 = arselectedParcoursList;
+        console.log(choices1);
+        selectOption1.empty();
+
+        if (choices1) {
+            choices1.forEach(function(choice1) {
+                selectOption1.append($("<option>", {
+                    value: choice1,
+                    text: choice1
+                }));
+            });
+            selectOption1.selectmenu("refresh");
+        }
+
+        $("#txtFindCityName").trigger("focusout");
+
+        // ***************** SEARCH PARCOURS MAP ************************************************************
+
+        $("#btnFindParcoursName").click(function(e) {
+            e.preventDefault()
+
+            if (lyrRoute) {
+                console.log(lyrRoute);
+                lyrRoute.remove();
+                map.removeLayer(lyrRoute);
             }
+            routeName = $("#txtFindParcoursName").val().toLowerCase();
+            console.log(routeName)
 
-            $("#txtFindCityName").trigger("focusout");
+            for (j = 0; j < (listByRoute.length); j++) {
 
-            // ***************** SEARCH PARCOURS MAP ************************************************************
-
-            $("#btnFindParcoursName").click(function(e) {
-                e.preventDefault()
-
-                if (lyrRoute) {
-                    console.log(lyrRoute);
-                    lyrRoute.remove();
-                    map.removeLayer(lyrRoute);
-                }
-                routeName = $("#txtFindParcoursName").val().toLowerCase();
+                routeCheck = listByRoute[j]["nom"].toLowerCase()
+                console.log(routeCheck)
                 console.log(routeName)
+                if (routeName == routeCheck) {
 
-                for (j = 0; j < (listByRoute.length); j++) {
+                    routeValue = listByRoute[j]["itineraire_id"]
+                    break;
+                }
+                console.log("coucou")
+                messageErreur.classList.remove('active');
+                parcoursNom.classList.add('active');
 
-                    routeCheck = listByRoute[j]["nom"].toLowerCase()
-                    console.log(routeCheck)
-                    console.log(routeName)
-                    if (routeName == routeCheck) {
+                parcoursInfo.classList.add('active');
+                parcoursInfoDetails.classList.add('active');
+            }*/
 
-                        routeValue = listByRoute[j]["itineraire_id"]
-                        break;
-                    }
-                    console.log("coucou")
-                    messageErreur.classList.remove('active');
-                    parcoursNom.classList.add('active');
+        // ************ SEARCH PARCOURS INFO ************************************************************
 
-                    parcoursInfo.classList.add('active');
-                    parcoursInfoDetails.classList.add('active');
-                }*/
+        var cookieNber = "<?php echo $file_suffix; ?>";
 
-            // ************ SEARCH PARCOURS INFO ************************************************************
+        $.ajax({
+            type: 'GET',
+            url: "assets/inc/php/searchRouteInfo.php",
+            data: "routeValue=" + routeValue,
 
-            var cookieNber = "<?php echo $file_suffix; ?>";
+            success: function(response) {
+                resultat = JSON.parse(response);
+                console.log(resultat);
+                var argpx = resultat[0]["gpx_url"]
+                console.log(argpx);
+                messageErreur.classList.remove('active');
+                parcoursNom.classList.add('active');
 
-            $.ajax({
-                type: 'GET',
-                url: "assets/inc/php/searchRouteInfo.php",
-                data: "routeValue=" + routeValue,
+                parcoursInfo.classList.add('active');
+                parcoursInfoDetails.classList.add('active');
 
-                success: function(response) {
-                    resultat = JSON.parse(response);
-                    console.log(resultat);
-                    var argpx = resultat[0]["gpx_url"]
-                    console.log(argpx);
-                    messageErreur.classList.remove('active');
-                    parcoursNom.classList.add('active');
+                $('#parcoursInfo').html('<center>PARCOURS<center>');
+                $('#parcoursNom').html(resultat[0]["nom"]);
+                $('#parcoursOrganisme').html('Organisation : ' + resultat[0]["organisme"]);
+                $('#parcoursLocalite').html('Localité : ' + resultat[0]["localite"]);
+                $('#parcoursCommune').html('Commune : ' + resultat[0]["commune"]);
+                $('#parcoursDistance').html('Distance : ' + resultat[0]["distance"] + ' km');
+                //$('#parcoursD').html(resultat[0]["distance"]);
+                $('#parcoursSignal').html('Signalisation : ' + resultat[0]["signaletique"]);
+                $('#parcoursType').html('Type : ' + resultat[0]["typecirc"]);
 
-                    parcoursInfo.classList.add('active');
-                    parcoursInfoDetails.classList.add('active');
+                if (resultat[0]["gpx_url"] == "") {
+                    $('#parcoursTrace').html('Pas de trace disponible');
 
-                    $('#parcoursInfo').html('<center>PARCOURS<center>');
-                    $('#parcoursNom').html(resultat[0]["nom"]);
-                    $('#parcoursOrganisme').html('Organisation : ' + resultat[0]["organisme"]);
-                    $('#parcoursLocalite').html('Localité : ' + resultat[0]["localite"]);
-                    $('#parcoursCommune').html('Commune : ' + resultat[0]["commune"]);
-                    $('#parcoursDistance').html('Distance : ' + resultat[0]["distance"] + ' km');
-                    //$('#parcoursD').html(resultat[0]["distance"]);
-                    $('#parcoursSignal').html('Signalisation : ' + resultat[0]["signaletique"]);
-                    $('#parcoursType').html('Type : ' + resultat[0]["typecirc"]);
-
-                    if (resultat[0]["gpx_url"] == "") {
-                        $('#parcoursTrace').html('Pas de trace disponible');
-
-                    }
-
-                    const headers = new Headers();
-                    headers.append('Access-Control-Allow-Origin', argpx);
-                    headers.append('Content-Type', 'application/json');
-                    headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-
-                    console.log(traceGPX)
-
-                    if (traceGPX) {
-                        map.removeLayer(traceGPX);
-                    }
-
-                    var fetchResult = fetch(argpx);
-
-                    traceGPX = new L.GPX(argpx, {
-                        async: true,
-                        marker_options: {
-                            startIconUrl: 'assets/img/pin-icon-start.png',
-                            endIconUrl: 'assets/img/pin-icon-end.png',
-                            shadowUrl: 'assets/img/pin-shadow.png'
-                        }
-                    }).on('loaded', function(e) {
-                        map.fitBounds(e.target.getBounds().pad(1));
-                    }).addTo(map);
                 }
 
-            })
+                const headers = new Headers();
+                headers.append('Access-Control-Allow-Origin', argpx);
+                headers.append('Content-Type', 'application/json');
+                headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 
-        });
+                console.log(traceGPX)
+
+                if (traceGPX) {
+                    map.removeLayer(traceGPX);
+                }
+
+                var fetchResult = fetch(argpx);
+
+                traceGPX = new L.GPX(argpx, {
+                    async: true,
+                    marker_options: {
+                        startIconUrl: 'assets/img/pin-icon-start.png',
+                        endIconUrl: 'assets/img/pin-icon-end.png',
+                        shadowUrl: 'assets/img/pin-shadow.png'
+                    }
+                }).on('loaded', function(e) {
+                    map.fitBounds(e.target.getBounds().pad(1));
+                }).addTo(map);
+            }
+
+        })
+
+        //});
     });
 </script>
