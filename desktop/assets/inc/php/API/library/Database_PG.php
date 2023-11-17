@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
 
-class Database 
+class Database_PG
 {
 
     private string $_error_message;
@@ -23,12 +23,18 @@ class Database
 
     // create the connection to the MySql database
 
-    public function getConnection(): PDO | false
+    public function getConnection( bool $IsPostgreSQL = false ): PDO | false
     {
 
         $dsn = "mysql:host={$_SERVER["MySql_Server"]};dbname={$_SERVER["MySql_DB"]};charset=utf8";
         $user = $_SERVER["MySql_Login"];
         $password = $_SERVER["MySql_Password"];
+
+        if ($IsPostgreSQL == true) {
+            $dsn = "pgsql:host={$_SERVER["PostgreSql_Server"]};dbname={$_SERVER["PostgreSql_DB"]}";
+            $user = $_SERVER["PostgreSql_Login"];
+            $password = $_SERVER["PostgreSql_Password"];
+        }
 
         try {
 
@@ -43,8 +49,10 @@ class Database
 
             switch ($e->getCode()) {
                 case 1049:                      // Database does not exist.
-                    throw new pdoDBException(1049, $e, "Database does not exist : " . $e->getMessage(), );
-                    $x = 4;
+                    throw new pdoDBException(1049, $e, "MySql Database does not exist : " . $e->getMessage(), );
+
+                case 7:                      // Postgresql Database does not exist.
+                    throw new pdoDBException(7, $e, "PostegreSQL Database does not exist : " . $e->getMessage(), );
 
                 case 2002:                      // Database is unreachable
                     throw new pdoDBException(2002, $e, "Unable to access database : " . $e->getMessage(), );

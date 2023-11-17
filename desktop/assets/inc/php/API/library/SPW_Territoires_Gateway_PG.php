@@ -1,6 +1,10 @@
 <?php
 
-class SPW_Territoires_Gateway
+use geoPHP\Geometry\Geometry;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
+use PhpOffice\PhpSpreadsheet\Helper\Handler;
+
+class SPW_Territoires_Gateway_PG
 {
 
     private int $_sequence = 1;
@@ -8,10 +12,12 @@ class SPW_Territoires_Gateway
     private string $RC;
 
     private PDO $conn;
+    private PDO $conn_PG;
 
-    public function __construct(Database $database)
+    public function __construct(Database_PG $database)
     {
         $this->conn = $database->getConnection();
+        $this->conn_PG = $database->getConnection(IsPostgreSQL: true);
 
     }
 
@@ -21,7 +27,7 @@ class SPW_Territoires_Gateway
 
         if ($data["KEYG"] == $this->_old_KEYG) {
             $this->_sequence++;
-            SPW_Territoires_Controller::__Increment_Duplicate_Territoires();
+            SPW_Territoires_Controller_PG::__Increment_Duplicate_Territoires();
             array_push(errorHandler::$Run_Information, ["Warning", "Duplicate record for territoire : KEYG = " . $data["KEYG"]  . PHP_EOL]);
 
         } else {
@@ -38,7 +44,6 @@ class SPW_Territoires_Gateway
                     " NUGC," .
                     " SERVICE," .
                     " TITULAIRE_ADH_UGC," . 
-                    " GEOM, " .
                     " DATE_MAJ" .
                 "  ) VALUES (" .
                     " :OBJECTID," .
@@ -49,7 +54,6 @@ class SPW_Territoires_Gateway
                     " :NUGC," .
                     " :SERVICE," .
                     " :TITULAIRE_ADH_UGC," .
-                    " ST_GeomFromGeoJSON(:GEOM), " .
                     " :DATE_MAJ)";
 
 
@@ -65,13 +69,14 @@ class SPW_Territoires_Gateway
             $stmt->bindValue(":NUGC", $data["NUGC"], PDO::PARAM_INT);
             $stmt->bindValue(":SERVICE", $data["SERVICE"], PDO::PARAM_STR);
             $stmt->bindValue(":TITULAIRE_ADH_UGC", $data["TITULAIRE_ADH_UGC"], PDO::PARAM_BOOL);
-            $stmt->bindValue(":GEOM", $data["GEOM"], PDO::PARAM_LOB);
             $stmt->bindValue(":DATE_MAJ", $data["DATE_MAJ"], PDO::PARAM_STR);
-
 
             $stmt->execute();
 
-            SPW_Territoires_Controller::__Increment_Total_Territoires();
+
+            $this->New_Territoire_Geom($data["SAISON"], $data["N_LOT"], $this->_sequence, $data["SHAPE"] );
+
+            SPW_Territoires_Controller_PG::__Increment_Total_Territoires();
             
             //array_push(errorHandler::$Run_Information, ["Info", "new territoire : KEYG = " . $data["KEYG"] . PHP_EOL]);
 
@@ -97,27 +102,87 @@ class SPW_Territoires_Gateway
     }
 
 
+    public function New_Territoire_Geom(int $saison, string $n_lot, int $seq, string $geom)  {
+
+        $sql = "INSERT INTO " . $GLOBALS["spw_tbl_territoires_tmp_PG"] . " (" .
+                    " saison," .
+                    " n_lot," .
+                    " seq, " .
+                    " geom" .
+                "  ) VALUES (" .
+                    " :SAISON," .
+                    " :N_LOT," .
+                    " :SEQ," .
+                    " :GEOM )
+                    RETURNING *";
 
 
-    public function Drop_Table(string $tableName) {
+        try {
 
+            $stmt = $this->conn_PG->prepare($sql);
+            
+            $stmt->bindValue(":SAISON", $saison, PDO::PARAM_INT);
+            $stmt->bindValue(":N_LOT", $n_lot, PDO::PARAM_STR);
+            $stmt->bindValue(":SEQ", $seq, PDO::PARAM_INT);
+            $stmt->bindValue(":GEOM", $geom, PDO::PARAM_STR);
 
-        $this->RC = Database::drop_Table($this->conn, $tableName);
+            $this->RC = $stmt->execute();
+
+            
+            //array_push(errorHandler::$Run_Information, ["Info", "new territoire : KEYG = " . $data["KEYG"] . PHP_EOL]);
+
+            // return $this->conn_PG->lastInsertId();
+
+        } catch (pdoException $e) {
+
+                $SQL_Error = $e->errorInfo[1];
+
+                switch ($SQL_Error) {
+                    default:
+                        throw new pdoDBException($SQL_Error, $e, "SQL Error :" . $this->rebuildSql($sql,[$saison, $n_lot, $seq]));
+
+                }
+            } catch (Exception $e) {
+
+            }
+
+    }
+
+    public function Drop_Table(string $tableName, bool $IsPostgreSQL = false ) {
+
+        $connection = $this->conn;
+
+        if ($IsPostgreSQL == true) {
+            $connection = $this->conn_PG;
+        }
+
+        $this->RC = Database::drop_Table($connection, $tableName);
 
     }
 
 
-    public function Drop_View(string $viewName) {
+    public function Drop_View(string $viewName, bool $IsPostgreSQL = false) {
 
+        $connection = $this->conn;
 
-        $this->RC = Database::drop_View($this->conn, $viewName);
+        if ($IsPostgreSQL == true) {
+            $connection = $this->conn_PG;
+        }
+
+        $this->RC = Database::drop_View($connection, $viewName);
 
     }
 
-    public function Rename_Table(string $Table_tmp, string $Table_final) {
+    public function Rename_Table(string $Table_tmp, string $Table_final, bool $IsPostgreSQL = false ) {
+
+        $connection = $this->conn;
+
+        if ($IsPostgreSQL == true) {
+            $connection = $this->conn_PG;
+        }
 
 
-        $this->RC = Database::rename_Table($this->conn, $Table_tmp, $Table_final);
+        $this->RC = Database::rename_Table($connection, $Table_tmp, $Table_final);
 
     }
 
@@ -137,7 +202,6 @@ class SPW_Territoires_Gateway
                     `NUGC` SMALLINT NULL DEFAULT NULL,
                     `TITULAIRE_ADH_UGC` TINYINT(1) NOT NULL,
                     `DATE_MAJ` DATE NULL DEFAULT NULL,
-                    `GEOM` GEOMETRY NOT NULL,
                     PRIMARY KEY (`N_LOT`, `SAISON`, `SEQ`) USING BTREE,
                     UNIQUE INDEX `uk_Saison_lot_seq` (`SAISON`, `N_LOT`, `SEQ`) USING BTREE)
             COLLATE='utf8mb4_unicode_ci'
@@ -164,6 +228,50 @@ class SPW_Territoires_Gateway
         return true;
 
     }
+
+    public function Create_DB_Table_Territoires_geom(string $tablename, int $SRID): bool 
+    {
+
+
+        $sql = "CREATE TABLE public.$tablename
+		        (
+		            SAISON smallint NOT NULL,
+		            N_LOT character varying(10) NOT NULL,
+		            SEQ smallint NOT NULL,
+		            GEOM geometry NOT NULL,
+		            PRIMARY KEY (SAISON, N_LOT, SEQ)
+		        );";
+
+        $sql1 = "ALTER TABLE public.$tablename ALTER COLUMN geom TYPE geometry( MULTIPOLYGON, $SRID)";
+
+        try {
+
+            $this->RC = $this->conn_PG->exec($sql);
+            $this->RC = $this->conn_PG->exec($sql1);
+
+        } catch (pdoException $e) {
+
+            $SQL_Error = $e->errorInfo[1];
+
+            switch ($e->getCode()) {
+
+
+                default:
+                    throw new pdoDBException($SQL_Error, $e, "PostgreSQL SQL Error :" . $sql);
+
+            }
+        } catch (Exception $e) {
+
+        }    
+
+
+        
+
+        return true;
+
+    }
+
+
 
 
     public function Create_View_Territoires() {

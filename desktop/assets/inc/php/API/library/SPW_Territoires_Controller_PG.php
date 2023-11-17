@@ -1,7 +1,7 @@
 <?php
 
 
-class SPW_Territoires_Controller
+class SPW_Territoires_Controller_PG
 {
 
     private static int $_max_Record_Count = 2000;
@@ -13,8 +13,7 @@ class SPW_Territoires_Controller
     private string $_spw_Query_Count_Parameters;
     private string $_spw_Url_Where_Clause;
     private string $_Rest_Url;
-    private string $_IN_SRID;
-    private string $_OUT_SRID;
+    private string $_SRID;
     private int $_iteration_Count;
     private int $_API_Total_Territoires;
 
@@ -23,12 +22,11 @@ class SPW_Territoires_Controller
        
 
 
-    public function __construct(private SPW_Territoires_Gateway $gateway) 
+    public function __construct(private SPW_Territoires_Gateway_PG $gateway) 
 
     {
         
-        $this->_IN_SRID = 31370;        // Lambert72
-        $this->_OUT_SRID = 4326;        // Degré décimal
+        $this->_SRID = 31370;
         $this->_Rest_Url = "";
         $this->_iteration_Count = 0;
         self::$_Duplicate_Territoires = 0;
@@ -45,8 +43,7 @@ class SPW_Territoires_Controller
         $this->_spw_Query_Parameters .= "&returnIdsOnly=false";
         $this->_spw_Query_Parameters .= "&returnCountOnly=false";
         $this->_spw_Query_Parameters .= "&orderByFields=KEYG";
-        $this->_spw_Query_Parameters .= "&inSR=$this->_IN_SRID";
-        $this->_spw_Query_Parameters .= "&outSR=$this->_OUT_SRID";
+        $this->_spw_Query_Parameters .= "&outSR=$this->_SRID";
         $this->_spw_Query_Parameters .= "&returnDistinctValues=false";
         $this->_spw_Query_Parameters .= "&resultOffset=";
         $this->_spw_Query_Parameters .= "<OFFSET>";
@@ -83,17 +80,25 @@ class SPW_Territoires_Controller
         $this->Prepare_Web_Service_URL();
 
         $this->_API_Total_Territoires = $this->Count_Number_Territoires();
+
+        // $this->_API_Total_Territoires = 5;
         
         //$this->Get_Json_Data_Into_Files();
 
         $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_tmp"]);
+        $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_tmp_PG"], IsPostgreSQL: true);
 
         $this->gateway->Create_DB_Table_Territoires($GLOBALS["spw_tbl_territoires_tmp"]);
+        $this->gateway->Create_DB_Table_Territoires_geom($GLOBALS["spw_tbl_territoires_tmp_PG"], $this->_SRID);
 
         $this->Process_Json_Files();
         
         $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires"]);
         $this->gateway->Rename_Table($GLOBALS["spw_tbl_territoires_tmp"], $GLOBALS["spw_tbl_territoires"]);
+
+
+        $this->gateway->Drop_Table($GLOBALS["spw_tbl_territoires_PG"], IsPostgreSQL: true);
+        $this->gateway->Rename_Table($GLOBALS["spw_tbl_territoires_tmp_PG"], $GLOBALS["spw_tbl_territoires_PG"], IsPostgreSQL: true);
 
 
         $this->gateway->Drop_View($GLOBALS["spw_view_territoires"]);
@@ -307,7 +312,7 @@ class SPW_Territoires_Controller
                 $KEYG = $territoire["properties"]["KEYG"];
                 $SAISON = $territoire["properties"]["SAISON"];
                 $N_LOT = $territoire["properties"]["N_LOT"];
-                $GEOM = $territory_geometry;
+                $SHAPE = $territory_geometry;
                 $NUGC = $territoire["properties"]["NUGC"];
 
 
@@ -330,10 +335,10 @@ class SPW_Territoires_Controller
                     "KEYG" => $KEYG,
                     "SAISON" => $SAISON,
                     "N_LOT" => $N_LOT,
+                    "SHAPE" => $SHAPE,
                     "NUGC" => $NUGC,
                     "SERVICE" => $SERVICE,
                     "TITULAIRE_ADH_UGC" => $TITULAIRE_ADH_UGC,
-                    "GEOM" => $GEOM,
                     "DATE_MAJ" => date("Y-m-d")
                 ]);
 

@@ -18,7 +18,7 @@ echo $mydate;
 //goto Test6_new;
 //goto Test7_new;
 //goto Test8_new;
-//goto Test12_new;
+goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
 //goto Test15_new;
@@ -27,7 +27,7 @@ echo $mydate;
 //goto Test18_new;
 //goto Test19_new;
 //goto Test20_new;
-goto TEST21;
+//goto TEST21;
 
 
 exit;

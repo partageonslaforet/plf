@@ -1182,7 +1182,7 @@ class PLF
 
         $database = new Database();
                         
-        $db_conn = $database->getConnection(IsPostgreSQL: true);
+        $db_conn = $database->getConnection();
 
         if ($db_conn == false) {
 
@@ -1228,12 +1228,13 @@ class PLF
                                               json_build_object('Numero_Lot', '<N_LOT>',
                                                                 'Nom', '<TERRITOIRE_NAME>') 
                                             ) as geom_lambert
-                    FROM $GLOBALS[spw_tbl_territoires_PG] 
+                    FROM $GLOBALS[spw_tbl_territoires] 
                     WHERE saison = $Saison 
                     AND n_lot = '$lot' 
                     AND seq = $seq";
 
 
+print_r("$sql_cmd");
         $stmt = $db_conn->query($sql_cmd);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
