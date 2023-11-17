@@ -223,11 +223,11 @@ ul.menu-links{
     overflow-y: auto;
 }
 
-#parcoursLabel{
+#parcoursLabel, #territoryLabel{
     font-size: 1.5vw !important;
 }
 
-#selectCity, #selectCityLabel, #selectParcours, #retour,#squareOpen,#squareClose{
+#selectCity, #selectCityLabel, #selectParcours, #selectTerritories, #retour,#squareOpen,#squareClose{
     font-size: 1vw !important;
     font-family: 'Poppins', sans-serif!important;
 }

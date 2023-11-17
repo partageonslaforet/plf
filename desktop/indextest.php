@@ -28,6 +28,7 @@ $LRT = PLF::Get_LastRunTime();
     <!--<link rel="stylesheet" href="assets/css/style.css">-->
 
     <link rel="stylesheet" href="assets/css/calendarNew.css">
+    <link rel="stylesheet" href="assets/css/territories.css">
     <link rel="stylesheet" href="assets/src/css/leaflet.css">
     <link rel="stylesheet" href="assets/src/css/L.Control.Zoomslider.css">
     <link rel="stylesheet" href="assets/src/css/Control.MiniMap.css">
@@ -47,11 +48,10 @@ $LRT = PLF::Get_LastRunTime();
     <script src="assets/src/js/leaflet.js"></script>
     <script src="assets/src/js/jquery-3.7.1.js"></script>
     <script src="assets/src/js/jquery-ui.js"></script>
-    <script src="assets/inc/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/src/js/bootstrap.js"></script>
     <script src="assets/src/js/L.Control.Zoomslider.js"></script>
     <script src="assets/src/js/Control.MiniMap.js"></script>
     <script src="assets/src/js/leaflet-providers.js"></script>
-    <script src="assets/inc/js/bootstrap.bundle.min.js"></script>
     <script src="assets/src/js/L.Control.Zoomslider.js"></script>
     <script src="assets/src/js/Control.MiniMap.js"></script>
     <script src="assets/src/js/leaflet-providers.js"></script>
@@ -61,8 +61,8 @@ $LRT = PLF::Get_LastRunTime();
     <script src="assets/src/js/GpPluginLeaflet.js"></script>
     <script src="assets/src/js/gpx.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.2/proj4leaflet.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
 
 
 
@@ -103,10 +103,10 @@ $LRT = PLF::Get_LastRunTime();
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas"></a>
-                        <i class='fa fa-location-dot'></i>
-                        <span class="text nav-text">Territoires</span>
-                        </button>
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas">
+                            <i class='fa fa-location-dot'></i>
+                            <span class="text nav-text">Territoires</span>
+                        </a>
                     </li>
                     <li class="nav-link">
                         <a href="#">
@@ -321,7 +321,7 @@ $LRT = PLF::Get_LastRunTime();
             <div class="offcanvas-title text-primary fw-bold fs-4 mx-auto d-flex justify-content-center" id="parcoursLabel">PARCOURS BALISES</div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <?php require_once "parcoursNew.php"; ?>
+
         <div class="offcanvas-body">
             <div class="container w-auto mx-auto">
                 <div class="row">
@@ -357,7 +357,8 @@ $LRT = PLF::Get_LastRunTime();
                     <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindCityName" id="selectCity">Sélectionnez un lieu</label>
                     <div class="row g-1 mb-5">
                         <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindCityName" class="form-select mx-auto fs-5 text-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                            <select id="txtFindCityName" class="form-select mx-auto fs-6 text-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                            <p id="result">Sélectionnez une option</p>
                         </div>
                         <div class="col-lg-3 d-flex align-items-center">
                             <button id="btnFindCityName" class="searchItems btn btn-secondary" style="width: 100%;"><i class="fa fa-search"></i></button>
@@ -367,10 +368,10 @@ $LRT = PLF::Get_LastRunTime();
             </div>
             <div id="parcours">
                 <div id="selectParcoursForm" class="container w-100 mx-auto">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindParcoursName" id="selectParcours">Sélectionnez un parcours</label>
+                    <!-- <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindParcoursName" id="selectParcours">Sélectionnez un parcours</label> -->
                     <div class="row g-1 mb-5">
                         <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindParcoursName" class="form-select mx-auto fs-5 text-primary border border-primary" style="width: 100%;z-index:2100;" placeholder="Parcours"></select>
+                            <select id="txtFindParcoursName" class="form-select mx-auto fs-6 text-primary border border-primary" style="width: 100%;z-index:2100;" placeholder="Parcours"></select>
                         </div>
                         <div class="col-lg-3 d-flex align-items-center">
                             <button id="btnFindParcoursName" class="searchItems btn btn-secondary " style="width: 100%;"><i class="fa fa-search"></i></button>
@@ -378,6 +379,40 @@ $LRT = PLF::Get_LastRunTime();
                     </div>
                 </div>
             </div>
+            <!-- Sélectionnez la liste déroulante -->
+            <select id="mySelect">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+
+            <!-- Affichez quelque chose en fonction de la valeur sélectionnée 
+            <p id="result">Sélectionnez une option</p>-->
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    //var mySelect = document.getElementById('txtFindParcoursName');
+
+                    /* mySelect.addEventListener('change', function() {
+                        var selectedValue = mySelect.value; 
+                        console.log('Selected value:', selectedValue);
+                    }); */
+                    // Sélectionnez la liste déroulante
+                    var mySelect = document.getElementById("txtFindCityName");
+                    console.log(mySelect)
+
+                    // Ajoutez un écouteur d'événements "change"
+                    mySelect.addEventListener("change", function() {
+                        // Récupérez la valeur sélectionnée
+                        var selectedValue = event.target.value;
+
+                        // Affichez quelque chose en fonction de la valeur sélectionnée
+                        var resultParagraph = document.getElementById("result");
+                        resultParagraph.textContent = "Option sélectionnée : " + selectedValue;
+                        console.log(resultParagraph.textContent)
+                    });
+                })
+            </script>
             <div class="container">
                 <div id="parcoursInfo" class=" my-3 fs-4 fw-bold text-primary mx-auto d-flex justify-content-center"></div>
                 <div id="parcoursNom" class="fs-4 fw-bold text-secondary mx-auto d-flex justify-content-center"></div>
@@ -396,17 +431,39 @@ $LRT = PLF::Get_LastRunTime();
 
         </div>-
     </div>
-    <!-- ************************** CANVAS Territoires ************************************* -->
+    <!-- ************************** CANVAS TERRITOIRES ************************************* -->
 
     <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="myOffcanvas" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="offcanvas-title text-primary fw-bold fs-4 mx-auto d-flex justify-content-center" id="territoryLabel">TERRITOIRES DE CHASSES</div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <!-- Offcanvas content -->
-            Content goes here.
+            <div id="territoriesList">
+                <div id="territoriesSelection" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFindTerritoryNumber" id="selectTerritories">Sélectionnez un Territoire</label>
+                    <div class="row g-1 mb-5">
+                        <div class="col-lg-9 d-flex align-items-center">
+                            <select id="txtFindTerritoryNumber" class="form-select mx-auto fs-6 text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="territoryInformations" class="container w-100 mx-auto">
+                <div id="territoryInfo" class="text-secondary fw-bold fs-5 mb-3"></div>
+                <div id="territoryName" class="text-primary fw-bold fs-5 mb-3"></div>
+                <div class="sub-info w-100 mx-auto">
+                    <div id="territoryNbre"></div>
+                    <div id="territoryCanton"></div>
+                    <div id="territoryCC"></div>
+                    <div id="territoryArea"></div>
+                </div>
+                <div id="huntingDate"></div>
+                <div id="territoriesHuntingDatesLabel"></div>
+                <div id="huntingDateList"></div>
+            </div>
         </div>
+    </div>
 
 </body>
 
@@ -769,7 +826,7 @@ $LRT = PLF::Get_LastRunTime();
         };
 
         // ********************** PARCOURS SCRIPT ***********************************************************
-
+        <?php require_once "parcoursNew.php"; ?>
         let lyrRoute;
         let traceGPX;
         let arselectedParcoursList;
@@ -815,6 +872,7 @@ $LRT = PLF::Get_LastRunTime();
         let arLocaliteName = [];
         let arCommuneName = [];
         let arSelectedCityList = [];
+        let cityNameValue;
 
         // ************ LOADING LOCALITE & COMMUNE ARRAY ********************************************************
 
@@ -836,21 +894,21 @@ $LRT = PLF::Get_LastRunTime();
             arCommuneName
         }
 
-        selectionMenu(tableDatas)
+
 
         function selectionMenu(initialChoices) {
             selectOption = $("#txtFindCityName").selectmenu();
+            console.log(selectOption)
 
             $("#selectCityType").on('change', function() {
                 selectedCategory = $(this).val();
                 console.log(selectedCategory)
-                const choices = initialChoices[selectedCategory];
+                let choices = initialChoices[selectedCategory];
                 console.log(choices);
                 selectOption.empty();
 
                 if (choices) {
                     choices.forEach(function(choice) {
-                        //console.log(choice)
                         selectOption.append($("<option>", {
                             value: choice,
                             text: choice
@@ -861,52 +919,115 @@ $LRT = PLF::Get_LastRunTime();
                 }
             });
 
-            //$("#selectCityType").trigger("change");
+            $("#selectCityType").trigger("change");
 
-
-            //********************  PARCOURS SELECTION  **************************************************************
-
-
-            let selectedCityName = $("#txtFindCityName").val()
-            console.log("coucou")
-            console.log(selectedCityName)
-            $("#txtFindCityName").on('change', handleInput)
-
-            function handleInput() {
-                console.log("coucou")
-                //$("#btnFindCityName").click(function(e) {
-                //$("#txtFindCityName").on('change', function() {
-                e.preventDefault()
-                //selectedCity = $(this).val()
-                //selectedCity = $("#txtFindCityName").val()
-                console.log(selectedCity)
-                //console.log(selectedCategory)
-                arSelectedCityList = [];
-
-                switch (selectedCategory) {
-                    case "arLocaliteName":
-                        console.log("coucou")
-                        getArselectedCity("localite")
-                    case "arCommuneName":
-                        console.log("coucou1")
-                        getArselectedCity("commune")
-
-                }
-                // })
-                function getArselectedCity(typeSearch) {
-                    for (i = 0; i < listByRoute.length; i++) {
-                        //console.log(selectedCity)
-                        if (selectedCity == listByRoute[i][typeSearch]) {
-                            arSelectedCityList.push([listByRoute[i]["localite"], listByRoute[i]['itineraire_id'], listByRoute[i]['nom'], listByRoute[i]['has_gpx']]);
-                        }
-                    }
-                }
-            }
 
         }
 
+        selectionMenu(tableDatas)
 
-        console.log(arSelectedCityList)
+
+
+
+
+
+        selectedCityName = $("#txtFindCityName").val()
+
+
+        console.log(selectedCityName)
+        var citySelectorElement = document.getElementById("txtFindCityName");
+        console.log(citySelectorElement)
+        // var citySelectorElement = document.querySelector('txtFindCityName');
+
+
+        $('#txtFindCityName').on('change', function() {
+            var city = $(this).val();
+            console.log(city)
+        })
+        $("#txtFindCityName").trigger("change");
+
+
+        function handleInput(event) {
+
+            // Your logic here
+            console.log("coucou")
+            console.log('Selected value:', selectedCityName);
+            $("#txtFindCityName").trigger("change");
+        }
+
+        //********************  PARCOURS SELECTION  **************************************************************
+
+        selectedCity = $("#txtFindCityName").val()
+        //console.log(selectedCityName)
+        console.log(selectedCity)
+        console.log(selectedCategory)
+        arSelectedCityList = [];
+
+        switch (selectedCategory) {
+            case "arLocaliteName":
+                console.log("coucou")
+                for (i = 0; i < listByRoute.length; i++) {
+                    console.log(selectedCity)
+                    if (selectedCity == listByRoute[i]["localite"]) {
+                        arSelectedCityList.push(listByRoute[i]["localite"]);
+                        arSelectedCityList.push(listByRoute[i]['itineraire_id']);
+                        arSelectedCityList.push(listByRoute[i]['nom']);
+                        console.log(arSelectedCityList)
+                    }
+                }
+            case "arCommuneName":
+                console.log("coucou1")
+                for (i = 0; i < listByRoute.length; i++) {
+                    console.log(selectedCity)
+                    if (selectedCity == listByRoute[i]["commune"]) {
+                        arSelectedCityList.push(listByRoute[i]['commune'])
+                        arSelectedCityList.push(listByRoute[i]['itineraire_id'])
+                        arSelectedCityList.push(listByRoute[i]['nom'])
+
+                    }
+                }
+        }
+        arselectedParcoursList = [];
+        for (i = 2; i < arSelectedCityList.length; i++) {
+
+            console.log(i)
+            console.log(arSelectedCityList[i])
+            arselectedParcoursList.push(arSelectedCityList[i])
+            i = i + 2
+        }
+
+
+        function selectionParcours(initialChoices1) {
+            selectOption = $("#txtFindParcoursName").selectmenu();
+            console.log(selectOption)
+
+            $("#txtFindCityName").on('change', function() {
+                selectedCategory = $(this).val();
+                console.log(selectedCategory)
+                let choices = initialChoices1[selectedCategory];
+                console.log(choices);
+                selectOption.empty();
+
+                if (choices) {
+                    choices.forEach(function(choice) {
+                        selectOption.append($("<option>", {
+                            value: choice,
+                            text: choice
+
+                        }));
+                    });
+                    selectOption.selectmenu("refresh");
+                }
+            });
+
+            $("#txtFindCityName").trigger("change");
+
+
+        }
+
+        selectionParcours(arselectedParcoursList)
+
+        console.log(arselectedParcoursList)
 
         for (i = 0; i < (arSelectedCityList.length); i++) {
             let routeValue;
@@ -1049,7 +1170,13 @@ $LRT = PLF::Get_LastRunTime();
             data: "routeValue=" + routeValue,
 
             success: function(response) {
+
+
+
+
                 resultat = JSON.parse(response);
+
+
                 console.log(resultat);
                 var argpx = resultat[0]["gpx_url"]
                 console.log(argpx);
@@ -1102,5 +1229,213 @@ $LRT = PLF::Get_LastRunTime();
         })
 
         //});
+
+        // ********************** TERRITORIES SCRIPT ***********************************************************
+        let dropdown;
+        let lyrTerritory;
+        let jsnTerritories;
+
+
+        <?php require_once "territoiresNew.php"; ?>
+
+        // ************ LIST OF TERRITORY NAME ************************************************************
+
+        let territoriesList = <?php echo json_encode($List_Territoires[2]); ?>;
+        console.log(territoriesList);
+        console.log(territoriesList.length);
+        let arTerritoriesName = [];
+        for (i = 0; i < (territoriesList.length); i++) {
+
+            arTerritoriesName.push(territoriesList[i]["DA_Numero"])
+        }
+
+
+        function selectionTerritories() {
+            // Sélectionnez la liste déroulante
+            dropdown = document.getElementById('txtFindTerritoryNumber');
+
+            // Boucle à travers le tableau de données et ajoute chaque option à la liste déroulante
+            arTerritoriesName.forEach(function(element) {
+                // Créez un nouvel élément d'option
+                var option = document.createElement('option');
+
+                // Définissez la valeur et le texte de l'option en fonction des données
+                option.value = element;
+                option.text = element;
+
+                // Ajoutez l'option à la liste déroulante
+                dropdown.add(option);
+            });
+        }
+
+        // Appelez la fonction pour alimenter la liste déroulante lors du chargement de la page
+        window.onload = selectionTerritories();
+
+        let territorySelection = document.getElementById("txtFindTerritoryNumber");
+
+        territorySelection.addEventListener('change', handleSelection)
+
+
+        function handleSelection() {
+
+            var territoireValue = dropdown.value;
+            console.log('Selected value:', territoireValue);
+
+            // ************ SEARCH MAP TERRITORY ************************************************************
+
+            if (lyrTerritory) {
+                lyrTerritory.remove();
+                map.removeLayer(lyrTerritory);
+            }
+
+
+            $.ajax({
+                type: 'GET',
+                url: "assets/inc/php/createjsonN.php",
+                data: "territoireValue=" + territoireValue,
+
+                success: function(response) {
+                    console.log(response);
+                    if (response === 'undefined') {
+
+
+                    } else {
+                        lyrTerritory = L.geoJSON.ajax('assets/datas/territory.json', {
+                            style: styleTerritories,
+                            onEachFeature: processTerritories
+                        });
+
+                        function styleTerritories(json) {
+                            return {
+                                fillOpacity: 0.5,
+                                weight: 4,
+                                color: '#fe7924'
+                            };
+                        }
+
+                        function processTerritories(json, lyr) {
+                            var att = json.properties;
+
+                            lyr.on('mouseover', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.7
+                                })
+                                lyr.bindTooltip('<div class="custom-popup">' + att.Numero_Lot + '</div>');
+                            })
+                            lyr.on('mouseout', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.3
+                                });
+                            })
+                        }
+
+                        lyrTerritory.on('data:loaded', function() {
+                            jsnTerritories = turf.area(lyrTerritory.toGeoJSON());
+                            console.log(jsnTerritories);
+                            var surfaceKM = (jsnTerritories / 1000000).toFixed(2);
+                            var surfaceHA = (jsnTerritories / 10000).toFixed(2);
+                            $('#territoryArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
+                            map.fitBounds(lyrTerritory.getBounds().pad(1));
+                        }).addTo(map);
+
+                    }
+
+                }
+            })
+
+
+            // ************ SEARCH INFO TERRITORY ************************************************************
+
+            if (territoryName !== null) {
+                territoryName.classList.add('active')
+            } else {
+                territoryName.classList.remove('active');
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: "assets/inc/php/territories_info.php",
+                //dataType: "json",
+                data: "territoireValue=" + territoireValue,
+
+                success: function(response) {
+                    console.log(response[0]);
+                    /*if (response[0] < 0) {
+                        $('#territoryName').html('Aucune information sur ce territoire');
+                    } */
+                     {
+                        console.log(response);
+                        territoriesInfo = JSON.parse(response);
+                        //territoriesInfodetails = Object.values(territoriesInfo[2]);
+                        console.log(territoriesInfo);
+
+
+                        console.log(territoryName);
+
+                        $('#territoryInfo').html('<center>TERRITOIRE<center>');
+                        $('#territoryName').html(territoriesInfo[0]["DA_Nom"]);
+                        $('#territoryNbre').html('Nomenclature : ' + (territoriesInfo[0]["DA_Numero"]));
+                        $('#territoryCanton').html('Canton : ' + (territoriesInfo[0]["nom_canton"]));
+                        $('#territoryCC').html('Conseil : ' + (territoriesInfo[0]["Code_CC"]));
+                        $('#territoryArea').html('Surface : ' + (jsnTerritories) + ' KM2');
+
+                        // ************ SEARCH HUNTING DATES ************************************************************
+                        console.log(territoireValue)
+                        $.ajax({
+                            type: 'GET',
+                            url: "assets/inc/php/hunting_dates_search.php",
+                            data: "territoireValue=" + territoireValue,
+
+
+                            success: function(response) {
+                                console.log(response);
+                                huntedTerritories = JSON.parse(response);
+                                console.log(huntedTerritories);
+                                //huntedTerritoriesDetails = Object.values(huntedTerritories[2]);
+                                //console.log(huntedTerritoriesDetails)
+
+
+                                if (huntedTerritories.length) {
+                                    console.log(huntedTerritories.length);
+                                    $('#territoriesHuntingDatesLabel').html('DATES DE CHASSE :');
+                                    list_date = "<ul id='data-Date'>";
+                                    for (i = 0; i < huntedTerritories.length; i++) {
+                                        let element = huntedTerritories[i];
+                                        //days.locale('fr');
+                                        let huntedTerritoriesDate = element.DATE;
+                                        let huntedTerritoriesType = element.FERMETURE;
+
+                                        console.log(huntedTerritoriesDate);
+                                        console.log(huntedTerritoriesType);
+
+                                        function formatDate(inputDate) {
+                                            const dateObj = dayjs(inputDate, 'DD-MM-YYYY', 'fr').locale('fr'); // Provide the correct format 'DD-MM-YYYY'
+
+                                            const formattedDate = dateObj.format('ddd D MMMM YYYY');
+
+                                            return formattedDate;
+                                        }
+
+                                        //const originalDate = huntedTerritoriesDate;
+                                        const transformedDate = formatDate(huntedTerritoriesDate);
+                                        console.log(transformedDate);
+
+
+                                        var huntedDateFormat = dayjs(huntedTerritoriesDate);
+
+                                        console.log(huntedDateFormat.format('DD/MM/YYYY'));
+                                        //list_date += "<li='" + huntedTerritories[2][i] +"'>"+huntedTerritories[2][i] +"<br>";"</li>";
+                                        list_date += "<li='" + huntedTerritoriesDate + "'>" + huntedTerritoriesDate + "   " + huntedTerritoriesType + "<br>";
+                                        "</li>";
+                                    }
+                                    list_date += "</ul>";
+                                    document.getElementById("huntingDateList").innerHTML = list_date;
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
     });
 </script>
