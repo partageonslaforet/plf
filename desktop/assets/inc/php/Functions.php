@@ -227,8 +227,7 @@ class PLF
 
 
 
-
-        // $gateway = new Functions_Gateway($database);
+        // Build SQL statement and pass it to the database and prccess the statement.
 
 
         $sql_cmd = "SELECT  KEYG,
@@ -271,7 +270,7 @@ class PLF
                             logo_CC,
                             DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
-                    WHERE N_LOT = $lot 
+                    WHERE N_LOT = $lot
                         AND SEQ = $seq
                         AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT
