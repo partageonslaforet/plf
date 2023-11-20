@@ -268,7 +268,8 @@ class PLF
                             logo_CC,
                             DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
-                    WHERE N_LOT = $Territoire_Name 
+                    WHERE N_LOT = $lot
+                    AND SEQ = $seq 
                     AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT
                     LIMIT 1";

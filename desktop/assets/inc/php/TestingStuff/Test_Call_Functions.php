@@ -49,7 +49,7 @@ if ($List_Territoires[0] < 0) {
 
 Test2_new:
 
-$Territories_Info = PLF::Get_Territoire_Info("6130000222-14", "2023");
+$Territories_Info = PLF::Get_Territoire_Info("6130000222-12", "2023");
 
 if ($Territories_Info[0] < 0) {
 
