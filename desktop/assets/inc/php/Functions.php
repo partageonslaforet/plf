@@ -226,9 +226,7 @@ class PLF
         }
 
 
-
-
-        $gateway = new Functions_Gateway($database);
+        // Build SQL statement and pass it to the database and prccess the statement.
 
         $sql_cmd = "SELECT  KEYG,
                             SAISON,
@@ -270,26 +268,14 @@ class PLF
                             logo_CC,
                             DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
-                    WHERE N_LOT = $lot 
-                        AND SEQ = $seq
-                        AND SAISON = $Saison
+                    WHERE N_LOT = $Territoire_Name 
+                    AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT
                     LIMIT 1";
 
 
-
-
-
-
-
-
-
-
-
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
         // Check if everything went OK
