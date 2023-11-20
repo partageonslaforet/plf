@@ -22,7 +22,7 @@ class PLF
     private static $Return_Codes = array(
 
         -1 => "Aucun record trouvé.",
-        -2 => "Le territoire (SAISON/TERRITOIRE) n'existe pas.",
+        -2 => "Le territoire (SAISON/TERRITOIRE/SEQ) n'existe pas.",
         -3 => "Plusieurs enregistrements trouvés pour le territoire (SAISON/TERRITOIRE).",
         -4 => "La date est invalide. Doit être au format JJ-MM-AAAA",
         -5 => "Erreur MySql",
@@ -214,6 +214,20 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
+
+        $lot_seq = explode("-", $Territoire_Name);
+
+
+        $lot = $lot_seq[0];
+        $seq = 1;
+        if (count($lot_seq) > 1) {
+            $seq = $lot_seq[1];
+
+        }
+
+
+
+
         $gateway = new Functions_Gateway($database);
 
         $sql_cmd = "SELECT  KEYG,
@@ -256,8 +270,9 @@ class PLF
                             logo_CC,
                             DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
-                    WHERE N_LOT = $Territoire_Name 
-                    AND SAISON = $Saison
+                    WHERE N_LOT = $lot 
+                        AND SEQ = $seq
+                        AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT
                     LIMIT 1";
 
