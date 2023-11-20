@@ -11,14 +11,14 @@ echo $mydate;
 
 
 //goto Test1_new;
-//goto Test2_new;
+goto Test2_new;
 //goto Test3_new;
 //goto Test4_new;
 //goto Test5_new;
 //goto Test6_new;
 //goto Test7_new;
 //goto Test8_new;
-goto Test12_new;
+//goto Test12_new;
 //goto Test13_new;
 //goto Test14_new;
 //goto Test15_new;
@@ -54,7 +54,7 @@ if ($List_Territoires[0] < 0) {
 
 Test2_new:
 
-$Territories_Info = PLF::Get_Territoire_Info("6130000222", "2023");
+$Territories_Info = PLF::Get_Territoire_Info("6130000222-14", "2023");
 
 if ($Territories_Info[0] < 0) {
 
