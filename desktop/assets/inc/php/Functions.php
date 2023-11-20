@@ -2055,7 +2055,7 @@ class PLF
 
         try {$db_conn = null;} catch (pdoException $e) {}
 
-        return $rc_bool;
+        return false;
     }
 
 
