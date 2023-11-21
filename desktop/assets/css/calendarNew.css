@@ -223,6 +223,10 @@ ul.menu-links{
     overflow-y: auto;
 }
 
+#txtFindTerritoryNumber{
+    font-size:1.5vw!important;
+}
+
 #parcoursLabel, #territoryLabel{
     font-size: 1.5vw !important;
 }
@@ -230,6 +234,94 @@ ul.menu-links{
 #selectCity, #selectCityLabel, #selectParcours, #selectTerritories, #retour,#squareOpen,#squareClose{
     font-size: 1vw !important;
     font-family: 'Poppins', sans-serif!important;
+}
+
+.globalInfo:active{
+    width: 77%;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgba(52, 73, 94,0.5)!important;
+    border-radius: 10px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+} 
+
+#territoriesHuntingDatesLabel{
+    font-size: 1.3vw;
+    text-align: center;
+    font-weight: 600;
+    /* color:#2c3e50; */
+    color: #990047;
+    margin: 1rem 0;
+}
+
+
+#huntingDate{
+    width:100%;
+    display:none;
+}
+
+#huntingDate.active{
+    width:100%;
+    display:block;
+}
+
+.sub-info{
+    width: 85%;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+
+#data-Date{
+    text-align: center;
+    padding-left: 0;
+    font-size: 1vw !important;
+    background-color: rgba(255,255,255,0.2) !important;
+    color:#2c3e50 ;
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    overflow-y:scroll;
+    height: 30%;
+}
+
+th,td{
+    font-size: 1vw;
+    text-align: center!important;
+    padding: 5px;
+}
+
+
+#territoryName.active{
+    font-size: 1.5vw;
+    text-align: center;
+    font-weight: 600;
+    padding: 3px 0 0px 0;
+    color: white;
+    background-color: #B2D039;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#territoryInfo{
+    font-size: 2.5vw;
+    text-align: center;
+    font-weight: 600;
+    color:#2c3e50;
+    margin-top: 0.5rem;
+    margin-bottom:2rem;
+}
+
+#territoryArea{
+    text-align:center;
+    font-size: 1vw;
 }
 
 /******** SIDEBAR SETTING ***********/
@@ -550,3 +642,4 @@ body.dark .switch::before{
 body.dark .home .text{
     color: var(--text-color);
 }
+

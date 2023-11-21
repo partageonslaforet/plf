@@ -90,43 +90,42 @@ $LRT = PLF::Get_LastRunTime();
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
-                    <li class="nav-link">
+                    <li class="nav-link" id="inf-nav">
                         <a href="#">
                             <i class='fa fa-info' data-bs-target="#SPWModal" data-bs-toggle="modal" title="INFORMATIONS GENERALES"></i>
                             <span class="text nav-text">Informations</span>
                         </a>
                     </li>
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='fa fa-hiking' data-bs-target="#parcours" data-bs-toggle="offcanvas" role="button" aria-controls="parcoursLabel1"></i>
+                    <li class="nav-link" id="parcours-nav">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#parcours" data-bs-toggle="modal">
+                            <i class='fa fa-hiking'></i>
                             <span class="text nav-text">Parcours</span>
                         </a>
                     </li>
-                    <li class="nav-link">
-                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas">
+                    <li class="nav-link" id="territoire-nav">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#territoire" data-bs-toggle="modal">
                             <i class='fa fa-location-dot'></i>
                             <span class="text nav-text">Territoires</span>
                         </a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-link" id="DNF-nav">
                         <a href="#">
                             <i class='fa fa-tree title'></i>
                             <span class="text nav-text">DNF</span>
                         </a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-link" id="CC-nav">
                         <a href="#">
                             <i class='fa-solid fa-bullseye'></i>
                             <span class="text nav-text">Conseils Cynégétiques</span>
                         </a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-link" id="email-nav">
                         <a href="#">
                             <i class='fa fa-envelope' data-bs-target="#emailContact" data-bs-toggle="modal" title="CONTACT"></i>
                             <span class="text nav-text">Contact</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
 
@@ -433,34 +432,37 @@ $LRT = PLF::Get_LastRunTime();
     </div>
     <!-- ************************** CANVAS TERRITOIRES ************************************* -->
 
-    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="myOffcanvas" aria-labelledby="offcanvasExampleLabel">
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="territoire" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <div class="offcanvas-title text-primary fw-bold fs-4 mx-auto d-flex justify-content-center" id="territoryLabel">TERRITOIRES DE CHASSES</div>
+            <div class="offcanvas-title text-primary fw-bold fs-2 mx-auto d-flex justify-content-center text-center" id="territoryLabel">TERRITOIRES DE CHASSES</div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div id="territoriesList">
                 <div id="territoriesSelection" class="container w-100 mx-auto">
                     <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFindTerritoryNumber" id="selectTerritories">Sélectionnez un Territoire</label>
-                    <div class="row g-1 mb-5">
-                        <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindTerritoryNumber" class="form-select mx-auto fs-6 text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                    <div class="row g-1 mb-5 mx-auto d-flex justify-content-center">
+                        <div class="col-lg-9 d-flex align-items-center" id="searchName">
+                            <select id="txtFindTerritoryNumber" class="form-select mx-auto text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="territoryInformations" class="container w-100 mx-auto">
-                <div id="territoryInfo" class="text-secondary fw-bold fs-5 mb-3"></div>
-                <div id="territoryName" class="text-primary fw-bold fs-5 mb-3"></div>
-                <div class="sub-info w-100 mx-auto">
-                    <div id="territoryNbre"></div>
-                    <div id="territoryCanton"></div>
-                    <div id="territoryCC"></div>
-                    <div id="territoryArea"></div>
+                <div id="territoryInfo" class="text-secondary fw-bold mb-3"></div>
+                <div id="territoryName" class="text-primary fw-bold mb-3"></div>
+                <div id="globalInfo">
+                    <div class="sub-info w-100 mx-auto text-primary fs-5">
+                        <div id="territoryNbre"></div>
+                        <div id="territoryCanton"></div>
+                        <div id="territoryCC"></div>
+                        <div id="territoryArea" class="mb-3"></div>
+                    </div>
+                    <div id="huntingDate" class="text-primary fs-5 border border-primary rounded">
+                        <div id="territoriesHuntingDatesLabel"></div>
+                        <table class="table table-sm table-striped"></table>
+                    </div>
                 </div>
-                <div id="huntingDate"></div>
-                <div id="territoriesHuntingDatesLabel"></div>
-                <div id="huntingDateList"></div>
             </div>
         </div>
     </div>
@@ -826,616 +828,620 @@ $LRT = PLF::Get_LastRunTime();
         };
 
         // ********************** PARCOURS SCRIPT ***********************************************************
-        <?php require_once "parcoursNew.php"; ?>
-        let lyrRoute;
-        let traceGPX;
-        let arselectedParcoursList;
-        let routeValue;
 
+        var navDiv = document.getElementById('parcours-nav');
+        navDiv.addEventListener('click', function() {
 
-        // ********************** CHECKBOX MARCHE / VTT ***********************************************************
-
-
-        const walk = document.getElementById("typeMarche")
-
-        walk.addEventListener("change", function() {
-            if (walk.checked) {
-                let checkboxWalk = "OK";
-                console.log("La case est cochée marche.");
-            } else {
-                console.log("La case n'est pas cochée marche.");
-            }
-        });
-
-        const VTT = document.getElementById("typeVTT");
-
-        VTT.addEventListener("change", function() {
-            if (VTT.checked) {
-                let checkboxVTT = "OK";
-                console.log("La case est cochée VTT.");
-            } else {
-                console.log("La case n'est pas cochée VTT.");
-            }
-        });
-
-
-
-        // ******************* LIST OF ROUTE NAME ************************************************************
-
-        listByRoute = <?php echo json_encode($List_Parcours[2]); ?>;
-
-        console.log(listByRoute)
-
-        let routeNbre = listByRoute.length;
-        let parcoursList = [];
-        let selectedCategory;
-        let arLocaliteName = [];
-        let arCommuneName = [];
-        let arSelectedCityList = [];
-        let cityNameValue;
-
-        // ************ LOADING LOCALITE & COMMUNE ARRAY ********************************************************
-
-        for (i = 0; i < routeNbre; i++) {
-            if (!arLocaliteName.includes(listByRoute[i]["localite"])) {
-                arLocaliteName.push(listByRoute[i]["localite"]);
-            }
-            if (!arCommuneName.includes(listByRoute[i]["commune"])) {
-                arCommuneName.push(listByRoute[i]["commune"]);
-            }
-        }
-        arLocaliteName.sort((a, b) => a.localeCompare(b, 'fr'));
-        arCommuneName.sort((a, b) => a.localeCompare(b, 'fr'));
-
-        // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
-
-        let tableDatas = {
-            arLocaliteName,
-            arCommuneName
-        }
-
-
-
-        function selectionMenu(initialChoices) {
-            selectOption = $("#txtFindCityName").selectmenu();
-            console.log(selectOption)
-
-            $("#selectCityType").on('change', function() {
-                selectedCategory = $(this).val();
-                console.log(selectedCategory)
-                let choices = initialChoices[selectedCategory];
-                console.log(choices);
-                selectOption.empty();
-
-                if (choices) {
-                    choices.forEach(function(choice) {
-                        selectOption.append($("<option>", {
-                            value: choice,
-                            text: choice
-
-                        }));
-                    });
-                    selectOption.selectmenu("refresh");
-                }
-            });
-
-            $("#selectCityType").trigger("change");
-
-
-        }
-
-        selectionMenu(tableDatas)
-
-
-
-
-
-
-        selectedCityName = $("#txtFindCityName").val()
-
-
-        console.log(selectedCityName)
-        var citySelectorElement = document.getElementById("txtFindCityName");
-        console.log(citySelectorElement)
-        // var citySelectorElement = document.querySelector('txtFindCityName');
-
-
-        $('#txtFindCityName').on('change', function() {
-            var city = $(this).val();
-            console.log(city)
-        })
-        $("#txtFindCityName").trigger("change");
-
-
-        function handleInput(event) {
-
-            // Your logic here
-            console.log("coucou")
-            console.log('Selected value:', selectedCityName);
-            $("#txtFindCityName").trigger("change");
-        }
-
-        //********************  PARCOURS SELECTION  **************************************************************
-
-        selectedCity = $("#txtFindCityName").val()
-        //console.log(selectedCityName)
-        console.log(selectedCity)
-        console.log(selectedCategory)
-        arSelectedCityList = [];
-
-        switch (selectedCategory) {
-            case "arLocaliteName":
-                console.log("coucou")
-                for (i = 0; i < listByRoute.length; i++) {
-                    console.log(selectedCity)
-                    if (selectedCity == listByRoute[i]["localite"]) {
-                        arSelectedCityList.push(listByRoute[i]["localite"]);
-                        arSelectedCityList.push(listByRoute[i]['itineraire_id']);
-                        arSelectedCityList.push(listByRoute[i]['nom']);
-                        console.log(arSelectedCityList)
-                    }
-                }
-            case "arCommuneName":
-                console.log("coucou1")
-                for (i = 0; i < listByRoute.length; i++) {
-                    console.log(selectedCity)
-                    if (selectedCity == listByRoute[i]["commune"]) {
-                        arSelectedCityList.push(listByRoute[i]['commune'])
-                        arSelectedCityList.push(listByRoute[i]['itineraire_id'])
-                        arSelectedCityList.push(listByRoute[i]['nom'])
-
-                    }
-                }
-        }
-        arselectedParcoursList = [];
-        for (i = 2; i < arSelectedCityList.length; i++) {
-
-            console.log(i)
-            console.log(arSelectedCityList[i])
-            arselectedParcoursList.push(arSelectedCityList[i])
-            i = i + 2
-        }
-
-
-        function selectionParcours(initialChoices1) {
-            selectOption = $("#txtFindParcoursName").selectmenu();
-            console.log(selectOption)
-
-            $("#txtFindCityName").on('change', function() {
-                selectedCategory = $(this).val();
-                console.log(selectedCategory)
-                let choices = initialChoices1[selectedCategory];
-                console.log(choices);
-                selectOption.empty();
-
-                if (choices) {
-                    choices.forEach(function(choice) {
-                        selectOption.append($("<option>", {
-                            value: choice,
-                            text: choice
-
-                        }));
-                    });
-                    selectOption.selectmenu("refresh");
-                }
-            });
-
-            $("#txtFindCityName").trigger("change");
-
-
-        }
-
-        selectionParcours(arselectedParcoursList)
-
-        console.log(arselectedParcoursList)
-
-        for (i = 0; i < (arSelectedCityList.length); i++) {
+            <?php require_once "parcoursNew.php"; ?>
+            let lyrRoute;
+            let traceGPX;
+            let arselectedParcoursList;
             let routeValue;
-            routeValue = arSelectedCityList[i][1]
-            console.log(routeValue)
 
-            let cookieNber = "<?php echo $file_suffix; ?>";
+            // ********************** CHECKBOX MARCHE / VTT ***********************************************************
 
-            searchTrace(routeValue);
+            const walk = document.getElementById("typeMarche")
 
-            function searchTrace(routeValue) {
+            walk.addEventListener("change", function() {
+                if (walk.checked) {
+                    let checkboxWalk = "OK";
+                    console.log("La case est cochée marche.");
+                } else {
+                    console.log("La case n'est pas cochée marche.");
+                }
+            });
+
+            const VTT = document.getElementById("typeVTT");
+
+            VTT.addEventListener("change", function() {
+                if (VTT.checked) {
+                    let checkboxVTT = "OK";
+                    console.log("La case est cochée VTT.");
+                } else {
+                    console.log("La case n'est pas cochée VTT.");
+                }
+            });
+
+            // ******************* LIST OF ROUTE NAME ************************************************************
+
+            listByRoute = <?php echo json_encode($List_Parcours[2]); ?>;
+
+            console.log(listByRoute)
+
+            let routeNbre = listByRoute.length;
+            let parcoursList = [];
+            let selectedCategory;
+            let arLocaliteName = [];
+            let arCommuneName = [];
+            let arSelectedCityList = [];
+            let cityNameValue;
+
+            // ************ LOADING LOCALITE & COMMUNE ARRAY ********************************************************
+
+            for (i = 0; i < routeNbre; i++) {
+                if (!arLocaliteName.includes(listByRoute[i]["localite"])) {
+                    arLocaliteName.push(listByRoute[i]["localite"]);
+                }
+                if (!arCommuneName.includes(listByRoute[i]["commune"])) {
+                    arCommuneName.push(listByRoute[i]["commune"]);
+                }
+            }
+            arLocaliteName.sort((a, b) => a.localeCompare(b, 'fr'));
+            arCommuneName.sort((a, b) => a.localeCompare(b, 'fr'));
+
+            // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
+
+            let tableDatas = {
+                arLocaliteName,
+                arCommuneName
+            }
+
+
+
+            function selectionMenu(initialChoices) {
+                selectOption = $("#txtFindCityName").selectmenu();
+                console.log(selectOption)
+
+                $("#selectCityType").on('change', function() {
+                    selectedCategory = $(this).val();
+                    console.log(selectedCategory)
+                    let choices = initialChoices[selectedCategory];
+                    console.log(choices);
+                    selectOption.empty();
+
+                    if (choices) {
+                        choices.forEach(function(choice) {
+                            selectOption.append($("<option>", {
+                                value: choice,
+                                text: choice
+
+                            }));
+                        });
+                        selectOption.selectmenu("refresh");
+                    }
+                });
+
+                $("#selectCityType").trigger("change");
+
+
+            }
+
+            selectionMenu(tableDatas)
+
+
+
+
+
+
+            selectedCityName = $("#txtFindCityName").val()
+
+
+            console.log(selectedCityName)
+            var citySelectorElement = document.getElementById("txtFindCityName");
+            console.log(citySelectorElement)
+            // var citySelectorElement = document.querySelector('txtFindCityName');
+
+
+            $('#txtFindCityName').on('change', function() {
+                var city = $(this).val();
+                console.log(city)
+            })
+            $("#txtFindCityName").trigger("change");
+
+
+            function handleInput(event) {
+
+                // Your logic here
+                console.log("coucou")
+                console.log('Selected value:', selectedCityName);
+                $("#txtFindCityName").trigger("change");
+            }
+
+            //********************  PARCOURS SELECTION  **************************************************************
+
+            selectedCity = $("#txtFindCityName").val()
+            //console.log(selectedCityName)
+            console.log(selectedCity)
+            console.log(selectedCategory)
+            arSelectedCityList = [];
+
+            switch (selectedCategory) {
+                case "arLocaliteName":
+                    console.log("coucou")
+                    for (i = 0; i < listByRoute.length; i++) {
+                        console.log(selectedCity)
+                        if (selectedCity == listByRoute[i]["localite"]) {
+                            arSelectedCityList.push(listByRoute[i]["localite"]);
+                            arSelectedCityList.push(listByRoute[i]['itineraire_id']);
+                            arSelectedCityList.push(listByRoute[i]['nom']);
+                            console.log(arSelectedCityList)
+                        }
+                    }
+                case "arCommuneName":
+                    console.log("coucou1")
+                    for (i = 0; i < listByRoute.length; i++) {
+                        console.log(selectedCity)
+                        if (selectedCity == listByRoute[i]["commune"]) {
+                            arSelectedCityList.push(listByRoute[i]['commune'])
+                            arSelectedCityList.push(listByRoute[i]['itineraire_id'])
+                            arSelectedCityList.push(listByRoute[i]['nom'])
+
+                        }
+                    }
+            }
+            arselectedParcoursList = [];
+            for (i = 2; i < arSelectedCityList.length; i++) {
+
+                console.log(i)
+                console.log(arSelectedCityList[i])
+                arselectedParcoursList.push(arSelectedCityList[i])
+                i = i + 2
+            }
+
+
+            function selectionParcours(initialChoices1) {
+                selectOption = $("#txtFindParcoursName").selectmenu();
+                console.log(selectOption)
+
+                $("#txtFindCityName").on('change', function() {
+                    selectedCategory = $(this).val();
+                    console.log(selectedCategory)
+                    let choices = initialChoices1[selectedCategory];
+                    console.log(choices);
+                    selectOption.empty();
+
+                    if (choices) {
+                        choices.forEach(function(choice) {
+                            selectOption.append($("<option>", {
+                                value: choice,
+                                text: choice
+
+                            }));
+                        });
+                        selectOption.selectmenu("refresh");
+                    }
+                });
+
+                $("#txtFindCityName").trigger("change");
+
+
+            }
+
+            selectionParcours(arselectedParcoursList)
+
+            console.log(arselectedParcoursList)
+
+            for (i = 0; i < (arSelectedCityList.length); i++) {
+                let routeValue;
+                routeValue = arSelectedCityList[i][1]
                 console.log(routeValue)
+
+                let cookieNber = "<?php echo $file_suffix; ?>";
+
+                searchTrace(routeValue);
+
+                function searchTrace(routeValue) {
+                    console.log(routeValue)
+                    $.ajax({
+                        type: 'GET',
+                        url: "assets/inc/php/searchRouteInfo.php",
+                        data: "routeValue=" + routeValue,
+
+                        success: function(response) {
+                            resultat = JSON.parse(response);
+                            console.log(resultat);
+                            var argpx = resultat[0]["gpx_url"]
+                            console.log(argpx);
+                            if (resultat[0]["gpx_url"] == "") {
+                                $('#parcoursTrace').html('Pas de trace disponible');
+
+                            }
+
+                            const headers = new Headers();
+                            headers.append('Access-Control-Allow-Origin', argpx);
+                            headers.append('Content-Type', 'application/json');
+                            headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+
+                            console.log(traceGPX)
+
+                            var fetchResult = fetch(argpx);
+
+                            traceGPX = new L.GPX(argpx, {
+                                onEachFeature: processTerritories,
+                                polyline_options: [{
+                                    color: '#34495e',
+                                    opacity: 0.75,
+                                    weight: 3,
+                                    lineCap: 'round'
+                                }],
+                                async: true,
+                                marker_options: {
+                                    startIconUrl: 'assets/img/pin-icon-start.png',
+                                    endIconUrl: 'assets/img/pin-icon-end.png',
+                                    shadowUrl: 'assets/img/pin-shadow.png'
+                                }
+                            }).on('loaded', function(e) {
+                                map.fitBounds(e.target.getBounds().pad(1));
+                                map.on("addpoint", function(e) {
+                                    var point = e.point;
+                                    point.bindPopup("Latitude: " + point._latlng.lat + "<br>Longitude: " + point._latlng.lng).openPopup();
+                                });
+                            }).addTo(map);
+
+                            function processTerritories(json, lyr) {
+                                //var att = trk.properties;
+                                lyr.on('mouseover', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.7
+                                    })
+                                    lyr.bindTooltip('<h3 style="color:#2c3e50"><center>' + trk.name + '</h3>');
+                                })
+                                lyr.on('mouseout', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.3
+                                    });
+                                })
+                            }
+                        }
+
+                    })
+                }
+
+
+            }
+
+            /*
+            // ************ PARCOURS SELECTION MENU ************************************************************  
+
+            selectOption1 = $("#txtFindParcoursName").selectmenu();
+            console.log(arselectedParcoursList)
+            var choices1 = arselectedParcoursList;
+            console.log(choices1);
+            selectOption1.empty();
+
+            if (choices1) {
+                choices1.forEach(function(choice1) {
+                    selectOption1.append($("<option>", {
+                        value: choice1,
+                        text: choice1
+                    }));
+                });
+                selectOption1.selectmenu("refresh");
+            }
+
+            $("#txtFindCityName").trigger("focusout");
+
+            // ***************** SEARCH PARCOURS MAP ************************************************************
+
+            $("#btnFindParcoursName").click(function(e) {
+                e.preventDefault()
+
+                if (lyrRoute) {
+                    console.log(lyrRoute);
+                    lyrRoute.remove();
+                    map.removeLayer(lyrRoute);
+                }
+                routeName = $("#txtFindParcoursName").val().toLowerCase();
+                console.log(routeName)
+
+                for (j = 0; j < (listByRoute.length); j++) {
+
+                    routeCheck = listByRoute[j]["nom"].toLowerCase()
+                    console.log(routeCheck)
+                    console.log(routeName)
+                    if (routeName == routeCheck) {
+
+                        routeValue = listByRoute[j]["itineraire_id"]
+                        break;
+                    }
+                    console.log("coucou")
+                    messageErreur.classList.remove('active');
+                    parcoursNom.classList.add('active');
+
+                    parcoursInfo.classList.add('active');
+                    parcoursInfoDetails.classList.add('active');
+                }*/
+
+            // ************ SEARCH PARCOURS INFO ************************************************************
+
+            var cookieNber = "<?php echo $file_suffix; ?>";
+
+            $.ajax({
+                type: 'GET',
+                url: "assets/inc/php/searchRouteInfo.php",
+                data: "routeValue=" + routeValue,
+
+                success: function(response) {
+
+
+
+
+                    resultat = JSON.parse(response);
+
+
+                    console.log(resultat);
+                    var argpx = resultat[0]["gpx_url"]
+                    console.log(argpx);
+                    messageErreur.classList.remove('active');
+                    parcoursNom.classList.add('active');
+
+                    parcoursInfo.classList.add('active');
+                    parcoursInfoDetails.classList.add('active');
+
+                    $('#parcoursInfo').html('<center>PARCOURS<center>');
+                    $('#parcoursNom').html(resultat[0]["nom"]);
+                    $('#parcoursOrganisme').html('Organisation : ' + resultat[0]["organisme"]);
+                    $('#parcoursLocalite').html('Localité : ' + resultat[0]["localite"]);
+                    $('#parcoursCommune').html('Commune : ' + resultat[0]["commune"]);
+                    $('#parcoursDistance').html('Distance : ' + resultat[0]["distance"] + ' km');
+                    //$('#parcoursD').html(resultat[0]["distance"]);
+                    $('#parcoursSignal').html('Signalisation : ' + resultat[0]["signaletique"]);
+                    $('#parcoursType').html('Type : ' + resultat[0]["typecirc"]);
+
+                    if (resultat[0]["gpx_url"] == "") {
+                        $('#parcoursTrace').html('Pas de trace disponible');
+
+                    }
+
+                    const headers = new Headers();
+                    headers.append('Access-Control-Allow-Origin', argpx);
+                    headers.append('Content-Type', 'application/json');
+                    headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+
+                    console.log(traceGPX)
+
+                    if (traceGPX) {
+                        map.removeLayer(traceGPX);
+                    }
+
+                    var fetchResult = fetch(argpx);
+
+                    traceGPX = new L.GPX(argpx, {
+                        async: true,
+                        marker_options: {
+                            startIconUrl: 'assets/img/pin-icon-start.png',
+                            endIconUrl: 'assets/img/pin-icon-end.png',
+                            shadowUrl: 'assets/img/pin-shadow.png'
+                        }
+                    }).on('loaded', function(e) {
+                        map.fitBounds(e.target.getBounds().pad(1));
+                    }).addTo(map);
+                }
+
+            })
+
+            //});
+        });
+        // ********************** TERRITORIES SCRIPT ***********************************************************
+
+        var navDiv = document.getElementById('territoire-nav');
+        navDiv.addEventListener('click', function(e) {
+            console.log(e)
+            if ($(e.target).closest('#territoire').length === 0 && $(e.target).closest('[data-toggle="territoire"]').length === 0) {
+                $('#territoire').modal('hide');
+            }
+
+            let dropdown;
+            let lyrTerritory;
+            let jsnTerritories;
+            <?php require_once "territoiresNew.php"; ?>
+
+            // ************ LIST OF TERRITORY NAME ************************************************************
+
+            let territoriesList = <?php echo json_encode($List_Territoires[2]); ?>;
+            console.log(territoriesList);
+            console.log(territoriesList.length);
+            let arTerritoriesName = [];
+            for (i = 0; i < (territoriesList.length); i++) {
+                arTerritoriesName.push(territoriesList[i]["DA_Numero"])
+            }
+
+            function selectionTerritories() {
+                // Sélectionnez la liste déroulante
+                dropdown = document.getElementById('txtFindTerritoryNumber');
+
+                // Boucle à travers le tableau de données et ajoute chaque option à la liste déroulante
+                arTerritoriesName.forEach(function(element) {
+                    // Créez un nouvel élément d'option
+                    var option = document.createElement('option');
+
+                    // Définissez la valeur et le texte de l'option en fonction des données
+                    option.value = element;
+                    option.text = element;
+
+                    // Ajoutez l'option à la liste déroulante
+                    dropdown.add(option);
+                });
+            }
+
+            // Appelez la fonction pour alimenter la liste déroulante lors du chargement de la page
+            window.onload = selectionTerritories();
+
+            let territorySelection = document.getElementById("txtFindTerritoryNumber");
+            territorySelection.addEventListener('change', handleSelection)
+            let territoireValue;
+
+            function handleSelection() {
+                territoireValue = dropdown.value;
+                console.log('Selected value:', territoireValue);
+
+                // ************ SEARCH MAP TERRITORY ************************************************************
+
+                if (lyrTerritory) {
+                    lyrTerritory.remove();
+                    map.removeLayer(lyrTerritory);
+                }
+
                 $.ajax({
                     type: 'GET',
-                    url: "assets/inc/php/searchRouteInfo.php",
-                    data: "routeValue=" + routeValue,
+                    url: "assets/inc/php/createjsonN.php",
+                    data: "territoireValue=" + territoireValue,
 
                     success: function(response) {
-                        resultat = JSON.parse(response);
-                        console.log(resultat);
-                        var argpx = resultat[0]["gpx_url"]
-                        console.log(argpx);
-                        if (resultat[0]["gpx_url"] == "") {
-                            $('#parcoursTrace').html('Pas de trace disponible');
+                        console.log(response);
+                        if (response === 'undefined') {
+
+                        } else {
+                            lyrTerritory = L.geoJSON.ajax('assets/datas/territory.json', {
+                                style: styleTerritories,
+                                onEachFeature: processTerritories
+                            });
+
+                            function styleTerritories(json) {
+                                return {
+                                    fillOpacity: 0.5,
+                                    weight: 4,
+                                    color: '#fe7924'
+                                };
+                            }
+
+                            function processTerritories(json, lyr) {
+                                var att = json.properties;
+
+                                lyr.on('mouseover', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.7
+                                    })
+                                    lyr.bindTooltip('<div class="custom-popup">' + att.Numero_Lot + '</div>');
+                                })
+                                lyr.on('mouseout', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.3
+                                    });
+                                })
+                            }
+
+                            lyrTerritory.on('data:loaded', function() {
+                                jsnTerritories = turf.area(lyrTerritory.toGeoJSON());
+                                console.log(jsnTerritories);
+                                let surfaceKM = (jsnTerritories / 1000000).toFixed(2);
+                                console.log(surfaceKM);
+                                let surfaceHA = (jsnTerritories / 10000).toFixed(2);
+                                console.log(surfaceHA);
+                                $('#territoryArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
+                                map.fitBounds(lyrTerritory.getBounds().pad(1));
+                            }).addTo(map);
 
                         }
 
-                        const headers = new Headers();
-                        headers.append('Access-Control-Allow-Origin', argpx);
-                        headers.append('Content-Type', 'application/json');
-                        headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+                    }
+                })
 
-                        console.log(traceGPX)
 
-                        var fetchResult = fetch(argpx);
+                // ************ SEARCH INFO TERRITORY ************************************************************
 
-                        traceGPX = new L.GPX(argpx, {
-                            onEachFeature: processTerritories,
-                            polyline_options: [{
-                                color: '#34495e',
-                                opacity: 0.75,
-                                weight: 3,
-                                lineCap: 'round'
-                            }],
-                            async: true,
-                            marker_options: {
-                                startIconUrl: 'assets/img/pin-icon-start.png',
-                                endIconUrl: 'assets/img/pin-icon-end.png',
-                                shadowUrl: 'assets/img/pin-shadow.png'
-                            }
-                        }).on('loaded', function(e) {
-                            map.fitBounds(e.target.getBounds().pad(1));
-                            map.on("addpoint", function(e) {
-                                var point = e.point;
-                                point.bindPopup("Latitude: " + point._latlng.lat + "<br>Longitude: " + point._latlng.lng).openPopup();
-                            });
-                        }).addTo(map);
+                if (territoryName !== null) {
+                    territoryName.classList.add('active')
+                    globalInfo.classList.add('active')
+                    huntingDate.classList.add('active')
+                } else {
+                    territoryName.classList.remove('active');
+                    globalInfo.classList.remove('active')
+                    huntingDate.classList.remove('active')
+                }
 
-                        function processTerritories(json, lyr) {
-                            //var att = trk.properties;
-                            lyr.on('mouseover', function() {
-                                lyr.setStyle({
-                                    fillOpacity: 0.7
-                                })
-                                lyr.bindTooltip('<h3 style="color:#2c3e50"><center>' + trk.name + '</h3>');
+                console.log(territoireValue)
+
+                $.ajax({
+                    type: 'GET',
+                    url: "assets/inc/php/territories_info.php",
+                    //dataType: "json",
+                    data: "territoireValue=" + territoireValue,
+
+                    success: function(response) {
+                        console.log(response[0]);
+                        /*if (response[0] < 0) {
+                            $('#territoryName').html('Aucune information sur ce territoire');
+                        } */
+                        {
+                            console.log(response);
+
+                            //territoriesInfo = Object.values(response);
+                            territoriesInfo = JSON.parse(response);
+                            console.log(territoriesInfo);
+
+
+                            console.log(territoryName);
+
+                            $('#territoryInfo').html('<center>TERRITOIRE<center>');
+                            $('#territoryName').html(territoriesInfo[0]["DA_Nom"]);
+                            $('#territoryNbre').html('Nomenclature : ' + (territoriesInfo[0]["DA_Numero"]));
+                            $('#territoryCanton').html('Canton : ' + (territoriesInfo[0]["nom_canton"]));
+                            $('#territoryCC').html('Conseil : ' + (territoriesInfo[0]["Code_CC"]));
+                            //$('#territoryArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
+
+                            // ************ SEARCH HUNTING DATES ************************************************************
+                            console.log(territoireValue)
+                            $.ajax({
+                                type: 'GET',
+                                url: "assets/inc/php/hunting_dates_search.php",
+                                data: "territoireValue=" + territoireValue,
+
+
+                                success: function(response) {
+                                    console.log(response);
+                                    huntedTerritories = JSON.parse(response);
+                                    console.log(huntedTerritories);
+
+
+                                    function displayData(huntedTerritories) {
+
+                                        if (huntedTerritories.length) {
+                                            console.log(huntedTerritories.length);
+                                            $('#territoriesHuntingDatesLabel').html('DATES DE CHASSE :');
+
+                                            let contenuTableau = '';
+                                            contenuTableau += '<thead><tr>';
+                                            for (let prop in huntedTerritories[0]) {
+                                                contenuTableau += `<th>${prop}</th>`;
+                                            }
+                                            contenuTableau += '</tr></thead>';
+
+                                            contenuTableau += '<tbody>';
+                                            huntedTerritories.forEach((ligne) => {
+                                                contenuTableau += '<tr>';
+                                                for (let prop in ligne) {
+                                                    contenuTableau += `<td>${ligne[prop]}</td>`;
+                                                }
+                                                contenuTableau += '</tr>';
+                                            });
+                                            contenuTableau += '</tbody>';
+
+                                            return contenuTableau;
+
+                                        }
+                                    }
+                                    let disData = document.querySelector('.table')
+
+                                    disData.innerHTML = displayData(huntedTerritories)
+                                }
                             })
-                            lyr.on('mouseout', function() {
-                                lyr.setStyle({
-                                    fillOpacity: 0.3
-                                });
-                            })
+
                         }
                     }
-
                 })
             }
 
-
-        }
-
-        /*
-        // ************ PARCOURS SELECTION MENU ************************************************************  
-
-        selectOption1 = $("#txtFindParcoursName").selectmenu();
-        console.log(arselectedParcoursList)
-        var choices1 = arselectedParcoursList;
-        console.log(choices1);
-        selectOption1.empty();
-
-        if (choices1) {
-            choices1.forEach(function(choice1) {
-                selectOption1.append($("<option>", {
-                    value: choice1,
-                    text: choice1
-                }));
-            });
-            selectOption1.selectmenu("refresh");
-        }
-
-        $("#txtFindCityName").trigger("focusout");
-
-        // ***************** SEARCH PARCOURS MAP ************************************************************
-
-        $("#btnFindParcoursName").click(function(e) {
-            e.preventDefault()
-
-            if (lyrRoute) {
-                console.log(lyrRoute);
-                lyrRoute.remove();
-                map.removeLayer(lyrRoute);
-            }
-            routeName = $("#txtFindParcoursName").val().toLowerCase();
-            console.log(routeName)
-
-            for (j = 0; j < (listByRoute.length); j++) {
-
-                routeCheck = listByRoute[j]["nom"].toLowerCase()
-                console.log(routeCheck)
-                console.log(routeName)
-                if (routeName == routeCheck) {
-
-                    routeValue = listByRoute[j]["itineraire_id"]
-                    break;
-                }
-                console.log("coucou")
-                messageErreur.classList.remove('active');
-                parcoursNom.classList.add('active');
-
-                parcoursInfo.classList.add('active');
-                parcoursInfoDetails.classList.add('active');
-            }*/
-
-        // ************ SEARCH PARCOURS INFO ************************************************************
-
-        var cookieNber = "<?php echo $file_suffix; ?>";
-
-        $.ajax({
-            type: 'GET',
-            url: "assets/inc/php/searchRouteInfo.php",
-            data: "routeValue=" + routeValue,
-
-            success: function(response) {
-
-
-
-
-                resultat = JSON.parse(response);
-
-
-                console.log(resultat);
-                var argpx = resultat[0]["gpx_url"]
-                console.log(argpx);
-                messageErreur.classList.remove('active');
-                parcoursNom.classList.add('active');
-
-                parcoursInfo.classList.add('active');
-                parcoursInfoDetails.classList.add('active');
-
-                $('#parcoursInfo').html('<center>PARCOURS<center>');
-                $('#parcoursNom').html(resultat[0]["nom"]);
-                $('#parcoursOrganisme').html('Organisation : ' + resultat[0]["organisme"]);
-                $('#parcoursLocalite').html('Localité : ' + resultat[0]["localite"]);
-                $('#parcoursCommune').html('Commune : ' + resultat[0]["commune"]);
-                $('#parcoursDistance').html('Distance : ' + resultat[0]["distance"] + ' km');
-                //$('#parcoursD').html(resultat[0]["distance"]);
-                $('#parcoursSignal').html('Signalisation : ' + resultat[0]["signaletique"]);
-                $('#parcoursType').html('Type : ' + resultat[0]["typecirc"]);
-
-                if (resultat[0]["gpx_url"] == "") {
-                    $('#parcoursTrace').html('Pas de trace disponible');
-
-                }
-
-                const headers = new Headers();
-                headers.append('Access-Control-Allow-Origin', argpx);
-                headers.append('Content-Type', 'application/json');
-                headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-
-                console.log(traceGPX)
-
-                if (traceGPX) {
-                    map.removeLayer(traceGPX);
-                }
-
-                var fetchResult = fetch(argpx);
-
-                traceGPX = new L.GPX(argpx, {
-                    async: true,
-                    marker_options: {
-                        startIconUrl: 'assets/img/pin-icon-start.png',
-                        endIconUrl: 'assets/img/pin-icon-end.png',
-                        shadowUrl: 'assets/img/pin-shadow.png'
-                    }
-                }).on('loaded', function(e) {
-                    map.fitBounds(e.target.getBounds().pad(1));
-                }).addTo(map);
-            }
-
         })
-
-        //});
-
-        // ********************** TERRITORIES SCRIPT ***********************************************************
-        let dropdown;
-        let lyrTerritory;
-        let jsnTerritories;
-
-
-        <?php require_once "territoiresNew.php"; ?>
-
-        // ************ LIST OF TERRITORY NAME ************************************************************
-
-        let territoriesList = <?php echo json_encode($List_Territoires[2]); ?>;
-        console.log(territoriesList);
-        console.log(territoriesList.length);
-        let arTerritoriesName = [];
-        for (i = 0; i < (territoriesList.length); i++) {
-
-            arTerritoriesName.push(territoriesList[i]["DA_Numero"])
-        }
-
-
-        function selectionTerritories() {
-            // Sélectionnez la liste déroulante
-            dropdown = document.getElementById('txtFindTerritoryNumber');
-
-            // Boucle à travers le tableau de données et ajoute chaque option à la liste déroulante
-            arTerritoriesName.forEach(function(element) {
-                // Créez un nouvel élément d'option
-                var option = document.createElement('option');
-
-                // Définissez la valeur et le texte de l'option en fonction des données
-                option.value = element;
-                option.text = element;
-
-                // Ajoutez l'option à la liste déroulante
-                dropdown.add(option);
-            });
-        }
-
-        // Appelez la fonction pour alimenter la liste déroulante lors du chargement de la page
-        window.onload = selectionTerritories();
-
-        let territorySelection = document.getElementById("txtFindTerritoryNumber");
-
-        territorySelection.addEventListener('change', handleSelection)
-
-
-        function handleSelection() {
-
-            var territoireValue = dropdown.value;
-            console.log('Selected value:', territoireValue);
-
-            // ************ SEARCH MAP TERRITORY ************************************************************
-
-            if (lyrTerritory) {
-                lyrTerritory.remove();
-                map.removeLayer(lyrTerritory);
-            }
-
-
-            $.ajax({
-                type: 'GET',
-                url: "assets/inc/php/createjsonN.php",
-                data: "territoireValue=" + territoireValue,
-
-                success: function(response) {
-                    console.log(response);
-                    if (response === 'undefined') {
-
-
-                    } else {
-                        lyrTerritory = L.geoJSON.ajax('assets/datas/territory.json', {
-                            style: styleTerritories,
-                            onEachFeature: processTerritories
-                        });
-
-                        function styleTerritories(json) {
-                            return {
-                                fillOpacity: 0.5,
-                                weight: 4,
-                                color: '#fe7924'
-                            };
-                        }
-
-                        function processTerritories(json, lyr) {
-                            var att = json.properties;
-
-                            lyr.on('mouseover', function() {
-                                lyr.setStyle({
-                                    fillOpacity: 0.7
-                                })
-                                lyr.bindTooltip('<div class="custom-popup">' + att.Numero_Lot + '</div>');
-                            })
-                            lyr.on('mouseout', function() {
-                                lyr.setStyle({
-                                    fillOpacity: 0.3
-                                });
-                            })
-                        }
-
-                        lyrTerritory.on('data:loaded', function() {
-                            jsnTerritories = turf.area(lyrTerritory.toGeoJSON());
-                            console.log(jsnTerritories);
-                            var surfaceKM = (jsnTerritories / 1000000).toFixed(2);
-                            var surfaceHA = (jsnTerritories / 10000).toFixed(2);
-                            $('#territoryArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
-                            map.fitBounds(lyrTerritory.getBounds().pad(1));
-                        }).addTo(map);
-
-                    }
-
-                }
-            })
-
-
-            // ************ SEARCH INFO TERRITORY ************************************************************
-
-            if (territoryName !== null) {
-                territoryName.classList.add('active')
-            } else {
-                territoryName.classList.remove('active');
-            }
-
-            $.ajax({
-                type: 'GET',
-                url: "assets/inc/php/territories_info.php",
-                //dataType: "json",
-                data: "territoireValue=" + territoireValue,
-
-                success: function(response) {
-                    console.log(response[0]);
-                    /*if (response[0] < 0) {
-                        $('#territoryName').html('Aucune information sur ce territoire');
-                    } */
-                     {
-                        console.log(response);
-                        territoriesInfo = JSON.parse(response);
-                        //territoriesInfodetails = Object.values(territoriesInfo[2]);
-                        console.log(territoriesInfo);
-
-
-                        console.log(territoryName);
-
-                        $('#territoryInfo').html('<center>TERRITOIRE<center>');
-                        $('#territoryName').html(territoriesInfo[0]["DA_Nom"]);
-                        $('#territoryNbre').html('Nomenclature : ' + (territoriesInfo[0]["DA_Numero"]));
-                        $('#territoryCanton').html('Canton : ' + (territoriesInfo[0]["nom_canton"]));
-                        $('#territoryCC').html('Conseil : ' + (territoriesInfo[0]["Code_CC"]));
-                        $('#territoryArea').html('Surface : ' + (jsnTerritories) + ' KM2');
-
-                        // ************ SEARCH HUNTING DATES ************************************************************
-                        console.log(territoireValue)
-                        $.ajax({
-                            type: 'GET',
-                            url: "assets/inc/php/hunting_dates_search.php",
-                            data: "territoireValue=" + territoireValue,
-
-
-                            success: function(response) {
-                                console.log(response);
-                                huntedTerritories = JSON.parse(response);
-                                console.log(huntedTerritories);
-                                //huntedTerritoriesDetails = Object.values(huntedTerritories[2]);
-                                //console.log(huntedTerritoriesDetails)
-
-
-                                if (huntedTerritories.length) {
-                                    console.log(huntedTerritories.length);
-                                    $('#territoriesHuntingDatesLabel').html('DATES DE CHASSE :');
-                                    list_date = "<ul id='data-Date'>";
-                                    for (i = 0; i < huntedTerritories.length; i++) {
-                                        let element = huntedTerritories[i];
-                                        //days.locale('fr');
-                                        let huntedTerritoriesDate = element.DATE;
-                                        let huntedTerritoriesType = element.FERMETURE;
-
-                                        console.log(huntedTerritoriesDate);
-                                        console.log(huntedTerritoriesType);
-
-                                        function formatDate(inputDate) {
-                                            const dateObj = dayjs(inputDate, 'DD-MM-YYYY', 'fr').locale('fr'); // Provide the correct format 'DD-MM-YYYY'
-
-                                            const formattedDate = dateObj.format('ddd D MMMM YYYY');
-
-                                            return formattedDate;
-                                        }
-
-                                        //const originalDate = huntedTerritoriesDate;
-                                        const transformedDate = formatDate(huntedTerritoriesDate);
-                                        console.log(transformedDate);
-
-
-                                        var huntedDateFormat = dayjs(huntedTerritoriesDate);
-
-                                        console.log(huntedDateFormat.format('DD/MM/YYYY'));
-                                        //list_date += "<li='" + huntedTerritories[2][i] +"'>"+huntedTerritories[2][i] +"<br>";"</li>";
-                                        list_date += "<li='" + huntedTerritoriesDate + "'>" + huntedTerritoriesDate + "   " + huntedTerritoriesType + "<br>";
-                                        "</li>";
-                                    }
-                                    list_date += "</ul>";
-                                    document.getElementById("huntingDateList").innerHTML = list_date;
-                                }
-                            }
-                        })
-                    }
-                }
-            })
-        }
     });
 </script>

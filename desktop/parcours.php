@@ -76,7 +76,6 @@ $List_Parcours = PLF::Get_Itineraires_List();
                     <div>PARCOURS BALISES</div>
                 </div>
                 <div id="findParcours">
-
                     <form>
                         <!--<label for="selectType" id="selectType">Sélectionner une Localité ou une Commune</label>-->
                         <select id="selectCityType">
