@@ -100,7 +100,7 @@ $LRT = PLF::Get_LastRunTime();
             </div>
         </div>
         <div id="calendarBtn">
-            <a id="calendar"><i class="fa fa-calendar" title="CLIQUEZ"></i></a>
+            <a id="calendar"><i class="fa fa-calendar fa-2x" title="CLIQUEZ"></i></a>
         </div>
         <div id="popup" class="popup">
             <div id="headPopup">
@@ -256,7 +256,6 @@ $LRT = PLF::Get_LastRunTime();
           }
           
           function hideSidebar(){
-            console.log("coucou");
             sidebarPopup.style.display = 'none';
             sidebarOpen.style.display = 'block';
             sidebarBtn.classList.add('active');
@@ -279,9 +278,9 @@ $LRT = PLF::Get_LastRunTime();
         // ****************** GPX UPLOAD *********************************************************       
         let fileList;
         
-        console.log(myFile);
+        //console.log(myFile);
         if (myFile !== undefined) {
-                console.log(myFile)
+                //console.log(myFile)
                 
                 //location.reload();
                 
@@ -289,7 +288,7 @@ $LRT = PLF::Get_LastRunTime();
                 let fileInput = document.getElementById("inputFile");
                 fileList = document.getElementById("files-list");
                 let numOfFiles = document.getElementById("num-of-files");
-                console.log(myFile)
+                //console.log(myFile)
                 fileInput.addEventListener("change", () => {
                     
                     fileList.innerHTML = "";
@@ -307,7 +306,7 @@ $LRT = PLF::Get_LastRunTime();
                             }
                         fileList.appendChild(listItem);
                     }
-                console.log(fileList);
+                //console.log(fileList);
                 })
             }
         
@@ -325,33 +324,33 @@ $LRT = PLF::Get_LastRunTime();
                 }
             const myForm = document.getElementById("myForm")
             const inputFile = document.getElementById("inputFile")
-            console.log(inputFile);
-            console.log(myForm);
+            //console.log(inputFile);
+            //console.log(myForm);
      
             const endpoint = 'uploadgpx.php';
             const formData = new FormData();
-            console.log(endpoint);
-            console.log(inputFile.files);
+            //console.log(endpoint);
+            //console.log(inputFile.files);
             
             formData.append("inputFile", inputFile.files[0]);
 
 
             myFile = inputFile.files[0].name;
-            console.log(myFile);
+            //console.log(myFile);
             
             fetch(endpoint, {
                 method:"post",
                 body:formData
                     }).catch( (err) => {
-                        console.log('ERROR:',err.message);
+                        //console.log('ERROR:',err.message);
                     });
             
-            console.log("current url");
-            console.log(window.location.href);
+            //console.log("current url");
+            //console.log(window.location.href);
             let url = new URL('assets/datas/uploadgpx/', window.location.href);
             let newUrl = new URL(myFile, url);
-            console.log(newUrl);
-            console.log(lyrCircuits)
+            //console.log(newUrl);
+            //console.log(lyrCircuits)
        
             
          
@@ -362,7 +361,7 @@ $LRT = PLF::Get_LastRunTime();
 
         
             var Url = 'assets/datas/uploadgpx/'+fileName // URL to your GPX file or the GPX itself
-            console.log(Url)
+            //console.log(Url)
             
             new L.GPX(Url, {
                 async: true,
@@ -440,7 +439,7 @@ $LRT = PLF::Get_LastRunTime();
     
     // ************ SETTING POPUP CALENDAR ************************************************************
     
-    console.log(dateValue);
+    //console.log(dateValue);
     if (dateValue=='undefined'){
         retour.classList.add('active')
         }
@@ -466,10 +465,10 @@ $LRT = PLF::Get_LastRunTime();
               search.style.display = 'block';
           }
           
-          console.log(myFile);
+          //console.log(myFile);
           if (myFile===undefined){
                 calendar.classList.remove('active');
-                console.log(myFile);
+                //console.log(myFile);
             }
             
           calendar.addEventListener('click', showPopup);
@@ -487,13 +486,13 @@ $LRT = PLF::Get_LastRunTime();
         var lRT = [];
        
         var cookieNber= "<?php echo $file_suffix; ?>";
-        console.log(cookieNber);
+        //console.log(cookieNber);
         lRT = <?php echo json_encode($LRT);?>;
-        console.log(lRT);
+        //console.log(lRT);
         lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
         lRTEUR = dayjs(lRTUS,'DD-MMM-YYYY HH:mm')
         lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
-        console.log(lRTBE)
+        //console.log(lRTBE)
         document.getElementById("maj").innerHTML = "Dernière màj : "+lRTBE;
          
         $("#btonSearchDate").click(function(){
@@ -507,8 +506,8 @@ $LRT = PLF::Get_LastRunTime();
                     squareClose.classList.remove('active');
                 }
             
-            console.log(dateValue);
-            console.log(formatDate);
+            //console.log(dateValue);
+            //console.log(formatDate);
             
                 
             // *************** SETTINGS ***********************************************************
@@ -533,7 +532,7 @@ $LRT = PLF::Get_LastRunTime();
                 data: "formatDate="+formatDate,
             
                 success: function(response){
-                    console.log(response);
+                    //console.log(response);
                     resultat = JSON.parse(response);
                     if (resultat[0]==-14){
                         document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
@@ -543,12 +542,12 @@ $LRT = PLF::Get_LastRunTime();
                         squareClose.classList.remove('active');
                     }else{
                         huntedTerritories = JSON.parse(response);
-                        console.log(huntedTerritories)
+                        //console.log(huntedTerritories)
                         huntedNber=(huntedTerritories[2].length);
-                        console.log(huntedNber)
+                        //console.log(huntedNber)
                         
                         for(i=0; i<huntedNber; i++){
-                            console.log(huntedTerritories[2][i]["FERMETURE"]);
+                            //console.log(huntedTerritories[2][i]["FERMETURE"]);
                             territory = huntedTerritories[2][i]["DA_Numero"];
                             territoriesList.push(territory);
                             if (huntedTerritories[2][i]["FERMETURE"]=="O"){
@@ -558,11 +557,11 @@ $LRT = PLF::Get_LastRunTime();
                                 territoriesOpened.push(territory)
                             }
                          }
-                        console.log(territoriesClosed);
-                        console.log(territoriesOpened);
+                        //console.log(territoriesClosed);
+                        //console.log(territoriesOpened);
                         
                         var territoriesNber = territoriesList.join(',');
-                        console.log(territoriesNber)
+                        //console.log(territoriesNber)
                         
                         if(huntedNber>0){
                             document.getElementById("retour").innerHTML = huntedNber + " territoires chassés le "+ formatDate;
@@ -591,24 +590,24 @@ $LRT = PLF::Get_LastRunTime();
                                         message.classList.remove('active');
                                         }
                                else {
-                                    console.log(lyrTerritories)
+                                    //console.log(lyrTerritories)
                                         if(lyrTerritories){
                                             lyrTerritories.remove();
                                             map.removeLayer(lyrTerritories);
                                         }
-                                        console.log(lyrTerritories)
+                                        //console.log(lyrTerritories)
                                         lyrTerritories = L.geoJSON.ajax('assets/datas/'+cookieNber+'huntedTerritoryByDate.json',
                                         {style:styleTerritories,onEachFeature:processTerritories});
                                         
                                             function styleTerritories (json) {
                                             var att=json.properties;
-                                            console.log(att.Numero_Lot);
-                                            console.log(huntedNber);
+                                            //console.log(att.Numero_Lot);
+                                            //console.log(huntedNber);
                                             for(i=0; i<huntedNber; i++){
-                                            console.log(huntedTerritories[2][i]["DA_Numero"]);
+                                            //console.log(huntedTerritories[2][i]["DA_Numero"]);
            
                                                if(att.Numero_Lot==huntedTerritories[2][i]["DA_Numero"]){
-                                                console.log(att.Numero_Lot);
+                                                //console.log(att.Numero_Lot);
                                                    
                                                   if(huntedTerritories[2][i]["FERMETURE"]=="O"){
                                                       
@@ -625,7 +624,7 @@ $LRT = PLF::Get_LastRunTime();
                                                             };
                                                         }
                                                     }
-                                                    console.log("erreur")
+                                                    //console.log("erreur")
                                                 }
                                             }
                                                 

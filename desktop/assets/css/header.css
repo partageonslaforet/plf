@@ -207,15 +207,13 @@ img {
 
 /*********************  BODY  *************************/
 
-#siteName{
+#title{
     z-index:2001;
     margin-right: auto;
     margin-left: auto;
     position:absolute;
     text-align: center;
     width: 40%;
-    font-size: 1.5rem;
-    color:#34495e;
     background-color: rgba(255,255,255,0.6);
     box-shadow:5px 5px 5px rgba(36,68,92,0.5),
     inset 2px 2px 3px rgba(36,68,92,0.25),
@@ -225,8 +223,24 @@ img {
     overflow: hidden;
     left: 30%;
     padding: 1rem 0;
+}
+
+#siteName{
+    margin-top: 1rem;
+    font-size: 2rem;
+    color:#34495e;
     text-transform: uppercase;
 }
+
+#slogan{
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color:#fe7924;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
 
 #close-button-calendar {
     float:right;
@@ -392,26 +406,42 @@ a:hover span {
         margin-right: auto;
     }*/
     
-    #siteName{
+    #title{
         z-index:2001;
         margin-right: auto;
         margin-left: auto;
         position:absolute;
         text-align: center;
-        width: 40%;
-        font-size: 1.5rem;
-        color:#34495e;
-        background-color: rgba(255,255,255,0.7);
+        width: 80%;
+        background-color: rgba(255,255,255,0.6);
         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
         inset 2px 2px 3px rgba(36,68,92,0.25),
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
         margin-top: 2rem;
         overflow: hidden;
-        left: 30%;
+        left: 10%;
         padding: 1rem 0;
+    }
+    
+    #siteName{
+        margin-top: 1rem;
+        font-size: 2rem;
+        font-weight: 900;
+        color:#34495e;
         text-transform: uppercase;
     }
+
+    #slogan{
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        color:#fe7924;
+        text-transform: uppercase;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        padding: 5px;
+    }
+   
 }
 
 .thumbnail {
@@ -424,7 +454,6 @@ a:hover span {
     max-height: 100%;
     max-width: 100%;
 }
-
 /***************** MOBILE *******************************/
 
 
@@ -457,25 +486,40 @@ a:hover span {
         margin-top: 1em;
     }
 
-    #siteName{
+    #title{
         z-index:2001;
         margin-right: auto;
         margin-left: auto;
         position:absolute;
         text-align: center;
         width: 80%;
-        font-size: 1.2rem;
-        color:#34495e;
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255,255,255,0.6);
         box-shadow:5px 5px 5px rgba(36,68,92,0.5),
         inset 2px 2px 3px rgba(36,68,92,0.25),
         inset 0px 0px 5px rgba(36,68,92,0.5);
         border-radius: 10px;
-        margin-top: 1rem;
+        margin-top: 2rem;
         overflow: hidden;
         left: 10%;
-        padding: 1rem 0.5rem;
+        padding: 1rem 0;
+    }
+    
+    #siteName{
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        color:#34495e;
         text-transform: uppercase;
+        padding:5px;
+    }
+    
+    #slogan{
+        margin-top: 2rem;
+        font-size: 1rem;
+        color:#fe7924;
+        text-transform: uppercase;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        padding: 5px;
     }
 
    /*#sponsors{
