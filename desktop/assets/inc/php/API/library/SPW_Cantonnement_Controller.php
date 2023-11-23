@@ -288,7 +288,7 @@ class SPW_Cantonnement_Controller
 
                 $PREPOSE = $cantonnement["properties"]["PREPOSE"];
                 $PREPOSE = "";
-                $GSM = $cantonnement["properties"]["GSM"];
+                //$GSM = $cantonnement["properties"]["GSM"];
                 $CANTON = $cantonnement["properties"]["CANTON"];
                 $TEL_CAN = $cantonnement["properties"]["TEL_CAN"];
                 $GEOM = $cantonnement_geometry;
@@ -299,7 +299,7 @@ class SPW_Cantonnement_Controller
                 $this->gateway->New_Cantonnement([
                     "CAN" => $CAN,
                     "PREPOSE" => $PREPOSE,
-                    "GSM" => $GSM,
+                    //"GSM" => $GSM,
                     "CANTON" => $CANTON,
                     "TEL_CAN" => $TEL_CAN,
                     "GEOM" => $GEOM
