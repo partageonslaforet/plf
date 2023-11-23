@@ -23,14 +23,12 @@ class SPW_Cantonnement_Gateway
         $sql = "INSERT INTO " . $GLOBALS["spw_cantonnements_tmp"] . " (" .
                     " CAN," .
                     " PREPOSE," .
-                    " GSM," . 
                     " CANTON," .
                     " TEL_CAN," .
                     " GEOM" .
                 "  ) VALUES (" .
                     " :CAN," .
                     " :PREPOSE," .
-                    " :GSM," .
                     " :CANTON," .
                     " :TEL_CAN," .
                     " :GEOM)";
@@ -43,7 +41,6 @@ class SPW_Cantonnement_Gateway
             
             $stmt->bindValue(":CAN", $data["CAN"], PDO::PARAM_INT);
             $stmt->bindValue(":PREPOSE", $data["PREPOSE"], PDO::PARAM_STR);
-            $stmt->bindValue(":GSM", $data["GSM"], PDO::PARAM_STR);
             $stmt->bindValue(":CANTON", $data["CANTON"], PDO::PARAM_STR);
             $stmt->bindValue(":TEL_CAN", $data["TEL_CAN"], PDO::PARAM_STR);
             $stmt->bindValue(":GEOM", $data["GEOM"], PDO::PARAM_LOB);
@@ -112,8 +109,7 @@ class SPW_Cantonnement_Gateway
             `cantonnement_id` INT(10) NOT NULL AUTO_INCREMENT,
             `CAN` SMALLINT(5) NOT NULL,
             `PREPOSE` VARCHAR(30) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-            `GSM` VARCHAR(14) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
-            `CANTON` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+            `CANTON` VARCHAR(40) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
             `TEL_CAN` VARCHAR(14) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
             `GEOM` MEDIUMBLOB NULL DEFAULT NULL,
             PRIMARY KEY (`cantonnement_id`) USING BTREE,
@@ -181,7 +177,6 @@ class SPW_Cantonnement_Gateway
         `plf_spw_cantonnements`.`cantonnement_id` AS `cantonnement_id`,
         `plf_spw_cantonnements`.`CAN` AS `CAN`,
         `plf_spw_cantonnements`.`PREPOSE` AS `PREPOSE`,
-        `plf_spw_cantonnements`.`GSM` AS `GSM`,
         `plf_spw_cantonnements`.`CANTON` AS `CANTON`,
         `plf_spw_cantonnements`.`TEL_CAN` AS `TEL_CAN`,
         `plf_spw_cantonnements`.`GEOM` AS `GEOM`,
