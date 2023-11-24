@@ -22,7 +22,7 @@ class PLF
     private static $Return_Codes = array(
 
         -1 => "Aucun record trouvé.",
-        -2 => "Le territoire (SAISON/TERRITOIRE) n'existe pas.",
+        -2 => "Le territoire (SAISON/TERRITOIRE/SEQ) n'existe pas.",
         -3 => "Plusieurs enregistrements trouvés pour le territoire (SAISON/TERRITOIRE).",
         -4 => "La date est invalide. Doit être au format JJ-MM-AAAA",
         -5 => "Erreur MySql",
@@ -215,7 +215,19 @@ class PLF
 
         // Build SQL statement and pass it to the database and prccess the statement.
 
-        $gateway = new Functions_Gateway($database);
+
+        $lot_seq = explode("-", $Territoire_Name);
+
+
+        $lot = $lot_seq[0];
+        $seq = 1;
+        if (count($lot_seq) > 1) {
+            $seq = $lot_seq[1];
+
+        }
+
+
+        // Build SQL statement and pass it to the database and prccess the statement.
 
         $sql_cmd = "SELECT  KEYG,
                             SAISON,
@@ -223,7 +235,6 @@ class PLF
                             SEQ,
                             CAN,
                             CANTON,
-                            GSM,
                             PREPOSE,
                             TEL_CAN,
                             TITULAIRE_ADH_UGC,
@@ -257,25 +268,15 @@ class PLF
                             logo_CC,
                             DATE_MAJ
                     FROM $GLOBALS[spw_view_territoires] 
-                    WHERE N_LOT = $Territoire_Name 
+                    WHERE N_LOT = $lot
+                    AND SEQ = $seq 
                     AND SAISON = $Saison
                     ORDER BY SAISON, N_LOT
                     LIMIT 1";
 
 
-
-
-
-
-
-
-
-
-
-
-        $gateway->set_Sql_Statement($sql_cmd);
-
-        $results = $gateway->DB_Query();
+        $stmt = $db_conn->query($sql_cmd);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
         // Check if everything went OK
@@ -332,7 +333,6 @@ class PLF
 
                 "num_canton" => $value["CAN"],
                 "nom_canton" => $value["CANTON"],
-                "gsm_canton" => $value["GSM"],
                 "prepose_canton" => $value["PREPOSE"],
                 "direction_canton" => $value["direction_CANTON"],
                 "attache_canton" => $value["attache_CANTON"],
@@ -371,7 +371,6 @@ class PLF
                 "num_triage" => "N/A",
                 "nom_triage" => "N/A",
                 "nom_Prepose" => "N/A",
-                "gsm_Prepose" => "N/A",
             ]);
 
 
@@ -690,7 +689,6 @@ class PLF
 
         $sql_cmd = "SELECT DISTINCT CAN, 
                                     PREPOSE,
-                                    GSM,
                                     CANTON,
                                     TEL_CAN,
                                     direction,
@@ -748,7 +746,6 @@ class PLF
                             "num_canton" => $value["CAN"],
                             "prepose" => $value["PREPOSE"],
                             "tel" => $value["TEL_CAN"],
-                            "gsm" => $value["GSM"],
                             "direction" => $value["direction"],
                             "email" => $value["email"],
                             "attache" => $value["attache"],
@@ -2270,7 +2267,7 @@ class PLF
 
         try {$db_conn = null;} catch (pdoException $e) {}
 
-        return $rc_bool;
+        return false;
     }
 
 
