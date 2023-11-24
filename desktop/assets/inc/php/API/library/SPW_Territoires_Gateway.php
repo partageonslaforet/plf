@@ -179,7 +179,6 @@ class SPW_Territoires_Gateway
           `plf_spw_territoires`.`SERVICE` AS `SERVICE`,
           `plf_spw_cantonnements`.`CAN` AS `CAN`,
           `plf_spw_cantonnements`.`CANTON` AS `CANTON`,
-          `plf_spw_cantonnements`.`GSM` AS `GSM`,
           `plf_spw_cantonnements`.`PREPOSE` AS `PREPOSE`,
           `plf_spw_cantonnements`.`TEL_CAN` AS `TEL_CAN`,
           `plf_spw_territoires`.`TITULAIRE_ADH_UGC` AS `TITULAIRE_ADH_UGC`,

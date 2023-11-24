@@ -23,6 +23,7 @@ class PLF
 
         -1 => "Aucun record trouvé.",
         -2 => "Le territoire (SAISON/TERRITOIRE/SEQ) n'existe pas.",
+        -2 => "Le territoire (SAISON/TERRITOIRE/SEQ) n'existe pas.",
         -3 => "Plusieurs enregistrements trouvés pour le territoire (SAISON/TERRITOIRE).",
         -4 => "La date est invalide. Doit être au format JJ-MM-AAAA",
         -5 => "Erreur MySql",
@@ -236,7 +237,6 @@ class PLF
                             SEQ,
                             CAN,
                             CANTON,
-                            GSM,
                             PREPOSE,
                             TEL_CAN,
                             TITULAIRE_ADH_UGC,
@@ -335,7 +335,6 @@ class PLF
 
                 "num_canton" => $value["CAN"],
                 "nom_canton" => $value["CANTON"],
-                "gsm_canton" => $value["GSM"],
                 "prepose_canton" => $value["PREPOSE"],
                 "direction_canton" => $value["direction_CANTON"],
                 "attache_canton" => $value["attache_CANTON"],
@@ -374,7 +373,6 @@ class PLF
                 "num_triage" => "N/A",
                 "nom_triage" => "N/A",
                 "nom_Prepose" => "N/A",
-                "gsm_Prepose" => "N/A",
             ]);
 
 
@@ -691,7 +689,6 @@ class PLF
 
         $sql_cmd = "SELECT DISTINCT CAN, 
                                     PREPOSE,
-                                    GSM,
                                     CANTON,
                                     TEL_CAN,
                                     direction,
@@ -748,7 +745,6 @@ class PLF
                             "num_canton" => $value["CAN"],
                             "prepose" => $value["PREPOSE"],
                             "tel" => $value["TEL_CAN"],
-                            "gsm" => $value["GSM"],
                             "direction" => $value["direction"],
                             "email" => $value["email"],
                             "attache" => $value["attache"],
