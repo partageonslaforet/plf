@@ -95,7 +95,7 @@ $LRT = PLF::Get_LastRunTime();
                 
             </div>
             <div class="sidebar-footer">
-                <button id="btnRetour"onclick="window.location.href = '..';">QUITTER</button>
+                <button id="btnRetour"onclick="window.location.href = '..';">RETOUR</button>
                  <div class="" id="GPXName"></div>
             </div>
         </div>

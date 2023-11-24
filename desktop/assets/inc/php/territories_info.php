@@ -8,8 +8,9 @@ require_once "Functions.php";
 
 if (isset($_GET["territoireValue"])) {
     $nomenclature = $_GET["territoireValue"];
-
+//var_dump($nomenclature);
     $Territories_Info = PLF::Get_Territoire_Info($nomenclature);
+    //var_dump($Territories_Info[2]);
     
         if ($Territories_Info[0] < 0) {
 

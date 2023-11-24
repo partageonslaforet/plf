@@ -26,7 +26,7 @@ if (isset($_GET["territoireValue"])) {
          echo "Pas de date de chasse pour ce territoire.";
         } else {
         
-            print json_encode($List_Chasse_Dates_By_Territories);
+            print json_encode($List_Chasse_Dates_By_Territories[2]);
         }
     
  }

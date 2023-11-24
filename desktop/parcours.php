@@ -73,19 +73,18 @@ $List_Parcours = PLF::Get_Itineraires_List();
         <h1 class="sidebar-header"></h1>
         <!--<button id="sidebarclosebtn">&times;</button>
             <button id="sidebarBtn"><a id="sidebarCalendar"><i class="fa fa-calendar" title="CLIQUEZ"></i></a></button>-->
-        <div id="parcoursSearch">
-            <div id="parcoursSearchLabel">
-                <div>PARCOURS BALISES</div>
-            </div>
-            <div id="findParcours">
-
-                <form>
-                    <!--<label for="selectType" id="selectType">Sélectionner une Localité ou une Commune</label>-->
-                    <select id="selectCityType">
-                        <!--<option value="choix">Votre choix</option>-->
-                        <option value="arLocaliteName">Localité</option>
-                        <option value="arCommuneName">Commune</option>
-                    </select>
+            <div id="parcoursSearch">
+                <div id="parcoursSearchLabel">
+                    <div>PARCOURS BALISES</div>
+                </div>
+                <div id="findParcours">
+                    <form>
+                        <!--<label for="selectType" id="selectType">Sélectionner une Localité ou une Commune</label>-->
+                        <select id="selectCityType">
+                            <!--<option value="choix">Votre choix</option>-->
+                            <option value="arLocaliteName">Localité</option>
+                            <option value="arCommuneName">Commune</option>
+                        </select>
                     <form>
                         <div id="city">
                             <label for="selectCity" id="selectCity">Sélectionnez un lieu</label>
@@ -116,9 +115,9 @@ $List_Parcours = PLF::Get_Itineraires_List();
                 <div id="parcoursTrace"></div>
                 <div id="messageErreur"></div>
             </div>
-            <div id="btonClose">
-                <div id="btnRetour" >RETOUR</div>
-            </div>
+            <div class="menuReturn" class='list-item'>   
+                    <button id="btnRetour"  onclick="window.location.href = '..';">RETOUR</button>
+                </div>
             <script>
                 document.getElementById("btnRetour").addEventListener("click", function() {
                     window.location.reload(true);
@@ -172,9 +171,8 @@ $List_Parcours = PLF::Get_Itineraires_List();
     </div>
 
     <body>
-        <container id="Container">
-            <center>
-                <div id="map"></div>
+        <container id ="Container">
+            <div id="map"></div>
         </container>
     </body>
 
@@ -187,11 +185,11 @@ $List_Parcours = PLF::Get_Itineraires_List();
     var huntingDates = [];
     var territoriesList = [];
     var arRouteNber = [];
-    var arCityName = [];
-    var arSelectedCityList = [];
+    var arCityName= [];
+    var arSelectedCityList= [];
 
-    var arselectedParcoursList = [];
-    var arCityList = [];
+    var arselectedParcoursList= [];
+    var arCityList= [];
 
     var listArrayN = [];
     var territoriesInfo = [];
@@ -253,6 +251,8 @@ $List_Parcours = PLF::Get_Itineraires_List();
             attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
         });
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+         
+        //var lyrlambert = L.geoJSON.ajax('assets/datas/Trotti.gpx');
 
         var baseLayers = {
             "osm": lyrOSM,
@@ -260,13 +260,14 @@ $List_Parcours = PLF::Get_Itineraires_List();
             "Altitude": lyrOpenTopoMap,
             "Cyclo": lyrCyclo
         };
-
-        var overlays = {
-
-        };
-
-        L.control.layers(baseLayers, overlays).addTo(map);
-
+       
+       var overlays = {
+        //"test" : lyrlambert,
+            };
+    
+        L.control.layers(baseLayers,overlays).addTo(map);
+      
+    
         // ************ MINIMAP INITIALIZATION *******************************************************
 
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
