@@ -1,0 +1,40 @@
+
+#territoryArea, #territoryCC, #territoryCanton, #territoryNbre {
+    font-size: 1vw;
+}
+
+#huntingDate, #territoriesHuntingError{
+    width:100%;
+    display:none;
+}
+
+#huntingDate.active {
+    width:100%;
+    display:block;
+}
+
+#territoriesHuntingError.active{
+    width:100%;
+    display:block;
+    font-size: 1.3vw !important;
+    text-align: center;
+    font-weight: 600;
+    color: #990047!important;
+    margin: 1vw;
+}
+
+
+.sub-info{
+    width: 85%;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+#territoriesHuntingDatesLabel{
+    font-size: 1.3vw;
+    text-align: center;
+    font-weight: 600;
+    /* color:#2c3e50; */
+    color: #990047;
+    margin: 1rem 0;
+}

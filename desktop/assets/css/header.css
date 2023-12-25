@@ -36,8 +36,12 @@
 }
 
 
-.btn-close{
-    color: #990047 !important;
+.custom-close-btn path{
+    font-size: 0.8vw !important;
+    fill:#990047 !important;
+    font-weight: 600 !important;
+    border-color: 1px solid #990047 !important;
+    border-radius: 50px;
 }
 
 /************** HEADER *************************/

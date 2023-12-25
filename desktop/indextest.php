@@ -28,7 +28,8 @@ $LRT = PLF::Get_LastRunTime();
     <!--<link rel="stylesheet" href="assets/css/style.css">-->
 
     <link rel="stylesheet" href="assets/css/calendarNew.css">
-    <link rel="stylesheet" href="assets/css/territories.css">
+    <link rel="stylesheet" href="assets/css/territoriesNew.css">
+    <link rel="stylesheet" href="assets/css/dnfnew.css">
     <link rel="stylesheet" href="assets/src/css/leaflet.css">
     <link rel="stylesheet" href="assets/src/css/L.Control.Zoomslider.css">
     <link rel="stylesheet" href="assets/src/css/Control.MiniMap.css">
@@ -48,7 +49,9 @@ $LRT = PLF::Get_LastRunTime();
     <script src="assets/src/js/leaflet.js"></script>
     <script src="assets/src/js/jquery-3.7.1.js"></script>
     <script src="assets/src/js/jquery-ui.js"></script>
-    <script src="assets/src/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+    <script src="assets/src/js/bootstrap.bundle.min.js"></script>
     <script src="assets/src/js/L.Control.Zoomslider.js"></script>
     <script src="assets/src/js/Control.MiniMap.js"></script>
     <script src="assets/src/js/leaflet-providers.js"></script>
@@ -66,6 +69,7 @@ $LRT = PLF::Get_LastRunTime();
 
 
 
+
 </head>
 <!----------------------------- BODY ------------------------------------------>
 
@@ -79,8 +83,7 @@ $LRT = PLF::Get_LastRunTime();
                 </span>
 
                 <div class="text logo-text">
-                    <span class="name">Codinglab</span>
-                    <span class="profession">Web developer</span>
+
                 </div>
             </div>
 
@@ -97,27 +100,33 @@ $LRT = PLF::Get_LastRunTime();
                         </a>
                     </li>
                     <li class="nav-link" id="parcours-nav">
-                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#parcours" data-bs-toggle="modal">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#parcours">
                             <i class='fa fa-hiking'></i>
                             <span class="text nav-text">Parcours</span>
                         </a>
                     </li>
                     <li class="nav-link" id="territoire-nav">
-                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#territoire" data-bs-toggle="modal">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#territoire">
                             <i class='fa fa-location-dot'></i>
                             <span class="text nav-text">Territoires</span>
                         </a>
                     </li>
                     <li class="nav-link" id="DNF-nav">
-                        <a href="#">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#dnf">
                             <i class='fa fa-tree title'></i>
                             <span class="text nav-text">DNF</span>
                         </a>
                     </li>
                     <li class="nav-link" id="CC-nav">
-                        <a href="#">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#cc">
                             <i class='fa-solid fa-bullseye'></i>
                             <span class="text nav-text">Conseils Cynégétiques</span>
+                        </a>
+                    </li>
+                    <li class="nav-link" id="upload-nav">
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#upload">
+                            <i class='fa fa-location-arrow'></i>
+                            <span class="text nav-text">Charger votre trace</span>
                         </a>
                     </li>
                     <li class="nav-link" id="email-nav">
@@ -202,6 +211,7 @@ $LRT = PLF::Get_LastRunTime();
             </div>
         </div>
     </div>
+
 
     <!-- ************************** INFORMATION POPUP ****************************** -->
 
@@ -322,7 +332,7 @@ $LRT = PLF::Get_LastRunTime();
         </div>
 
         <div class="offcanvas-body">
-            <div class="container w-auto mx-auto">
+            <!--<div class="container w-auto mx-auto">
                 <div class="row">
                     <form class="d-flex justify-content-center mb-5">
                         <div class="form-check-inline">
@@ -339,80 +349,45 @@ $LRT = PLF::Get_LastRunTime();
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
             <div class="container w-auto mx-auto">
-                <div class="row">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="selectCityType" id="selectCityLabel">Commune ou Localité</label>
-                    <div class="row g-1 mb-5">
-                        <select id="selectCityType" class="form-select mx-auto text-primary border border-primary" style="width: 100%;" tabindex="-1" aria-hidden="true">>
-                            <option value="arLocaliteName">Localité</option>
-                            <option value="arCommuneName">Commune</option>
-                        </select>
+                <div class="btn-group mb-3 d-flex justify-content-center" id="selectionType">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Localité / Commune
+                    </button>
+                    <span class="caret"></span>
+                    <ul class="dropdown-menu" id="selectCityType" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Localité</a></li>
+                        <li><a class="dropdown-item" href="#">Commune</a></li>
+                    </ul>
+                </div>
+                <!--<div id="selectionMenu">
+                    <div id="selectionType">
+                        <div id="selectItemsForm" class="container w-100 mx-auto">
+                            <label class="d-flex justify-content-center fw-bold text-primary" for="selectCityType" id="selectCityLabel">Commune ou Localité</label>
+                            <div class="row g-1 mb-3 mx-auto d-flex justify-content-center">
+                                <select id="selectCityType" class="form-select mx-auto text-primary border border-primary d-flex justify-content-center" style="width: 50%; z-index:2100; max-height: 50vh;" tabindex="-1" aria-hidden="true">
+                                    <option value="arLocaliteName">Localité</option>
+                                    <option value="arCommuneName">Commune</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>-->
+                <div id="city" class="btn-group mb-3 d-flex justify-content-center">
+                    <div id="selectCityName" class="container w-100 mx-auto">
+                        <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFindCityName" id="selectCity"></label>
+                        <select id="txtFindCityName" class="form-select mx-auto text-primary border border-primary d-flex justify-content-center" style="z-index:2100;" placeholder="Parcours"></select>
+                    </div>
+                </div>
+                <div id="parcours" class="btn-group mb-3 d-flex justify-content-center">
+                    <div id="selectParcoursForm" class="container w-100 mx-auto">
+                        <!--<label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFindParcoursName" id="selectParcours"></label>-->
+                        <select id="txtFindParcoursName" class="form-select" style="z-index:2100;" placeholder="Parcours"></select>
                     </div>
                 </div>
             </div>
-            <div id="city">
-                <div id="selectCityForm" class="container w-100 mx-auto">
-                    <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindCityName" id="selectCity">Sélectionnez un lieu</label>
-                    <div class="row g-1 mb-5">
-                        <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindCityName" class="form-select mx-auto fs-6 text-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
-                            <p id="result">Sélectionnez une option</p>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center">
-                            <button id="btnFindCityName" class="searchItems btn btn-secondary" style="width: 100%;"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="parcours">
-                <div id="selectParcoursForm" class="container w-100 mx-auto">
-                    <!-- <label class="d-flex justify-content-center fw-bold text-primary" for="txtFindParcoursName" id="selectParcours">Sélectionnez un parcours</label> -->
-                    <div class="row g-1 mb-5">
-                        <div class="col-lg-9 d-flex align-items-center">
-                            <select id="txtFindParcoursName" class="form-select mx-auto fs-6 text-primary border border-primary" style="width: 100%;z-index:2100;" placeholder="Parcours"></select>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center">
-                            <button id="btnFindParcoursName" class="searchItems btn btn-secondary " style="width: 100%;"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sélectionnez la liste déroulante -->
-            <select id="mySelect">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </select>
 
-            <!-- Affichez quelque chose en fonction de la valeur sélectionnée 
-            <p id="result">Sélectionnez une option</p>-->
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    //var mySelect = document.getElementById('txtFindParcoursName');
-
-                    /* mySelect.addEventListener('change', function() {
-                        var selectedValue = mySelect.value; 
-                        console.log('Selected value:', selectedValue);
-                    }); */
-                    // Sélectionnez la liste déroulante
-                    var mySelect = document.getElementById("txtFindCityName");
-                    console.log(mySelect)
-
-                    // Ajoutez un écouteur d'événements "change"
-                    mySelect.addEventListener("change", function() {
-                        // Récupérez la valeur sélectionnée
-                        var selectedValue = event.target.value;
-
-                        // Affichez quelque chose en fonction de la valeur sélectionnée
-                        var resultParagraph = document.getElementById("result");
-                        resultParagraph.textContent = "Option sélectionnée : " + selectedValue;
-                        console.log(resultParagraph.textContent)
-                    });
-                })
-            </script>
-            <div class="container">
+            <div id="resultsItems" class="container">
                 <div id="parcoursInfo" class=" my-3 fs-4 fw-bold text-primary mx-auto d-flex justify-content-center"></div>
                 <div id="parcoursNom" class="fs-4 fw-bold text-secondary mx-auto d-flex justify-content-center"></div>
                 <div id="parcoursInfoDetails" class="fs-6 text-primary mx-auto">
@@ -427,15 +402,15 @@ $LRT = PLF::Get_LastRunTime();
                     <div id="messageErreur"></div>
                 </div>
             </div>
-
-        </div>-
+        </div>
     </div>
+
     <!-- ************************** CANVAS TERRITOIRES ************************************* -->
 
-    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="territoire" aria-labelledby="offcanvasExampleLabel">
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="territoire" aria-labelledby="offcanvasterritory">
         <div class="offcanvas-header">
             <div class="offcanvas-title text-primary fw-bold fs-2 mx-auto d-flex justify-content-center text-center" id="territoryLabel">TERRITOIRES DE CHASSES</div>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div id="territoriesList">
@@ -452,18 +427,97 @@ $LRT = PLF::Get_LastRunTime();
                 <div id="territoryInfo" class="text-secondary fw-bold mb-3"></div>
                 <div id="territoryName" class="text-primary fw-bold mb-3"></div>
                 <div id="globalInfo">
-                    <div class="sub-info w-100 mx-auto text-primary fs-5">
+                    <div id="subInfo" class="sub-info w-100 mx-auto text-primary fs-5">
                         <div id="territoryNbre"></div>
                         <div id="territoryCanton"></div>
                         <div id="territoryCC"></div>
                         <div id="territoryArea" class="mb-3"></div>
                     </div>
+                    <div id="territoriesHuntingError" class="text-primary fs-5 border border-primary rounded"></div>
                     <div id="huntingDate" class="text-primary fs-5 border border-primary rounded">
                         <div id="territoriesHuntingDatesLabel"></div>
                         <table class="table table-sm table-striped"></table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ************************** CANVAS DNF ************************************* -->
+
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="dnf" aria-labelledby="offcanvasdnf">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title text-primary fw-bold fs-2 mx-auto d-flex justify-content-center text-center" id="dnfLabel">DNF</div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="dnfList">
+                <div id="dnfSelection" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFinddnfNumber" id="selectdnf">Sélectionnez un Cantonnement</label>
+                    <div class="row g-1 mb-5 mx-auto d-flex justify-content-center">
+                        <div class="col-lg-9 d-flex align-items-center" id="searchdnf">
+                            <select id="txtFinddnfName" class="form-select mx-auto text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cantonInfo" class="my-3 fs-4 fw-bold text-primary mx-auto d-flex justify-content-center"></div>
+            <div id="cantonName" class="fs-3 fw-bold mx-auto d-flex justify-content-center"></div>
+            <div id="cantonInfoDetails" class="sub-info w-100 mx-auto text-primary fs-6">
+                <div id="cantonNbre" class=" fs-5 fw-bold text-primary mx-auto d-flex justify-content-center"></div>
+                <div id="cantonArea"></div>
+                <div id="cantonId"></div>
+                <div id="cantonDir"></div>
+                <div id="cantonResp"></div>
+                <div id="cantonTel"></div>
+                <div id="cantonEmail"></div>
+                <div id="cantonAdresse"></div>
+                <div id="messageErreur"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ************************** CANVAS CC ************************************* -->
+
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="cc" aria-labelledby="offcanvasdnf">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title text-primary fw-bold fs-2 mx-auto d-flex justify-content-center text-center" id="ccLabel">Conseils Cynégétiques</div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="ccList">
+                <div id="ccSelection" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFinddnfNumber" id="selectdnf">Sélectionnez un Conseil</label>
+                    <div class="row g-1 mb-5 mx-auto d-flex justify-content-center">
+                        <div class="col-lg-9 d-flex align-items-center" id="searchdnf">
+                            <select id="txtFindccNumber" class="form-select mx-auto text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ************************** CANVAS UPLOAD ************************************* -->
+
+    <div style='z-index:2001; width:20%;' class="offcanvas offcanvas-start" tabindex="-1" id="upload" aria-labelledby="offcanvasdnf">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title text-primary fw-bold fs-2 mx-auto d-flex justify-content-center text-center" id="dnfLabel">DNF</div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="dnfList">
+                <div id="dnfSelection" class="container w-100 mx-auto">
+                    <label class="d-flex justify-content-center fw-bold text-primary mb-3" for="txtFinddnfNumber" id="selectdnf">Sélectionnez un Cantonnement</label>
+                    <div class="row g-1 mb-5 mx-auto d-flex justify-content-center">
+                        <div class="col-lg-9 d-flex align-items-center" id="searchdnf">
+                            <select id="txtFinddnfNumber" class="form-select mx-auto text-primary border border-primary" style="width: 100%; z-index:2100; max-height: 50vh;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -478,7 +532,6 @@ $LRT = PLF::Get_LastRunTime();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<!--<script src="assets/inc/js/parcours.js"></script>-->
 <script>
     // ************************** GLOBAL VARIABLE *************************************
     let listTerritories = [];
@@ -497,19 +550,15 @@ $LRT = PLF::Get_LastRunTime();
     let territoireValue;
     let dateValue;
     let formatDate;
+    let huntedTerritories = [];
+    let territoriesClosed = [];
+    let territoriesOpened = [];
 
-    /*window.addEventListener("load", function() {
-        // Masquer le spinner
-        var spinner = document.getElementById("spinner");
-        spinner.style.display = "none";
-    window.onload = function() {
-        Gp.Services.getConfig({
-            apiKey: 'fm1imiky2s48ngh0mxqxtdz9',
-            onSucess: function(response) {*/
+    // ********************* SPINNER ********************************************
+
     document.addEventListener("DOMContentLoaded", function() {
         let spinner = document.getElementById("spinner");
-        spinner.style.display = "block"; // Show the spinner
-        // You can add more loading logic here.
+        spinner.style.display = "block";
     });
 
     // Hide the spinner when the page is fully loaded
@@ -521,57 +570,19 @@ $LRT = PLF::Get_LastRunTime();
 
     $(document).ready(function() {
 
-        // ********************* INITIALIZATION DATE PICKER ******************************************** 
 
-        $(function() {
-            $("#datepicker").datepicker({
-                dateFormat: "dd-mm-yy",
-                dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-                monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "December"],
-                buttonImageOnly: true
-            });
-            var todayDate = new Date()
-            //console.log(todayDate)
-            $('#datepicker').datepicker('setDate', todayDate);
-
-            var todayDate = new Date()
-            formatDate = $.datepicker.formatDate("dd-mm-yy", todayDate);
-            var x = findTerritories(formatDate)
-
-            var modal = document.getElementById('calendarModal');
-
-            var modalInstance = new bootstrap.Modal(modal);
-            modalInstance.show();
-
+        document.addEventListener('DOMContentLoaded', function() {
+            var closeButton = document.querySelector('.offcanvas-header .btn-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    closeButton.querySelector('path').setAttribute('fill', 'red'); // Remplacez 'red' par la couleur souhaitée
+                });
+            }
         });
-
-
-
-        // ********************* INITIALIZATION DAY MAJ *****************************************************
-
-        var lRT = [];
-        var cookieNber = "<?php echo $file_suffix; ?>";
-        lRT = <?php echo json_encode($LRT); ?>;
-        lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
-        lRTEUR = dayjs(lRTUS, 'DD-MMM-YYYY HH:mm')
-        lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
-
-        document.getElementById("maj").innerHTML = "Dernière màj : " + lRTBE;
 
         // ********************** MAP INITIALIZATION ***********************************************************
 
-        //proj4.defs("EPSG:31370", "+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs");
-
-        /*var crs = new L.Proj.CRS(
-                'EPSG:31370',
-                '+proj=+proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=501.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,-0.3366,0.457,-1.8422,-1.2747 +units=m +no_defs +type=crslcc +lat_1=51.16666723333334 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1 +units=m +no_defs +type=crs', {
-                    //resolutions: [8192, 4096, 2048, 1024, 512],
-                    //origin: [0, 0],
-                    //bounds: L.bounds([0, 0], [8192, 8192])
-                }),*/
-
         map = L.map('map', {
-            //crs: crs,
             zoomControl: false,
         }).setView([49.567574, 5.533507], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -580,8 +591,14 @@ $LRT = PLF::Get_LastRunTime();
         }).addTo(map);
 
 
-        //ctlScale = L.control.scale({position:'bottomleft', imperial:false, maxWidth:200}).addTo(map);
-        //ctlZoomslider = L.control.zoomslider({position:'topleft'}).addTo(map);
+        ctlScale = L.control.scale({
+            position: 'bottomright',
+            imperial: false,
+            maxWidth: 200
+        }).addTo(map);
+        ctlZoomslider = L.control.zoomslider({
+            position: 'topright'
+        }).addTo(map);
         //ctlMeasure = L.control.polylineMeasure({position:'topleft'}).addTo(map);  
 
         // ********************** LAYERS INITIALIZATION *******************************************************
@@ -652,6 +669,42 @@ $LRT = PLF::Get_LastRunTime();
             opacity: 0.5
         }).addTo(map);
 
+        // ********************* INITIALIZATION DATE PICKER ******************************************** 
+
+        $(function() {
+            $("#datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "December"],
+                buttonImageOnly: true
+            });
+            var todayDate = new Date()
+            //console.log(todayDate)
+            $('#datepicker').datepicker('setDate', todayDate);
+
+            var todayDate = new Date()
+            formatDate = $.datepicker.formatDate("dd-mm-yy", todayDate);
+            var x = findTerritories(formatDate)
+
+            var modal = document.getElementById('calendarModal');
+
+            var modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
+
+        });
+
+        // ********************* INITIALIZATION DAY MAJ *****************************************************
+
+        var lRT = [];
+        var cookieNber = "<?php echo $file_suffix; ?>";
+        lRT = <?php echo json_encode($LRT); ?>;
+        lRTUS = lRT[2]["cron_chasses"]["Infos_Date"];
+        lRTEUR = dayjs(lRTUS, 'DD-MMM-YYYY HH:mm')
+        lRTBE = lRTEUR.format('DD-MMM-YYYY HH:mm')
+
+        document.getElementById("maj").innerHTML = "Dernière màj : " + lRTBE;
+
+
         // **************************** DATE SELECTION *****************************************************************
 
         $("#datepicker").on('change', function() {
@@ -671,20 +724,15 @@ $LRT = PLF::Get_LastRunTime();
             }
         });
 
-        // ******************************** GENERAL FUNCTIONS ***********************************************************
+        // ******************************** 1 - GENERAL FUNCTIONS ***********************************************************
+
+        // ******************************** 1.1 - HUNTING TERRITORIES BY DATE ***********************************************************
 
         function findTerritories(dateValue) {
 
-            // ******************************** INITIALISATION ***********************************************************
+            // ******************************** 1.1.1 - INITIALISATION ***********************************************************
 
             document.getElementById("retour").innerHTML = "";
-            let huntedTerritories = [];
-            let huntedTerritoriesList = [];
-            let huntedNber = [];
-            let territoriesNbers = [];
-            let territoriesClosed = [];
-            let territoriesOpened = [];
-            let territoriesList = [];
 
             function modalInfo() {
                 retour.classList.add('active');
@@ -694,7 +742,7 @@ $LRT = PLF::Get_LastRunTime();
                 squareClose.classList.remove('active');
             }
 
-            // ************************** SEARCH HUNTING DATES ************************************************************
+            // ******************************** 1.1.2 - SEARCH HUNTING DATES ************************************************************
 
             $.ajax({
                 type: 'GET',
@@ -726,7 +774,7 @@ $LRT = PLF::Get_LastRunTime();
                         //console.log(territoriesClosed);
                         //console.log(territoriesOpened);
 
-                        var territoriesNber = territoriesList.join(',');
+                        let territoriesNber = territoriesList.join(',');
                         //console.log(territoriesNber)
 
                         if (huntedNber > 0) {
@@ -740,94 +788,95 @@ $LRT = PLF::Get_LastRunTime();
 
                         var lyrhuntingterritoriesClosed = createMultiJson(territoriesNber);
                         //var lyrhuntingterritoriesOpened = createMultiJson(territoriesNber);
-
-                        // ************************ SEARCH HUNTING TERRITORIES ************************************************************
-
-                        function createMultiJson(territoriesNber) {
-                            $.ajax({
-                                type: 'GET',
-                                url: "assets/inc/php/createMultiJson_by_n.php",
-                                data: {
-                                    territoriesNber: territoriesNber
-                                },
-
-                                success: function(response) {
-                                    //console.log(response);
-
-                                    if (resultat[0] == -14) {
-                                        document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
-                                        retour.classList.add('active');
-                                        message.classList.remove('active');
-                                        infoRetour.classList.remove('active');
-                                        squareOpen.classList.remove('active');
-                                        squareClose.classList.remove('active');
-                                    } else {
-                                        //console.log(lyrTerritories)
-                                        if (lyrTerritories) {
-                                            lyrTerritories.remove();
-                                            map.removeLayer(lyrTerritories);
-                                        }
-                                        //console.log(lyrTerritories)
-                                        lyrTerritories = L.geoJSON.ajax('assets/datas/' + cookieNber + 'huntedTerritoryByDate.json', {
-                                            style: styleTerritories,
-                                            onEachFeature: processTerritories
-                                        });
-
-                                        function styleTerritories(json) {
-                                            var att = json.properties;
-                                            //console.log(att.Numero_Lot);
-                                            //console.log(huntedNber);
-                                            for (i = 0; i < huntedNber; i++) {
-                                                if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
-                                                    if (huntedTerritories[2][i]["FERMETURE"] == "O") {
-                                                        return {
-                                                            fillOpacity: 0.5,
-                                                            weight: 4,
-                                                            color: '#990047'
-                                                        };
-                                                    } else {
-                                                        return {
-                                                            fillOpacity: 0.5,
-                                                            weight: 4,
-                                                            color: '#fdef49'
-                                                        };
-                                                    }
-                                                }
-                                                //console.log("erreur")
-                                            }
-                                        }
-
-                                        // ************************ POPOVER HUNTING TERRITORIES ************************************************************
-
-                                        function processTerritories(json, lyr) {
-                                            var att = json.properties;
-                                            lyr.on('mouseover', function() {
-                                                lyr.setStyle({
-                                                    fillOpacity: 0.7
-                                                })
-                                                lyr.bindTooltip('<h3 style="color:#2c3e50"><center>N° de Territoire: <br>' + att.Numero_Lot + '</h3>');
-                                            })
-                                            lyr.on('mouseout', function() {
-                                                lyr.setStyle({
-                                                    fillOpacity: 0.3
-                                                });
-                                            })
-                                        }
-
-                                        lyrTerritories.on('data:loaded', function() {
-                                            // crs: L.CRS.proj4("EPSG:31370"),
-                                            map.fitBounds(lyrTerritories.getBounds().pad(0));
-                                        }).addTo(map);
-                                    }
-                                }
-                            })
-                        }
                     }
                 }
             });
         };
 
-        // ********************** PARCOURS SCRIPT ***********************************************************
+        // ******************************** 1.1.3 - SEARCH HUNTING TERRITORIES ************************************************************
+
+        function createMultiJson(territoriesNber) {
+            $.ajax({
+                type: 'GET',
+                url: "assets/inc/php/createMultiJson_by_n.php",
+                data: {
+                    territoriesNber: territoriesNber
+                },
+
+                success: function(response) {
+                    //console.log(response);
+
+                    if (resultat[0] == -14) {
+                        document.getElementById("retour").innerHTML = "Pas de chasse pour cette date.";
+                        retour.classList.add('active');
+                        message.classList.remove('active');
+                        infoRetour.classList.remove('active');
+                        squareOpen.classList.remove('active');
+                        squareClose.classList.remove('active');
+                    } else {
+                        //console.log(lyrTerritories)
+                        if (lyrTerritories) {
+                            lyrTerritories.remove();
+                            map.removeLayer(lyrTerritories);
+                        }
+                        //console.log(lyrTerritories)
+                        lyrTerritories = L.geoJSON.ajax('assets/datas/' + cookieNber + 'huntedTerritoryByDate.json', {
+                            style: styleTerritories,
+                            onEachFeature: processTerritories
+                        });
+
+                        function styleTerritories(json) {
+                            var att = json.properties;
+                            //console.log(att.Numero_Lot);
+                            //console.log(huntedNber);
+                            for (i = 0; i < huntedNber; i++) {
+                                if (att.Numero_Lot == huntedTerritories[2][i]["DA_Numero"]) {
+                                    if (huntedTerritories[2][i]["FERMETURE"] == "O") {
+                                        return {
+                                            fillOpacity: 0.5,
+                                            weight: 4,
+                                            color: '#990047'
+                                        };
+                                    } else {
+                                        return {
+                                            fillOpacity: 0.5,
+                                            weight: 4,
+                                            color: '#fdef49'
+                                        };
+                                    }
+                                }
+                                //console.log("erreur")
+                            }
+                        }
+
+                        // ************************ POPOVER HUNTING TERRITORIES ************************************************************
+
+                        function processTerritories(json, lyr) {
+                            var att = json.properties;
+                            lyr.on('mouseover', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.7
+                                })
+                                lyr.bindTooltip('<h6 style="color:#2c3e50"><center>N° de Territoire : <br>' + att.Numero_Lot + '</h6>');
+                            })
+                            lyr.on('mouseout', function() {
+                                lyr.setStyle({
+                                    fillOpacity: 0.3
+                                });
+                            })
+                        }
+
+                        lyrTerritories.on('data:loaded', function() {
+                            // crs: L.CRS.proj4("EPSG:31370"),
+                            map.fitBounds(lyrTerritories.getBounds().pad(0));
+                        }).addTo(map);
+                    }
+                }
+            })
+        }
+
+
+        // **************************** 2 - PARCOURS SCRIPT ***********************************************************
 
         var navDiv = document.getElementById('parcours-nav');
         navDiv.addEventListener('click', function() {
@@ -840,7 +889,7 @@ $LRT = PLF::Get_LastRunTime();
 
             // ********************** CHECKBOX MARCHE / VTT ***********************************************************
 
-            const walk = document.getElementById("typeMarche")
+            /*const walk = document.getElementById("typeMarche")
 
             walk.addEventListener("change", function() {
                 if (walk.checked) {
@@ -860,7 +909,7 @@ $LRT = PLF::Get_LastRunTime();
                 } else {
                     console.log("La case n'est pas cochée VTT.");
                 }
-            });
+            });*/
 
             // ******************* LIST OF ROUTE NAME ************************************************************
 
@@ -870,7 +919,7 @@ $LRT = PLF::Get_LastRunTime();
 
             let routeNbre = listByRoute.length;
             let parcoursList = [];
-            let selectedCategory;
+
             let arLocaliteName = [];
             let arCommuneName = [];
             let arSelectedCityList = [];
@@ -891,63 +940,55 @@ $LRT = PLF::Get_LastRunTime();
 
             // ************ SELECTION FUNCTION LOCALITE OR COMMUNE ****************************************************  
 
-            let tableDatas = {
-                arLocaliteName,
-                arCommuneName
-            }
 
-
-
-            function selectionMenu(initialChoices) {
+            function selectionMenu() {
                 selectOption = $("#txtFindCityName").selectmenu();
                 console.log(selectOption)
 
-                $("#selectCityType").on('change', function() {
-                    selectedCategory = $(this).val();
-                    console.log(selectedCategory)
-                    let choices = initialChoices[selectedCategory];
+                $('#selectCityType li a').on('click', function() {
+                    let selectedCategory = $(this).text();
+                    $(this).parents('.btn-group').find('.dropdown-toggle').html(selectedCategory + ' <span class="caret"></span>');
+                    if (selectedCategory == "Localité") {
+                        choices = arLocaliteName
+                    } else {
+                        choices = arCommuneName
+                    }
                     console.log(choices);
                     selectOption.empty();
+                    let txtFindCityName = document.getElementById('txtFindCityName');
+                    console.log(txtFindCityName)
 
                     if (choices) {
-                        choices.forEach(function(choice) {
-                            selectOption.append($("<option>", {
-                                value: choice,
-                                text: choice
-
-                            }));
+                        choices.forEach(function(item) {
+                            let option = document.createElement('option');
+                            option.text = item;
+                            txtFindCityName.appendChild(option)
                         });
                         selectOption.selectmenu("refresh");
                     }
                 });
-
-                $("#selectCityType").trigger("change");
-
-
-            }
-
-            selectionMenu(tableDatas)
+                $("#selectCityType li a").trigger("change");
+            };
 
 
+            let selectedCategory;
+            selectionMenu()
+
+
+            $('#txtFindCityName li a').on('change', function() {
+                let city = $(this).val();
+                console.log(city)
+                console.log(selectedCategory)
 
 
 
+
+            })
 
             selectedCityName = $("#txtFindCityName").val()
-
-
             console.log(selectedCityName)
-            var citySelectorElement = document.getElementById("txtFindCityName");
-            console.log(citySelectorElement)
-            // var citySelectorElement = document.querySelector('txtFindCityName');
 
-
-            $('#txtFindCityName').on('change', function() {
-                var city = $(this).val();
-                console.log(city)
-            })
             $("#txtFindCityName").trigger("change");
-
 
             function handleInput(event) {
 
@@ -1033,7 +1074,7 @@ $LRT = PLF::Get_LastRunTime();
 
             for (i = 0; i < (arSelectedCityList.length); i++) {
                 let routeValue;
-                routeValue = arSelectedCityList[i][1]
+                routeValue = arSelectedCityList[i]
                 console.log(routeValue)
 
                 let cookieNber = "<?php echo $file_suffix; ?>";
@@ -1232,21 +1273,24 @@ $LRT = PLF::Get_LastRunTime();
 
             //});
         });
-        // ********************** TERRITORIES SCRIPT ***********************************************************
+
+
+        // ******************************* 3 - TERRITORIES SCRIPT ***********************************************************
 
         var navDiv = document.getElementById('territoire-nav');
         navDiv.addEventListener('click', function(e) {
-            console.log(e)
-            if ($(e.target).closest('#territoire').length === 0 && $(e.target).closest('[data-toggle="territoire"]').length === 0) {
-                $('#territoire').modal('hide');
-            }
+            //if ($(e.target).closest('#territoire').length === 0 && $(e.target).closest('[data-toggle="territoire"]').length === 0) {
+            //  $('#territoire').modal('hide');
+            //}
+
+            // ****************** 3.1 - INITIALISATION ************************************************
 
             let dropdown;
             let lyrTerritory;
             let jsnTerritories;
             <?php require_once "territoiresNew.php"; ?>
-
-            // ************ LIST OF TERRITORY NAME ************************************************************
+            territoriesHuntingError.classList.remove('active')
+            // *************************** 3.2 - LIST OF TERRITORY NAME ************************************************************
 
             let territoriesList = <?php echo json_encode($List_Territoires[2]); ?>;
             console.log(territoriesList);
@@ -1285,7 +1329,7 @@ $LRT = PLF::Get_LastRunTime();
                 territoireValue = dropdown.value;
                 console.log('Selected value:', territoireValue);
 
-                // ************ SEARCH MAP TERRITORY ************************************************************
+                // ********************** 3.2.1 SEARCH MAP TERRITORY ************************************************************
 
                 if (lyrTerritory) {
                     lyrTerritory.remove();
@@ -1322,7 +1366,7 @@ $LRT = PLF::Get_LastRunTime();
                                     lyr.setStyle({
                                         fillOpacity: 0.7
                                     })
-                                    lyr.bindTooltip('<div class="custom-popup">' + att.Numero_Lot + '</div>');
+                                    lyr.bindTooltip('<div class="custom-popup"><h6 style="color:#2c3e50"><center>N° de Territoire : <br>' + att.Numero_Lot + '</h6></div>');
                                 })
                                 lyr.on('mouseout', function() {
                                     lyr.setStyle({
@@ -1347,20 +1391,8 @@ $LRT = PLF::Get_LastRunTime();
                     }
                 })
 
-
-                // ************ SEARCH INFO TERRITORY ************************************************************
-
-                if (territoryName !== null) {
-                    territoryName.classList.add('active')
-                    globalInfo.classList.add('active')
-                    huntingDate.classList.add('active')
-                } else {
-                    territoryName.classList.remove('active');
-                    globalInfo.classList.remove('active')
-                    huntingDate.classList.remove('active')
-                }
-
-                console.log(territoireValue)
+                // *********************** 3.2.2 - SEARCH INFO TERRITORY ************************************************************
+                //console.log(territoireValue)
 
                 $.ajax({
                     type: 'GET',
@@ -1379,8 +1411,6 @@ $LRT = PLF::Get_LastRunTime();
                             //territoriesInfo = Object.values(response);
                             territoriesInfo = JSON.parse(response);
                             console.log(territoriesInfo);
-
-
                             console.log(territoryName);
 
                             $('#territoryInfo').html('<center>TERRITOIRE<center>');
@@ -1390,7 +1420,7 @@ $LRT = PLF::Get_LastRunTime();
                             $('#territoryCC').html('Conseil : ' + (territoriesInfo[0]["Code_CC"]));
                             //$('#territoryArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
 
-                            // ************ SEARCH HUNTING DATES ************************************************************
+                            // ******************* 3.2.3 - SEARCH HUNTING DATES ************************************************************
                             console.log(territoireValue)
                             $.ajax({
                                 type: 'GET',
@@ -1400,40 +1430,51 @@ $LRT = PLF::Get_LastRunTime();
 
                                 success: function(response) {
                                     console.log(response);
-                                    huntedTerritories = JSON.parse(response);
+
                                     console.log(huntedTerritories);
+                                    if (typeof response === "string" && response.length === 0) {
+                                        territoriesHuntingError.classList.add('active')
+                                        huntingDate.classList.remove('active')
+                                        $('#territoriesHuntingError').html('Pas de chasse pour ce territoire');
 
+                                    } else {
+                                        territoryName.classList.add('active')
+                                        globalInfo.classList.add('active')
+                                        huntingDate.classList.add('active')
+                                        territoriesHuntingError.classList.remove('active')
+                                        huntedTerritories = JSON.parse(response);
 
-                                    function displayData(huntedTerritories) {
+                                        function displayData(huntedTerritories) {
 
-                                        if (huntedTerritories.length) {
-                                            console.log(huntedTerritories.length);
-                                            $('#territoriesHuntingDatesLabel').html('DATES DE CHASSE :');
+                                            if (huntedTerritories.length) {
+                                                console.log(huntedTerritories.length);
+                                                $('#territoriesHuntingDatesLabel').html('DATES DE CHASSE :');
 
-                                            let contenuTableau = '';
-                                            contenuTableau += '<thead><tr>';
-                                            for (let prop in huntedTerritories[0]) {
-                                                contenuTableau += `<th>${prop}</th>`;
-                                            }
-                                            contenuTableau += '</tr></thead>';
-
-                                            contenuTableau += '<tbody>';
-                                            huntedTerritories.forEach((ligne) => {
-                                                contenuTableau += '<tr>';
-                                                for (let prop in ligne) {
-                                                    contenuTableau += `<td>${ligne[prop]}</td>`;
+                                                let contenuTableau = '';
+                                                contenuTableau += '<thead><tr>';
+                                                for (let prop in huntedTerritories[0]) {
+                                                    contenuTableau += `<th>${prop}</th>`;
                                                 }
-                                                contenuTableau += '</tr>';
-                                            });
-                                            contenuTableau += '</tbody>';
+                                                contenuTableau += '</tr></thead>';
 
-                                            return contenuTableau;
+                                                contenuTableau += '<tbody>';
+                                                huntedTerritories.forEach((ligne) => {
+                                                    contenuTableau += '<tr>';
+                                                    for (let prop in ligne) {
+                                                        contenuTableau += `<td>${ligne[prop]}</td>`;
+                                                    }
+                                                    contenuTableau += '</tr>';
+                                                });
+                                                contenuTableau += '</tbody>';
 
+                                                return contenuTableau;
+
+                                            }
                                         }
-                                    }
-                                    let disData = document.querySelector('.table')
+                                        let disData = document.querySelector('.table')
 
-                                    disData.innerHTML = displayData(huntedTerritories)
+                                        disData.innerHTML = displayData(huntedTerritories)
+                                    }
                                 }
                             })
 
@@ -1443,5 +1484,286 @@ $LRT = PLF::Get_LastRunTime();
             }
 
         })
-    });
+
+
+        // ********************** 4 - DNF SCRIPT ***********************************************************
+
+        var navDiv = document.getElementById('DNF-nav');
+        navDiv.addEventListener('click', function(e) {
+            console.log(e)
+            if ($(e.target).closest('#dnf').length === 0 && $(e.target).closest('[data-toggle="dnf"]').length === 0) {
+                //$('#dnf').modal('hide');
+            }
+            // ****************** 4.1 - INITIALISATION ************************************************
+
+            <?php require_once "dnfNew.php"; ?>
+            listByCantonBt = <?php echo json_encode($List_Canton); ?>;
+            listTerritories = <?php echo json_encode($List_Territoires[2]); ?>;
+
+            listByCanton = Object.values(listByCantonBt[2])
+            console.log(listByCanton)
+            console.log(listByCanton.length)
+            console.log(listTerritories)
+            let lyrTerritoriesDnf
+            let arCantonName = [];
+            let arDnfInfo = [];
+            let territoireValue;
+
+            // ****************** 4.2 - LIST OF CANTON *****************************************************
+
+            for (i = 0; i < (listByCanton.length); i++) {
+                arCantonName.push({
+                    "name": listByCanton[i]["nom"],
+                    "canton_nber": listByCanton[i]["num_canton"]
+                })
+            }
+            console.log(arCantonName)
+
+            function selectionCanton() {
+                // Sélectionnez la liste déroulante
+                dropdown = document.getElementById('txtFinddnfName');
+
+                // Boucle à travers le tableau de données et ajoute chaque option à la liste déroulante
+                arCantonName.forEach(function(item) {
+                    // Créez un nouvel élément d'option
+                    var option = document.createElement('option');
+                    element = item.name;
+
+                    // Définissez la valeur et le texte de l'option en fonction des données
+                    option.value = element;
+                    option.text = element;
+
+                    // Ajoutez l'option à la liste déroulante
+                    dropdown.add(option);
+                });
+            }
+
+            // Appelez la fonction pour alimenter la liste déroulante lors du chargement de la page
+            window.onload = selectionCanton();
+
+            // ****************** 4.2.1 - CANTON SELECTION *****************************************************
+
+            $("#txtFinddnfName").click(function() {
+                arDnfInfo = []
+
+                if (lyrTerritories) {
+                    lyrTerritories.remove();
+                }
+
+                if (lyrTerritoriesDnf) {
+                    lyrTerritoriesDnf.remove();
+                    map.removeLayer(marker);
+                    $('#cantonInformations').html('');
+                    $('#cantonInfo').html('');
+                    $('#cantonName').html('');
+                    $('#cantonNbre').html('');
+                    $('#cantonDir').html('');
+                    $('#cantonResp').html('');
+                    $('#cantonTel').html('');
+                    $('#cantonEmail').html('');
+                    $('#cantonAdresse').html('');
+                    $('#retour').html('');
+                    retour.classList.remove('active');
+                    document.getElementById("datepicker").value = "";
+                }
+
+                document.getElementById("messageErreur").innerHTML = "";
+
+                territoireName = $("#txtFinddnfName").val();
+                console.log(territoireName);
+                for (j = 0; j < (arCantonName.length); j++) {
+                    console.log(arCantonName[j].name)
+                    if (arCantonName[j].name == territoireName) {
+                        territoireValue = arCantonName[j].canton_nber;
+                        arDnfInfo.push(
+                            listByCanton[j]["nom"],
+                            listByCanton[j]["num_canton"],
+                            listByCanton[j]["direction"],
+                            listByCanton[j]["attache"],
+                            listByCanton[j]["tel"],
+                            listByCanton[j]["email"],
+                            listByCanton[j]["latitude"],
+                            listByCanton[j]["longitude"],
+                            listByCanton[j]["localite"],
+                            listByCanton[j]["rue"],
+                            listByCanton[j]["numero"],
+                            listByCanton[j]["CP"]
+                        )
+                        break;
+                    }
+                }
+                console.log(territoireValue)
+
+                if (territoireName === '') {
+                    document.getElementById("messageErreur").innerHTML = "Sélectionnez un Cantonnement";
+                    messageErreur.classList.add('active');
+                    cantonInfo.classList.remove('active');
+                    cantonInfoDetails.classList.remove('active')
+                    cantonName.classList.remove('active');
+                    cantonArea.classList.remove('active');
+
+                } else {
+                    messageErreur.classList.remove('active');
+                    cantonName.classList.add('active');
+                    cantonArea.classList.add('active');
+                    cantonInfo.classList.add('active');
+                    cantonInfoDetails.classList.add('active');
+                };
+                console.log(arDnfInfo);
+
+                // ************ 4.2.2 - SEARCH DNF TERRITORIES ************************************************************
+
+                var cookieNber = "<?php echo $file_suffix; ?>";
+                var cantonNber = 0;
+                $.ajax({
+                    type: 'GET',
+                    url: "assets/inc/php/createJsonDnf.php",
+                    data: "territoireValue=" + territoireValue,
+
+                    success: function(response) {
+                        //console.log(response);
+                        if (typeof response === 'undefined') {
+                            alert("erreur");
+                        } else {
+                            //console.log(lyrTerritoriesDnf)
+                            if (lyrTerritoriesDnf) {
+                                lyrTerritoriesDnf.remove();
+                                map.removeLayer(lyrTerritoriesDnf);
+                            }
+
+                            lyrTerritoriesDnf = L.geoJSON.ajax('assets/datas/' + cookieNber + 'territoryDnf.json', {
+                                style: styleTerritories,
+                                onEachFeature: processTerritories
+                            });
+                            //console.log(lyrTerritoriesDnf.length)
+
+                            function styleTerritories(json) {
+                                return {
+                                    fillOpacity: 0.3,
+                                    weight: 2,
+                                    fillColor: '#fe7924',
+                                    color: '#fe7924'
+                                };
+                            }
+
+                            function processTerritories(json, lyr) {
+                                var att = json.properties;
+                                cantonNber = cantonNber + 1
+                                lyr.on('mouseover', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.7
+                                    })
+                                    lyr.bindTooltip('<h6 style="color:#2c3e50"><center>N° de Territoire : <br>' + att.Numero_Lot + '</h6>');
+                                })
+                                lyr.on('mouseout', function() {
+                                    lyr.setStyle({
+                                        fillOpacity: 0.3
+                                    });
+                                })
+                            }
+
+                            // ************ 4.2.3 - SEARCH DNF INFO ************************************************************     
+
+                            lyrTerritoriesDnf.on('data:loaded', function() {
+                                jsnTerritories = turf.area(lyrTerritoriesDnf.toGeoJSON());
+                                cantonArea.classList.add('active');
+
+                                var surfaceKM = new Intl.NumberFormat('de-DE').format((jsnTerritories / 1000000).toFixed(2));
+                                var surfaceHA = new Intl.NumberFormat('de-DE').format((jsnTerritories / 10000).toFixed(0));
+                                $('#cantonArea').html('Surface : ' + surfaceKM + ' Km2 ou ' + surfaceHA + ' Ha');
+                                map.fitBounds(lyrTerritoriesDnf.getBounds().pad(0));
+                                $('#cantonInfo').html('<center>CANTONNEMENT<center>');
+                                $('#cantonName').html(arDnfInfo[0]);
+                                $('#cantonNbre').html(cantonNber + ' territoires gérés');
+                                $('#cantonId').html("N° d'Identification : " + arDnfInfo[1]);
+                                $('#cantonDir').html('Direction : ' + arDnfInfo[2]);
+                                $('#cantonResp').html('Chef de canton : ' + arDnfInfo[3]);
+                                $('#cantonTel').html('<i class="fa-solid fa-phone"></i>&nbsp' + arDnfInfo[4]);
+                                $('#cantonEmail').html("<i class='fa-solid fa-envelope'>&nbsp" + "</i><a href='mailto:" + arDnfInfo[5] + "'>" + arDnfInfo[5] + "</a>");
+                                $('#cantonAdresse').html('<i class="fa-solid fa-location-dot"></i>&nbsp ' + arDnfInfo[10] + ', ' + arDnfInfo[9] + ' ' + arDnfInfo[11] + ' ' + arDnfInfo[8]);
+
+                                var lat = (arDnfInfo[6]);
+                                var long = (arDnfInfo[7]);
+                                //console.log(lat);
+                                //console.log(long);
+
+                                var dnfIcon = L.icon({
+                                    iconUrl: 'assets/img/Logo_dnf.png',
+                                    iconSize: [25, 25], // size of the icon
+                                });
+                                marker = new L.marker([lat, long], {
+                                    icon: dnfIcon
+                                });
+                                map.addLayer(marker);
+
+                                var isSmall = true; // Variable pour suivre la taille actuelle de l'icône
+                                setInterval(function() {
+                                    if (isSmall) {
+                                        dnfIcon.options.iconSize = [50, 50];
+                                    } else {
+                                        dnfIcon.options.iconSize = [25, 25];
+                                    }
+
+                                    // Mettre à jour l'icône du marqueur avec la nouvelle taille
+                                    marker.setIcon(dnfIcon);
+                                    // Inverser la variable de suivi de la taille actuelle
+                                    isSmall = !isSmall;
+
+                                }, 1000); // 1000 millisecondes (2 secondes)
+
+                            }).addTo(map);
+
+                            // ************ SEARCH HUNTING DATES IN DNF TERRITORIES ************************************************************
+
+                            let huntedNber = huntedTerritories[0]
+                            let territoriesClosed = [];
+                            let territoriesOpened =[];
+                            let territoriesList = [];
+
+
+                            for (i = 0; i < huntedNber; i++) {
+                                dnfId = huntedTerritories[2][i]["DA_Numero"].substr(0, 3)
+                                if (dnfId == territoireValue) {
+
+                                    territory = huntedTerritories[2][i]["DA_Numero"];
+                                    territoriesList.push(territory);
+                                    if (huntedTerritories[2][i]["FERMETURE"] == "O") {
+                                        territoriesClosed.push(territory)
+                                    } else {
+                                        territoriesOpened.push(territory)
+                                    }
+                                }
+                            };
+                            
+                            console.log(territoriesClosed);
+                            console.log(territoriesOpened);
+
+                            let territoriesNber = territoriesList.join(',');
+                            console.log(territoriesNber)
+
+                            document.getElementById("retour").innerHTML = territoriesList.length + " territoires chassés le " + formatDate;
+                            createMultiJson(territoriesNber);
+
+
+                            // ********************** CC SCRIPT ***********************************************************
+
+                            var navDiv = document.getElementById('CC-nav');
+                            navDiv.addEventListener('click', function(e) {
+                                console.log(e)
+                                if ($(e.target).closest('#cc').length === 0 && $(e.target).closest('[data-toggle="cc"]').length === 0) {
+                                    $('#cc').modal('hide');
+                                }
+
+
+                            });
+                        };
+                    }
+                });
+            })
+        })
+
+
+
+
+    })
 </script>

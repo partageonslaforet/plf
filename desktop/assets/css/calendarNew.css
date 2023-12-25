@@ -138,10 +138,6 @@ ul.menu-links{
     color:#990047;
  }
 
- .btn-close{
-    font-size: 0.8vw !important;
-    color:#990047 !important;
- }
 
  #search{
     text-align: center;
@@ -247,31 +243,10 @@ ul.menu-links{
     padding-bottom: 2vh;
 } 
 
-#territoriesHuntingDatesLabel{
-    font-size: 1.3vw;
-    text-align: center;
-    font-weight: 600;
-    /* color:#2c3e50; */
-    color: #990047;
-    margin: 1rem 0;
-}
 
 
-#huntingDate{
-    width:100%;
-    display:none;
-}
 
-#huntingDate.active{
-    width:100%;
-    display:block;
-}
 
-.sub-info{
-    width: 85%;
-    margin: 0 10px;
-    border-radius: 5px;
-}
 
 
 #data-Date{
@@ -317,11 +292,6 @@ th,td{
     color:#2c3e50;
     margin-top: 0.5rem;
     margin-bottom:2rem;
-}
-
-#territoryArea{
-    text-align:center;
-    font-size: 1vw;
 }
 
 /******** SIDEBAR SETTING ***********/
@@ -387,7 +357,7 @@ body.dark{
     z-index: 2001;  
 }
 .sidebar.close{
-    width: 10vw;
+    width: 5vw;
 }
 
 /* ===== Reusable code - Here ===== */
@@ -417,7 +387,7 @@ body.dark{
 
 .sidebar .text,
 .sidebar .icon{
-    color: var(--text-color);
+    color: var(--primary-color);
     transition: var(--tran-03);
 }
 
