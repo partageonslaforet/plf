@@ -41,33 +41,19 @@
         var geometry = "";
 
 
-        jQuery.ajax({
-            type: "POST",
-            url: "./testjs_phpFunctions.php",
-            async: false,
-
-            data: { func : "addit", 
-                    arg1 : [5, 7]
-                  },
-            success: function (result) {
-
-                console.log(result);
-                geometry = jQuery.parseJSON(result);
-            },
-            error: function(error) {
-                console.log(error.status);
-                console.log(error.statusText);
-                // console.log(error.responseText);
-            }
-        });
-
+        var territories_array = ["7123253071", 
+                                 "9110501007",
+                                 "9533500053"
+                                ];
         jQuery.ajax({
             type: "POST",
             url: "./testjs_phpFunctions.php",
             async: false,
             datatype: 'json',
             data: { func : "get_json", 
-                    arg1 : ["./LB72.json"]
+                    arg1 : territories_array,
+                    arg2 : ["./LB72.json"]
+
                   },
             success: function (result) {
 
@@ -75,7 +61,7 @@
 
                 geometry = jQuery.parseJSON(resultArray["json"]);
                 xyz = resultArray["toto"];
-                
+
                 console.log(resultArray["toto"]);
             },
             error: function(error) {
