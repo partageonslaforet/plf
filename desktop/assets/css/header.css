@@ -7,16 +7,46 @@
 
 }
 
-body{
-    /*background-image: url("https://partageonslaforet.be/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG");*/
-    /*background-image: url("https://partageonslaforet.be/wp-content/uploads/2023/04/forest-scaled.jpg");*/
-    background-image: url("https://partageonslaforet.be/assets/img/plf-foret1.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-    
+/************** IMG SPONSORS *************************/
+
+
+.vh-10 {
+    height: 10vh; /* 10% de la hauteur de la vue (viewport) */
+    width: auto;
+    max-width: 100%; /* Pour éviter le débordement de l'image */
+    display: block;
+    margin: 0 auto; /* Centrage horizontal */
+}
+
+.img-fluid {
+    max-width: 80%!important;
+}
+ /* Centrage vertical pour les mobiles */
+@media (max-width: 576px) {
+    .vertical-center {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .img-fluid {
+        max-width: 60%!important;
+    }
+}
+
+
+.custom-close-btn path{
+    font-size: 0.8vw !important;
+    fill:#990047 !important;
+    font-weight: 600 !important;
+    border-color: 1px solid #990047 !important;
+    border-radius: 50px;
 }
 
 /************** HEADER *************************/
+
+
 
 .site-header{
     display: flex;
@@ -41,7 +71,7 @@ body{
 }
 
 .menu.active li {
-    transform: rotate(calc(360deg / 7 * var(--i)));
+    transform: rotate(calc(360deg / 8 * var(--i)));
 } 
 
 .toggle{
@@ -62,9 +92,9 @@ body{
     transition: transform 1s; 
 }
 
-/*.menu.active .toggle{
+.menu.active .toggle{
     transform: rotate(360deg);
-} */
+} 
 
 .menu li{
     position:absolute;
@@ -226,7 +256,7 @@ img {
     margin-right: 10px;
 }
 
-#sponsors{
+/*#sponsors{
     z-index:2001;
     margin-right: auto;
     margin-left: auto;
@@ -252,22 +282,7 @@ img {
     object-fit: contain;
     margin-left: auto;
     margin-right: auto;
-}
-
-#popupInfo{
-    background-color: rgba(255,255,255,0.8);
-    border-radius: 5px;
-    width: 40%;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 1rem;
-    box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
-    margin-top: 2rem;
-    top:55%;
-    left:30%;
-    position:absolute;
-    font-size: 1.2rem;
-}
+}*/
 
 p{
     padding: 0.5rem;
@@ -280,7 +295,7 @@ p{
     margin-right:auto;
     background-color: #B2D039;
     border: 1px solid #B2D039;
-    color: white;
+    color: #34495e;;
     border-radius:10px;
     padding: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -289,6 +304,7 @@ p{
     cursor: pointer;
     text-decoration: none;
     font-size: 1rem;
+    font-weight: 600;
 }
 
 #btnLink{
@@ -315,21 +331,6 @@ a:hover span {
     justify-content: center;
     display:flex;
     z-index:3000 !important;
-}
-
-#popup {
-    display: none;
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: rgba(255,255,255,1);
-    border-radius:5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    width: 40%;
-    box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
 }
 
 .close {
@@ -359,15 +360,6 @@ a:hover span {
     width: 100%;
 }
 
-#popupTitle{
-  font-size: 1.3rem;
-  margin-right: auto;
-  margin-left: auto;
-  width: 100%;
-  color: #2c3e50;
-  display: inline-block;
-  text-align: center;
-}
 
 .input-group-text{
     color: #2c3e50;
@@ -408,17 +400,15 @@ a:hover span {
     margin-left: auto;
 }
 
-/***************** DESKTOP < 1200 *******************************/
-
-@media (max-width: 1200px) {
-    #sponsors img{
+@media (max-width: 1450px) {
+   /* #sponsors img{
         justify-content:space-between;
         width: 100%;
         height: 100%;
         object-fit: contain;
         margin-left: auto;
         margin-right: auto;
-    }
+    }*/
     
     #title{
         z-index:2001;
@@ -445,7 +435,7 @@ a:hover span {
         color:#34495e;
         text-transform: uppercase;
     }
-    
+
     #slogan{
         margin-top: 2rem;
         font-size: 1.5rem;
@@ -455,22 +445,19 @@ a:hover span {
         margin-bottom: 1rem;
         padding: 5px;
     }
-    
-    #popupInfo{
-        background-color: rgba(255,255,255,0.8);
-        border-radius: 5px;
-        width: 80%;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 1rem;
-        box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
-        margin-top: 2rem;
-        top:55%;
-        left:10%;
-        position:absolute;
-    }
+   
 }
 
+.thumbnail {
+    height: 100px;
+    width: auto;
+}
+
+
+.thumbnail img {
+    max-height: 100%;
+    max-width: 100%;
+}
 /***************** MOBILE *******************************/
 
 
@@ -539,21 +526,7 @@ a:hover span {
         padding: 5px;
     }
 
-    #popupInfo{
-        background-color: rgba(255,255,255,0.8);
-        border-radius: 5px;
-        width: 80%;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 1rem;
-        box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
-        margin-top: 2rem;
-        top:45%;
-        left:10%;
-        position:absolute;
-    }
-
-    #sponsors{
+   /*#sponsors{
         z-index:2001;
         margin-right: auto;
         margin-left: auto;
@@ -570,21 +543,5 @@ a:hover span {
         top: 85%;
         overflow: hidden;
         left: 10%;
-    }
-
-    #popup {
-        display: none;
-        position: fixed;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: rgba(255,255,255,1);
-        border-radius:5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        z-index: 9999;
-        width: 80%;
-        height: 50%;
-        box-shadow: 5px 5px 5px rgba(36,68,92,0.5), inset 2px 2px 3px rgba(36,68,92,0.25), inset 0px 0px 5px rgba(36,68,92,0.5);
-    }
+    }*/
 }

@@ -8,6 +8,7 @@ require_once "Functions.php";
 //4a Selection date en fonction territoires (nomenclature 10 chiffres)
 
 $List_dates = array();
+$List_Chasse_Dates_By_Territories = array();
 
 if (isset($_GET["territoireValue"])) {
     
@@ -25,8 +26,8 @@ if (isset($_GET["territoireValue"])) {
         
          echo "Pas de date de chasse pour ce territoire.";
         } else {
-        
-            print json_encode($List_Chasse_Dates_By_Territories);
+            //var_dump($List_Chasse_Dates_By_Territories);
+            print json_encode($List_Chasse_Dates_By_Territories[2]);
         }
     
  }

@@ -1,0 +1,78 @@
+* {
+	font-family: "poppins", sans-serif;
+	margin: 0;
+}
+
+#cantonInfo.active {
+	font-size: 1.5rem;
+	text-align: center;
+	font-weight: 600;
+	color: #2c3e50;
+	margin-top: 0.5rem;
+	margin-bottom: 2rem;
+}
+
+#cantonInfoDetails.active {
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 85%;
+	padding: 15px;
+	border-radius: 10px;
+	margin-bottom: 1rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#cantonName.active {
+	width: 85%;
+	font-size: 1.5vw;
+	text-align: center;
+	font-weight: 600;
+	padding: 3px 0 0px 0;
+	color: white;
+	background-color: #b2d039;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 15px;
+	border-radius: 10px;
+	margin-bottom: 1rem;
+	margin-top: -1rem;
+}
+
+#cantonNbre {
+	text-align: center;
+	display: grid;
+	position: relative;
+	font-weight: 600;
+	color: #fe7924;
+	font-size: 1.2vw;
+}
+
+#cantonArea.active {
+	text-align: center;
+	display: grid;
+	position: relative;
+	font-weight: 600;
+	color: #fe7924;
+	font-size: 1.2vw;
+	margin-bottom: 0.5rem;
+}
+
+#cantonDir,
+#cantonResp,
+#cantonTel,
+#cantonEmail,
+#cantonAdresse,
+#cantonId {
+	padding-left: 5%;
+	font-weight: 600;
+	color: #2c3e50;
+	font-size: 1.0vw;
+	overflow: hidden;
+	overflow-wrap: break-word;
+}
+
+
+/* Ajouter une transition pour l'élément qui utilise l'icône */
+.leaflet-marker-icon {
+	transition: transform 0.5s ease-in-out; /* Vous pouvez ajuster la durée et la fonction d'accélération selon vos préférences */
+}
