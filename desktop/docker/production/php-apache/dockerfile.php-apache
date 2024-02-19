@@ -1,0 +1,3 @@
+FROM php:8.2-apache
+COPY ./desktop /var/www/html/
+COPY ./.env /var/www/.env
