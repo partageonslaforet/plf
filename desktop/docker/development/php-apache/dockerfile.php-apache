@@ -1,6 +1,0 @@
-FROM php:8.2-apache
-
-
-COPY desktop /var/www/html
-#COPY desktop /usr/local/apache2/htdocs
-COPY desktop/docker/development/.env /var/www/.env

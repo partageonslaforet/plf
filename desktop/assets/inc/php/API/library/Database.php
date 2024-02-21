@@ -46,7 +46,6 @@ class Database
             switch ($e->getCode()) {
                 case 1049:                      // Database does not exist.
                     throw new pdoDBException(1049, $e, "SQL Database does not exist : " . $e->getMessage(), );
-                    $x = 4;
 
                 case 2002:                      // Database is unreachable
                     throw new pdoDBException(2002, $e, "Unable to access database : " . $e->getMessage(), );
@@ -202,8 +201,6 @@ class Database
             switch ($e->getCode()) {
                 case 1049:                      // Database does not exist
                     throw new pdoDBException(1049, $e, "SQL Database does not exist : " . $e->getMessage(), );
-                    $x = 3;
-                    exit;
 
                 case 2002:                      // Database is unreachable
                     throw new pdoDBException(2002, $e, "Unable to access database : " . $e->getMessage(), );
@@ -213,16 +210,7 @@ class Database
 
                 }
 
-                $SQL_Error = $e->errorInfo[1];
 
-
-
-                
-                switch ($SQL_Error) {
-                    default:
-                        throw new pdoDBException($SQL_Error, $e, "SQL Error : " . $e->getMessage() . " --- " );
-
-                }
             } catch (Exception $e) {
 
             }

@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'geoPHP\\' => array($vendorDir . '/wgirhad/geophp/src'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

@@ -1,4 +1,7 @@
-Parameters.php
+!composer.json
+!composer.lock
+
+
 *.json
 *.gpx
 desktop/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG
@@ -6,3 +9,4 @@ desktop/assets/img/Maison du Tourisme Cap Sûre Anlier_DSC_0069.JPG
 .env
 node_modules
 desktop/assets/inc/php/API/library/input/
+vendor/

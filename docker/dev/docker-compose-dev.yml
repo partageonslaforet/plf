@@ -1,0 +1,40 @@
+version: '3.9'
+
+volumes:
+  mysql:
+  app:
+
+services:
+    dev-mysql:
+      image: dev-mysql:0.1
+      container_name: dev-mysql
+      restart: always
+      env_file:
+        - ./../../.env
+      logging:
+        options:
+          max-size: 10m
+          max-file: "3"
+      ports:
+        - '3306:3306'
+      volumes: 
+        - mysql:/var/lib/mysql
+      # # copy the sql script to create tables
+        - ./mysql:/docker-entrypoint-initdb.d
+    
+    dev-app:
+      image: dev-app:0.1
+      container_name: dev-app
+      depends_on: 
+        - dev-mysql
+      environment:
+        - ENVIRONMENT=development
+      ports:
+        - 89:80
+      volumes:
+        - app:/var/www/html/
+        #- ./desktop/../.env:/var/www/
+
+      
+
+        

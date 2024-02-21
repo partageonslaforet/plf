@@ -14,6 +14,10 @@ class ComposerStaticInit4c6f10143843848f010bb30e4031c661
     );
 
     public static $prefixLengthsPsr4 = array (
+        'g' => 
+        array (
+            'geoPHP\\' => 7,
+        ),
         'Z' => 
         array (
             'ZipStream\\' => 10,
@@ -56,6 +60,10 @@ class ComposerStaticInit4c6f10143843848f010bb30e4031c661
     );
 
     public static $prefixDirsPsr4 = array (
+        'geoPHP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wgirhad/geophp/src',
+        ),
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
