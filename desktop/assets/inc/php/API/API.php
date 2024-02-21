@@ -367,7 +367,7 @@ function Send_Run_logs_By_eMail(): void {
     // $plf_mail->Host = "smtp.gmail.com";
     // $plf_mail->Port = 465;
     // $plf_mail->Username = "christian.lurkin@gmail.com";
-    // $plf_mail->Password = "bsrrulivvonbbwie";
+    // $plf_mail-> = "bsrrulivvonbbwie";
 
 
 
@@ -376,7 +376,7 @@ function Send_Run_logs_By_eMail(): void {
     $plf_mail->Host = "mailcatcher";
     $plf_mail->Port = 1025;
     $plf_mail->Username = "christian.lurkin@gmail.com";
-    $plf_mail->Password = "bsrrulivvonbbwie";
+    //$plf_mail-> = "bsrrulivvonbbwie";
     $plf_mail->From = "Christian.lurkin@gmail.com";
     $plf_mail->FromName = "Christian Lurkin PLF";
     $plf_mail->addAddress("christian.lurkin@gmail.com");
