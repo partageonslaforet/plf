@@ -336,63 +336,89 @@ CREATE TABLE IF NOT EXISTS `plf_spw_territoires` (
 
 -- Dumping structure for view plf.view_spw_cantonnements
 -- Creating temporary table to overcome VIEW dependency errors
-CREATE TABLE `view_spw_cantonnements` (
-	`cantonnement_id` INT(10) NOT NULL,
-	`CAN` SMALLINT(5) NOT NULL,
-	`PREPOSE` VARCHAR(30) NULL COLLATE 'utf8mb4_unicode_ci',
-	`CANTON` VARCHAR(40) NULL COLLATE 'utf8mb4_unicode_ci',
-	`TEL_CAN` VARCHAR(14) NULL COLLATE 'utf8mb4_unicode_ci',
-	`GEOM` MEDIUMBLOB NULL,
-	`direction` VARCHAR(50) NULL COLLATE 'utf8mb4_unicode_ci',
-	`email` VARCHAR(100) NULL COLLATE 'utf8mb4_unicode_ci',
-	`attache` VARCHAR(255) NULL COLLATE 'utf8mb4_unicode_ci',
-	`CP` VARCHAR(10) NULL COLLATE 'utf8mb4_unicode_ci',
-	`localite` VARCHAR(50) NULL COLLATE 'utf8mb4_unicode_ci',
-	`rue` VARCHAR(80) NULL COLLATE 'utf8mb4_unicode_ci',
-	`numero` VARCHAR(10) NULL COLLATE 'utf8mb4_unicode_ci',
-	`latitude` DOUBLE NULL,
-	`longitude` DOUBLE NULL
-) ENGINE=MyISAM;
+
+
+-- plf.view_spw_cantonnements source
+
+create view `view_spw_cantonnements` as
+select
+    `plf_spw_cantonnements`.`cantonnement_id` as `cantonnement_id`,
+    `plf_spw_cantonnements`.`CAN` as `CAN`,
+    `plf_spw_cantonnements`.`PREPOSE` as `PREPOSE`,
+    `plf_spw_cantonnements`.`CANTON` as `CANTON`,
+    `plf_spw_cantonnements`.`TEL_CAN` as `TEL_CAN`,
+    `plf_spw_cantonnements`.`GEOM` as `GEOM`,
+    `plf_spw_cantonnements_adresses`.`direction` as `direction`,
+    `plf_spw_cantonnements_adresses`.`email` as `email`,
+    `plf_spw_cantonnements_adresses`.`attache` as `attache`,
+    `plf_spw_cantonnements_adresses`.`CP` as `CP`,
+    `plf_spw_cantonnements_adresses`.`localite` as `localite`,
+    `plf_spw_cantonnements_adresses`.`rue` as `rue`,
+    `plf_spw_cantonnements_adresses`.`numero` as `numero`,
+    `plf_spw_cantonnements_adresses`.`latitude` as `latitude`,
+    `plf_spw_cantonnements_adresses`.`longitude` as `longitude`
+from
+    (`plf_spw_cantonnements`
+left join `plf_spw_cantonnements_adresses` on
+    ((`plf_spw_cantonnements`.`CAN` = `plf_spw_cantonnements_adresses`.`num_canton`)));
 
 -- Dumping structure for view plf.view_spw_cc
 -- Creating temporary table to overcome VIEW dependency errors
-CREATE TABLE `view_spw_cc` (
-	`cc_id` INT(10) NOT NULL,
-	`nugc_CC` INT(10) NULL,
-	`N_AGREMENT_CC` SMALLINT(5) NOT NULL,
-	`DENOMINATION_CC` VARCHAR(300) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`ABREVIATION_CC` VARCHAR(300) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`RUE_CC` VARCHAR(200) NULL COLLATE 'utf8mb4_unicode_ci',
-	`NUM_CC` VARCHAR(20) NULL COLLATE 'utf8mb4_unicode_ci',
-	`CP_CC` VARCHAR(12) NULL COLLATE 'utf8mb4_unicode_ci',
-	`LOCALITE_CC` VARCHAR(50) NULL COLLATE 'utf8mb4_unicode_ci',
-	`NOM_PSDT_CC` VARCHAR(150) NULL COLLATE 'utf8mb4_unicode_ci',
-	`PRENOM_PSDT_CC` VARCHAR(150) NULL COLLATE 'utf8mb4_unicode_ci',
-	`NOM_SECR_CC` VARCHAR(150) NULL COLLATE 'utf8mb4_unicode_ci',
-	`PRENOM_SECR_CC` VARCHAR(150) NULL COLLATE 'utf8mb4_unicode_ci',
-	`SUPERFICIE_CC` DECIMAL(8,2) NULL,
-	`LIEN_CARTE_CC` VARCHAR(510) NULL COLLATE 'utf8mb4_unicode_ci',
-	`email_CC` VARCHAR(100) NULL COLLATE 'utf8mb4_unicode_ci',
-	`site_internet_CC` VARCHAR(255) NULL COLLATE 'utf8mb4_unicode_ci',
-	`logo_CC` VARCHAR(20) NULL COLLATE 'utf8mb4_unicode_ci',
-	`latitude_CC` DOUBLE NULL,
-	`longitude_CC` DOUBLE NULL
-) ENGINE=MyISAM;
 
--- Dumping structure for view plf.view_spw_chasses
--- Creating temporary table to overcome VIEW dependency errors
-CREATE TABLE `view_spw_chasses` (
-	`SAISON` SMALLINT(5) NOT NULL,
-	`N_LOT` VARCHAR(10) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`NUM` INT(10) NOT NULL,
-	`MODE_CHASSE` VARCHAR(9) NULL COLLATE 'utf8mb4_unicode_ci',
-	`chasse_id` INT(10) NOT NULL,
-	`DATE_CHASSE` DATE NOT NULL,
-	`FERMETURE` VARCHAR(1) NULL COLLATE 'utf8mb4_unicode_ci',
-	`KEYG` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`SEQ` TINYINT(3) NULL,
-	`NUGC` SMALLINT(5) NULL
-) ENGINE=MyISAM;
+
+
+-- plf.view_spw_cc source
+
+create view `view_spw_cc` as
+select
+    `plf_spw_cc`.`cc_id` as `cc_id`,
+    `plf_spw_cc_concordance`.`nugc` as `nugc_CC`,
+    `plf_spw_cc`.`N_AGREMENT` as `N_AGREMENT_CC`,
+    `plf_spw_cc`.`DENOMINATION` as `DENOMINATION_CC`,
+    `plf_spw_cc`.`ABREVIATION` as `ABREVIATION_CC`,
+    `plf_spw_cc`.`RUE_CC` as `RUE_CC`,
+    `plf_spw_cc`.`NUM_CC` as `NUM_CC`,
+    `plf_spw_cc`.`CP_CC` as `CP_CC`,
+    `plf_spw_cc`.`LOCALITE_CC` as `LOCALITE_CC`,
+    `plf_spw_cc`.`NOM_PSDT` as `NOM_PSDT_CC`,
+    `plf_spw_cc`.`PRENOM_PSDT` as `PRENOM_PSDT_CC`,
+    `plf_spw_cc`.`NOM_SECR` as `NOM_SECR_CC`,
+    `plf_spw_cc`.`PRENOM_SECR` as `PRENOM_SECR_CC`,
+    `plf_spw_cc`.`SUPERFICIE` as `SUPERFICIE_CC`,
+    `plf_spw_cc`.`LIEN_CARTE` as `LIEN_CARTE_CC`,
+    `plf_spw_cc_adresses`.`email` as `email_CC`,
+    `plf_spw_cc_adresses`.`site_internet` as `site_internet_CC`,
+    `plf_spw_cc_adresses`.`logo` as `logo_CC`,
+    `plf_spw_cc_adresses`.`latitude` as `latitude_CC`,
+    `plf_spw_cc_adresses`.`longitude` as `longitude_CC`
+from
+    ((`plf_spw_cc`
+left join `plf_spw_cc_adresses` on
+    ((`plf_spw_cc_adresses`.`Code` = `plf_spw_cc`.`ABREVIATION`)))
+join `plf_spw_cc_concordance` on
+    ((`plf_spw_cc_concordance`.`cc_id` = `plf_spw_cc`.`cc_id`)));
+
+
+create view `view_spw_chasses` as
+select
+    `plf_spw_chasses`.`SAISON` as `SAISON`,
+    `plf_spw_chasses`.`N_LOT` as `N_LOT`,
+    `plf_spw_chasses`.`NUM` as `NUM`,
+    `plf_spw_chasses`.`MODE_CHASSE` as `MODE_CHASSE`,
+    `plf_spw_chasses`.`chasse_id` as `chasse_id`,
+    `plf_spw_chasses`.`DATE_CHASSE` as `DATE_CHASSE`,
+    `plf_spw_chasses`.`FERMETURE` as `FERMETURE`,
+    `plf_spw_chasses`.`KEYG` as `KEYG`,
+    `plf_spw_territoires`.`SEQ` as `SEQ`,
+    `plf_spw_territoires`.`NUGC` as `NUGC`
+from
+    (`plf_spw_chasses`
+left join `plf_spw_territoires` on
+    (((`plf_spw_chasses`.`SAISON` = `plf_spw_territoires`.`SAISON`)
+        and (`plf_spw_chasses`.`N_LOT` = `plf_spw_territoires`.`N_LOT`))));
+
+
+		
 
 -- Dumping structure for view plf.view_spw_cantonnements
 -- Removing temporary table and create final VIEW structure

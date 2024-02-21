@@ -1,0 +1,4 @@
+FROM dockage/mailcatcher
+
+EXPOSE 1080
+EXPOSE 1025

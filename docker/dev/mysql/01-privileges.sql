@@ -1,0 +1,1 @@
+GRANT ALL privileges ON *.* TO 'PLF'@'%'

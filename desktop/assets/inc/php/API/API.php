@@ -360,7 +360,38 @@ function Send_Run_logs_By_eMail(): void {
 
 
     $plf_mail = new PHPMailer();
-    $plf_mail->From = "Christian.lurkin@hotmail.com";
+
+    // $plf_mail->isSMTP();
+    // $plf_mail->SMTPAuth = true;
+    // $plf_mail->SMTPSecure = "ssl";
+    // $plf_mail->Host = "smtp.gmail.com";
+    // $plf_mail->Port = 465;
+    // $plf_mail->Username = "christian.lurkin@gmail.com";
+    // $plf_mail->Password = "bsrrulivvonbbwie";
+
+
+
+    $plf_mail = new PHPMailer();
+    $plf_mail->isSMTP();
+    $plf_mail->Host = "mailcatcher";
+    $plf_mail->Port = 1025;
+    $plf_mail->Username = "christian.lurkin@gmail.com";
+    $plf_mail->Password = "bsrrulivvonbbwie";
+    $plf_mail->From = "Christian.lurkin@gmail.com";
+    $plf_mail->FromName = "Christian Lurkin PLF";
+    $plf_mail->addAddress("christian.lurkin@gmail.com");
+    $plf_mail->addReplyTo("Christian.lurkin@gmail.com");
+    $plf_mail->isHTML(true);
+    $plf_mail->Subject = "PLF ERROR Launching task - ";
+
+    $plf_mail->AltBody = "Run Log for spw API call.";
+
+
+
+
+
+
+    $plf_mail->From = "Christian.lurkin@gmail.com";
     $plf_mail->FromName = "Christian Lurkin PLF";
 
 
