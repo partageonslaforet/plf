@@ -360,56 +360,31 @@ function Send_Run_logs_By_eMail(): void {
 
 
     $plf_mail = new PHPMailer();
-
-    // $plf_mail->isSMTP();
-    // $plf_mail->SMTPAuth = true;
-    // $plf_mail->SMTPSecure = "ssl";
-    // $plf_mail->Host = "smtp.gmail.com";
-    // $plf_mail->Port = 465;
-    // $plf_mail->Username = "christian.lurkin@gmail.com";
-    // $plf_mail-> = "bsrrulivvonbbwie";
-
-
-
-    $plf_mail = new PHPMailer();
     $plf_mail->isSMTP();
-    $plf_mail->Host = "mailcatcher";
-    $plf_mail->Port = 1025;
-    $plf_mail->Username = "christian.lurkin@gmail.com";
-    //$plf_mail-> = "bsrrulivvonbbwie";
-    $plf_mail->From = "Christian.lurkin@gmail.com";
-    $plf_mail->FromName = "Christian Lurkin PLF";
-    $plf_mail->addAddress("christian.lurkin@gmail.com");
-    $plf_mail->addReplyTo("Christian.lurkin@gmail.com");
+
+    $plf_mail->Host = $_ENV("mail_Host");
+    $plf_mail->Port = $_ENV("mail_Port");
+    $plf_mail->Username = $_ENV("mail_Username");
+    $plf_mail->Password = $_ENV("mail_Password");
+    $plf_mail->SMTPSecure = $_ENV("mail_SMTPSecure");
+    $plf_mail->SMTPAuth = $_ENV("mail_SMTPAuth");
+
     $plf_mail->isHTML(true);
-    $plf_mail->Subject = "PLF ERROR Launching task - ";
 
-    $plf_mail->AltBody = "Run Log for spw API call.";
-
-
-
-
-
-
-    $plf_mail->From = "Christian.lurkin@gmail.com";
-    $plf_mail->FromName = "Christian Lurkin PLF";
-
-
+    $plf_mail->From = $_ENV("mail_Username");
+    $plf_mail->FromName = "PLF API";
+    $plf_mail->addAddress("christian.lurkin@gmail.com");
+    $plf_mail->addReplyTo($_ENV("mail_Username"));
    
     foreach($_ENV as $key => $mailRecipient) {
-
 
         if ( substr(strtoupper($key),0,7) == "LOGMAIL") {
             $plf_mail->addAddress($mailRecipient);
             echo "sending to mail " . $mailRecipient . "<br>";
         }
     }
-    $plf_mail->addAddress("Christian.lurkin@hotmail.com");
-
 
     
-    $plf_mail->addReplyTo("Christian.lurkin@hotmail.com");
-    $plf_mail->isHTML(true);
     $plf_mail->Subject = "PLF logging - " . $Print_Mail_Title;
 
     $plf_mail->AltBody = "Run Log for spw API call.";

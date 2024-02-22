@@ -51,22 +51,22 @@ class ErrorHandler {
         $fmt_trace .= print_r($trace, true);
         $fmt_trace .= "</pre>";
         
-        // $trace = preg_replace("/\n/", "<br>", $trace);
 
         $plf_mail = new PHPMailer();
         $plf_mail->isSMTP();
-        #$plf_mail->SMTPAuth = true;
-        #$plf_mail->SMTPSecure = "tls";
-        #$plf_mail->Host = "smtp.gmail.com";
-        $plf_mail->Host = "mailcatcher";
-        #$plf_mail->Port = 587;
-        $plf_mail->Port = 1025;
-        $plf_mail->Username = "christian.lurkin@gmail.com";
-        //$plf_mail-> = "bsrrulivvonbbwie";
-        $plf_mail->From = "Christian.lurkin@gmail.com";
-        $plf_mail->FromName = "Christian Lurkin PLF";
+
+        $plf_mail->Host = $_ENV("mail_Host");
+        $plf_mail->Port = $_ENV("mail_Port");
+        $plf_mail->Username = $_ENV("mail_Username");
+        $plf_mail->Password = $_ENV("mail_Password");
+        $plf_mail->SMTPSecure = $_ENV("mail_SMTPSecure");
+        $plf_mail->SMTPAuth = $_ENV("mail_SMTPAuth");
+
+
+        $plf_mail->From = $_ENV("mail_Username");
+        $plf_mail->FromName = "PLF Error ";
         $plf_mail->addAddress("christian.lurkin@gmail.com");
-        $plf_mail->addReplyTo("Christian.lurkin@gmail.com");
+        $plf_mail->addReplyTo($_ENV("mail_Username"));
         $plf_mail->isHTML(true);
         $plf_mail->Subject = "PLF ERROR Launching task - ";
     

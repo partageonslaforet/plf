@@ -6,14 +6,6 @@ require_once __DIR__ . "/Functions.php";
 
 $debug = false;
 
-
-// determine to file path of the .env file depending is call is done through batch or http
-
-if ( empty($_SERVER["DOCUMENT_ROOT"]) == true ) {
-    $env_location = $_SERVER["DOCUMENT_ROOT"] . "/..";
-} 
-
-
 set_time_limit(0);
 
 ini_set('mysql.connect_timeout','0');   
