@@ -362,19 +362,19 @@ function Send_Run_logs_By_eMail(): void {
     $plf_mail = new PHPMailer();
     $plf_mail->isSMTP();
 
-    $plf_mail->Host = $_ENV("mail_Host");
-    $plf_mail->Port = $_ENV("mail_Port");
-    $plf_mail->Username = $_ENV("mail_Username");
-    $plf_mail->Password = $_ENV("mail_Password");
-    $plf_mail->SMTPSecure = $_ENV("mail_SMTPSecure");
-    $plf_mail->SMTPAuth = $_ENV("mail_SMTPAuth");
+    $plf_mail->Host = $_ENV["mail_Host"];
+    $plf_mail->Port = $_ENV["mail_Port"];
+    $plf_mail->Username = $_ENV["mail_Username"];
+    $plf_mail->Password = $_ENV["mail_Password"];
+    $plf_mail->SMTPSecure = $_ENV["mail_SMTPSecure"];
+    $plf_mail->SMTPAuth = $_ENV["mail_SMTPAuth"];
 
     $plf_mail->isHTML(true);
 
-    $plf_mail->From = $_ENV("mail_Username");
+    $plf_mail->From = $_ENV["mail_Username"];
     $plf_mail->FromName = "PLF API";
     $plf_mail->addAddress("christian.lurkin@gmail.com");
-    $plf_mail->addReplyTo($_ENV("mail_Username"));
+    $plf_mail->addReplyTo($_ENV["mail_Username"]);
    
     foreach($_ENV as $key => $mailRecipient) {
 

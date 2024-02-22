@@ -1,4 +1,4 @@
-FROM dockage/mailcatcher
+FROM dockage/mailcatcher:0.9.0
 
 EXPOSE 1080
 EXPOSE 1025
