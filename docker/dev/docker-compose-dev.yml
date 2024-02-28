@@ -6,11 +6,10 @@ volumes:
 
 services:
     dev-mysql:
-      image: dev-mysql:0.1
-      container_name: dev-mysql
+      image: mysql8036
+      container_name: mysql8036
       restart: always
-      env_file:
-        - ./../../.env
+
       logging:
         options:
           max-size: 10m

@@ -1,0 +1,35 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service-app
+  labels:
+    app: auth-service-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service-app
+  template:
+    metadata:
+      labels:
+        app: auth-service-app
+    spec:
+      containers:
+      - name: auth-service-app
+        image: jerry4664/auth-service:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 9003
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: auth-service
+spec:
+  selector:
+    app: auth-service-app
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 9003
