@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plf-dev
+spec:
+  selector:
+    matchLabels:
+      app: plf-dev
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: plf-dev
+    spec:
+      containers:
+        - name: plf-dev
+          image: mysql:8.2
+          resources:
+          imagePullPolicy: Never
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_root_password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_user_password
+          ports:
+            - containerPort: 3306 
+          volumeMounts:
+            - name: plf-dev-pv
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: plf-dev-pv
+          persistentVolumeClaim:
+            claimName: plf-dev-mysql-pvc
+
