@@ -4,3 +4,4 @@ metadata:
   name: plf-dev-configmap
 data:
   mysql_host: plf-dev-mysql-svc-ip
+  mysql_database: plf-dev

@@ -85,7 +85,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -201,7 +201,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -435,7 +435,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -556,7 +556,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -670,7 +670,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -803,7 +803,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -920,7 +920,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -1072,7 +1072,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -1195,7 +1195,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -1336,7 +1336,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -1464,7 +1464,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -1593,7 +1593,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
 
         $db_conn = $database->getConnection();
 
@@ -1708,7 +1708,7 @@ class PLF
  
          // Make a new database connection and test if connection is OK
  
-         $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+         $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
  
          $db_conn = $database->getConnection();
  
@@ -1822,7 +1822,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -1951,7 +1951,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -2084,7 +2084,7 @@ class PLF
 
         // Make a new database connection and test if connection is OK
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"], $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASSWORD"]);
 
         $db_conn = $database->getConnection();
 
@@ -2311,7 +2311,7 @@ class PLF
  
          // Make a new database connection and test if connection is OK
  
-         $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+         $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
  
          $db_conn = $database->getConnection();
  

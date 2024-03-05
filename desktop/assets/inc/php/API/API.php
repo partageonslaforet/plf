@@ -88,7 +88,7 @@ if ($parts[2] == "CGT" and $parts[3] == "ITINERAIRES" and $parts[4] == "STEP1") 
     $Print_Mail_Title = "CGT Itineraires - retrieve Web Service json file.";
     $Print_Mail_header = "<br><i>CGT Itineraires - STEP 1 - Web Service call.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";     
   
-    $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+    $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
     $database->update_LastRuntime("cron_itineraires_step1", $start=true); 
 
     $controller = new CGT_Itineraires_Controller_Step1(); 
@@ -127,7 +127,7 @@ if ($parts[2] == "CGT" and $parts[3] == "ITINERAIRES" and $parts[4] == "STEP2") 
     $Print_Mail_Title = "CGT Itineraires - STEP 2 - rebuild database table.";
     $Print_Mail_header = "<br><i>Run Log for CGT Itineraires Step2 - Upload database table.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";     
   
-    $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+    $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
     $database->update_LastRuntime("cron_itineraires_step2", $start=true); 
 
     $gateway = new CGT_Itineraires_Gateway_Step2($database);
@@ -163,7 +163,7 @@ if ($parts[2] == "SPW" and $parts[3] == "TERRITOIRES" and $parts[4] == "1") {
         $Print_Mail_Title = "Upload SPW Territoires.";
         $Print_Mail_header = "<br><i>Run Log for SPW Territoires API call.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>"; 
 
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
         $database->update_LastRuntime("cron_territoires", $start=true);
         
         $gateway = new SPW_Territoires_Gateway($database);
@@ -197,7 +197,7 @@ if ($parts[2] == "SPW" and $parts[3] == "CHASSES" and $parts[4] == "2") {
         $Print_Mail_Title = "Upload SPW Chasses.";
         $Print_Mail_header = "<br><i>Run Log for SPW Chasses API call.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";    
        
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
         $database->update_LastRuntime("cron_chasses", $start=true);
        
         $gateway = new SPW_Chasses_Gateway($database);
@@ -232,7 +232,7 @@ if ($parts[2] == "SPW" and $parts[3] == "CC" and $parts[4] == "0") {
         $Print_Mail_Title = "Upload SPW CC.";
         $Print_Mail_header = "<br><i>Run Log for SPW CC API call.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";    
        
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
         $database->update_LastRuntime("cron_cc", $start=true);
        
         $gateway = new SPW_CC_Gateway($database);
@@ -266,7 +266,7 @@ if ($parts[2] == "SPW" and $parts[3] == "CANTONNEMENT" and $parts[4] == "1") {
         $Print_Mail_Title = "Upload SPW Cantonnement.";
         $Print_Mail_header = "<br><i>Run Log for SPW Cantonnement API call.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";    
        
-        $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+        $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
         $database->update_LastRuntime("cron_cantonnement", $start=true);
        
         $gateway = new SPW_Cantonnement_Gateway($database);
@@ -307,7 +307,7 @@ if ($parts[2] == "CLEAN_TEMPORARY_FILES") {
     $Print_Mail_Title = "Clean Temporary files.";
     $Print_Mail_header = "<br><i>Clean Temporary files.</i> - run of " .date("d/m/Y H:i:s") . "<br><br>";     
   
-    $database = new Database($_ENV["MYSQL_SERVER"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
+    $database = new Database($_ENV["MYSQL_HOST"], $_ENV["MYSQL_DATABASE"],$_ENV["MYSQL_USER"] ,$_ENV["MYSQL_PASSWORD"] );
     $database->update_LastRuntime("cron_clean_temporary_files", $start=true);
 
     $Clean_Temp_Files = new Clean_Temp_Files();

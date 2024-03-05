@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: plf-dev
+  name: plf-dev-mysql
 spec:
   selector:
     matchLabels:
-      app: plf-dev
+      app: plf-dev-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: plf-dev
+        app: plf-dev-mysql
     spec:
       containers:
-        - name: plf-dev
+        - name: plf-dev-mysql
           image: mysql:8.2
           resources:
           imagePullPolicy: Never
@@ -26,8 +26,8 @@ spec:
                   key: mysql_root_password
             - name: MYSQL_DATABASE
               valueFrom:
-                secretKeyRef:
-                  name: plf-dev-secrets
+                configMapKeyRef:
+                  name: plf-dev-configmap
                   key: mysql_database
             - name: MYSQL_USER
               valueFrom:

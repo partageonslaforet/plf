@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plf-dev-app
+spec:
+  selector:
+    matchLabels:
+      app: plf-dev-app
+  template:
+    metadata:
+      labels:
+        app: plf-dev-app
+    spec:
+      containers:
+        - image: plf:1.0
+          name: plf-dev-app
+          resources:
+          imagePullPolicy: Never
+          env:
+            - name: PMA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: plf-dev-configmap
+                  key: mysql_host
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_root_password
+          ports:
+            - containerPort: 80
+

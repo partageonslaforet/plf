@@ -2,14 +2,17 @@ version: '3.9'
 
 volumes:
   mysql:
-  app:
+  # app:
 
 services:
-    dev-mysql:
-      image: mysql8036
-      container_name: mysql8036
+    plf-dev-mysql:
+      image: plf-dev-mysql:8.2
+      container_name: plf-dev-mysql-svc-ip
       restart: always
-
+      env_file: 
+        -  ../../.env
+      environment:
+        - environment=dev
       logging:
         options:
           max-size: 10m
@@ -21,18 +24,20 @@ services:
       # # copy the sql script to create tables
         - ./mysql:/docker-entrypoint-initdb.d
     
-    dev-app:
-      image: dev-app:0.1
-      container_name: dev-app
+    plf-dev-app:
+      image: plf-dev-app:1.0
+      container_name: plf-dev-app
       depends_on: 
-        - dev-mysql
+        - plf-dev-mysql
+      env_file: 
+        -  ../../.env
       environment:
         - ENVIRONMENT=development
       ports:
         - 89:80
       volumes:
-        - app:/var/www/html/
-        #- ./desktop/../.env:/var/www/
+        # - app:/var/www/html/
+        - ../../.env:/var/www/.env
 
     mailcatcher:
       restart: on-failure

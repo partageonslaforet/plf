@@ -16,8 +16,8 @@
 
 
 -- Dumping database structure for plf
-CREATE DATABASE IF NOT EXISTS `dev-plf` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `dev-plf`;
+CREATE DATABASE IF NOT EXISTS `plf-dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `plf-dev`;
 
 -- Dumping structure for table plf.plf_cgt_itineraires
 CREATE TABLE IF NOT EXISTS `plf_cgt_itineraires` (
@@ -326,117 +326,151 @@ CREATE TABLE IF NOT EXISTS `plf_spw_territoires` (
   `SEQ` tinyint NOT NULL,
   `SERVICE` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `NUGC` smallint DEFAULT NULL,
-  `TITULAIRE_ADH_UGC` tinyint(1) NOT NULL,
+  `TITULAIRE_ADH_UGC` tinyint NOT NULL,
   `DATE_MAJ` date DEFAULT NULL,
+  `SHAPE` MEDIUMBLOB NOT NULL,
   PRIMARY KEY (`N_LOT`,`SAISON`,`SEQ`) USING BTREE,
   UNIQUE KEY `uk_Saison_lot_seq` (`SAISON`,`N_LOT`,`SEQ`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table plf.plf_spw_territoires: ~4,367 rows (approximately)
 
--- Dumping structure for view plf.view_spw_cantonnements
--- Creating temporary table to overcome VIEW dependency errors
-
-
--- plf.view_spw_cantonnements source
-
-create view `view_spw_cantonnements` as
-select
-    `plf_spw_cantonnements`.`cantonnement_id` as `cantonnement_id`,
-    `plf_spw_cantonnements`.`CAN` as `CAN`,
-    `plf_spw_cantonnements`.`PREPOSE` as `PREPOSE`,
-    `plf_spw_cantonnements`.`CANTON` as `CANTON`,
-    `plf_spw_cantonnements`.`TEL_CAN` as `TEL_CAN`,
-    `plf_spw_cantonnements`.`GEOM` as `GEOM`,
-    `plf_spw_cantonnements_adresses`.`direction` as `direction`,
-    `plf_spw_cantonnements_adresses`.`email` as `email`,
-    `plf_spw_cantonnements_adresses`.`attache` as `attache`,
-    `plf_spw_cantonnements_adresses`.`CP` as `CP`,
-    `plf_spw_cantonnements_adresses`.`localite` as `localite`,
-    `plf_spw_cantonnements_adresses`.`rue` as `rue`,
-    `plf_spw_cantonnements_adresses`.`numero` as `numero`,
-    `plf_spw_cantonnements_adresses`.`latitude` as `latitude`,
-    `plf_spw_cantonnements_adresses`.`longitude` as `longitude`
-from
-    (`plf_spw_cantonnements`
-left join `plf_spw_cantonnements_adresses` on
-    ((`plf_spw_cantonnements`.`CAN` = `plf_spw_cantonnements_adresses`.`num_canton`)));
-
--- Dumping structure for view plf.view_spw_cc
--- Creating temporary table to overcome VIEW dependency errors
-
-
-
--- plf.view_spw_cc source
-
-create view `view_spw_cc` as
-select
-    `plf_spw_cc`.`cc_id` as `cc_id`,
-    `plf_spw_cc_concordance`.`nugc` as `nugc_CC`,
-    `plf_spw_cc`.`N_AGREMENT` as `N_AGREMENT_CC`,
-    `plf_spw_cc`.`DENOMINATION` as `DENOMINATION_CC`,
-    `plf_spw_cc`.`ABREVIATION` as `ABREVIATION_CC`,
-    `plf_spw_cc`.`RUE_CC` as `RUE_CC`,
-    `plf_spw_cc`.`NUM_CC` as `NUM_CC`,
-    `plf_spw_cc`.`CP_CC` as `CP_CC`,
-    `plf_spw_cc`.`LOCALITE_CC` as `LOCALITE_CC`,
-    `plf_spw_cc`.`NOM_PSDT` as `NOM_PSDT_CC`,
-    `plf_spw_cc`.`PRENOM_PSDT` as `PRENOM_PSDT_CC`,
-    `plf_spw_cc`.`NOM_SECR` as `NOM_SECR_CC`,
-    `plf_spw_cc`.`PRENOM_SECR` as `PRENOM_SECR_CC`,
-    `plf_spw_cc`.`SUPERFICIE` as `SUPERFICIE_CC`,
-    `plf_spw_cc`.`LIEN_CARTE` as `LIEN_CARTE_CC`,
-    `plf_spw_cc_adresses`.`email` as `email_CC`,
-    `plf_spw_cc_adresses`.`site_internet` as `site_internet_CC`,
-    `plf_spw_cc_adresses`.`logo` as `logo_CC`,
-    `plf_spw_cc_adresses`.`latitude` as `latitude_CC`,
-    `plf_spw_cc_adresses`.`longitude` as `longitude_CC`
-from
-    ((`plf_spw_cc`
-left join `plf_spw_cc_adresses` on
-    ((`plf_spw_cc_adresses`.`Code` = `plf_spw_cc`.`ABREVIATION`)))
-join `plf_spw_cc_concordance` on
-    ((`plf_spw_cc_concordance`.`cc_id` = `plf_spw_cc`.`cc_id`)));
-
-
-create view `view_spw_chasses` as
-select
-    `plf_spw_chasses`.`SAISON` as `SAISON`,
-    `plf_spw_chasses`.`N_LOT` as `N_LOT`,
-    `plf_spw_chasses`.`NUM` as `NUM`,
-    `plf_spw_chasses`.`MODE_CHASSE` as `MODE_CHASSE`,
-    `plf_spw_chasses`.`chasse_id` as `chasse_id`,
-    `plf_spw_chasses`.`DATE_CHASSE` as `DATE_CHASSE`,
-    `plf_spw_chasses`.`FERMETURE` as `FERMETURE`,
-    `plf_spw_chasses`.`KEYG` as `KEYG`,
-    `plf_spw_territoires`.`SEQ` as `SEQ`,
-    `plf_spw_territoires`.`NUGC` as `NUGC`
-from
-    (`plf_spw_chasses`
-left join `plf_spw_territoires` on
-    (((`plf_spw_chasses`.`SAISON` = `plf_spw_territoires`.`SAISON`)
-        and (`plf_spw_chasses`.`N_LOT` = `plf_spw_territoires`.`N_LOT`))));
-
-
 		
 
 -- Dumping structure for view plf.view_spw_cantonnements
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_spw_cantonnements`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_cantonnements` AS select `plf_spw_cantonnements`.`cantonnement_id` AS `cantonnement_id`,`plf_spw_cantonnements`.`CAN` AS `CAN`,`plf_spw_cantonnements`.`PREPOSE` AS `PREPOSE`,`plf_spw_cantonnements`.`CANTON` AS `CANTON`,`plf_spw_cantonnements`.`TEL_CAN` AS `TEL_CAN`,`plf_spw_cantonnements`.`GEOM` AS `GEOM`,`plf_spw_cantonnements_adresses`.`direction` AS `direction`,`plf_spw_cantonnements_adresses`.`email` AS `email`,`plf_spw_cantonnements_adresses`.`attache` AS `attache`,`plf_spw_cantonnements_adresses`.`CP` AS `CP`,`plf_spw_cantonnements_adresses`.`localite` AS `localite`,`plf_spw_cantonnements_adresses`.`rue` AS `rue`,`plf_spw_cantonnements_adresses`.`numero` AS `numero`,`plf_spw_cantonnements_adresses`.`latitude` AS `latitude`,`plf_spw_cantonnements_adresses`.`longitude` AS `longitude` from (`plf_spw_cantonnements` left join `plf_spw_cantonnements_adresses` on((`plf_spw_cantonnements`.`CAN` = `plf_spw_cantonnements_adresses`.`num_canton`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_cantonnements` AS 
+select 
+  `plf_spw_cantonnements`.`cantonnement_id` AS `cantonnement_id`,
+  `plf_spw_cantonnements`.`CAN` AS `CAN`,
+  `plf_spw_cantonnements`.`PREPOSE` AS `PREPOSE`,
+  `plf_spw_cantonnements`.`CANTON` AS `CANTON`,
+  `plf_spw_cantonnements`.`TEL_CAN` AS `TEL_CAN`,
+  `plf_spw_cantonnements`.`GEOM` AS `GEOM`,
+  `plf_spw_cantonnements_adresses`.`direction` AS `direction`,
+  `plf_spw_cantonnements_adresses`.`email` AS `email`,
+  `plf_spw_cantonnements_adresses`.`attache` AS `attache`,
+  `plf_spw_cantonnements_adresses`.`CP` AS `CP`,
+  `plf_spw_cantonnements_adresses`.`localite` AS `localite`,
+  `plf_spw_cantonnements_adresses`.`rue` AS `rue`,
+  `plf_spw_cantonnements_adresses`.`numero` AS `numero`,
+  `plf_spw_cantonnements_adresses`.`latitude` AS `latitude`,
+  `plf_spw_cantonnements_adresses`.`longitude` AS `longitude` 
+from 
+  (`plf_spw_cantonnements` 
+left join `plf_spw_cantonnements_adresses` on
+  ((`plf_spw_cantonnements`.`CAN` = `plf_spw_cantonnements_adresses`.`num_canton`)));
+
+
+
+
 
 -- Dumping structure for view plf.view_spw_cc
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_spw_cc`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_cc` AS select `plf_spw_cc`.`cc_id` AS `cc_id`,`plf_spw_cc_concordance`.`nugc` AS `nugc_CC`,`plf_spw_cc`.`N_AGREMENT` AS `N_AGREMENT_CC`,`plf_spw_cc`.`DENOMINATION` AS `DENOMINATION_CC`,`plf_spw_cc`.`ABREVIATION` AS `ABREVIATION_CC`,`plf_spw_cc`.`RUE_CC` AS `RUE_CC`,`plf_spw_cc`.`NUM_CC` AS `NUM_CC`,`plf_spw_cc`.`CP_CC` AS `CP_CC`,`plf_spw_cc`.`LOCALITE_CC` AS `LOCALITE_CC`,`plf_spw_cc`.`NOM_PSDT` AS `NOM_PSDT_CC`,`plf_spw_cc`.`PRENOM_PSDT` AS `PRENOM_PSDT_CC`,`plf_spw_cc`.`NOM_SECR` AS `NOM_SECR_CC`,`plf_spw_cc`.`PRENOM_SECR` AS `PRENOM_SECR_CC`,`plf_spw_cc`.`SUPERFICIE` AS `SUPERFICIE_CC`,`plf_spw_cc`.`LIEN_CARTE` AS `LIEN_CARTE_CC`,`plf_spw_cc_adresses`.`email` AS `email_CC`,`plf_spw_cc_adresses`.`site_internet` AS `site_internet_CC`,`plf_spw_cc_adresses`.`logo` AS `logo_CC`,`plf_spw_cc_adresses`.`latitude` AS `latitude_CC`,`plf_spw_cc_adresses`.`longitude` AS `longitude_CC` from ((`plf_spw_cc` left join `plf_spw_cc_adresses` on((`plf_spw_cc_adresses`.`Code` = `plf_spw_cc`.`ABREVIATION`))) join `plf_spw_cc_concordance` on((`plf_spw_cc_concordance`.`cc_id` = `plf_spw_cc`.`cc_id`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_cc` AS 
+select 
+  `plf_spw_cc`.`cc_id` AS `cc_id`,
+  `plf_spw_cc_concordance`.`nugc` AS `nugc_CC`,
+  `plf_spw_cc`.`N_AGREMENT` AS `N_AGREMENT_CC`,
+  `plf_spw_cc`.`DENOMINATION` AS `DENOMINATION_CC`,
+  `plf_spw_cc`.`ABREVIATION` AS `ABREVIATION_CC`,
+  `plf_spw_cc`.`RUE_CC` AS `RUE_CC`,
+  `plf_spw_cc`.`NUM_CC` AS `NUM_CC`,
+  `plf_spw_cc`.`CP_CC` AS `CP_CC`,
+  `plf_spw_cc`.`LOCALITE_CC` AS `LOCALITE_CC`,
+  `plf_spw_cc`.`NOM_PSDT` AS `NOM_PSDT_CC`,
+  `plf_spw_cc`.`PRENOM_PSDT` AS `PRENOM_PSDT_CC`,
+  `plf_spw_cc`.`NOM_SECR` AS `NOM_SECR_CC`,
+  `plf_spw_cc`.`PRENOM_SECR` AS `PRENOM_SECR_CC`,
+  `plf_spw_cc`.`SUPERFICIE` AS `SUPERFICIE_CC`,
+  `plf_spw_cc`.`LIEN_CARTE` AS `LIEN_CARTE_CC`,
+  `plf_spw_cc_adresses`.`email` AS `email_CC`,
+  `plf_spw_cc_adresses`.`site_internet` AS `site_internet_CC`,
+  `plf_spw_cc_adresses`.`logo` AS `logo_CC`,
+  `plf_spw_cc_adresses`.`latitude` AS `latitude_CC`,
+  `plf_spw_cc_adresses`.`longitude` AS `longitude_CC` 
+from 
+  ((`plf_spw_cc` left join `plf_spw_cc_adresses` on
+    ((`plf_spw_cc_adresses`.`Code` = `plf_spw_cc`.`ABREVIATION`))) 
+join `plf_spw_cc_concordance` on
+  ((`plf_spw_cc_concordance`.`cc_id` = `plf_spw_cc`.`cc_id`)));
+
+
+
 
 -- Dumping structure for view plf.view_spw_chasses
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_spw_chasses`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_chasses` AS select `plf_spw_chasses`.`SAISON` AS `SAISON`,`plf_spw_chasses`.`N_LOT` AS `N_LOT`,`plf_spw_chasses`.`NUM` AS `NUM`,`plf_spw_chasses`.`MODE_CHASSE` AS `MODE_CHASSE`,`plf_spw_chasses`.`chasse_id` AS `chasse_id`,`plf_spw_chasses`.`DATE_CHASSE` AS `DATE_CHASSE`,`plf_spw_chasses`.`FERMETURE` AS `FERMETURE`,`plf_spw_chasses`.`KEYG` AS `KEYG`,`plf_spw_territoires`.`SEQ` AS `SEQ`,`plf_spw_territoires`.`NUGC` AS `NUGC` from (`plf_spw_chasses` left join `plf_spw_territoires` on(((`plf_spw_chasses`.`SAISON` = `plf_spw_territoires`.`SAISON`) and (`plf_spw_chasses`.`N_LOT` = `plf_spw_territoires`.`N_LOT`))));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_chasses` AS 
+select 
+  `plf_spw_chasses`.`SAISON` AS `SAISON`,
+  `plf_spw_chasses`.`N_LOT` AS `N_LOT`,
+  `plf_spw_chasses`.`NUM` AS `NUM`,
+  `plf_spw_chasses`.`MODE_CHASSE` AS `MODE_CHASSE`,
+  `plf_spw_chasses`.`chasse_id` AS `chasse_id`,
+  `plf_spw_chasses`.`DATE_CHASSE` AS `DATE_CHASSE`,
+  `plf_spw_chasses`.`FERMETURE` AS `FERMETURE`,
+  `plf_spw_chasses`.`KEYG` AS `KEYG`,
+  `plf_spw_territoires`.`SEQ` AS `SEQ`,
+  `plf_spw_territoires`.`NUGC` AS `NUGC` 
+from 
+  (`plf_spw_chasses` left join `plf_spw_territoires` on
+    (((`plf_spw_chasses`.`SAISON` = `plf_spw_territoires`.`SAISON`) 
+    and 
+    (`plf_spw_chasses`.`N_LOT` = `plf_spw_territoires`.`N_LOT`))));
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+
+DROP TABLE IF EXISTS `view_spw_territoires`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_spw_territoires` AS
+select 
+  `plf_spw_territoires`.`KEYG` AS `KEYG`,
+  `plf_spw_territoires`.`SAISON` AS `SAISON`,
+  `plf_spw_territoires`.`N_LOT` AS `N_LOT`,
+  `plf_spw_territoires`.`SEQ` AS `SEQ`,
+  `plf_spw_territoires`.`SERVICE` AS `SERVICE`,
+  `plf_spw_cantonnements`.`CAN` AS `CAN`,
+  `plf_spw_cantonnements`.`CANTON` AS `CANTON`,
+  `plf_spw_cantonnements`.`PREPOSE` AS `PREPOSE`,
+  `plf_spw_cantonnements`.`TEL_CAN` AS `TEL_CAN`,
+  `plf_spw_territoires`.`TITULAIRE_ADH_UGC` AS `TITULAIRE_ADH_UGC`,
+  `plf_spw_territoires`.`DATE_MAJ` AS `DATE_MAJ`,
+  `plf_spw_territoires`.`SHAPE` AS `SHAPE`,
+  `plf_spw_cantonnements_adresses`.`direction` AS `direction_CANTON`,
+  `plf_spw_cantonnements_adresses`.`email` AS `email_CANTON`,
+  `plf_spw_cantonnements_adresses`.`attache` AS `attache_CANTON`,
+  `plf_spw_cantonnements_adresses`.`CP` AS `CP_CANTON`,
+  `plf_spw_cantonnements_adresses`.`localite` AS `localite_CANTON`,
+  `plf_spw_cantonnements_adresses`.`rue` AS `rue_CANTON`,
+  `plf_spw_cantonnements_adresses`.`numero` AS `numero_CANTON`,
+  `plf_spw_cantonnements_adresses`.`latitude` AS `latitude_CANTON`,
+  `plf_spw_cantonnements_adresses`.`longitude` AS `longitude_CANTON`,
+  `plf_spw_territoires`.`NUGC` AS `NUGC_CC`,
+  `view_spw_cc`.`N_AGREMENT_CC` AS `N_AGREMENT_CC`,
+  `view_spw_cc`.`DENOMINATION_CC` AS `DENOMINATION_CC`,
+  `view_spw_cc`.`ABREVIATION_CC` AS `ABREVIATION_CC`,
+  `view_spw_cc`.`RUE_CC` AS `RUE_CC`,
+  `view_spw_cc`.`NUM_CC` AS `NUM_CC`,
+  `view_spw_cc`.`CP_CC` AS `CP_CC`,
+  `view_spw_cc`.`LOCALITE_CC` AS `LOCALITE_CC`,
+  `view_spw_cc`.`NOM_PSDT_CC` AS `NOM_PSDT_CC`,
+  `view_spw_cc`.`PRENOM_PSDT_CC` AS `PRENOM_PSDT_CC`,
+  `view_spw_cc`.`NOM_SECR_CC` AS `NOM_SECR_CC`,
+  `view_spw_cc`.`PRENOM_SECR_CC` AS `PRENOM_SECR_CC`,
+  `view_spw_cc`.`SUPERFICIE_CC` AS `SUPERFICIE_CC`,
+  `view_spw_cc`.`LIEN_CARTE_CC` AS `LIEN_CARTE_CC`,
+  `view_spw_cc`.`email_CC` AS `email_CC`,
+  `view_spw_cc`.`site_internet_CC` AS `site_internet_CC`,
+  `view_spw_cc`.`logo_CC` AS `logo_CC`,
+  `view_spw_cc`.`latitude_CC` AS `latitude_CC`,
+  `view_spw_cc`.`longitude_CC` AS `longitude_CC` 
+from 
+  (((`plf_spw_territoires` left join `plf_spw_cantonnements` on
+    (`plf_spw_territoires`.`SERVICE` = `plf_spw_cantonnements`.`CAN`)) 
+left join `plf_spw_cantonnements_adresses` on
+  (`plf_spw_cantonnements`.`CAN` = `plf_spw_cantonnements_adresses`.`num_canton`)) 
+left join `view_spw_cc` on
+  (`view_spw_cc`.`nugc_CC` = `plf_spw_territoires`.`NUGC`))
+

@@ -4,7 +4,7 @@ metadata:
   name: plf-dev-mysql-svc-ip
 spec:
   selector:
-    app: plf-dev
+    app: plf-dev-mysql
   ports:
     - port: 3306
       targetPort: 3306

@@ -18,6 +18,10 @@ ini_set('max_execution_time', '7200');
 $dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . "/..");
 $dotenv->load();
 
+if ( preg_match("/APACHE_/i",implode(";",array_keys($_ENV))) == false) {
+    $_ENV["MYSQL_HOST"] = "127.0.0.1";
+}
+
 
 // Autload the API/library classes 
 
