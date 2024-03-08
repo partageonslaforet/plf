@@ -16,7 +16,7 @@ ini_set('max_execution_time', '7200');
 if (array_key_exists('KUBERNETES_SERVICE_HOST',$_ENV)) {
     $run_context = "kubernetes";
     }
-elseif ($_ENV['RUNNING_CONTEXT'] == "docker") {
+elseif ($_ENV['RUNNING_CONTEXT'] == "docker" ) {
     $run_context = "docker";
     }
 else {
