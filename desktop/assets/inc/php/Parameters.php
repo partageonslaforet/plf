@@ -21,6 +21,8 @@ elseif ($_ENV['RUNNING_CONTEXT'] == "docker"  ) {
     }
 else {
     $run_context = "local";
+    $dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . "/../../");
+    $dotenv->load();
 }
 
 $x = 1;
@@ -30,10 +32,6 @@ $x=7;
 $x=8;
 
 
-// load .env values
-
-$dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"]);
-$dotenv->load();
 
 if ( preg_match("/APACHE_/i",implode(";",array_keys($_ENV))) == false) {
     $_ENV["MYSQL_HOST"] = "127.0.0.1";
