@@ -13,9 +13,26 @@ ini_set('mysqli.connect_timeout','0');
 ini_set('max_execution_time', '7200');   
 
 
+if (array_key_exists('KUBERNETES_SERVICE_HOST',$_ENV)) {
+    $run_context = "kubernetes";
+    }
+elseif ($_ENV['RUNNING_CONTEXT'] == "docker") {
+    $run_context = "docker";
+    }
+else {
+    $run_context = "local";
+}
+
+$x = 1;
+$x = 4;
+$x=6;
+$x=7;
+$x=8;
+
+
 // load .env values
 
-$dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . "/..");
+$dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"]);
 $dotenv->load();
 
 if ( preg_match("/APACHE_/i",implode(";",array_keys($_ENV))) == false) {
