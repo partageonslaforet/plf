@@ -10,9 +10,7 @@ services:
       container_name: plf-dev-mysql-svc-ip
       restart: always
       env_file: 
-        -  ../../.env
-      environment:
-        - environment=dev
+        -  ../../../.env
       logging:
         options:
           max-size: 10m
@@ -30,14 +28,15 @@ services:
       depends_on: 
         - plf-dev-mysql
       env_file: 
-        -  ../../.env
+        -  ../../../.env
       environment:
-        - ENVIRONMENT=development
+        - ENVIRONMENT=developments
+        - RUNNING_CONTEXT=docker
       ports:
         - 89:80
       volumes:
         # - app:/var/www/html/
-        - ../../.env:/var/www/.env
+        - ../../../.env:/var/www/.env
 
     mailcatcher:
       restart: on-failure

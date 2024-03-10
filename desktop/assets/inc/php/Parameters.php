@@ -16,26 +16,18 @@ ini_set('max_execution_time', '7200');
 if (array_key_exists('KUBERNETES_SERVICE_HOST',$_ENV   )) {
     $run_context = "kubernetes";
     }
-elseif ($_ENV['RUNNING_CONTEXT'] == "docker"  ) {
+elseif (array_key_exists('DOCKER',$_ENV) ) {
     $run_context = "docker";
-    }
+}   
 else {
     $run_context = "local";
     $dotenv = Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . "/../../");
     $dotenv->load();
-}
+    $_ENV["MYSQL_HOST"] = "127.0.0.1";
+    }
 
 $x = 1;
-$x = 4;
-$x=6;
-$x=7;
-$x=8;
 
-
-
-if ( preg_match("/APACHE_/i",implode(";",array_keys($_ENV))) == false) {
-    $_ENV["MYSQL_HOST"] = "127.0.0.1";
-}
 
 
 // Autload the API/library classes 

@@ -9,7 +9,7 @@ if (!isset($_COOKIE[$cookie_name])) {
 }
 
 
-require "assets/inc/php/Parameters.php";
+require_once "assets/inc/php/Parameters.php";
 require_once "assets/inc/php/Functions.php";
 
 $List_CC = PLF::Get_CC_List();

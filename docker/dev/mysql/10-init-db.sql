@@ -16,8 +16,8 @@
 
 
 -- Dumping database structure for plf
-CREATE DATABASE IF NOT EXISTS `plf-dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `plf-dev`;
+CREATE DATABASE IF NOT EXISTS `plf_dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `plf_dev`;
 
 -- Dumping structure for table plf.plf_cgt_itineraires
 CREATE TABLE IF NOT EXISTS `plf_cgt_itineraires` (

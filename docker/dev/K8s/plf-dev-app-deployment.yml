@@ -12,7 +12,7 @@ spec:
         app: plf-dev-app
     spec:
       containers:
-        - image: plf:1.0
+        - image: plf-dev-app:1.0
           name: plf-dev-app
           resources:
           imagePullPolicy: Never
@@ -21,7 +21,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: plf-dev-configmap
-                  key: mysql_host
+                  key: MYSQL_HOST
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:

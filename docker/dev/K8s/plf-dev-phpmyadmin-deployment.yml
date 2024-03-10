@@ -21,7 +21,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: plf-dev-configmap
-                  key: mysql_host
+                  key: MYSQL_HOST
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:

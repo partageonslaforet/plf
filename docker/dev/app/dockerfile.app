@@ -21,4 +21,4 @@ COPY ./docker/dev/app/php.ini /usr/local/etc/php/
 
 RUN rm -rf /var/www/html/assets/inc/php/API/tmp/*.json
 
-# RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html
