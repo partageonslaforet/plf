@@ -14,6 +14,7 @@ docker image remove mailcatcher:latest
 # docker volume remove dev_app
 # docker volume remove dev_mysql
 
+
 docker build -t plf-dev-mysql:8.2 -f ./mysql/dockerfile.mysql .
 docker build -t plf-dev-app:1.0 -f ./app/dockerfile.app ../../.
 docker build -t mailcatcher:latest -f ./mailcatcher/dockerfile.mailcatcher .

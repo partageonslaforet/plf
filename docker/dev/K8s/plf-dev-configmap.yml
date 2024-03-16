@@ -3,5 +3,13 @@ kind: ConfigMap
 metadata:
   name: plf-dev-configmap
 data:
-  MYSQL_HOST: plf-dev-mysql-svc-ip
-  mysql_database: plf-dev
+  MYSQL_HOST: plf-dev-mysql-ip
+  MYSQL_DATABASE: plf-dev
+  MYSQL_USER: plf
+  # mailcatcher
+  mail_Host: "plf-dev-mailcatcher-ip"
+  mail_Port: "1025"
+  mail_Username: "christian.lurkin@gmail.com"
+  mail_Password: ""
+  mail_SMTPAuth: ""
+  mail_SMTPSecure: ""

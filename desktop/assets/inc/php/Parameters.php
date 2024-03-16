@@ -15,8 +15,9 @@ ini_set('max_execution_time', '7200');
 
 if (array_key_exists('KUBERNETES_SERVICE_HOST',$_ENV   )) {
     $run_context = "kubernetes";
+    populate_env_array("/etc/config");
     }
-elseif (array_key_exists('DOCKER',$_ENV) ) {
+elseif ($_ENV['RUNNING_CONTEXT'] == "docker" ) {
     $run_context = "docker";
 }   
 else {
@@ -26,13 +27,9 @@ else {
     $_ENV["MYSQL_HOST"] = "127.0.0.1";
     }
 
-$x = 1;
-
 
 
 // Autload the API/library classes 
-
-$current_dir = getcwd();
 
 spl_autoload_register(function ($class_name) {
     include "API/library/" . $class_name . '.php';
@@ -137,3 +134,34 @@ $list_Folders_To_Clean = array();
 $list_Folders_To_Clean["desktop/assets/datas"] = "json"; 
 // $list_Folders_To_Clean["desktop/assets/datas/uploadgpx"] =  "gpx";
 
+
+function populate_env_array($folderPath) {
+
+    if (is_dir($folderPath)) {
+        // Open the directory
+        if ($dirHandle = opendir($folderPath)) {
+            // Loop through each file in the directory
+            while (($file = readdir($dirHandle)) !== false) {
+                // Exclude '.' and '..' directories
+                if ($file != '.' && $file != '..') {
+                    // Build the full path to the file
+                    $filePath = $folderPath . '/' . $file;
+                    
+                    // Check if it's a file
+                    if (is_file($filePath)) {
+                        // Read the content of the file
+                        $fileContent = file_get_contents($filePath);
+                        $_ENV[$file] = $fileContent;
+                    }
+                }
+            }
+            // Close the directory handle
+            closedir($dirHandle);
+        } else {
+            echo "Error opening directory.";
+        }
+    } else {
+        echo "Directory does not exist.";
+    }
+
+}

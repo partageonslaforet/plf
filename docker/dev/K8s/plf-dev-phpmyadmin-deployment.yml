@@ -15,6 +15,12 @@ spec:
         - image: phpmyadmin:latest
           name: plf-dev-phpmyadmin
           resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           imagePullPolicy: Never
           env:
             - name: PMA_HOST
@@ -29,4 +35,5 @@ spec:
                   key: mysql_root_password
           ports:
             - containerPort: 80
+              name: phpmyadmin-port
 

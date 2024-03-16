@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: plf-dev-mysql
-          image: mysql:8.2
+          image: plf-dev-mysql:8.2
           resources:
           imagePullPolicy: Never
           env:
@@ -40,7 +40,8 @@ spec:
                   name: plf-dev-secrets
                   key: mysql_user_password
           ports:
-            - containerPort: 3306 
+            - containerPort: 3306
+              name: mysql-port
           volumeMounts:
             - name: plf-dev-pv
               mountPath: /var/lib/mysql

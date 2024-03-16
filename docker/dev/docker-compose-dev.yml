@@ -2,6 +2,7 @@ version: '3.9'
 
 volumes:
   mysql:
+
   # app:
 
 services:
@@ -10,16 +11,20 @@ services:
       container_name: plf-dev-mysql-svc-ip
       restart: always
       env_file: 
-        -  ../../../.env
+        -  path: ../../../.env
+      environment:
+        MYSQL_ROOT_PASSWORD: Chri12!!
+        MYSQL_DATABASE: xxx
+        MYSQL_USER: lurkich
+        MYSQL_PASSWORD: Chri12!!
       logging:
         options:
           max-size: 10m
           max-file: "3"
       ports:
-        - '3306:3306'
+        - "3306:3306"
       volumes: 
         - mysql:/var/lib/mysql
-      # # copy the sql script to create tables
         - ./mysql:/docker-entrypoint-initdb.d
     
     plf-dev-app:
@@ -33,7 +38,7 @@ services:
         - ENVIRONMENT=developments
         - RUNNING_CONTEXT=docker
       ports:
-        - 89:80
+        - 8080:80
       volumes:
         # - app:/var/www/html/
         - ../../../.env:/var/www/.env

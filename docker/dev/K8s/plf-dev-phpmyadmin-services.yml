@@ -7,7 +7,7 @@ spec:
     app: plf-dev-phpmyadmin 
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: phpmyadmin-port
       protocol: TCP
   type: NodePort
 

@@ -1,0 +1,22 @@
+version: '3.9'
+
+volumes:
+  mysql:
+
+  # app:
+
+services:
+    plf-dev-mysql:
+      image: plf-dev-mysql:8.2
+      container_name: plf-dev-mysql-ip
+      restart: always
+      env_file: 
+        -  path: ../../../.env
+      environment:
+        MYSQL_ROOT_PASSWORD: Chri12!!
+      ports:
+        - "3306:3306"
+      volumes: 
+        - mysql:/var/lib/mysql
+        # - ./mysql:/docker-entrypoint-initdb.d
+    
