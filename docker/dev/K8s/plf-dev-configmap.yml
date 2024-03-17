@@ -4,7 +4,7 @@ metadata:
   name: plf-dev-configmap
 data:
   MYSQL_HOST: plf-dev-mysql-ip
-  MYSQL_DATABASE: plf-dev
+  MYSQL_DATABASE: plf_dev
   MYSQL_USER: plf
   # mailcatcher
   mail_Host: "plf-dev-mailcatcher-ip"

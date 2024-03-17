@@ -28,7 +28,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: plf-dev-configmap
-                  key: mysql_database
+                  key: MYSQL_DATABASE
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:

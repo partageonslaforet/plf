@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: plf-dev-cron-itineraires-step2
+spec:
+  schedule: "0 9 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      ttlSecondsAfterFinished: 100
+      template:
+
+        spec:
+          containers:
+          - name: plf-dev-cron-itineraires-step2
+            image: curlimages/curl
+            imagePullPolicy: IfNotPresent
+            args:
+            - /bin/sh
+            - -c
+            - curl http://plf-dev-app-ip/assets/inc/php/API/API.php/api/cgt/itineraires/step2
+          restartPolicy: OnFailure  
+      parallelism: 1
+      completions: 1  
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  

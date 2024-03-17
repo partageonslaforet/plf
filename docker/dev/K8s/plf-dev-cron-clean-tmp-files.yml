@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: plf-dev-cron-clean-tmp-files
+spec:
+  schedule: "0 11 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      ttlSecondsAfterFinished: 100
+      template:
+
+        spec:
+          containers:
+          - name: plf-dev-cron-clean-tmp-files
+            image: curlimages/curl
+            imagePullPolicy: IfNotPresent
+            args:
+            - /bin/sh
+            - -c
+            - curl http://plf-dev-app-ip/assets/inc/php/API/API.php/api/clean_temporary_files
+          restartPolicy: OnFailure  
+      parallelism: 1
+      completions: 1  
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  

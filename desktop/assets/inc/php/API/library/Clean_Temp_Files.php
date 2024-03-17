@@ -29,16 +29,19 @@ class Clean_Temp_Files
 
         $list_Folders_To_Clean = $GLOBALS["list_Folders_To_Clean"];
         // get current desktop paths
+        array_push(errorHandler::$Run_Information, ["Info", "the list of folders :  " . implode(PHP_EOL, $list_Folders_To_Clean)  . PHP_EOL]);
 
         $curr_Path = getcwd();
 
-        $tmp_Data_Path = "../../../../../";
+        array_push(errorHandler::$Run_Information, ["Info", "Current path :  " . $curr_Path  . PHP_EOL]);
+
+        $tmp_Data_Path = "../../../../";
 
         foreach ($list_Folders_To_Clean as $folder => $file_Extension) {
 
             $full_Folder_Path_Name =   $tmp_Data_Path . $folder;
 
-            array_push(errorHandler::$Run_Information, ["Info", "Processing folder " . $folder . " - extension " . $file_Extension . PHP_EOL]);
+            array_push(errorHandler::$Run_Information, ["Info", "Processing folder " . $folder . " - extension " . $file_Extension . " - Full path " . $full_Folder_Path_Name. PHP_EOL]);
 
 
             //------------>

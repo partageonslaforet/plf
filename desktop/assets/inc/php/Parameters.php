@@ -131,7 +131,7 @@ $cgt_Itineraires_Json_File = __DIR__ ."/API/tmp/cgt_Itineraires.json";
 // Folders to clean
 
 $list_Folders_To_Clean = array();
-$list_Folders_To_Clean["desktop/assets/datas"] = "json"; 
+$list_Folders_To_Clean["assets/datas"] = "json"; 
 // $list_Folders_To_Clean["desktop/assets/datas/uploadgpx"] =  "gpx";
 
 

@@ -12,7 +12,7 @@ spec:
         app: plf-dev-phpmyadmin
     spec:
       containers:
-        - image: phpmyadmin:latest
+        - image: phpmyadmin:5.2-apache
           name: plf-dev-phpmyadmin
           resources:
             requests:
