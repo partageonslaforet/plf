@@ -6,6 +6,10 @@ data:
   MYSQL_HOST: plf-dev-mysql-ip
   MYSQL_DATABASE: plf_dev
   MYSQL_USER: plf
+
+  postgresql_database: plf_dev
+
+
   # mailcatcher
   mail_Host: "plf-dev-mailcatcher-ip"
   mail_Port: "1025"

@@ -19,6 +19,10 @@ docker build -t plf-dev-mysql:8.2 -f ./mysql/dockerfile.mysql .
 docker build -t plf-dev-phpmyadmin:5.2 -f ./phpmyadmin/dockerfile.phpmyadmin .
 docker build -t plf-dev-app:1.0 -f ./app/dockerfile.app ../../.
 docker build -t mailcatcher:latest -f ./mailcatcher/dockerfile.mailcatcher .
+docker build -t plf-dev-postgresql:16 -f ./postgresql/dockerfile.postgresql .
 
 docker compose -f ./docker-compose-dev.yml up -d
+
+
+
 

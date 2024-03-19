@@ -1,3 +1,7 @@
 FROM postgres:16
+
+
 RUN apt-get update && apt-get install postgis -y
-COPY ./docker/init-db.sql /docker-entrypoint-initdb.d/init-db.sql
+RUN apt-get install locales
+RUN localedef -f UTF-8 -i fr_BE fr_BE.UTF-8
+COPY postgresql/*.sql /docker-entrypoint-initdb.d

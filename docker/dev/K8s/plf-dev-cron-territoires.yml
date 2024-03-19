@@ -4,6 +4,7 @@ metadata:
   name: plf-dev-cron-territoires
 spec:
   schedule: "0 3 * * *"
+  timeZone: "Europe/Brussels"
   jobTemplate:
     spec:
       backoffLimit: 5

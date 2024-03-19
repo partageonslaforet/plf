@@ -3,13 +3,13 @@ kind: CronJob
 metadata:
   name: plf-dev-cron-cc
 spec:
-  schedule: "10 3 * * *"
+  schedule: "20 13 * * *"
+  timeZone: "Europe/Brussels"
   jobTemplate:
     spec:
       backoffLimit: 5
       ttlSecondsAfterFinished: 100
       template:
-
         spec:
           containers:
           - name: plf-dev-cron-cc

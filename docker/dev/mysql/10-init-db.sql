@@ -15,10 +15,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for plf
-CREATE DATABASE IF NOT EXISTS `plf_dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `plf_dev`;
-
 -- Dumping structure for table plf.plf_cgt_itineraires
 CREATE TABLE IF NOT EXISTS `plf_cgt_itineraires` (
   `itineraire_id` int NOT NULL AUTO_INCREMENT,

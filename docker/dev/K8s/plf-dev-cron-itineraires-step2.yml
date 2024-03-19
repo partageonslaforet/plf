@@ -4,6 +4,7 @@ metadata:
   name: plf-dev-cron-itineraires-step2
 spec:
   schedule: "0 9 * * *"
+  timeZone: "Europe/Brussels"
   jobTemplate:
     spec:
       backoffLimit: 5

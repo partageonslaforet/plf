@@ -4,6 +4,7 @@ metadata:
   name: plf-dev-cron-clean-tmp-files
 spec:
   schedule: "0 11 * * *"
+  timeZone: "Europe/Brussels"
   jobTemplate:
     spec:
       backoffLimit: 5
