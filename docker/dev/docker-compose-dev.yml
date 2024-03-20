@@ -26,9 +26,7 @@ services:
       volumes: 
         - mysql:/var/lib/mysql
         - ./mysql:/docker-entrypoint-initdb.d
-    
 
-services:
 
     plf-dev-postgresql:
       image: plf-dev-postgresql:16

@@ -13,7 +13,5 @@ data:
   # mailcatcher
   mail_Host: "plf-dev-mailcatcher-ip"
   mail_Port: "1025"
-  mail_Username: "christian.lurkin@gmail.com"
-  mail_Password: ""
   mail_SMTPAuth: ""
   mail_SMTPSecure: ""

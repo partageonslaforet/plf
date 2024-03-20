@@ -22,11 +22,16 @@ spec:
                 configMapKeyRef:
                   name: plf-dev-configmap
                   key: MYSQL_HOST
-            # - name: MYSQL_ROOT_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: plf-dev-secrets
-            #       key: mysql_root_password
+            - name: mail_Username
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mail_Username
+            - name: mail_Password
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mail_Password
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -39,8 +44,21 @@ spec:
           volumeMounts:
           - name: plf-dev-config-volume
             mountPath: /etc/config
+          - name: plf-dev-tmp-folder
+            mountPath: /var/html/www/assets/inc/php/API/tmp
 
       volumes:
       - name: plf-dev-config-volume
         configMap:
           name: plf-dev-configmap
+      - name: plf-dev-tmp-folder
+        ephemeral:
+          volumeClaimTemplate:
+            metadata:
+              labels:
+                type: plf-dev-tmp-folder
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              resources:
+                requests:
+                 storage: 1Gi
