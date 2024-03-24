@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plf-dev-app
+spec:
+  selector:
+    matchLabels:
+      app: plf-dev-app
+  template:
+    metadata:
+      labels:
+        app: plf-dev-app
+    spec:
+      containers:
+        - image: plf-dev-app:1.0
+          name: plf-dev-app
+          resources:
+          imagePullPolicy: Never
+          env:
+            - name: PMA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: plf-dev-configmap
+                  key: MYSQL_HOST
+            - name: mail_Username
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mail_Username
+            - name: mail_Password
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mail_Password
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: mysql_user_password
+          ports:
+            - containerPort: 80
+              name: app-port
+
+          volumeMounts:
+          - name: plf-dev-config-volume
+            mountPath: /etc/config
+          - name: plf-dev-tmp-folder
+            mountPath: /var/html/www/assets/inc/php/API/tmp
+
+      volumes:
+      - name: plf-dev-config-volume
+        configMap:
+          name: plf-dev-configmap
+      - name: plf-dev-tmp-folder
+        ephemeral:
+          volumeClaimTemplate:
+            metadata:
+              labels:
+                type: plf-dev-tmp-folder
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              resources:
+                requests:
+                 storage: 1Gi
