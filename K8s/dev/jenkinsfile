@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         GITHUB_TOKEN=credentials('plf-github-token')
+        IMAGE_NAME='partageonslaforet/plf-dev-app'
+        IMAGE_VERSION='1.0'
     }
     options {
         // This is required if you want to clean before build
@@ -36,7 +38,7 @@ pipeline {
         // stage('Build docker image'){
         //     steps{
 
-        //         sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
+        //         sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
         //         echo "Checkout ${env.JOB_NAME}..."
         //     }
         // }
@@ -46,8 +48,6 @@ pipeline {
         stage('Login to GitHub'){
             steps{
                 sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
-                // echo "GITHUB_TOKEN_PSW $GITHUB_TOKEN_PSW"
-                echo "GITHUB_TOKEN_USR $GITHUB_TOKEN_USR"
                 echo " ${env.JOB_NAME} Logged in to GitHub..."
             }
         }
@@ -56,7 +56,7 @@ pipeline {
 
         stage('Push image to GitHub'){
             steps{
-                sh 'docker push plf-dev-app:1.0'
+                sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
             }
         }
