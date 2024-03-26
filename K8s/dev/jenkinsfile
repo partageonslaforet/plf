@@ -9,8 +9,7 @@ pipeline {
     stages{
 
 
-        stage {
-            name: 'Cleanup'
+        stage("Cleanup") {
             steps{
                 sh 'docker system prune -a --volume --force'
                 cleanWs()
