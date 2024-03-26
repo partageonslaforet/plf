@@ -13,7 +13,7 @@ pipeline {
 
         stage("Cleanup") {
             steps{
-                cleanWs()
+                cleanWs notFailBuild: true
                 scripts {
                     sh 'docker system prune -a --volumes --force'
                     echo "cleaning ${env.JOB_NAME}..."
