@@ -17,7 +17,7 @@ pipeline {
                 scripts {
                     cleanWs()
                     sh 'docker system prune -a --volumes --force'
-                    echo "cleaning ${env.JOB_NAME}..."
+
                 }
             }
         }
