@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-LABEL org.opencontainers.image.source https://github.com/partageonslaforet/plf-dev-app
+LABEL org.opencontainers.image.source https://github.com/partageonslaforet/plf
 
 RUN apt-get update && apt-get upgrade
 
