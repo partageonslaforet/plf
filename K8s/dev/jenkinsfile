@@ -44,10 +44,30 @@ pipeline {
 
 
 
+        stage('Push image to GitHub'){
+            steps{
+//                    sh 'echo $GITHUB_TOKEN_PSW | docker login -u $GITHUB_TOKEN_USR -p stdin'
+                    sh 'docker push plf-dev-app:1.0 .'
+                }
+                echo "Checkout ${env.JOB_NAME}..."
+            }
 
 
 
 
+    }
+
+    post {
+        // Clean after build
+        always {
+            sh 'docker logout'
+            // cleanWs(cleanWhenNotBuilt: false,
+            //         deleteDirs: true,
+            //         disableDeferredWipeout: true,
+            //         notFailBuild: true,
+            //         patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+            //                    [pattern: '.propsfile', type: 'EXCLUDE']])
+        }
     }
 
 }
