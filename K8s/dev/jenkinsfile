@@ -43,10 +43,18 @@ pipeline {
 
 
 
+        stage('Login to GitHub'){
+            steps{
+                sh 'echo $GITHUB_TOKEN_PSW | docker login -u $GITHUB_TOKEN_USR -p stdin'
+                echo " ${env.JOB_NAME} Logged in to GitHub..."
+            }
+        }
+
+
+
         stage('Push image to GitHub'){
             steps{
-//                    sh 'echo $GITHUB_TOKEN_PSW | docker login -u $GITHUB_TOKEN_USR -p stdin'
-                sh 'docker push plf-dev-app:1.0 .'
+                sh 'docker push plf-dev-app:1.0'
                 echo "Checkout ${env.JOB_NAME}..."
             }
         }
