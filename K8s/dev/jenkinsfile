@@ -23,25 +23,25 @@ pipeline {
         //     }
         // }
         
-        // stage("Github checkout") {
-        //     steps{
+        stage("Github checkout") {
+            steps{
 
-        //         checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
-        //         echo "Checkout ${env.JOB_NAME}..."
+                checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
+                echo "Checkout ${env.JOB_NAME}..."
 
-        //     }
-        // }
-
-
+            }
+        }
 
 
-        // stage('Build docker image'){
-        //     steps{
 
-        //         sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
-        //         echo "Checkout ${env.JOB_NAME}..."
-        //     }
-        // }
+
+        stage('Build docker image'){
+            steps{
+
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
+                echo "Checkout ${env.JOB_NAME}..."
+            }
+        }
 
 
 
