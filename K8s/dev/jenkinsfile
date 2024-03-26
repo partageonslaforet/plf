@@ -14,13 +14,39 @@ pipeline {
         stage("Cleanup") {
             steps{
 
-                script {
                     cleanWs notFailBuild: true
                     sh 'docker system prune -a --volumes --force'
                     echo "cleaning ${env.JOB_NAME}..."
-                }
+
             }
         }
+        
+        stage("Github checkout") {
+            steps{
+
+                checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
+                echo "Checkout ${env.JOB_NAME}..."
+
+            }
+        }
+
+
+
+
+        stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
+                }
+                echo "Checkout ${env.JOB_NAME}..."
+            }
+        }
+
+
+
+
+
+
 
     }
 
