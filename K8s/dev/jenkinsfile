@@ -18,8 +18,7 @@ pipeline {
         }
 
 
-        stage {
-            name: 'Github checkout'
+        stage("Github checkout") {
             steps{
 
                 checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
