@@ -16,7 +16,7 @@ pipeline {
 
                 scripts {
                     cleanWs()
-                    sh 'docker system prune -a --volumes --force'
+
 
                 }
             }
