@@ -47,7 +47,7 @@ pipeline {
             steps{
                 sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR -p stdin'
                 // echo "GITHUB_TOKEN_PSW $GITHUB_TOKEN_PSW"
-                // echo "GITHUB_TOKEN_USR $GITHUB_TOKEN_USR"
+                echo "GITHUB_TOKEN_USR $GITHUB_TOKEN_USR"
                 echo " ${env.JOB_NAME} Logged in to GitHub..."
             }
         }
