@@ -11,43 +11,43 @@ pipeline {
     stages{
 
 
-        stage("Cleanup") {
-            steps{
+        // stage("Cleanup") {
+        //     steps{
 
-                cleanWs notFailBuild: true
-                // sh 'docker system prune -a --volumes --force'
-                echo "cleaning ${env.JOB_NAME}..."
+        //         cleanWs notFailBuild: true
+        //         // sh 'docker system prune -a --volumes --force'
+        //         echo "cleaning ${env.JOB_NAME}..."
 
-            }
-        }
+        //     }
+        // }
         
-        stage("Github checkout") {
-            steps{
+        // stage("Github checkout") {
+        //     steps{
 
-                checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
-                echo "Checkout ${env.JOB_NAME}..."
+        //         checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
+        //         echo "Checkout ${env.JOB_NAME}..."
 
-            }
-        }
-
-
+        //     }
+        // }
 
 
-        stage('Build docker image'){
-            steps{
 
-                sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
-                echo "Checkout ${env.JOB_NAME}..."
-            }
-        }
+
+        // stage('Build docker image'){
+        //     steps{
+
+        //         sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
+        //         echo "Checkout ${env.JOB_NAME}..."
+        //     }
+        // }
 
 
 
         stage('Login to GitHub'){
             steps{
-                //sh 'echo $GITHUB_TOKEN_PSW | docker login -u $GITHUB_TOKEN_USR -p stdin'
-                echo "GITHUB_TOKEN_PSW $GITHUB_TOKEN_PSW"
-                echo "GITHUB_TOKEN_USR $GITHUB_TOKEN_USR"
+                sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR -p stdin'
+                // echo "GITHUB_TOKEN_PSW $GITHUB_TOKEN_PSW"
+                // echo "GITHUB_TOKEN_USR $GITHUB_TOKEN_USR"
                 echo " ${env.JOB_NAME} Logged in to GitHub..."
             }
         }
