@@ -11,7 +11,6 @@ pipeline {
 
         stage("Cleanup") {
             steps{
-                sh 'docker system prune -a --volume --force'
                 cleanWs()
                 echo "cleaning ${env.JOB_NAME}..."
             }
@@ -41,17 +40,17 @@ pipeline {
 
 
 
-        stage('Push image to Docker Hub'){
-            steps{
-                script{
-                    // withCredentials([string(credentialsId: '<your dockerhub credential id>', variable: 'dockerpwd')]) {
-                    //     sh 'docker login -u <your dockerhub user name> -p ${dockerpwd}'
-                    // }
-                    sh 'docker push plf-dev-app:1.0 .'
-                }
-                echo "Checkout ${env.JOB_NAME}..."
-            }
-        }
+        // stage('Push image to Docker Hub'){
+        //     steps{
+        //         script{
+        //             // withCredentials([string(credentialsId: '<your dockerhub credential id>', variable: 'dockerpwd')]) {
+        //             //     sh 'docker login -u <your dockerhub user name> -p ${dockerpwd}'
+        //             // }
+        //             sh 'docker push plf-dev-app:1.0 .'
+        //         }
+        //         echo "Checkout ${env.JOB_NAME}..."
+        //     }
+        // }
 
 
 
