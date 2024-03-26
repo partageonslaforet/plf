@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        GITHUB_TOKEN=credentials('plf-github-token')
+    }
     options {
         // This is required if you want to clean before build
         skipDefaultCheckout(true)
@@ -12,31 +14,34 @@ pipeline {
         stage("Cleanup") {
             steps{
                 cleanWs()
+                scripts {
+                    sh 'docker system prune -a --volumes --force'
+                }
                 echo "cleaning ${env.JOB_NAME}..."
             }
         }
 
 
-        stage("Github checkout") {
-            steps{
+        // stage("Github checkout") {
+        //     steps{
 
-                checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
-                echo "Checkout ${env.JOB_NAME}..."
+        //         checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
+        //         echo "Checkout ${env.JOB_NAME}..."
 
-            }
-        }
-
-
+        //     }
+        // }
 
 
-        stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
-                }
-                echo "Checkout ${env.JOB_NAME}..."
-            }
-        }
+
+
+        // stage('Build docker image'){
+        //     steps{
+        //         script{
+        //             sh 'docker build -t plf-dev-app:1.0 -f ./docker/dev/app/dockerfile.app .'
+        //         }
+        //         echo "Checkout ${env.JOB_NAME}..."
+        //     }
+        // }
 
 
 
@@ -72,15 +77,15 @@ pipeline {
 
 
 
-    post {
-        // Clean after build
-        always {
-            cleanWs(cleanWhenNotBuilt: false,
-                    deleteDirs: true,
-                    disableDeferredWipeout: true,
-                    notFailBuild: true,
-                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
-                               [pattern: '.propsfile', type: 'EXCLUDE']])
-        }
-    }
+    // post {
+    //     // Clean after build
+    //     always {
+    //         cleanWs(cleanWhenNotBuilt: false,
+    //                 deleteDirs: true,
+    //                 disableDeferredWipeout: true,
+    //                 notFailBuild: true,
+    //                 patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+    //                            [pattern: '.propsfile', type: 'EXCLUDE']])
+    //     }
+    // }
 }
