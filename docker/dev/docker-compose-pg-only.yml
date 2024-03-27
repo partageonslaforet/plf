@@ -1,0 +1,47 @@
+version: '3.9'
+
+volumes:
+  mysql:
+  pgdata:
+
+  # app:
+
+services:
+
+
+
+    plf-dev-postgresql:
+      image: plf-dev-postgresql:16
+      container_name: plf-dev-postgresql-svc-ip
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: Chri12!!
+        POSTGRES_DB: plf_dev
+        POSTGRES_USER: plf
+        POSTGRES_INITDB_ARGS: '--locale=en_US.UTF8 --lc-collate=fr_BE.UTF8 --lc-ctype=fr_BE.UTF8 --encoding=UTF-8'
+      logging:
+        options:
+          max-size: 10m
+          max-file: "3"
+      ports:
+        - "5432:5432"
+      volumes: 
+        - pgdata:/var/lib/postgresql/data
+        - ./postgresql:/docker-entrypoint-initdb.d
+
+
+
+    plf-dev-pgadmin:
+      image: plf-dev-pgadmin:7.6
+      container_name: plf-dev-pgadmin-svc-ip
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_PASSWORD: Chri12!!
+        POSTGRES_DB: plf_dev
+        PGADMIN_DEFAULT_EMAIL: 'christian.lurkin@hotmail.com'
+        POSTGRES_INITDB_ARGS: '--locale=en_US.UTF8 --lc-collate=fr_BE.UTF8 --lc-ctype=fr_BE.UTF8 --encoding=UTF-8'
+      ports:
+        - "89:80"
+
+
+

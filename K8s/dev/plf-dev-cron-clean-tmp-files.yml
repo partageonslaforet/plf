@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: plf-dev-cron-clean-tmp-files
+  namespace: plf-dev
 spec:
   schedule: "0 11 * * *"
   timeZone: "Europe/Brussels"

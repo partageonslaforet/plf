@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: plf-dev-pg-ip
+  name: plf-dev-postgresql-ip
+  namespace: plf-dev
 spec:
   selector:
-    app: plf-dev-pg
+    app: plf-dev-postgresql
   ports:
     - port: 5432
-      targetPort: pg-port
+      targetPort: postgresql-port
       protocol: TCP
   type: NodePort
 

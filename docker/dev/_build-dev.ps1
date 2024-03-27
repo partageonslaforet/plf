@@ -20,6 +20,7 @@ docker build -t plf-dev-phpmyadmin:5.2 -f ./phpmyadmin/dockerfile.phpmyadmin .
 docker build -t plf-dev-app:1.0 -f ./app/dockerfile.app ../../.
 docker build -t mailcatcher:latest -f ./mailcatcher/dockerfile.mailcatcher .
 docker build -t plf-dev-postgresql:16 -f ./postgresql/dockerfile.postgresql .
+docker build -t plf-dev-pgadmin:8.4 -f ./pgadmin/dockerfile.pg .
 docker build -t jenkins-cust:lts -f .\jenkins\dockerfile.jenkins .
 
 

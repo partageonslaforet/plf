@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plf-dev-app
+  namespace: plf-dev
+  labels:
+    app: plf-dev-app
 spec:
   selector:
     matchLabels:

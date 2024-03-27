@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: plf-dev-pg
+  name: plf-dev-postgresql
+  namespace: plf-dev
 spec:
   selector:
     matchLabels:
-      app: plf-dev-pg
+      app: plf-dev-postgresql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: plf-dev-pg
+        app: plf-dev-postgresql
     spec:
       containers:
-        - name: plf-dev-pg
+        - name: plf-dev-postgresql
           image: plf-dev-postgresql:16
           resources:
           imagePullPolicy: Never
@@ -41,12 +42,12 @@ spec:
 
           ports:
             - containerPort: 5432
-              name: pg-port
+              name: postgresql-port
           volumeMounts:
-            - name: plf-dev-pg-pv
+            - name: plf-dev-postgresql-pv
               mountPath: /var/lib/postgresql/data
       volumes:
-        - name: plf-dev-pg-pv
+        - name: plf-dev-postgresql-pv
           persistentVolumeClaim:
-            claimName: plf-dev-pg-pvc
+            claimName: plf-dev-postgresql-pvc
 
