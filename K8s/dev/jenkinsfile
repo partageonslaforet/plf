@@ -76,7 +76,7 @@ pipeline {
                 //     credentialsId: 'kubernetes', 
                 //     serverUrl: 'https://192.168.59.104:8443') {
                 // sh 'docker pull ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
-                sh 'kubectl apply --namespace -f ./K8s/dev/plf-dev-app-deployment.yml $NAMESPACE_NAME '
+                sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
                 // sh 'kubectl apply -f app-service.yaml'
                 sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
                 // }
