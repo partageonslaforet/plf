@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         GITHUB_TOKEN=credentials('plf-github-token')
-        IMAGE_NAME='partageonslaforet/plf-dev-app'
+        IMAGE_NAME='plf-dev-app'
         IMAGE_VERSION='1.0'
         DEPLOYMENT_NAME='plf-dev-app'
         NAMESPACE_NAME='plf-dev'
