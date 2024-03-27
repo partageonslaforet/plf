@@ -64,7 +64,7 @@ pipeline {
 
         stage('Push image to GitHub'){
             steps{
-                sh 'docker push docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+                sh 'docker push $IMAGE_NAME:$IMAGE_VERSION'
 //                                sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
             }
