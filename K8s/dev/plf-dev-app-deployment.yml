@@ -15,7 +15,7 @@ spec:
         app: plf-dev-app
     spec:
       containers:
-        - image: docker.io/library/plf-dev-app:1.0
+        - image: plf-dev-app:1.0
           name: plf-dev-app
           resources:
           imagePullPolicy: Never
