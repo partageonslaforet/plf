@@ -21,7 +21,7 @@ pipeline {
 
         //         cleanWs notFailBuild: true
         //         // sh 'docker system prune -a --volumes --force'
-        //         echo "cleaning ${env.JOB_NAME}..." 
+        //         echo "cleaning ${env.JOB_NAME}..."  
 
         //     }
         // }
