@@ -10,6 +10,10 @@ pipeline {
         TAG_NAME='ghcr.io/partageonslaforet'
     }
 
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
 
     stages{
 
