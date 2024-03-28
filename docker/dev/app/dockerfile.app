@@ -32,7 +32,7 @@ WORKDIR /var/www/html/assets/inc/php
 # COPY composer.lock /var/www/html/assets/inc/php
 
 # # Install project dependencies
-RUN /usr/local/bin/composer install --no-scripts --no-autoloader --ignore-platform-req=ext-gd
+RUN /usr/local/bin/composer install --no-scripts --no-autoloader 
 
 
 
