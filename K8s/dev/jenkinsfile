@@ -29,7 +29,7 @@ pipeline {
         stage("Github checkout") {
             steps{
 
-                checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
+                checkout scmGit(branches: [[name: '*/docker-dev']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
                 echo "Checkout ${env.JOB_NAME}..."
                 sleep(time:5,unit:"SECONDS")
 
