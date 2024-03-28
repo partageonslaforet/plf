@@ -75,8 +75,13 @@ pipeline {
 
         stage('remove docker image and pull it again') {
             steps {
-                sh 'docker image rm docker.io/library/plf-dev-app:1.0'
-                sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+                try {
+                    sh 'docker image rm docker.io/library/plf-dev-app:1.0'
+                    sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+                } catch (e) {
+                    echo 'Image delete failed : e.toString() ... continuing next step'
+                }
+
                 sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
 
