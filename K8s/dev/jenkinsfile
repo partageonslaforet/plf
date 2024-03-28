@@ -66,7 +66,7 @@ pipeline {
         stage('Push image to GitHub'){
             steps{
 
-                sh 'docker push $TAGNAME/$IMAGE_NAME:$IMAGE_VERSION'
+                sh 'docker push $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
             }
         }
