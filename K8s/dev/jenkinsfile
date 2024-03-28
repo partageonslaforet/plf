@@ -38,70 +38,70 @@ pipeline {
 
 
 
-        stage('Build docker image'){
-            steps{
+        // stage('Build docker image'){
+        //     steps{
 
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
-                echo "Checkout ${env.JOB_NAME}..."
-            }
-        }
-
-
-
-        stage('Login to GitHub'){
-            steps{
-                sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
-                echo " ${env.JOB_NAME} Logged in to GitHub..."
-            }
-        }
-
-        stage('Tag images'){
-            steps{
-                sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                echo "Image tagged ${env.JOB_NAME}..."
-
-            }
-        }
+        //         sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
+        //         echo "Checkout ${env.JOB_NAME}..."
+        //     }
+        // }
 
 
-        stage('Push image to GitHub'){
-            steps{
 
-                sh 'docker push $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                echo "Checkout ${env.JOB_NAME}..."
-            }
-        }
+        // stage('Login to GitHub'){
+        //     steps{
+        //         sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
+        //         echo " ${env.JOB_NAME} Logged in to GitHub..."
+        //     }
+        // }
+
+        // stage('Tag images'){
+        //     steps{
+        //         sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //         echo "Image tagged ${env.JOB_NAME}..."
+
+        //     }
+        // }
 
 
-        stage('remove docker image and pull it again') {
-            steps {
-                script {
-                    try {
-                        sh 'docker image rm docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
-                    } catch (e) {
-                        echo "Image rm failed : docker.io/library/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
-                    }
+        // stage('Push image to GitHub'){
+        //     steps{
 
-                    try {
-                        sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                    } catch (e) {
-                        echo "Image rm failed : $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
-                    }
+        //         sh 'docker push $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //         echo "Checkout ${env.JOB_NAME}..."
+        //     }
+        // }
 
-                    sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                    sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
 
-                }
+        // stage('remove docker image and pull it again') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 sh 'docker image rm docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+        //             } catch (e) {
+        //                 echo "Image rm failed : docker.io/library/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
+        //             }
 
-            }
-        }
+        //             try {
+        //                 sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //             } catch (e) {
+        //                 echo "Image rm failed : $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
+        //             }
 
-        stage('Deploy To Development') {
-            steps {
-                sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
-                sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
-            }
-        }
+        //             sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //             sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+
+        //         }
+
+        //     }
+        // }
+
+        // stage('Deploy To Development') {
+        //     steps {
+        //         sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
+        //         sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
+        //     }
+        // }
 
 
 
@@ -109,8 +109,8 @@ pipeline {
 
     post {
         // Clean after build
-        always {
-            sh 'docker logout'
+        // always {
+        //     sh 'docker logout'
             // cleanWs(cleanWhenNotBuilt: false,
             //         deleteDirs: true,
             //         disableDeferredWipeout: true,
