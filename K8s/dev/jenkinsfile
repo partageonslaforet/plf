@@ -21,6 +21,8 @@ pipeline {
         stage("stage 1") {
             steps{
                 echo "step 1"
+                echo $GITHUBTOKEN
+                echo "end step 1"
 
             }
         }
