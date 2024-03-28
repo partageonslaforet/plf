@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
     <body>
 
         <div id="title">
-            <div id="siteName">Soyez 1234 les bienvenus sur le site partageonslaforet.be </div>
+            <div id="siteName">Soyez 12345 les bienvenus sur le site partageonslaforet.be </div>
             <div id="slogan">Découvrez doc er dddles dates de chasse de la saison 2023/2024 en Wallonie</div>
         </div>
 
