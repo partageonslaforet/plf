@@ -77,10 +77,15 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker image rm docker.io/library/plf-dev-app:1.0'
+                        sh 'docker image rm docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+                    } catch (e) {
+                        echo "Image rm failed : docker.io/library/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
+                    }
+
+                    try {
                         sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                     } catch (e) {
-                        echo 'Image delete failed : ${e} ... continuing'
+                        echo "Image rm failed : $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
                     }
 
                     sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
