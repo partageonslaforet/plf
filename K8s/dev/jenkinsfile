@@ -21,7 +21,6 @@ pipeline {
         stage("stage 1") {
             steps{
                 echo "step 1"
-                echo $GITHUB_TOKEN
                 echo "end step 1"
 
             }
@@ -32,7 +31,7 @@ pipeline {
             steps{
 
                 checkout scmGit(branches: [[name: '*/docker-dev']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
-
+                echo "Checkout ${env.JOB_NAME}..."
 
             }
         }
