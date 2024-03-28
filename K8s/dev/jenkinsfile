@@ -21,12 +21,12 @@ pipeline {
 
         //         cleanWs notFailBuild: true
         //         // sh 'docker system prune -a --volumes --force'
-        //         echo "cleaning ${env.JOB_NAME}..."      
+        //         echo "cleaning ${env.JOB_NAME}..."   
 
         //     }
         // }
         
-        stage("Github checkout")  {
+        stage("Github checkout")  { 
             steps{
 
                 checkout scmGit(branches: [[name: '*/docker-dev']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
