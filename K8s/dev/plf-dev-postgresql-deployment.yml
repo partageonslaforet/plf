@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plf-dev-postgresql
+  namespace: plf-dev
+spec:
+  selector:
+    matchLabels:
+      app: plf-dev-postgresql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: plf-dev-postgresql
+    spec:
+      containers:
+        - name: plf-dev-postgresql
+          image: plf-dev-postgresql:16
+          resources:
+          imagePullPolicy: Never
+          env:
+            - name: POSTGRES_INITDB_ARGS
+              value: "--encoding=UTF-8 --lc-collate=fr_BE.UTF8 --locale=en_US.UTF8 --lc-ctype=fr_BE.UTF8"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: postgresql_user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: plf-dev-secrets
+                  key: postgresql_password
+
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: plf-dev-configmap
+                  key: postgresql_database
+
+          ports:
+            - containerPort: 5432
+              name: postgresql-port
+          volumeMounts:
+            - name: plf-dev-postgresql-pv
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: plf-dev-postgresql-pv
+          persistentVolumeClaim:
+            claimName: plf-dev-postgresql-pvc
+
