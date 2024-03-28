@@ -72,9 +72,16 @@ pipeline {
         }
 
 
+        stage('remove docker image and pull it again') {
+            steps {
+                sh 'docker image rm docker.io/library/plf-dev-app:1.0'
+                sh 'docker pull ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+
+            }
+        }
+
         stage('Deploy To Development') {
             steps {
-                //sh 'docker pull ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
                 sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
                 sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
             }
