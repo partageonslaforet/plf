@@ -95,7 +95,7 @@ pipeline {
 
                     sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                     sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
-                    sleep(time:5,unit:"seconds")
+                    sleep(time:5,unit:"SECONDS")
                 }
 
             }
