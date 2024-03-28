@@ -31,7 +31,6 @@ pipeline {
 
                 checkout scmGit(branches: [[name: '*/docker-dev']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
                 echo "Checkout ${env.JOB_NAME}..."
-                sleep(time:5,unit:"SECONDS")
 
             }
         }
@@ -48,16 +47,6 @@ pipeline {
                 sleep(time:15,unit:"SECONDS")
             }
         }
-
-
-        stage('Deploy To Development 1') {
-            steps {
-                sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
-                sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
-                sleep(time:15,unit:"SECONDS")
-            }
-        }
-
 
 
 
