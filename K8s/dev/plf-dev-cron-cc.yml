@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: plf-dev-cron-cc
+  namespace: plf-dev
 spec:
   schedule: "20 13 * * *"
   timeZone: "Europe/Brussels"

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plf-dev-pgadmin
+  namespace: plf-dev
 spec:
   selector:
     matchLabels:
@@ -12,7 +13,7 @@ spec:
         app: plf-dev-pgadmin
     spec:
       containers:
-        - image: elestio/pgadmin:REL-8_4
+        - image: plf-dev-pgadmin:8.4
           name: plf-dev-pgadmin
           resources:
           imagePullPolicy: Never
@@ -24,6 +25,8 @@ spec:
                   key: postgresql_password
             - name: PGADMIN_DEFAULT_EMAIL
               value: "christian.lurkin@hotmail.com"
+            - name: PGADMIN_DISABLE_POSTFIX
+              value: ""
           ports:
             - containerPort: 80
               name: pgadmin-port

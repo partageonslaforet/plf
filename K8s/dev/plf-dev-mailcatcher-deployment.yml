@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plf-dev-mailcatcher
+  namespace: plf-dev
 spec:
   selector:
     matchLabels:

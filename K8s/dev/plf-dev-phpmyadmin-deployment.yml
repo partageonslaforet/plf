@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: plf-dev-phpmyadmin
+  namespace: plf-dev
 spec:
   selector:
     matchLabels:
@@ -12,7 +13,7 @@ spec:
         app: plf-dev-phpmyadmin
     spec:
       containers:
-        - image: phpmyadmin:5.2-apache
+        - image: plf-dev-phpmyadmin:5.2
           name: plf-dev-phpmyadmin
           resources:
             requests:
