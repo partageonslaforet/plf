@@ -96,6 +96,7 @@ if (isset($_POST['submit'])) {
     <body>
 
         <div id="title">
+            <div id="siteName">Docker-dev</div>
             <div id="siteName">Soyez les bienvenus sur le site partageonslaforet.be </div>
             <div id="slogan">Découvrez les dates de chasse de la saison 2023/2024 en Wallonie</div>
         </div>
