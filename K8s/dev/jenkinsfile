@@ -31,6 +31,7 @@ pipeline {
 
                 checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
                 echo "Checkout ${env.JOB_NAME}..."
+                sleep(time:5,unit:"seconds")
 
             }
         }
@@ -43,6 +44,7 @@ pipeline {
 
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
                 echo "Checkout ${env.JOB_NAME}..."
+                sleep(time:5,unit:"seconds")
             }
         }
 
@@ -52,6 +54,7 @@ pipeline {
             steps{
                 sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
                 echo " ${env.JOB_NAME} Logged in to GitHub..."
+                sleep(time:5,unit:"seconds")
             }
         }
 
@@ -59,6 +62,7 @@ pipeline {
             steps{
                 sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Image tagged ${env.JOB_NAME}..."
+                sleep(time:5,unit:"seconds")
 
             }
         }
@@ -69,6 +73,7 @@ pipeline {
 
                 sh 'docker push $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
+                sleep(time:5,unit:"seconds")
             }
         }
 
@@ -90,7 +95,7 @@ pipeline {
 
                     sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                     sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
-
+                    sleep(time:5,unit:"seconds")
                 }
 
             }
@@ -100,6 +105,7 @@ pipeline {
             steps {
                 sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
                 sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
+                sleep(time:5,unit:"seconds")
             }
         }
 
