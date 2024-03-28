@@ -58,7 +58,9 @@ pipeline {
         stage('Tag images'){
             steps{
                 sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+                sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Image tagged ${env.JOB_NAME}..."
+
             }
         }
 
