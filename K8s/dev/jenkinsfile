@@ -49,6 +49,16 @@ pipeline {
         }
 
 
+        stage('Deploy To Development') {
+            steps {
+                sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
+                sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
+                sleep(time:5,unit:"SECONDS")
+            }
+        }
+
+
+
 
         stage('Login to GitHub'){
             steps{
