@@ -73,7 +73,7 @@ pipeline {
 
                 sh 'docker push $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
             }
         }
 
@@ -105,7 +105,7 @@ pipeline {
             steps {
                 sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
                 sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
             }
         }
 
