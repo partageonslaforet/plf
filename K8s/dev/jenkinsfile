@@ -39,7 +39,7 @@ pipeline {
 
 
 
-        stage('Build docker image 1'){
+        stage('Build docker image'){
             steps{
 
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
@@ -49,7 +49,7 @@ pipeline {
         }
 
 
-        stage('Deploy To Development') {
+        stage('Deploy To Development 1') {
             steps {
                 sh 'kubectl apply -f ./K8s/dev/plf-dev-app-deployment.yml --namespace $NAMESPACE_NAME '
                 sh 'kubectl rollout restart deployment $DEPLOYMENT_NAME --namespace $NAMESPACE_NAME'
