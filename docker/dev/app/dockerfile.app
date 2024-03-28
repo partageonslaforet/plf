@@ -11,6 +11,7 @@ RUN apt-get install -y inetutils-ping
 RUN apt-get install -y nmap
 RUN apt-get install -y default-mysql-client
 RUN apt-get install -y vim
+RUN apt-get install -y git
 
 
 RUN pecl install -o -f xdebug \
