@@ -78,28 +78,28 @@ pipeline {
         }
 
 
-        stage('remove docker image and pull it again') {
-            steps {
-                script {
-                    try {
-                        sh 'docker image rm docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
-                    } catch (e) {
-                        echo "Image rm failed : docker.io/library/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
-                    }
+        // stage('remove docker image and pull it again') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 sh 'docker image rm docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+        //             } catch (e) {
+        //                 echo "Image rm failed : docker.io/library/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
+        //             }
 
-                    try {
-                        sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                    } catch (e) {
-                        echo "Image rm failed : $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
-                    }
+        //             try {
+        //                 sh 'docker image rm $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //             } catch (e) {
+        //                 echo "Image rm failed : $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION - ${e} ... continuing"
+        //             }
 
-                    sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
-                    sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
-                    sleep(time:5,unit:"SECONDS")
-                }
+        //             sh 'docker pull $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+        //             sh 'docker tag  $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION docker.io/library/$IMAGE_NAME:$IMAGE_VERSION'
+        //             sleep(time:5,unit:"SECONDS")
+        //         }
 
-            }
-        }
+        //     }
+        // }
 
         stage('Deploy To Development') {
             steps {
