@@ -2,10 +2,11 @@ pipeline {
     agent any
     environment {
         GITHUB_TOKEN=credentials('plf-github-token')
-        IMAGE_NAME='partageonslaforet/plf-dev-app'
+        IMAGE_NAME='plf-dev-app'
         IMAGE_VERSION='1.0'
         DEPLOYMENT_NAME='plf-dev-app'
         NAMESPACE_NAME='plf-dev'
+        TAG_NAME='ghcr.io/partageonslaforet'
     }
     options {
         // This is required if you want to clean before build
@@ -54,18 +55,18 @@ pipeline {
             }
         }
 
-        // stage('Tag images'){
-        //     steps{
-        //         sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
-        //         echo "Image tagged ${env.JOB_NAME}..."
-        //     }
-        // }
+        stage('Tag images'){
+            steps{
+                sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
+                echo "Image tagged ${env.JOB_NAME}..."
+            }
+        }
 
 
         stage('Push image to GitHub'){
             steps{
 
-                sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+                sh 'docker push $TAGNAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Checkout ${env.JOB_NAME}..."
             }
         }
