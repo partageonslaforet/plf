@@ -31,7 +31,7 @@ pipeline {
 
                 checkout scmGit(branches: [[name: '*/jenkins-test']], extensions: [], userRemoteConfigs: [[url: "https://github.com/partageonslaforet/plf.git"]])
                 echo "Checkout ${env.JOB_NAME}..."
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
 
             }
         }
@@ -44,7 +44,7 @@ pipeline {
 
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION -f ./docker/dev/app/dockerfile.app .'
                 echo "Checkout ${env.JOB_NAME}..."
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
             }
         }
 
@@ -54,7 +54,7 @@ pipeline {
             steps{
                 sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
                 echo " ${env.JOB_NAME} Logged in to GitHub..."
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
             }
         }
 
@@ -62,7 +62,7 @@ pipeline {
             steps{
                 sh 'docker tag  $IMAGE_NAME:$IMAGE_VERSION $TAG_NAME/$IMAGE_NAME:$IMAGE_VERSION'
                 echo "Image tagged ${env.JOB_NAME}..."
-                sleep(time:5,unit:"seconds")
+                sleep(time:5,unit:"SECONDS")
 
             }
         }
